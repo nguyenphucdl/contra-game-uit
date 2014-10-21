@@ -14,7 +14,12 @@
 #define SAFE_RELEASE(ptr) { if(ptr) { (ptr)->Release(); (ptr) = NULL; } }
 // Safely delete pointer referenced array
 #define SAFE_DELETE_ARRAY(ptr) { if(ptr) { delete [](ptr); (ptr)=NULL; } }
-
+// transparent color (magenta)
+// Color defines
+#define COLOR_ARGB DWORD
+#define SETCOLOR_ARGB(a,r,g,b) \
+    ((COLOR_ARGB)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
+#define TRANSCOLOR  SETCOLOR_ARGB(0,255,0,255)  
 //-----------------------------------------------
 //                  Constants
 //-----------------------------------------------
@@ -39,6 +44,7 @@ const UCHAR ESC_KEY      = VK_ESCAPE;   // escape key
 const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 
+
 namespace ConfigKey
 {
 	const char GAME_WIDTH[] = "GAME_WIDTH";
@@ -50,4 +56,6 @@ namespace ConfigKey
 /*LƯU Ý 
 	const wchar_t *GAME_WIDTH2[] = L"GAME_WIDTH"; => ERROR already defined
 */
+
+#define KEYBOARD_BUFFER_SIZE	1024
 #endif
