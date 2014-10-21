@@ -58,7 +58,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;winmm.lib;dinput8.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,32 +79,78 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Chapter6App.h" />
+    <ClInclude Include="Chapter6Task.h" />
     <ClInclude Include="Framework\Application\Context.h" />
     <ClInclude Include="Framework\Application\Game.h" />
     <ClInclude Include="Framework\Debug\DebugConsole.h" />
+    <ClInclude Include="Framework\EventManager\Event.h" />
+    <ClInclude Include="Framework\EventManager\EventHandler.h" />
+    <ClInclude Include="Framework\EventManager\EventId.h" />
+    <ClInclude Include="Framework\EventManager\EventManager.h" />
+    <ClInclude Include="Framework\GameObjects\Component.h" />
+    <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h" />
+    <ClInclude Include="Framework\GameObjects\GameObject.h" />
+    <ClInclude Include="Framework\Input\Input.h" />
     <ClInclude Include="Framework\Kernel\Kernel.h" />
     <ClInclude Include="Framework\Kernel\Task.h" />
     <ClInclude Include="Framework\Log\Log.h" />
+    <ClInclude Include="Framework\Math\Matrix3.h" />
+    <ClInclude Include="Framework\Math\Matrix4.h" />
+    <ClInclude Include="Framework\Math\Transform.h" />
+    <ClInclude Include="Framework\Math\Vector3.h" />
+    <ClInclude Include="Framework\Math\Vector4.h" />
     <ClInclude Include="Framework\Platform\String.h" />
     <ClInclude Include="Framework\Platform\Window.h" />
+    <ClInclude Include="Framework\Renderer\Renderable.h" />
     <ClInclude Include="Framework\Renderer\Renderer.h" />
+    <ClInclude Include="Framework\Renderer\Texture\Texture.h" />
+    <ClInclude Include="Framework\Renderer\Texture\TextureManager.h" />
+    <ClInclude Include="Framework\Renderer\Texture\TextureRegion.h" />
     <ClInclude Include="Framework\Utilities\Constants.h" />
     <ClInclude Include="Framework\Utilities\GameConfig.h" />
     <ClInclude Include="Framework\Utilities\GameError.h" />
+    <ClInclude Include="Framework\Utilities\Hash.h" />
     <ClInclude Include="Framework\Utilities\Singleton.h" />
     <ClInclude Include="Framework\Utilities\Timer.h" />
+    <ClInclude Include="MovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chapter6App.cpp" />
+    <ClCompile Include="Chapter6Task.cpp" />
     <ClCompile Include="Framework\Application\Game.cpp" />
     <ClCompile Include="Framework\Debug\DebugConsole.cpp" />
+    <ClCompile Include="Framework\EventManager\Event.cpp" />
+    <ClCompile Include="Framework\EventManager\EventManager.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\GameObject.cpp" />
+    <ClCompile Include="Framework\Input\Input.cpp" />
     <ClCompile Include="Framework\Kernel\Kernel.cpp" />
     <ClCompile Include="Framework\Log\Log.cpp" />
+    <ClCompile Include="Framework\Math\Matrix3.cpp" />
+    <ClCompile Include="Framework\Math\Matrix4.cpp" />
+    <ClCompile Include="Framework\Math\Transform.cpp" />
+    <ClCompile Include="Framework\Math\Vector3.cpp" />
+    <ClCompile Include="Framework\Math\Vector4.cpp" />
     <ClCompile Include="Framework\Platform\String.cpp" />
     <ClCompile Include="Framework\Platform\Window.cpp" />
     <ClCompile Include="Framework\Renderer\Renderer.cpp" />
+    <ClCompile Include="Framework\Renderer\Texture\Texture.cpp" />
+    <ClCompile Include="Framework\Renderer\Texture\TextureManager.cpp" />
+    <ClCompile Include="Framework\Renderer\Texture\TextureRegion.cpp" />
     <ClCompile Include="Framework\Utilities\GameConfig.cpp" />
     <ClCompile Include="Framework\Utilities\Timer.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="mariobig.png" />
+    <Image Include="mariobigbigbullet.png" />
+    <Image Include="mariobigbullet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

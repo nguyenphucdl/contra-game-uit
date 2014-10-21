@@ -10,7 +10,7 @@ namespace Framework
 		m_configDict.insert(ConfigDictionaryPair("TestFloat2", "2.3"));		
 		m_configDict.insert(ConfigDictionaryPair(ConfigKey::GAME_WIDTH, "640"));
 		m_configDict.insert(ConfigDictionaryPair(ConfigKey::GAME_HEIGHT, "480"));
-		m_configDict.insert(ConfigDictionaryPair(ConfigKey::FULLSCREEN, "1"));
+		m_configDict.insert(ConfigDictionaryPair(ConfigKey::FULLSCREEN, "0"));
 		m_configDict.insert(ConfigDictionaryPair(ConfigKey::CLASS_NAME, "Spacewar"));
 		m_configDict.insert(ConfigDictionaryPair(ConfigKey::GAME_TITLE, "Spacewar"));
 	}

@@ -17,6 +17,8 @@ namespace Framework
 		TimeUints		m_timeStart;
 		TimeUints		m_timeLastFrame;
 		TimeUints		m_timeFreq;
+		float			m_timeTotal; //Test
+		
 		float			m_frameDt;
 		float			m_simDt;
 		float			m_simMultiplier;
@@ -27,6 +29,8 @@ namespace Framework
 
 		float			GetTimeFrame() const;
 		float			GetTimeSim() const;
+		float			GetTimeTotal() const;
+		void			Reset();
 		void			SetSimMultiplier(const float simMultiplier);
 
 		virtual bool	Start();
@@ -45,7 +49,14 @@ namespace Framework
 	{
 		return m_simDt;
 	}
-
+	inline float Timer::GetTimeTotal() const
+	{
+		return m_timeTotal;
+	}
+	inline void Timer::Reset()
+	{
+		m_timeTotal = 0;
+	}
 	inline void Timer::SetSimMultiplier(const float simMultiplier)
 	{
 		m_simMultiplier = simMultiplier;

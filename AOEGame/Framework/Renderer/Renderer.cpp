@@ -70,6 +70,12 @@ namespace Framework
 
 		if(FAILED(m_result))
 			throw(GameError(GameErrorNS::FATAL_ERROR, "Error creating Direct3D device"));
+
+		m_device3d->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &m_backbuffer);
+
+		m_result = D3DXCreateSprite(m_device3d, &m_spriteHandler);
+		if(FAILED(m_result))
+			throw(GameError(GameErrorNS::FATAL_ERROR, "Error creating Direct3D sprite handler"));
 	}
 	//=============================================================================
 	// Initialize D3D presentation parameters
@@ -123,6 +129,46 @@ namespace Framework
 		return false;
 	}
 
+	void Renderer::AddRenderable(Renderable* pRenderable)
+	{
+		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] AddRenderable... !\n");
+		m_renerables.push_back(pRenderable);
+	}
+
+	void Renderer::RemoveRenderable(Renderable* pRenderable)
+	{
+		for(RenderableVectorIterator iter = m_renerables.begin(); iter != m_renerables.end(); ++iter)
+		{
+			Renderable* pCurrent = *iter;
+			if(pCurrent == pRenderable)
+			{
+				m_renerables.erase(iter);
+				break;
+			}
+		}
+	}
+
+	const Matrix4& Renderer::GetProjectionMatrix() const
+	{
+		return m_projectionMatrix;
+	}
+
+	void Renderer::SetProjectionMatrix(const Matrix4& proj)
+	{
+		m_projectionMatrix = proj;
+		m_camera = true;
+	}
+
+	const Matrix4& Renderer::GetViewMatrix() const
+	{
+		return m_viewMatrix;
+	}
+
+	void Renderer::SetViewMatrix(const Matrix4& view)
+	{
+		m_viewMatrix = view;
+	}
+
 	//=============================================================================
 	// Display the backbuffer
 	//=============================================================================
@@ -143,6 +189,25 @@ namespace Framework
 		initD3Dpp();			//init D3D presentation parameters
 		m_result = m_device3d->Reset(&m_d3dpp);
 		return m_result;
+	}
+
+	//=============================================================================
+	// Draw renderable
+	//=============================================================================
+	void Renderer::Draw(Renderable* pRenderable)
+	{
+		assert(pRenderable);
+		if(pRenderable)
+		{
+			TextureRegion *texture = pRenderable->GetTextureRegion();
+
+			Transform transform = pRenderable->GetTransform();
+			
+			
+			//Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] Draw Renderable with texture name %s... !\n", texture->GetTexture()->GetName().c_str());
+			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &(transform.GetTranslation().GetD3DVector()), D3DCOLOR_XRGB(255,255,255));
+
+		}
 	}
 
 	//=============================================================================
@@ -188,6 +253,12 @@ namespace Framework
 	{
 		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer][Start] Entering...\n");
 		Init();
+
+		
+		m_iinit = false;
+
+		//test
+		m_camera = false;
 		return true;
 	}
 	void Renderer::OnSuspend()
@@ -198,8 +269,25 @@ namespace Framework
 		if(SUCCEEDED(this->beginScene()))
 		{
 			// render custom task
+			//Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] Updating... !\n");
 
-			//stop rendering
+			// begin sprite handler
+			m_spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+			
+			// draw 2D 
+			for(RenderableVectorIterator iter = m_renerables.begin(); iter != m_renerables.end(); ++iter)
+			{
+				Renderable* pRenderable = *iter;
+				if(pRenderable)
+				{
+					Draw(pRenderable);
+				}
+			}
+
+			m_spriteHandler->End();
+			// end sprite handler
+
+			// stop rendering
 			this->endScene();
 		}
 		

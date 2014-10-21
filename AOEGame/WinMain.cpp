@@ -10,7 +10,8 @@ using namespace std;
 #include <crtdbg.h> // for detectubg momory leaks
 #include "Framework\Debug\DebugConsole.h" // for output debug to cmd
 
-#include "Framework\Application\Game.h" // include Main Application headers
+//#include "Framework\Application\Game.h" // include Main Application headers
+#include "Chapter6App.h"
 
 using namespace Framework;
 
@@ -32,6 +33,8 @@ int WINAPI WinMain( HINSTANCE hInstance,
                     LPSTR     lpCmdLine,
                     int       nCmdShow)
 {
+
+
 	#ifdef _DEBUG
 	RedirectIOToConsole();
 	#endif
@@ -39,7 +42,8 @@ int WINAPI WinMain( HINSTANCE hInstance,
     MSG	 msg;
 
 	// Create the game, sets up message handler
-	game = new Framework::Game;
+	//game = new Framework::Game;
+	game = new Chapter6App;
 	GameConfig::LoadConfig();
 
     // Create the window

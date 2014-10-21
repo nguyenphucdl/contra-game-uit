@@ -7,6 +7,9 @@ namespace Framework
 	Game::Game()
 		: m_windowsTask(Task::PLATFORM_PRIORITY)
 	{
+		CHAR NPath[MAX_PATH];
+		GetCurrentDirectory(MAX_PATH, NPath);
+		Log::info(Log::LOG_LEVEL_ROOT, "Root path is %s\n", NPath);
 	}
 
 	Game::~Game()
@@ -19,9 +22,11 @@ namespace Framework
 
 		CreateSingletons();
 
-		m_kernel.AddTask(&m_windowsTask);
-		m_kernel.AddTask(Timer::GetSingletonPtr());
-		m_kernel.AddTask(Renderer::GetSingletonPtr());
+		ret = m_kernel.AddTask(&m_windowsTask);
+		ret = m_kernel.AddTask(Timer::GetSingletonPtr());
+		ret = m_kernel.AddTask(Renderer::GetSingletonPtr());
+		ret = m_kernel.AddTask(Input::GetSingletonPtr());
+		//m_kernel.AddTask(TextureManager::GetSingletonPtr());
 		// Add custom task
 		
 		return ret;
@@ -48,7 +53,9 @@ namespace Framework
 		// Create all task singleton
 		new Timer(Task::TIMER_PRIORITY);
 		new Renderer(Task::RENDER_PRIORITY);
-
+		new TextureManager(Task::FILE_PRIORITY);
+		new EventManager();
+		new Input(Window::GetSingletonPtr()->GetWindowHandle(), Task::PLATFORM_PRIORITY);
 	}
 
 	void Game::DestroySingletons()

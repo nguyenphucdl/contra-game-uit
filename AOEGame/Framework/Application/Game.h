@@ -8,7 +8,9 @@
 #include "../Renderer/Renderer.h"
 #include "../Utilities/Timer.h"
 #include "../Utilities/GameConfig.h"
-
+#include "../Renderer/Texture/TextureManager.h"
+#include "../EventManager/EventManager.h"
+#include "../Input/Input.h"
 
 namespace Framework
 {

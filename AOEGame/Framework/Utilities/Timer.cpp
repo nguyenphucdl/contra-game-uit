@@ -20,7 +20,8 @@ namespace Framework
 		float game_width4 = GameConfig::GetSingletonPtr()->GetFloat("TestFloat22");
 		float game_width5 = GameConfig::GetSingletonPtr()->GetFloat("TestFloat25");
 		bool gameFullScreen = GameConfig::GetSingletonPtr()->GetBool("FULLSCREEN");
-		
+		//test
+		m_timeTotal = 0;
 		Log::info(Log::LOG_LEVEL_ROOT, "[Timer] Constructor Get Config %d, %f, %f, %f !\n", game_width, game_width2, game_width3, game_width4);
 	}
 
@@ -54,8 +55,11 @@ namespace Framework
 		QueryPerformanceCounter(&m_timeStart);
 		m_frameDt = (float)(m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (float)(m_timeFreq.QuadPart);
 		m_simDt = m_frameDt * m_simMultiplier;
-		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeDt %f !\n", Timer::GetTimeSim());
+
+		m_timeTotal += m_simDt; //Test
+		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeTotal());
 		m_timeLastFrame = m_timeStart;
+		
 	}
 
 	void Timer::OnResume()
