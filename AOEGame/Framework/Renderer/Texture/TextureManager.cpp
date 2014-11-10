@@ -69,6 +69,7 @@ namespace Framework
 			}
 		}
 		m_textureRegister.push_back(filename);
+		LoadTexture(filename);
 	}
 	void TextureManager::UnRegisterTexture(std::string filename)
 	{
@@ -90,7 +91,7 @@ namespace Framework
 				return pCurrent;
 			}
 			//Trace log
-			return NULL;
+			
 		}
 		return NULL;
 	}
@@ -147,7 +148,7 @@ namespace Framework
 		//TextureManager::GetSingletonPtr()->RegisterTexture("mariobigbigbullet.png");
 		//TextureManager::GetSingletonPtr()->RegisterTexture("mariobigbullet.png");
 
-		TextureManager::GetSingletonPtr()->Load();
+		//TextureManager::GetSingletonPtr()->Load();
 
 		/*HRESULT _result = D3DXCreateSprite(Renderer::GetSingletonPtr()->getD3device(), &m_spriteHandler);
 		if(FAILED(_result))

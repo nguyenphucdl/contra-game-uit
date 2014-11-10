@@ -91,6 +91,7 @@
     <ClInclude Include="Framework\GameObjects\Component.h" />
     <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\TileMapComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h" />
     <ClInclude Include="Framework\GameObjects\GameObject.h" />
     <ClInclude Include="Framework\Input\Input.h" />
@@ -109,12 +110,15 @@
     <ClInclude Include="Framework\Renderer\Texture\Texture.h" />
     <ClInclude Include="Framework\Renderer\Texture\TextureManager.h" />
     <ClInclude Include="Framework\Renderer\Texture\TextureRegion.h" />
+    <ClInclude Include="Framework\TileMap\TileMap.h" />
+    <ClInclude Include="Framework\TileMap\TileSet.h" />
     <ClInclude Include="Framework\Utilities\Constants.h" />
     <ClInclude Include="Framework\Utilities\GameConfig.h" />
     <ClInclude Include="Framework\Utilities\GameError.h" />
     <ClInclude Include="Framework\Utilities\Hash.h" />
     <ClInclude Include="Framework\Utilities\Singleton.h" />
     <ClInclude Include="Framework\Utilities\Timer.h" />
+    <ClInclude Include="Framework\Utilities\TmxLoader.h" />
     <ClInclude Include="MovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +130,7 @@
     <ClCompile Include="Framework\EventManager\EventManager.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\TileMapComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\GameObject.cpp" />
     <ClCompile Include="Framework\Input\Input.cpp" />
@@ -142,8 +147,11 @@
     <ClCompile Include="Framework\Renderer\Texture\Texture.cpp" />
     <ClCompile Include="Framework\Renderer\Texture\TextureManager.cpp" />
     <ClCompile Include="Framework\Renderer\Texture\TextureRegion.cpp" />
+    <ClCompile Include="Framework\TileMap\TileMap.cpp" />
+    <ClCompile Include="Framework\TileMap\TileSet.cpp" />
     <ClCompile Include="Framework\Utilities\GameConfig.cpp" />
     <ClCompile Include="Framework\Utilities\Timer.cpp" />
+    <ClCompile Include="Framework\Utilities\TmxLoader.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>

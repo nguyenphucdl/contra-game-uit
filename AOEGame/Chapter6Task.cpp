@@ -1,5 +1,5 @@
 #include "Chapter6Task.h"
-
+#include "Framework\Utilities\TmxLoader.h"
 
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
@@ -31,9 +31,17 @@ bool Chapter6Task::Start()
 	Framework::AttachEvent(Framework::KEYDOWN_EVENT, *this);
 	Framework::AttachEvent(Framework::KEYUP_EVENT, *this);
 
+	// Test
+	TmxLoader *tmxLoader = new TmxLoader("map1-2.tmx");
+	tmxLoader->Load();
+	
+	TileMap* tileMap = tmxLoader->GetTileMap();
+	tileMap->Init();
+
+
 	Log::info(Log::LOG_LEVEL_MIN, "[Chapter6Task] Start... !\n");
 	RegisterTexture("mariobig.png");
-	TextureLoad();
+	///TextureLoad();///////////////////////////////////////////////////////////////////
 
 	RegisterEvent(UPDATE_EVENT);
 	RegisterEvent(POSTUPDATE_EVENT);
