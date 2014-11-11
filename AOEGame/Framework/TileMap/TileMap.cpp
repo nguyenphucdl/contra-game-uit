@@ -54,8 +54,7 @@ namespace Framework
 		device3D->CreateRenderTarget( mapWidth, mapHeight, desc.Format, 
                                   desc.MultiSampleType, desc.MultiSampleQuality,
                                   false, &m_tileMapSurface, NULL );
-		RECT srcDraw, destDraw;
-
+		//RECT srcDraw, destDraw;
 
 		RECT srcSource, srcDest;
 		for(int m = 0; m < m_height; m++)
@@ -65,25 +64,70 @@ namespace Framework
 				int drawGid = m_mapData->at(m * m_width + n);
 				int tileSetId = drawGid - tileSet->GetFirstGid();
 
-				srcDraw.left = ((tileSetId % tileSet->GetDimensionX()) * m_tileWidth );
-				srcDraw.right = srcDraw.left + m_tileWidth;
-				srcDraw.top = (( tileSetId / tileSet->GetDimensionX()) * m_tileHeight);
-				srcDraw.bottom = srcDraw.top + m_tileHeight;
+				srcSource.left = ((tileSetId % tileSet->GetDimensionX()) * m_tileWidth);
+				srcSource.right = srcSource.left + m_tileWidth;
+				srcSource.top = ((tileSetId / tileSet->GetDimensionX()) * m_tileHeight);
+				srcSource.bottom = srcSource.top + m_tileHeight;
 
 				srcDest.left = n * m_tileWidth;
 				srcDest.right = srcDest.left + m_tileWidth;
 				srcDest.top = m * m_tileHeight;
 				srcDest.bottom = srcDest.top + m_tileHeight;
 
-				device3D->StretchRect(source, &srcDraw, m_tileMapSurface, &srcDest, D3DTEXTUREFILTERTYPE::D3DTEXF_NONE);
+				device3D->StretchRect(source, &srcSource, m_tileMapSurface, &srcDest, D3DTEXTUREFILTERTYPE::D3DTEXF_NONE);
 			}
 			
 		}
 
-
-		
-		
-
 		D3DXSaveSurfaceToFile("test123Surface.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapSurface, NULL, NULL);
+		
+		LPDIRECT3DSURFACE9 pSurface;
+
+		HRESULT result1 = device3D->CreateOffscreenPlainSurface(
+			mapWidth,
+			mapHeight,
+			D3DFMT_X8R8G8B8,
+			D3DPOOL_SYSTEMMEM,
+			&pSurface,
+			NULL);
+		if (FAILED(result1))
+		{
+			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot create tilemap surface!");
+		}
+
+		result1 = device3D->GetRenderTargetData(m_tileMapSurface, pSurface);
+		if (FAILED(result1))
+		{
+			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot get render target data!");
+		}
+
+
+		HRESULT result = D3DXCreateTexture(
+			device3D,
+			mapWidth,
+			mapHeight,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_X8R8G8B8,
+			D3DPOOL_DEFAULT,
+			&m_tileMapTexture);
+
+		if (FAILED(result))
+		{
+			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot create tilemap texture!");
+		}
+		IDirect3DSurface9 *pTextureSurface;
+		if (SUCCEEDED(m_tileMapTexture->GetSurfaceLevel(0, &pTextureSurface)))
+		{
+			result = device3D->UpdateSurface(pSurface, NULL, pTextureSurface, NULL);
+			if (FAILED(result))
+			{
+				throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot copy surface to tilemap texture!");
+			}
+			pTextureSurface->Release();
+			pSurface->Release();
+		}
+		
+		D3DXSaveTextureToFile("test123Texture.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapTexture, NULL);
 	}
 }

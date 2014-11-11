@@ -23,6 +23,7 @@ namespace Framework
 
 		//RENDER TO SURFACE
 		LPDIRECT3DSURFACE9		m_tileMapSurface;
+		LPDIRECT3DTEXTURE9		m_tileMapTexture;
 
 	private:
 		void	_renderToSurface();
@@ -32,6 +33,10 @@ namespace Framework
 		int		GetWidth() { return m_width; }
 		int		GetHeight() { return m_height; }
 		void    SetMapData(vector<int>* data);
+		LPDIRECT3DSURFACE9	GetSurface()
+		{
+			return m_tileMapSurface;
+		}
 		void	SetTileSets(vector<TileSet*>* tileSets)
 		{
 			m_tileSets = tileSets;
