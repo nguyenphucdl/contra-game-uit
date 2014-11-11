@@ -14,14 +14,18 @@ namespace Framework
 		std::string			m_name;
 		TEXTURE				m_texture;
 		TEXTUREINFO			m_info;
+		int					m_width;
+		int					m_height;
+
 	public:
 		explicit Texture(std::string name, TEXTURE texture, TEXTUREINFO info);
+		explicit Texture(std::string name, TEXTURE texture, int width, int height);
 		virtual ~Texture();
 		void	 Destroy();
 
 		std::string		GetName()		{ return m_name;			}
-		UINT			GetWidth()		{ return m_info.Width;		}
-		UINT			GetHeight()		{ return m_info.Height;		}
+		UINT			GetWidth()		{ return m_width;			}
+		UINT			GetHeight()		{ return m_height;			}
 		TEXTURE			GetTexture()	{ return m_texture;			}
 	};
 }

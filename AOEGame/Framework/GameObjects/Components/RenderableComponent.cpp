@@ -18,6 +18,9 @@ namespace Framework
 	void RenderableComponent::Initialize()
 	{
 		Log::info(Log::LOG_LEVEL_ROOT, "[RenderableComponent] Initialize...\n");
+
+
+
 		TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
 		if(pTransformComponent)
 		{

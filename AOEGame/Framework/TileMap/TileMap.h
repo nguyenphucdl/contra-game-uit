@@ -14,6 +14,7 @@ namespace Framework
 
 	private:
 		string					m_version;
+		string					m_tag;
 		int						m_tileWidth;
 		int						m_tileHeight;
 		int						m_width;
@@ -33,6 +34,14 @@ namespace Framework
 		int		GetWidth() { return m_width; }
 		int		GetHeight() { return m_height; }
 		void    SetMapData(vector<int>* data);
+		std::string  GetTag()
+		{
+			return m_tag;
+		}
+		void	SetTag(std::string name)
+		{
+			m_tag = name;
+		}
 		LPDIRECT3DSURFACE9	GetSurface()
 		{
 			return m_tileMapSurface;

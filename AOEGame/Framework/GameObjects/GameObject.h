@@ -61,7 +61,7 @@ namespace Framework
 		{
 			T* pNewComponent = new T(this);
 
-			pNewComponent->Initialize();//test
+			//pNewComponent->Initialize();//test
 
 			if(pNewComponent)
 			{

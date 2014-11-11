@@ -71,6 +71,18 @@ namespace Framework
 		m_textureRegister.push_back(filename);
 		LoadTexture(filename);
 	}
+	void TextureManager::RegisterTexture(std::string filename, Texture* texture)
+	{
+		for (TextureRegisterIterator iter = m_textureRegister.begin(); iter != m_textureRegister.end(); iter++)
+		{
+			if ((*iter).compare(filename) == 0) // Already exist!
+			{
+				//Trace log
+				return;
+			}
+		}
+		AddTexture(texture);
+	}
 	void TextureManager::UnRegisterTexture(std::string filename)
 	{
 		for(TextureRegisterIterator iter = m_textureRegister.begin(); iter != m_textureRegister.end(); iter++)

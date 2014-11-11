@@ -36,6 +36,7 @@ namespace Framework
 
 		void		Load();
 		void		RegisterTexture(std::string filename);
+		void		RegisterTexture(std::string filename, Texture* texture);
 		void		UnRegisterTexture(std::string filename);
 		void		Destroy();
 		Texture*	GetTexture(std::string filename);
@@ -62,6 +63,11 @@ namespace Framework
 	inline void RegisterTexture(std::string filename)
 	{
 		TextureManager::GetSingletonPtr()->RegisterTexture(filename);
+	}
+
+	inline void RegisterTexture(std::string filename, Texture* texture)
+	{
+		TextureManager::GetSingletonPtr()->RegisterTexture(filename, texture);
 	}
 
 	inline void TextureLoad()

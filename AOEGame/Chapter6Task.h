@@ -9,6 +9,7 @@
 #include "Framework\GameObjects\Components\RenderableComponent.h"
 #include "Framework\GameObjects\Components\TransformComponent.h"
 #include "Framework\GameObjects\Components\CameraComponent.h"
+#include "Framework\GameObjects\Components\TileMapComponent.h"
 #include "MovementComponent.h"
 
 using namespace Framework;
@@ -19,6 +20,8 @@ class Chapter6Task
 {
 private:
 	Framework::GameObject	m_playerObject;
+	Framework::GameObject	m_tileMapObject;
+
 public:
 	Chapter6Task(const unsigned int priority);
 	virtual ~Chapter6Task();

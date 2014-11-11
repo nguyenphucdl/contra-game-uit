@@ -21,7 +21,7 @@ namespace Framework
 		static const unsigned int s_id = 3;
 
 		TileMap*				m_tileMap;		
-
+		Renderable				m_renderable;
 		bool					m_initilize;
 
 	public:
@@ -31,6 +31,8 @@ namespace Framework
 		virtual ~TileMapComponent();
 
 		virtual void Initialize();
+
+		Renderable&	GetRenderable() { return m_renderable; }
 
 		virtual void HandleEvent(Event* pEvent);
 

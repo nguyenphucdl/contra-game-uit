@@ -26,6 +26,8 @@ namespace Framework
 		int				GetTileWidth() { return m_tileWidth;}
 		int				GetTileHeight() { return m_tileHeight; }
 		int				GetDimensionX() { return m_dimensionX; }
+		int				GetImageWidth() { return m_dimensionX * m_tileWidth; }
+		int				GetImageHeight() { return m_dimensionY * m_tileHeight; }
 		int				GetDimensionY() { return m_dimensionY; }
 		std::string		GetImageName() { return m_imageName; }
 		std::string		GetName() { return m_name; }

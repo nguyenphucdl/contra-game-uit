@@ -47,6 +47,26 @@ bool Chapter6Task::Start()
 	RegisterEvent(POSTUPDATE_EVENT);
 	RegisterEvent(RENDER_EVENT);
 	RegisterEvent(JUMP_EVENT);
+	m_tileMapObject.AddComponent<TileMapComponent>();
+	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(m_tileMapObject);
+	if (pTileMapComponent)
+	{
+		pTileMapComponent->SetTileMap(tileMap);
+		Texture* tilemapTexture = GetTexture(tileMap->GetTag());
+		// Get viewport
+		RECT vport;
+		vport.left = 0;
+		vport.right = 800;
+		vport.top = 0;
+		vport.bottom = 600;
+		TextureRegion *tileMapRegion = new TextureRegion(tilemapTexture, vport);
+
+		Renderable& tilemapRenderable = pTileMapComponent->GetRenderable();
+
+		tilemapRenderable.SetTextureRegion(tileMapRegion);
+		pTileMapComponent->Initialize();
+		Framework::AttachEvent(Framework::RENDER_EVENT, *pTileMapComponent);
+	}
 
 	m_playerObject.AddComponent<RenderableComponent>();
 	RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
@@ -63,7 +83,7 @@ bool Chapter6Task::Start()
 		Renderable& renderable = pRenderComponent->GetRenderable();
 
 		renderable.SetTextureRegion(tregion);
-
+		pRenderComponent->Initialize();
 		Framework::AttachEvent(Framework::RENDER_EVENT, *pRenderComponent);
 	}
 
