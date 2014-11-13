@@ -10,6 +10,7 @@
 #include "Framework\GameObjects\Components\TransformComponent.h"
 #include "Framework\GameObjects\Components\CameraComponent.h"
 #include "Framework\GameObjects\Components\TileMapComponent.h"
+#include "Framework\GameObjects\Actions\Animation.h"
 #include "MovementComponent.h"
 
 using namespace Framework;
@@ -21,7 +22,8 @@ class Chapter6Task
 private:
 	Framework::GameObject	m_playerObject;
 	Framework::GameObject	m_tileMapObject;
-
+	//Test
+	Framework::Animation*	m_animation;
 public:
 	Chapter6Task(const unsigned int priority);
 	virtual ~Chapter6Task();

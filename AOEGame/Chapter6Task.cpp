@@ -1,6 +1,7 @@
 #include "Chapter6Task.h"
 #include "Framework\Utilities\TmxLoader.h"
 
+
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
 {
@@ -77,18 +78,15 @@ bool Chapter6Task::Start()
 		Framework::AttachEvent(Framework::RENDER_EVENT, *pTileMapComponent);
 	}
 
+	//Test
+	Texture* sheet = GetTexture("mariobig.png");
+	m_animation = Animation::CreateAnimation("anim1", 0.2f, sheet, 5, 2, 5);
 
 	m_playerObject.AddComponent<RenderableComponent>();
 	RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
 	if(pRenderComponent)
 	{
-		Texture* texture = GetTexture("mariobig.png");
-		RECT srect;
-		srect.left = 0;
-		srect.top = 0;
-		srect.right = srect.left + texture->GetWidth() /5;
-		srect.bottom = srect.top + texture->GetHeight() /2;
-		TextureRegion *tregion = new TextureRegion(texture, srect);
+		TextureRegion* tregion = m_animation->Next();
 
 		Renderable& renderable = pRenderComponent->GetRenderable();
 
@@ -119,6 +117,8 @@ bool Chapter6Task::Start()
 	{
 		Framework::AttachEvent(Framework::POSTUPDATE_EVENT, *pCameraComponent);
 	}
+
+
 	return true;
 }
 
@@ -129,6 +129,16 @@ void Chapter6Task::OnSuspend()
 void Chapter6Task::Update()
 {
 	RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
+	if (pRenderComponent)
+	{
+		TextureRegion* tregion = m_animation->Next();
+
+		Renderable& renderable = pRenderComponent->GetRenderable();
+
+		renderable.SetTextureRegion(tregion);
+	}
+
+	/*RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
 	if(pRenderComponent)
 	{
 		Renderable& renderable = pRenderComponent->GetRenderable();
@@ -148,14 +158,7 @@ void Chapter6Task::Update()
 			renderable.SetTextureRegion(tregion);
 			Timer::GetSingletonPtr()->Reset();
 		}
-		
-		
-		
-		/*D3DXVECTOR3 position(0, 0, 0);
-
-		
-		renderable.SetPosition(position);*/
-	}
+	}*/
 
 	Framework::SendEvent(Framework::UPDATE_EVENT);
 	Framework::SendEvent(Framework::POSTUPDATE_EVENT);

@@ -40,9 +40,10 @@ namespace Framework
 		int screen_width = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
 		int screen_height = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 
-		int surface_width = screen_height * mapWidth / mapHeight;
-		int surface_height = screen_height;
-		
+		/*int surface_width = screen_height * mapWidth / mapHeight;
+		int surface_height = screen_height;*/
+		int surface_width = mapWidth;
+		int surface_height = mapHeight;
 
 		float vertical_ratio = surface_height / mapHeight;
 		float horizontal_ratio = surface_width / mapWidth;

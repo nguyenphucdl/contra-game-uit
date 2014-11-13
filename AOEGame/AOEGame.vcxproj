@@ -88,6 +88,7 @@
     <ClInclude Include="Framework\EventManager\EventHandler.h" />
     <ClInclude Include="Framework\EventManager\EventId.h" />
     <ClInclude Include="Framework\EventManager\EventManager.h" />
+    <ClInclude Include="Framework\GameObjects\Actions\Animation.h" />
     <ClInclude Include="Framework\GameObjects\Component.h" />
     <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h" />
@@ -129,6 +130,7 @@
     <ClCompile Include="Framework\Debug\DebugConsole.cpp" />
     <ClCompile Include="Framework\EventManager\Event.cpp" />
     <ClCompile Include="Framework\EventManager\EventManager.cpp" />
+    <ClCompile Include="Framework\GameObjects\Actions\Animation.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\SpriteComponent.cpp" />
