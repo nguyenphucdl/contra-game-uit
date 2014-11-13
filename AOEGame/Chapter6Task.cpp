@@ -1,6 +1,6 @@
 #include "Chapter6Task.h"
 #include "Framework\Utilities\TmxLoader.h"
-
+#include "Framework\GameObjects\Components\SpriteComponent.h"
 
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
@@ -79,10 +79,10 @@ bool Chapter6Task::Start()
 	}
 
 	//Test
-	Texture* sheet = GetTexture("mariobig.png");
-	m_animation = Animation::CreateAnimation("anim1", 0.2f, sheet, 5, 2, 5);
+	//Texture* sheet = GetTexture("mariobig.png");
+	//m_animation = Animation::CreateAnimation("anim1", 0.15f, sheet, 5, 2, 5);
 
-	m_playerObject.AddComponent<RenderableComponent>();
+	/*m_playerObject.AddComponent<RenderableComponent>();
 	RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
 	if(pRenderComponent)
 	{
@@ -93,23 +93,42 @@ bool Chapter6Task::Start()
 		renderable.SetTextureRegion(tregion);
 		pRenderComponent->Initialize();
 		Framework::AttachEvent(Framework::RENDER_EVENT, *pRenderComponent);
-	}
-
+	}*/
 	m_playerObject.AddComponent<TransformComponent>();
 	TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_playerObject);
-	if(pTransformComponent)
+	if (pTransformComponent)
 	{
 		Transform& transform = pTransformComponent->GetTransform();
-		Vector3 position = Vector3(0, 100, 0);
+		Vector3 position = Vector3(0, 0, 0);
 		transform.SetTranslation(position);
 	}
+	m_playerObject.AddComponent<SpriteComponent>();
+	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
+	if (pSpriteComponent)
+	{
+		Texture* sheet = GetTexture("mariobig.png");
+		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 0.15f, sheet, 5, 2, 4);
+		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 0.15f, sheet, 5, 2, 4, 6);
+		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeftAnim", 0.15f, sheet, 5, 2, 1, 5);
+		Animation* sitRightAnim = Animation::CreateAnimation("sitRightAnim", 0.15f, sheet, 5, 2, 1, 4);
 
-	m_playerObject.AddComponent<MovementComponent>();
+		pSpriteComponent->RegisterState(SpriteState::MOVELEFT, moveLeftAnim);
+		pSpriteComponent->RegisterState(SpriteState::MOVERIGHT, moveRightAnim);
+		pSpriteComponent->RegisterState(SpriteState::SITLEFT, sitLeftAnim);
+		pSpriteComponent->RegisterState(SpriteState::SITRIGHT, sitRightAnim);
+		pSpriteComponent->SetDefaultState(SpriteState::MOVERIGHT);
+		pSpriteComponent->Initialize();
+	}
+
+
+	
+
+	/*m_playerObject.AddComponent<MovementComponent>();
 	MovementComponent* pMovementComponent = component_cast<MovementComponent>(m_playerObject);
 	if(pMovementComponent)
 	{
 
-	}
+	}*/
 
 	m_playerObject.AddComponent<CameraComponent>();
 	CameraComponent *pCameraComponent = component_cast<CameraComponent>(m_playerObject);

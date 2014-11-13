@@ -31,17 +31,22 @@ namespace Framework
 		m_frames.push_back(frame);
 	}
 
+	TextureRegion* Animation::Current()
+	{
+		return m_frames.at(m_curIdx);
+	}
+
 	TextureRegion* Animation::Next()
 	{
 		m_elapse += Timer::GetSingletonPtr()->GetTimeSim();
-		Log::info(Log::LOG_LEVEL_MEDIUM, "Animation elapse: %f\n", m_elapse);
+		//Log::info(Log::LOG_LEVEL_MEDIUM, "Animation elapse: %f\n", m_elapse);
 		if (m_elapse > m_delay)
 		{
 			m_curIdx++;
 			if (m_curIdx > m_frames.size() - 1)
 				m_curIdx = 0;
 
-			Log::info(Log::LOG_LEVEL_MEDIUM, "Animation update at %f\n", m_elapse);
+			//Log::info(Log::LOG_LEVEL_MEDIUM, "Animation update at %f\n", m_elapse);
 			m_elapse = 0;
 		}
 		return m_frames.at(m_curIdx);

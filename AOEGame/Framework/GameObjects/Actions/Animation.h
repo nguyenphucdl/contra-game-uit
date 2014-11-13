@@ -19,6 +19,7 @@ namespace Framework
 		virtual ~Animation();
 
 		TextureRegion*	Next();
+		TextureRegion*  Current();
 
 		void	SetTimeDelay(float delay)	{ m_delay = delay; }
 		float	GetTimeDelay()				{ return m_delay; }
