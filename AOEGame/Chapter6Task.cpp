@@ -119,7 +119,13 @@ bool Chapter6Task::Start()
 		pSpriteComponent->SetDefaultState(SpriteState::MOVERIGHT);
 		pSpriteComponent->Initialize();
 	}
-
+	m_playerObject.AddComponent<MovementComponent>();
+	MovementComponent* pMovementComponent = component_cast<MovementComponent>(m_playerObject);
+	if (pMovementComponent)
+	{
+		pMovementComponent->SetVelocityX(100.0f);
+		pMovementComponent->Initialize();
+	}
 
 	
 

@@ -48,9 +48,12 @@ namespace Framework
 		virtual ~SpriteComponent();
 
 		void RegisterState(SpriteState state, Animation* anim);
+
 		void RemoveState(SpriteState state);
 
 		void SetDefaultState(SpriteState state) { m_curState = state; }
+
+		void UpdateTransform(Transform& transfrom) { m_renderable.GetTransform().Clone(transfrom); }
 
 		Renderable&	GetRenderable() { return m_renderable; }
 

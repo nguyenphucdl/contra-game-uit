@@ -18,7 +18,6 @@ namespace Framework
 	private:
 		static const unsigned int s_id = 9;
 
-		Vector3		m_acceleration;
 		Vector3		m_velocity;
 
 		bool		m_keyPressed;
@@ -27,6 +26,9 @@ namespace Framework
 
 		explicit MovementComponent(Framework::GameObject* pOwner);
 		virtual ~MovementComponent();
+
+		void	SetVelocity(Vector3 vec) { m_velocity = vec; }
+		void	SetVelocityX(float x) { m_velocity.m_x = x; }
 
 		virtual void Initialize();
 
