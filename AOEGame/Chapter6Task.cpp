@@ -47,6 +47,15 @@ bool Chapter6Task::Start()
 	RegisterEvent(POSTUPDATE_EVENT);
 	RegisterEvent(RENDER_EVENT);
 	RegisterEvent(JUMP_EVENT);
+	m_tileMapObject.AddComponent<TransformComponent>();
+	TransformComponent* pTileMapTransformComponent = component_cast<TransformComponent>(m_tileMapObject);
+	if (pTileMapTransformComponent)
+	{
+		Transform& transform = pTileMapTransformComponent->GetTransform();
+		//Vector3 position = Vector3(0, 100, 0);
+		//transform.SetTranslation(position);
+		transform.SetScale(2.6f);
+	}
 	m_tileMapObject.AddComponent<TileMapComponent>();
 	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(m_tileMapObject);
 	if (pTileMapComponent)
@@ -67,6 +76,7 @@ bool Chapter6Task::Start()
 		pTileMapComponent->Initialize();
 		Framework::AttachEvent(Framework::RENDER_EVENT, *pTileMapComponent);
 	}
+
 
 	m_playerObject.AddComponent<RenderableComponent>();
 	RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);

@@ -201,8 +201,11 @@ namespace Framework
 		{
 			TextureRegion *texture = pRenderable->GetTextureRegion();
 
-			Transform transform = pRenderable->GetTransform();
-			
+			Transform& transform = pRenderable->GetTransform();
+			//D3DXMATRIX matrix;
+			//D3DXMatrixAffineTransformation2D(&matrix, 2.5, 0, 0, 0);
+			Matrix4 matrix = transform.GetMatrix();
+			m_spriteHandler->SetTransform(&matrix.GetD3DMatrix());
 			
 			//Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] Draw Renderable with texture name %s... !\n", texture->GetTexture()->GetName().c_str());
 			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &(transform.GetTranslation().GetD3DVector()), D3DCOLOR_XRGB(255,255,255));

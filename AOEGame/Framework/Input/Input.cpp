@@ -127,25 +127,44 @@ namespace Framework
 		// Collect all buffered events
 		DWORD dwElements = KEYBOARD_BUFFER_SIZE;
 		m_result = m_keyboard->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), m_keyEvents, &dwElements, 0);
-
-		// Scan through all data, check if the key is pressed or released
-		for(DWORD i = 0; i <dwElements; i++)
+		
+		if (SUCCEEDED(m_result))
 		{
-			int keyCode = m_keyEvents[i].dwOfs;
-			int keystate = m_keyEvents[i].dwData;
-			/*if(keyCode < 0)
-				continue;*/
-			if((keystate & 0x80) > 0)
+			if (m_result == DI_BUFFEROVERFLOW)
 			{
-				//Sent KEYDOWN_EVENT with keycode parameters
-				Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYDOWN_EVENT !\n");
-				SendEvent(KEYDOWN_EVENT, (void *)keyCode);
+				throw new GameError(GameErrorNS::FATAL_ERROR, "Buffer overflow!");
 			}
-			else
+			// Scan through all data, check if the key is pressed or released
+			for (DWORD i = 0; i <dwElements; i++)
 			{
-				//Sent KEYDUP_EVENT with keycode parameters
-				Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYUP_EVENT !\n");
-				SendEvent(KEYUP_EVENT, (void*)keyCode);
+				int keyCode = m_keyEvents[i].dwOfs;
+				int keystate = m_keyEvents[i].dwData;
+				/*if(keyCode < 0)
+				continue;*/
+				if ((keystate & 0x80) > 0)
+				{
+					//Sent KEYDOWN_EVENT with keycode parameters
+					Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYDOWN_EVENT !\n");
+					SendEvent(KEYDOWN_EVENT, (void *)keyCode);
+				}
+				else
+				{
+					//Sent KEYDUP_EVENT with keycode parameters
+					Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYUP_EVENT !\n");
+					SendEvent(KEYUP_EVENT, (void*)keyCode);
+				}
+			}
+
+		}
+		else
+		{
+			// Switch to another application, cannot retrieve input device
+			Log::info(Log::LOG_LEVEL_HIGHT, "Cannot get device data!\n");
+			Sleep(100);
+			m_result = m_keyboard->Acquire();
+			if (SUCCEEDED(m_result))
+			{
+				Log::info(Log::LOG_LEVEL_HIGHT, "Accquire input device successfully!\n");
 			}
 		}
 	}
