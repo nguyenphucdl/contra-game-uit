@@ -11,6 +11,7 @@ namespace Framework
 		: Component(pOwner)
 		, m_velocity(0, 0, 0)
 		, m_keyPressed(false)
+		, m_move(false)
 	{
 		Framework::AttachEvent(JUMP_EVENT, *this);
 		Framework::AttachEvent(UPDATE_EVENT, *this);
@@ -37,23 +38,48 @@ namespace Framework
 		{
 			if (m_keyPressed)
 			{
-				TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
-				if (pTransformComponent)
+				if (m_move)
 				{
-					Vector3& translation = pTransformComponent->GetTransform()->GetTranslation();
-					translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeSim();
+					TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
+					if (pTransformComponent)
+					{
+						Vector3& translation = pTransformComponent->GetTransform()->GetTranslation();
+						translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeSim();
 
-					Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
+						Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
+					}
 				}
 			}
 		}
 		else if (pEvent->GetID() == KEYDOWN_EVENT)
 		{
+			int keyCode = (int)pEvent->GetData();
+
+			switch (keyCode)
+			{
+			case DIK_LEFT:
+			{
+				m_velocity.m_x *= (m_velocity.m_x > 0) ? -1.0f : 1.0f;
+				m_move = true;
+			}
+				break;
+			case DIK_RIGHT:
+			{
+				m_velocity.m_x *= (m_velocity.m_x < 0) ? -1.0f : 1.0f;
+				m_move = true;
+			}
+				break;
+			default:
+				m_move = false;
+				break;
+			}
+
 			m_keyPressed = true;
 		}
 		else if (pEvent->GetID() == KEYUP_EVENT)
 		{
 			m_keyPressed = false;
+			m_move = false;
 		}
 	}
 }

@@ -6,6 +6,7 @@ namespace Framework
 		: Component(pOwner)
 		, m_animationList()
 		, m_keypressed(false)
+		, m_animate(false)
 	{
 		Framework::AttachEvent(JUMP_EVENT, *this);
 		Framework::AttachEvent(UPDATE_EVENT, *this);
@@ -45,16 +46,10 @@ namespace Framework
 
 	void SpriteComponent::Initialize()
 	{
-		/*TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
-		if (pTransformComponent)
-		{
-			m_renderable.GetTransform().Clone(pTransformComponent->GetTransform());
-		}*/
 		m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
 
 		assert(Renderer::GetSingletonPtr());
 		Renderer::GetSingleton().AddRenderable(&m_renderable);
-		m_oldState = m_curState;
 	}
 
 	void SpriteComponent::HandleEvent(Event* pEvent)
@@ -64,31 +59,37 @@ namespace Framework
 		case KEYDOWN_EVENT:
 		{
 			int keyCode = (int)pEvent->GetData();
-			m_oldState = m_curState;
 
-			if (keyCode == DIK_RIGHTARROW)
+			switch (keyCode)
 			{
-				Log::info(Log::LOG_LEVEL_MIN, "[SpriteComponent] MOVE RIGHT...\n");
+			case DIK_DOWN:
+				{
+					if (m_curState < SpriteDirection::RIGHT)
+					{
+						m_curState = SpriteState::SITLEFT;
+					}
+					else
+					{
+						m_curState = SpriteState::SITRIGHT;
+					}
+				}
+				break;
+			case DIK_RIGHT:
+				{
 				m_curState = SpriteState::MOVERIGHT;
-			}
-			else if (keyCode == DIK_LEFTARROW)
-			{
-				Log::info(Log::LOG_LEVEL_MIN, "[SpriteComponent] MOVELEFT...\n");
+				m_animate = true;
+				}
+				break;
+			case DIK_LEFT:
+				{
 				m_curState = SpriteState::MOVELEFT;
-			}
-			if (keyCode == DIK_DOWNARROW)
-			{
-				if (m_curState < SpriteDirection::RIGHT)
-				{
-					m_curState = SpriteState::SITLEFT;
-					Log::info(Log::LOG_LEVEL_MIN, "[SpriteComponent] KEYDOWN SITLEFT...\n");
+				m_animate = true;
 				}
-				else
-				{
-					m_curState = SpriteState::SITRIGHT;
-					Log::info(Log::LOG_LEVEL_MIN, "[SpriteComponent] KEYDOWN SITRIGHT...\n");
-				}
+				break;
+			default:
+				break;
 			}
+
 			m_keypressed = true;
 		}
 			break;
@@ -97,25 +98,23 @@ namespace Framework
 			if (m_curState < SpriteDirection::RIGHT)
 			{
 				m_curState = SpriteState::MOVELEFT;
-				Log::info(Log::LOG_LEVEL_MIN, "[SpriteComponent] KEYUP_EVENT MOVELEFT...\n");
 			}
 			else
 			{
 				m_curState = SpriteState::MOVERIGHT;
-				Log::info(Log::LOG_LEVEL_MIN, "[SpriteComponent] KEYUP_EVENT MOVERIGHT...\n");
 			}
 			m_keypressed = false;
+			m_animate = false;
 		}
 			break;
 		case UPDATE_EVENT:
 		{
-			if (m_keypressed)
+			if (m_keypressed && m_animate)
 				m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
 		}
 			break;
 		case RENDER_EVENT:
 		{
-			//Log::info(Log::LOG_LEVEL_MIN, "[SpriteComponent] RENDER_EVENT...\n");
 			m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
 		}
 			break;

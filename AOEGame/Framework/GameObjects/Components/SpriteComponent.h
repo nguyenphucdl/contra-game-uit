@@ -38,8 +38,9 @@ namespace Framework
 
 		Renderable		m_renderable;
 		SpriteState		m_curState;
-		SpriteState		m_oldState;
+
 		bool			m_keypressed;
+		bool			m_animate;
 		
 	public:
 		static unsigned int GetId() { return s_id; }

@@ -21,6 +21,8 @@ namespace Framework
 		Vector3		m_velocity;
 
 		bool		m_keyPressed;
+		bool		m_move;
+
 	public:
 		static unsigned int GetId() { return s_id; }
 
