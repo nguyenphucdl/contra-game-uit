@@ -23,11 +23,7 @@ namespace Framework
 			Log::error("TileMap not set in component !");
 			throw new GameError(GameErrorNS::FATAL_ERROR, "TileMap not set in component !");
 		}
-		TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
-		if (pTransformComponent)
-		{
-			m_renderable.GetTransform().Clone(pTransformComponent->GetTransform());
-		}
+		
 		assert(Renderer::GetSingletonPtr());
 		Renderer::GetSingleton().AddRenderable(&m_renderable);
 	}

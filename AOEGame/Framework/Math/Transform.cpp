@@ -91,8 +91,9 @@ namespace Framework
 		m_matrix.m_m[15] = 1.0f;
 	}
 
-	const Matrix4& Transform::GetMatrix() const
+	const Matrix4& Transform::GetMatrix()
 	{
+		UpdateMatrix();
 		return m_matrix;
 	}
 

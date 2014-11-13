@@ -13,7 +13,7 @@ namespace Framework
 	private:
 		static const unsigned int	s_id = 0;
 
-		Transform	m_transform;
+		Transform*	m_transform;
 
 	public:
 		static unsigned int GetId() { return s_id; }
@@ -23,7 +23,8 @@ namespace Framework
 
 		virtual void Initialize();
 
-		Transform&	 GetTransform()		{ return m_transform; }
+		Transform*	 GetTransform()		{ return m_transform; }
+		void		 SetTransform(Transform* trans) { m_transform = trans; }
 	};
 
 }

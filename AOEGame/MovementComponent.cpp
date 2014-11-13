@@ -40,16 +40,10 @@ namespace Framework
 				TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
 				if (pTransformComponent)
 				{
-					Vector3& translation = pTransformComponent->GetTransform().GetTranslation();
+					Vector3& translation = pTransformComponent->GetTransform()->GetTranslation();
 					translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeSim();
 
 					Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
-
-					SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(GetOwner());
-					if (pSpriteComponent)
-					{
-						pSpriteComponent->UpdateTransform(pTransformComponent->GetTransform());
-					}
 				}
 			}
 		}

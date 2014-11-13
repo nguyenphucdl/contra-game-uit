@@ -19,13 +19,6 @@ namespace Framework
 	{
 		Log::info(Log::LOG_LEVEL_ROOT, "[RenderableComponent] Initialize...\n");
 
-
-
-		TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
-		if(pTransformComponent)
-		{
-			m_renderable.GetTransform().Clone(pTransformComponent->GetTransform());
-		}
 		assert(Renderer::GetSingletonPtr());
 		Renderer::GetSingleton().AddRenderable(&m_renderable);
 	}
@@ -35,14 +28,7 @@ namespace Framework
 		assert(pEvent);
 		if(pEvent->GetID() == RENDER_EVENT)
 		{
-			TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
-			if(pTransformComponent)
-			{
-				m_renderable.GetTransform().Clone(pTransformComponent->GetTransform());
-			}
-
-			/*assert(Renderer::GetSingletonPtr());
-			Renderer::GetSingleton().AddRenderable(&m_renderable);*/
+			
 		}
 	}
 }

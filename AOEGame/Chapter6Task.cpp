@@ -48,15 +48,6 @@ bool Chapter6Task::Start()
 	RegisterEvent(POSTUPDATE_EVENT);
 	RegisterEvent(RENDER_EVENT);
 	RegisterEvent(JUMP_EVENT);
-	m_tileMapObject.AddComponent<TransformComponent>();
-	TransformComponent* pTileMapTransformComponent = component_cast<TransformComponent>(m_tileMapObject);
-	if (pTileMapTransformComponent)
-	{
-		Transform& transform = pTileMapTransformComponent->GetTransform();
-		//Vector3 position = Vector3(0, 100, 0);
-		//transform.SetTranslation(position);
-		transform.SetScale(2.6f);
-	}
 	m_tileMapObject.AddComponent<TileMapComponent>();
 	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(m_tileMapObject);
 	if (pTileMapComponent)
@@ -77,31 +68,15 @@ bool Chapter6Task::Start()
 		pTileMapComponent->Initialize();
 		Framework::AttachEvent(Framework::RENDER_EVENT, *pTileMapComponent);
 	}
-
-	//Test
-	//Texture* sheet = GetTexture("mariobig.png");
-	//m_animation = Animation::CreateAnimation("anim1", 0.15f, sheet, 5, 2, 5);
-
-	/*m_playerObject.AddComponent<RenderableComponent>();
-	RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
-	if(pRenderComponent)
+	m_tileMapObject.AddComponent<TransformComponent>();
+	TransformComponent* pTileMapTransformComponent = component_cast<TransformComponent>(m_tileMapObject);
+	if (pTileMapTransformComponent)
 	{
-		TextureRegion* tregion = m_animation->Next();
-
-		Renderable& renderable = pRenderComponent->GetRenderable();
-
-		renderable.SetTextureRegion(tregion);
-		pRenderComponent->Initialize();
-		Framework::AttachEvent(Framework::RENDER_EVENT, *pRenderComponent);
-	}*/
-	m_playerObject.AddComponent<TransformComponent>();
-	TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_playerObject);
-	if (pTransformComponent)
-	{
-		Transform& transform = pTransformComponent->GetTransform();
-		Vector3 position = Vector3(0, 0, 0);
-		transform.SetTranslation(position);
+		pTileMapTransformComponent->SetTransform(&pTileMapComponent->GetRenderable().GetTransform());
+		Transform* transform = pTileMapTransformComponent->GetTransform();
+		transform->SetScale(2.6f);
 	}
+	
 	m_playerObject.AddComponent<SpriteComponent>();
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
 	if (pSpriteComponent)
@@ -119,6 +94,15 @@ bool Chapter6Task::Start()
 		pSpriteComponent->SetDefaultState(SpriteState::MOVERIGHT);
 		pSpriteComponent->Initialize();
 	}
+	m_playerObject.AddComponent<TransformComponent>();
+	TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_playerObject);
+	if (pTransformComponent)
+	{
+		pTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
+		Transform* transform = pTransformComponent->GetTransform();
+		Vector3 position = Vector3(0, 100, 0);
+		transform->SetTranslation(position);
+	}
 	m_playerObject.AddComponent<MovementComponent>();
 	MovementComponent* pMovementComponent = component_cast<MovementComponent>(m_playerObject);
 	if (pMovementComponent)
@@ -126,15 +110,6 @@ bool Chapter6Task::Start()
 		pMovementComponent->SetVelocityX(100.0f);
 		pMovementComponent->Initialize();
 	}
-
-	
-
-	/*m_playerObject.AddComponent<MovementComponent>();
-	MovementComponent* pMovementComponent = component_cast<MovementComponent>(m_playerObject);
-	if(pMovementComponent)
-	{
-
-	}*/
 
 	m_playerObject.AddComponent<CameraComponent>();
 	CameraComponent *pCameraComponent = component_cast<CameraComponent>(m_playerObject);
@@ -153,38 +128,6 @@ void Chapter6Task::OnSuspend()
 
 void Chapter6Task::Update()
 {
-	RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
-	if (pRenderComponent)
-	{
-		TextureRegion* tregion = m_animation->Next();
-
-		Renderable& renderable = pRenderComponent->GetRenderable();
-
-		renderable.SetTextureRegion(tregion);
-	}
-
-	/*RenderableComponent* pRenderComponent = component_cast<RenderableComponent>(m_playerObject);
-	if(pRenderComponent)
-	{
-		Renderable& renderable = pRenderComponent->GetRenderable();
-		Texture* texture = GetTexture("mariobig.png");
-		if(Timer::GetSingletonPtr()->GetTimeTotal() > MIN_FRAME_RATE / 100.0f)
-		{
-			RECT srect = renderable.GetTextureRegion()->GetRect();
-			srect.left += texture->GetWidth() /5;
-			
-			
-
-			if(srect.left > texture->GetWidth())
-				srect.left = 0;
-
-			srect.right = srect.left + texture->GetWidth() / 5;
-			TextureRegion *tregion = new TextureRegion(texture, srect);
-			renderable.SetTextureRegion(tregion);
-			Timer::GetSingletonPtr()->Reset();
-		}
-	}*/
-
 	Framework::SendEvent(Framework::UPDATE_EVENT);
 	Framework::SendEvent(Framework::POSTUPDATE_EVENT);
 	Framework::SendEvent(Framework::RENDER_EVENT);

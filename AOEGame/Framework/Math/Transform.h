@@ -35,7 +35,7 @@ namespace Framework
 
 		void			UpdateMatrix();
 
-		const Matrix4&	GetMatrix() const;
+		const Matrix4&	GetMatrix();
 		void			GetInverseMatrix(Matrix4& out) const;
 		void			GetInverseTransposeMatrix(Matrix4& out) const;
 		void			GetInverseTransposeMatrix(Matrix3& out) const;

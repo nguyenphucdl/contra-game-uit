@@ -45,11 +45,11 @@ namespace Framework
 
 	void SpriteComponent::Initialize()
 	{
-		TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
+		/*TransformComponent* pTransformComponent = component_cast<TransformComponent>(GetOwner());
 		if (pTransformComponent)
 		{
 			m_renderable.GetTransform().Clone(pTransformComponent->GetTransform());
-		}
+		}*/
 		m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
 
 		assert(Renderer::GetSingletonPtr());

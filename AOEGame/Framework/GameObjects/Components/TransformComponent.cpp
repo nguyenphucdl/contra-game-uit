@@ -4,6 +4,7 @@ namespace Framework
 {
 	TransformComponent::TransformComponent(GameObject* pOwner)
 		:	Component(pOwner)
+		,   m_transform(NULL)
 	{
 
 	}
