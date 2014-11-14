@@ -75,7 +75,7 @@ bool Chapter6Task::Start()
 	if (pSpriteComponent)
 	{
 		Texture* sheet = GetTexture("mariobig.png");
-		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 0.15f, sheet, 5, 2, 4);
+		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 0.15f, sheet, 5, 2, 4, 0, true);
 		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 0.15f, sheet, 5, 2, 4, 6);
 		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeftAnim", 0.15f, sheet, 5, 2, 1, 5);
 		Animation* sitRightAnim = Animation::CreateAnimation("sitRightAnim", 0.15f, sheet, 5, 2, 1, 4);

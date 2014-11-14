@@ -52,9 +52,16 @@ namespace Framework
 		return m_frames.at(m_curIdx);
 	}
 
-	Animation* Animation::CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts)
+	void Animation::Reverse()
 	{
-		return Animation::CreateAnimation(name, delay, sheet, dimensionx, dimensiony, framecounts, 0);
+		std::reverse(m_frames.begin(), m_frames.end());
+	}
+
+	Animation* Animation::CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool reverse)
+	{
+		Animation* result = Animation::CreateAnimation(name, delay, sheet, dimensionx, dimensiony, framecounts, offset);
+		result->Reverse();
+		return result;
 	}
 
 	Animation* Animation::CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset)

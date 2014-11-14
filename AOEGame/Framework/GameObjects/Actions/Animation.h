@@ -26,12 +26,14 @@ namespace Framework
 		void	SetName(std::string name)	{ m_name = name; }
 		std::string GetName()				{ return m_name; }
 		void	SetFrameIndex(int idx);
+		void	Reverse();
 		int		GetFrameIndex()			{ return m_curIdx; }		
 		void	AddFrame(TextureRegion* frame);
 
 	public:
-		static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset);
-		static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts);
+		static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset = 0);
+		/*static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts);*/
+		static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool reverse);
 	};
 }
 
