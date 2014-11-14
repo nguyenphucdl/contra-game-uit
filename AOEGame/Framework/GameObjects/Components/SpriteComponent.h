@@ -54,7 +54,7 @@ namespace Framework
 
 		void SetDefaultState(SpriteState state) { m_curState = state; }
 
-		void UpdateTransform(Transform& transfrom) { m_renderable.GetTransform().Clone(transfrom); }
+		//void UpdateTransform(Transform& transfrom) { m_renderable.GetTransform().Clone(transfrom); }
 
 		Renderable&	GetRenderable() { return m_renderable; }
 

@@ -31,6 +31,12 @@ namespace Framework
 		m_width = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
 		m_height = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 		m_fullScreen = GameConfig::GetSingletonPtr()->GetBool(ConfigKey::FULLSCREEN);
+		//test
+		m_viewport.left = 0;
+		m_viewport.right = m_viewport.left + m_width;
+		m_viewport.top = 0;
+		m_viewport.bottom = m_viewport.top + m_height;
+
 
 		//initialize Direct3D
 		m_direct3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -148,27 +154,6 @@ namespace Framework
 		}
 	}
 
-	const Matrix4& Renderer::GetProjectionMatrix() const
-	{
-		return m_projectionMatrix;
-	}
-
-	void Renderer::SetProjectionMatrix(const Matrix4& proj)
-	{
-		m_projectionMatrix = proj;
-		m_camera = true;
-	}
-
-	const Matrix4& Renderer::GetViewMatrix() const
-	{
-		return m_viewMatrix;
-	}
-
-	void Renderer::SetViewMatrix(const Matrix4& view)
-	{
-		m_viewMatrix = view;
-	}
-
 	//=============================================================================
 	// Display the backbuffer
 	//=============================================================================
@@ -257,11 +242,6 @@ namespace Framework
 		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer][Start] Entering...\n");
 		Init();
 
-		
-		m_iinit = false;
-
-		//test
-		m_camera = false;
 		return true;
 	}
 	void Renderer::OnSuspend()

@@ -48,6 +48,9 @@ bool Chapter6Task::Start()
 	RegisterEvent(POSTUPDATE_EVENT);
 	RegisterEvent(RENDER_EVENT);
 	RegisterEvent(JUMP_EVENT);
+
+
+	// TILEMAP OBJECT
 	m_tileMapObject.AddComponent<TileMapComponent>();
 	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(m_tileMapObject);
 	if (pTileMapComponent)
@@ -77,6 +80,7 @@ bool Chapter6Task::Start()
 		transform->SetScale(2.6f);
 	}
 	
+	// PLAYER OBJECT
 	m_playerObject.AddComponent<SpriteComponent>();
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
 	if (pSpriteComponent)
@@ -111,13 +115,15 @@ bool Chapter6Task::Start()
 		pMovementComponent->Initialize();
 	}
 
-	m_playerObject.AddComponent<CameraComponent>();
-	CameraComponent *pCameraComponent = component_cast<CameraComponent>(m_playerObject);
-	if(pCameraComponent)
+	// CAMERA OBJECT
+	m_cameraObject.AddComponent<CameraComponent>();
+	CameraComponent *pCameraComponent = component_cast<CameraComponent>(m_cameraObject);
+	if (pCameraComponent)
 	{
+		pCameraComponent->AttachObject(&m_playerObject);
+
 		Framework::AttachEvent(Framework::POSTUPDATE_EVENT, *pCameraComponent);
 	}
-
 
 	return true;
 }

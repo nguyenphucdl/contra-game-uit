@@ -22,8 +22,7 @@ class Chapter6Task
 private:
 	Framework::GameObject	m_playerObject;
 	Framework::GameObject	m_tileMapObject;
-	//Test
-	Framework::Animation*	m_animation;
+	Framework::GameObject	m_cameraObject;
 public:
 	Chapter6Task(const unsigned int priority);
 	virtual ~Chapter6Task();

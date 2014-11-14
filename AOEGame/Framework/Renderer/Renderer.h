@@ -40,19 +40,12 @@ namespace Framework
 		COLOR_ARGB					m_backColor;
 		// width & height & another states
 
-		typedef std::vector<Renderable*>		RenderableVector;
+		typedef std::vector<Renderable*>	RenderableVector;
 		typedef	RenderableVector::iterator	RenderableVectorIterator;
 
 		RenderableVector					m_renerables;
 	
-		Matrix4								m_projectionMatrix;
-		Matrix4								m_viewMatrix;
-		//test
-		bool								m_camera;
-		bool								m_iinit;
-		D3DXVECTOR3 posView ;
-		D3DXVECTOR3 updir;
-		D3DXVECTOR3 target;
+		RECT								m_viewport;
 	public:
 		explicit Renderer(const unsigned int priority);
 		virtual ~Renderer();
@@ -70,13 +63,6 @@ namespace Framework
 		virtual void	OnResume();
 		virtual void	Stop();
 
-		// Matrix
-		const Matrix4&	GetProjectionMatrix() const;
-		void			SetProjectionMatrix(const Matrix4& proj);
-
-		const Matrix4&	GetViewMatrix() const;
-		void			SetViewMatrix(const Matrix4& view);
-
 		bool IsInitialized()	{ return m_initialized; }
 		// Handle lost graphics device
 		virtual void handleLostGraphicsDevice();
@@ -86,6 +72,8 @@ namespace Framework
 		// get functions
 		LP_D3DEVICE	getD3device()	{ return m_device3d; }	
 		LP_3D		get3D()			{ return m_direct3d; }
+		void	SetViewport(RECT& viewport) { m_viewport = viewport; }
+		RECT&	GetViewport()		{ return m_viewport; }
 
 	public://test public
 		void	Draw(Renderable* pRenderable);
