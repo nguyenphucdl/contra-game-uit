@@ -56,18 +56,7 @@ bool Chapter6Task::Start()
 	if (pTileMapComponent)
 	{
 		pTileMapComponent->SetTileMap(tileMap);
-		Texture* tilemapTexture = GetTexture(tileMap->GetTag());
-		// Get viewport
-		RECT vport;
-		vport.left = 0;
-		vport.right = 800;
-		vport.top = 0;
-		vport.bottom = 600;
-		TextureRegion *tileMapRegion = new TextureRegion(tilemapTexture, vport);
-
-		Renderable& tilemapRenderable = pTileMapComponent->GetRenderable();
-
-		tilemapRenderable.SetTextureRegion(tileMapRegion);
+		
 		pTileMapComponent->Initialize();
 		Framework::AttachEvent(Framework::RENDER_EVENT, *pTileMapComponent);
 	}
@@ -121,8 +110,7 @@ bool Chapter6Task::Start()
 	if (pCameraComponent)
 	{
 		pCameraComponent->AttachObject(&m_playerObject);
-
-		Framework::AttachEvent(Framework::POSTUPDATE_EVENT, *pCameraComponent);
+		pCameraComponent->Initialize();
 	}
 
 	return true;

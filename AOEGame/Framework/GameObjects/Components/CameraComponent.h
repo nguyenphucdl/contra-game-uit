@@ -22,6 +22,7 @@ namespace Framework
 		RECT*			m_viewPort;
 		GameObject*		m_attachObject;
 
+		bool			m_pressed;
 	public:
 		static unsigned int GetId() { return s_id; }
 

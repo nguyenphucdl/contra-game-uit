@@ -22,7 +22,8 @@ namespace Framework
 
 		TileMap*				m_tileMap;		
 		Renderable				m_renderable;
-		bool					m_initilize;
+		RECT*					m_mapViewport;
+		bool					m_scroll;
 
 	public:
 		static unsigned int GetId() { return s_id; }
@@ -35,6 +36,8 @@ namespace Framework
 		Renderable&	GetRenderable() { return m_renderable; }
 
 		virtual void HandleEvent(Event* pEvent);
+
+		void UpdateMapView(RECT& view);
 
 		void SetTileMap(TileMap* tileMap)
 		{

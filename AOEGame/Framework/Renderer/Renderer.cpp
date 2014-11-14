@@ -192,7 +192,7 @@ namespace Framework
 			Matrix4 matrix = transform.GetMatrix();
 			m_spriteHandler->SetTransform(&matrix.GetD3DMatrix());
 			
-			//Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] Draw Renderable with texture name %s... !\n", texture->GetTexture()->GetName().c_str());
+			
 			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &(transform.GetTranslation().GetD3DVector()), D3DCOLOR_XRGB(255,255,255));
 
 		}

@@ -16,7 +16,7 @@ namespace Framework
 		~TextureRegion();
 
 		Texture*	GetTexture() { return m_texture; }
-		RECT		GetRect()	 { return m_rect;	 }
+		RECT&		GetRect()	 { return m_rect;	 }
 	};
 }
 #endif//__TEXTURE_REGION__
