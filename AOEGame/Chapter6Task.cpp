@@ -66,7 +66,10 @@ bool Chapter6Task::Start()
 	{
 		pTileMapTransformComponent->SetTransform(&pTileMapComponent->GetRenderable().GetTransform());
 		Transform* transform = pTileMapTransformComponent->GetTransform();
-		transform->SetScale(2.6f);
+		transform->SetScale(1.0f);
+		Vector3 position = Vector3(100, 0, 0);
+		transform->SetTranslation(position);
+		transform->SetScale(1.0f);
 	}
 	
 	// PLAYER OBJECT
@@ -93,7 +96,7 @@ bool Chapter6Task::Start()
 	{
 		pTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
 		Transform* transform = pTransformComponent->GetTransform();
-		Vector3 position = Vector3(0, 100, 0);
+		Vector3 position = Vector3(100, 50, 0);
 		transform->SetTranslation(position);
 	}
 	m_playerObject.AddComponent<MovementComponent>();

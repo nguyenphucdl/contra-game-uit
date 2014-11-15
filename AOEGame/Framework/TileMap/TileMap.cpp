@@ -40,13 +40,14 @@ namespace Framework
 		int screen_width = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
 		int screen_height = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 
-		/*int surface_width = screen_height * mapWidth / mapHeight;
-		int surface_height = screen_height;*/
 		int surface_width = mapWidth;
 		int surface_height = mapHeight;
 
 		float vertical_ratio = surface_height / mapHeight;
 		float horizontal_ratio = surface_width / mapWidth;
+
+		int scale_surface_height = screen_height;
+		int scale_surface_width = mapWidth * ((float)screen_height / (float)mapHeight);
 
 		TileSet* tileSet = m_tileSets->at(0);
 
@@ -56,31 +57,9 @@ namespace Framework
 
 		LPDIRECT3DTEXTURE9 lpTileSetTexture = tileSetTexture->GetTexture();
 
-		//zoom surface
-		LPDIRECT3DSURFACE9 pTileSetFitScreenSurface;
-
-		HRESULT result1 = device3D->CreateOffscreenPlainSurface(
-			tileSet->GetImageWidth() * horizontal_ratio,
-			tileSet->GetImageHeight() * vertical_ratio,
-			D3DFMT_X8R8G8B8,
-			D3DPOOL_SYSTEMMEM,
-			&pTileSetFitScreenSurface,
-			NULL);
-		if (FAILED(result1))
-		{
-			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot create tilemap fit sreen surface!");
-		}
 
 		LPDIRECT3DSURFACE9 source, origTarget_; 
 		tileSetTexture->GetTexture()->GetSurfaceLevel(0, &source);
-
-		RECT fitScreen;
-		fitScreen.left = 0;
-		fitScreen.right = tileSet->GetImageWidth() * horizontal_ratio;
-		fitScreen.top = 0;
-		fitScreen.bottom = tileSet->GetImageHeight() * vertical_ratio;
-
-		device3D->StretchRect(source, NULL, pTileSetFitScreenSurface, &fitScreen, D3DTEXF_NONE);
 
 		// store orginal rendertarget
 		device3D->GetRenderTarget( 0, &origTarget_ );
@@ -118,11 +97,21 @@ namespace Framework
 
 		D3DXSaveSurfaceToFile("test123Surface.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapSurface, NULL, NULL);
 		
+		LPDIRECT3DSURFACE9 pScaleSurface;
+
+		device3D->CreateRenderTarget(scale_surface_width, scale_surface_height, desc.Format,
+			desc.MultiSampleType, desc.MultiSampleQuality,
+			false, &pScaleSurface, NULL);
+
+		device3D->StretchRect(m_tileMapSurface, NULL, pScaleSurface, NULL, D3DTEXF_NONE);
+
+		D3DXSaveSurfaceToFile("testScaleSurface.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, pScaleSurface, NULL, NULL);
+
 		LPDIRECT3DSURFACE9 pSurface;
 
 		HRESULT result2 = device3D->CreateOffscreenPlainSurface(
-			surface_width,
-			surface_height,
+			scale_surface_width,
+			scale_surface_height,
 			D3DFMT_X8R8G8B8,
 			D3DPOOL_SYSTEMMEM,
 			&pSurface,
@@ -132,8 +121,8 @@ namespace Framework
 			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot create tilemap surface!");
 		}
 
-		result1 = device3D->GetRenderTargetData(m_tileMapSurface, pSurface);
-		if (FAILED(result1))
+		result2 = device3D->GetRenderTargetData(pScaleSurface, pSurface);
+		if (FAILED(result2))
 		{
 			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot get render target data!");
 		}
@@ -141,8 +130,8 @@ namespace Framework
 
 		HRESULT result = D3DXCreateTexture(
 			device3D,
-			surface_width,
-			surface_height,
+			scale_surface_width,
+			scale_surface_height,
 			1,
 			D3DUSAGE_DYNAMIC,
 			D3DFMT_X8R8G8B8,
@@ -167,7 +156,7 @@ namespace Framework
 		
 		D3DXSaveTextureToFile("test123Texture.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapTexture, NULL);
 
-		Texture *texture = new Texture(m_tag, m_tileMapTexture, mapWidth, mapHeight);
+		Texture *texture = new Texture(m_tag, m_tileMapTexture, scale_surface_width, scale_surface_height);
 		RegisterTexture(m_tag, texture);
 	}
 }

@@ -45,7 +45,7 @@ namespace Framework
 				{
 					Transform* transform = pTransformComponent->GetTransform();
 					Vector3& translation = transform->GetTranslation();
-					int pos = translation.m_x - 100;
+					int pos = translation.m_x;
 					if (pos < 0)
 						pos = 0;
 					m_viewPort->left = pos;
