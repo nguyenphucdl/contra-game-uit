@@ -34,6 +34,8 @@ namespace Framework
 
 		virtual void Initialize();
 
+
+	private:
 		virtual void HandleEvent(Event* pEvent);
 	};
 }

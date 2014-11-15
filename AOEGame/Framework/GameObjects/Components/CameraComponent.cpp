@@ -7,7 +7,6 @@ namespace Framework
 {
 	CameraComponent::CameraComponent(GameObject* pOwner)
 		: Component(pOwner)
-		, m_viewPort(NULL)
 		, m_attachObject(NULL)
 		, m_pressed(false)
 	{
@@ -16,13 +15,19 @@ namespace Framework
 		Framework::AttachEvent(Framework::KEYUP_EVENT, *this);
 	}
 
+	void CameraComponent::SetViewportOrigin(int x, int y)
+	{
+		Renderer::GetSingletonPtr()->SetViewportOrigin(x, y);
+		Renderer::GetSingletonPtr()->ResetViewport();
+	}
+
 	CameraComponent::~CameraComponent()
 	{
 	}
 
 	void CameraComponent::Initialize()
 	{
-		m_viewPort = &Renderer::GetSingletonPtr()->GetViewport();
+		
 	}
 
 	void CameraComponent::HandleEvent(Event* pEvent)
@@ -45,14 +50,15 @@ namespace Framework
 				{
 					Transform* transform = pTransformComponent->GetTransform();
 					Vector3& translation = transform->GetTranslation();
-					int pos = translation.m_x;
-					if (pos < 0)
-						pos = 0;
-					m_viewPort->left = pos;
-					m_viewPort->right = m_viewPort->left + 640;
+					
+					Renderer::GetSingletonPtr()->UpdateViewport(&translation);
+
+					RECT viewport = Renderer::GetSingletonPtr()->GetViewport();
+
 					Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] Timer at %f\n", Timer::GetSingletonPtr()->GetTimeSim());
-					Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] POSTUPDATE_EVENT camera pos x %d\n", pos);
+					//Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] POSTUPDATE_EVENT camera translation x %f\n", Renderer::GetSingletonPtr()->GetViewportTranslate().m_x);
 				}
+					
 			}
 		}
 			break;

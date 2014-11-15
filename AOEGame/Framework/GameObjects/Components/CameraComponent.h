@@ -19,7 +19,6 @@ namespace Framework
 	private:
 		static const unsigned int s_id = 3;
 
-		RECT*			m_viewPort;
 		GameObject*		m_attachObject;
 
 		bool			m_pressed;
@@ -31,8 +30,7 @@ namespace Framework
 
 		virtual void Initialize();
 
-		void	SetViewport(RECT* viewport)			{ m_viewPort = viewport; }
-		RECT*	GetViewport()						{ return m_viewPort; }
+		void	SetViewportOrigin(int x, int y);
 		void	AttachObject(GameObject* gameObj)	{ m_attachObject = gameObj; }
 		GameObject* GetAttachObject()				{ return m_attachObject; }
 

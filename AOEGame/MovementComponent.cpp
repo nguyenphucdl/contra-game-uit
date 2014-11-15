@@ -46,7 +46,7 @@ namespace Framework
 						Vector3& translation = pTransformComponent->GetTransform()->GetTranslation();
 						translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeSim();
 
-						Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
+						//Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
 					}
 				}
 			}
@@ -56,8 +56,8 @@ namespace Framework
 			int keyCode = (int)pEvent->GetData();
 
 			switch (keyCode)
-			{
-			case DIK_LEFT:
+			case DIK_LEFT:			{
+
 			{
 				m_velocity.m_x *= (m_velocity.m_x > 0) ? -1.0f : 1.0f;
 				m_move = true;

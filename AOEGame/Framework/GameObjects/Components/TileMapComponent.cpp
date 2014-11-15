@@ -42,12 +42,26 @@ namespace Framework
 		Renderer::GetSingleton().AddRenderable(&m_renderable);
 	}
 
-	void TileMapComponent::UpdateMapView(RECT& view)
+	void TileMapComponent::UpdateMapView(RECT view)
 	{
 		m_mapViewport->left = view.left;
 		m_mapViewport->right = view.right;
 		m_mapViewport->top = view.top;
 		m_mapViewport->bottom = view.bottom;
+	}
+
+	void TileMapComponent::UpdateHorizontalScrollView(int x)
+	{
+		int delta = x - m_mapViewport->left;
+		m_mapViewport->left += delta;
+		m_mapViewport->right += delta;
+	}
+
+	void TileMapComponent::UpdateVerticalScrollView(int y)
+	{
+		int delta = y - m_mapViewport->top;
+		m_mapViewport->top += delta;
+		m_mapViewport->bottom += delta;
 	}
 
 	void TileMapComponent::HandleEvent(Event* pEvent)
@@ -65,7 +79,7 @@ namespace Framework
 
 			break;
 		case RENDER_EVENT:
-			UpdateMapView(Renderer::GetSingletonPtr()->GetViewport());
+			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetViewport().left);
 			break;
 		default:
 			m_scroll = false;

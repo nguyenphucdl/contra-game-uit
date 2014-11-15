@@ -66,10 +66,9 @@ bool Chapter6Task::Start()
 	{
 		pTileMapTransformComponent->SetTransform(&pTileMapComponent->GetRenderable().GetTransform());
 		Transform* transform = pTileMapTransformComponent->GetTransform();
-		transform->SetScale(1.0f);
-		Vector3 position = Vector3(100, 0, 0);
+		
+		Vector3 position = Vector3(0, 0, 0);
 		transform->SetTranslation(position);
-		transform->SetScale(1.0f);
 	}
 	
 	// PLAYER OBJECT

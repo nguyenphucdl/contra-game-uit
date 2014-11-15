@@ -6,6 +6,7 @@
 
 #include "../Platform/Window.h"
 #include "Renderable.h"
+#include "../Application/Context.h"
 
 // DirectX pointer types
 #define	LP_D3DEVICE			LPDIRECT3DDEVICE9
@@ -45,7 +46,10 @@ namespace Framework
 
 		RenderableVector					m_renerables;
 	
-		RECT								m_viewport;
+		Vector3								m_viewOrigin;
+		//RECT								m_viewport;// OLD Predicate
+		Vector3								m_viewTranslate;
+
 	public:
 		explicit Renderer(const unsigned int priority);
 		virtual ~Renderer();
@@ -70,10 +74,17 @@ namespace Framework
 		HDC		getDC()	{ return GetDC(m_hwnd); }
 
 		// get functions
-		LP_D3DEVICE	getD3device()	{ return m_device3d; }	
-		LP_3D		get3D()			{ return m_direct3d; }
-		void	SetViewport(RECT& viewport) { m_viewport = viewport; }
-		RECT&	GetViewport()		{ return m_viewport; }
+		LP_D3DEVICE	getD3device()					{ return m_device3d; }	
+		LP_3D		get3D()							{ return m_direct3d; }
+		RECT&		GetViewport();
+		Vector3&	GetViewportTranslate()			{ return m_viewTranslate; }
+		void		UpdateViewport(Vector3* translate);
+		void		ResetViewport();
+		void		SetViewportOrigin(int x, int y);
+		Vector3		GetViewportLocation();
+
+	private:
+		void		_UpdateViewport();
 
 	public://test public
 		void	Draw(Renderable* pRenderable);

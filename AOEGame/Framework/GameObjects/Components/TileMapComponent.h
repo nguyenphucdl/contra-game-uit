@@ -37,7 +37,11 @@ namespace Framework
 
 		virtual void HandleEvent(Event* pEvent);
 
-		void UpdateMapView(RECT& view);
+		void UpdateMapView(RECT view);
+
+		void UpdateHorizontalScrollView(int x);
+
+		void UpdateVerticalScrollView(int y);
 
 		void SetTileMap(TileMap* tileMap)
 		{

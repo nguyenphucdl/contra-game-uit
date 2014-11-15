@@ -4,14 +4,16 @@ namespace Framework
 {
 	Renderer::Renderer(const unsigned int priority)
 		: Task(priority, "Renderer Task")
+		, m_direct3d(NULL)
+		, m_device3d(NULL)
+		, m_fullScreen(false)
+		, m_viewOrigin(0, 0, 0)
+		, m_viewTranslate(0, 0, 0)
+		
 	{
-		m_direct3d = NULL;
-		m_device3d = NULL;
-		m_fullScreen = false;
 		m_width = GameConfig::GetSingletonPtr()->GetInt("GAME_WIDTH");
 		m_height = GameConfig::GetSingletonPtr()->GetInt("GAME_HEIGHT");
 		m_backColor = SETCOLOR_ARGB(255,0,0,128); // dark blue
-		//m_renerables.reserve(16);
 	}
 
 	Renderer::~Renderer()
@@ -31,11 +33,6 @@ namespace Framework
 		m_width = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
 		m_height = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 		m_fullScreen = GameConfig::GetSingletonPtr()->GetBool(ConfigKey::FULLSCREEN);
-		//test
-		m_viewport.left = 0;
-		m_viewport.right = m_viewport.left + m_width;
-		m_viewport.top = 0;
-		m_viewport.bottom = m_viewport.top + m_height;
 
 
 		//initialize Direct3D
@@ -285,5 +282,33 @@ namespace Framework
 	}
 	void Renderer::Stop()
 	{
+	}
+	
+	RECT& Renderer::GetViewport()
+	{
+		Vector3 pos = m_viewOrigin;
+		pos.Add(m_viewTranslate);
+		RECT result;
+		result.left = pos.m_x;
+		result.right = result.left + m_width;
+		result.top = pos.m_y;
+		result.bottom = result.top + m_height;
+		return result;
+	}
+
+	void Renderer::SetViewportOrigin(int x, int y)
+	{
+		m_viewOrigin.m_x = x;
+		m_viewOrigin.m_y = y;
+	}
+
+	void Renderer::ResetViewport()
+	{
+		m_viewTranslate.Set(0, 0, 0);
+	}
+
+	void Renderer::UpdateViewport(Vector3* translate)
+	{
+		m_viewTranslate.Set(translate->m_x, translate->m_y, translate->m_z);
 	}
 }
