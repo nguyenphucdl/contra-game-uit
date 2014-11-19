@@ -20,7 +20,11 @@ namespace Framework
 		//Geometry*				m_pGeometry;         Rectangle, Eclipse, Oval, Triangle ...
 		TextureRegion*			m_pTextureRegion;
 		Transform				m_transform;
+		Vector3					m_origin;
+		bool					m_renderTrans ;// Enable OR Disable transform
 
+
+		// Fulture use only
 		Vector3					m_min;
 		Vector3					m_max;
 		bool					m_useBounds;
@@ -46,6 +50,13 @@ namespace Framework
 		void				SetUseBounds(bool enabled)			{ m_useBounds = enabled;	}
 		bool				GetUseBounds() const				{ return m_useBounds;	}
 
+		Vector3&			GetOrigin()							{ return m_origin;		}
+		void				SetOrigin(Vector3& origin)			{ m_origin = origin;	}
+
+		bool				GetRenderTransform()						{ return m_renderTrans; }
+		void				SetRenderTransform(bool renderTrans)		{ m_renderTrans = renderTrans; }
+
+		Vector3			GetPosition();
 		//bool				IsInitialized() const { return m_pGeometry; }
 	};
 
@@ -53,6 +64,8 @@ namespace Framework
 		: m_pTextureRegion(NULL)
 		, m_useBounds(false)
 		, m_zIndex(RenderableIndex::OBJECT_INDEX)
+		, m_renderTrans(true)
+		, m_origin(0, 0, 0)
 	{
 	}
 	inline Renderable::~Renderable()
@@ -66,5 +79,15 @@ namespace Framework
 	{
 		m_pTextureRegion = pTextureRegion;
 	}
+	inline Vector3	Renderable::GetPosition()
+	{
+		Vector3 position = m_origin;
+		if (m_renderTrans)
+		{
+			Transform::Vector3Transform(&m_origin, &position, &m_transform);
+		}
+		return position;
+	}
+
 }
 #endif

@@ -47,8 +47,8 @@ namespace Framework
 		RenderableVector					m_renerables;
 	
 		Vector3								m_viewOrigin;
-		//RECT								m_viewport;// OLD Predicate
 		Vector3								m_viewTranslate;
+		Transform							m_viewTransform;
 
 	public:
 		explicit Renderer(const unsigned int priority);
@@ -82,6 +82,8 @@ namespace Framework
 		void		ResetViewport();
 		void		SetViewportOrigin(int x, int y);
 		Vector3		GetViewportLocation();
+		Transform&	GetViewTransform();
+		void		UpdateViewTransform(Transform* trans);
 
 	private:
 		void		_UpdateViewport();

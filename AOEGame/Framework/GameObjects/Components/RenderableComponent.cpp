@@ -1,13 +1,14 @@
 #include "RenderableComponent.h"
 #include "TransformComponent.h"
 #include "../GameObject.h"
-
+#include "../../EventManager/EventManager.h"
 
 namespace Framework
 {
 	RenderableComponent::RenderableComponent(GameObject* pOwner)
 		:	Component(pOwner)
 	{
+		Framework::AttachEvent(RENDER_EVENT, *this);
 	}
 
 	RenderableComponent::~RenderableComponent()

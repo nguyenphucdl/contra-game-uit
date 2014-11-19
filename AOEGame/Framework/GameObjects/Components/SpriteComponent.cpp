@@ -43,6 +43,25 @@ namespace Framework
 		if (exist)
 			m_animationList.erase(m_animIt);
 	}
+	void SpriteComponent::SetOrigin(Vector3& origin)
+	{
+		m_renderable.SetOrigin(origin);
+	}
+
+	Vector3& SpriteComponent::GetOrigin()
+	{
+		return m_renderable.GetOrigin();
+	}
+
+	void SpriteComponent::SetRenderTransform(bool renderTrans)
+	{
+		m_renderable.SetRenderTransform(renderTrans);
+	}
+
+	bool SpriteComponent::GetRenderTransform()
+	{
+		return m_renderable.GetRenderTransform();
+	}
 
 	void SpriteComponent::Initialize()
 	{

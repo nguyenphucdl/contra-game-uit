@@ -9,6 +9,7 @@ namespace Framework
 		, m_fullScreen(false)
 		, m_viewOrigin(0, 0, 0)
 		, m_viewTranslate(0, 0, 0)
+		, m_viewTransform()
 		
 	{
 		m_width = GameConfig::GetSingletonPtr()->GetInt("GAME_WIDTH");
@@ -183,15 +184,22 @@ namespace Framework
 		{
 			TextureRegion *texture = pRenderable->GetTextureRegion();
 
-			Transform& transform = pRenderable->GetTransform();
+			//Transform& transform = pRenderable->GetTransform();
+			//Transform worldTransform, inverseViewTransform, resultTransform;
+			//worldTransform.Clone(transform);
+			//m_viewTransform.GetInverseTransform(inverseViewTransform);
+			//worldTransform.Multiply(inverseViewTransform);
+			
 			//D3DXMATRIX matrix;
 			//D3DXMatrixAffineTransformation2D(&matrix, 2.5, 0, 0, 0);
 
-			//Matrix4 matrix = transform.GetMatrix();
+			//Matrix4 matrix = worldTransform.GetMatrix();
+
 			//m_spriteHandler->SetTransform(&matrix.GetD3DMatrix());
+			Vector3 posVector = pRenderable->GetPosition();
+			D3DXVECTOR3 pos = posVector.GetD3DVector();
 			
-			
-			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &(transform.GetTranslation().GetD3DVector()), D3DCOLOR_XRGB(255,255,255));
+			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &pos, D3DCOLOR_XRGB(255, 255, 255));
 
 		}
 	}
@@ -310,5 +318,15 @@ namespace Framework
 	void Renderer::UpdateViewport(Vector3* translate)
 	{
 		m_viewTranslate.Set(translate->m_x, translate->m_y, translate->m_z);
+	}
+
+	Transform& Renderer::GetViewTransform()
+	{
+		return m_viewTransform;
+	}
+
+	void Renderer::UpdateViewTransform(Transform* trans)
+	{
+		m_viewTransform.Clone(*trans);
 	}
 }

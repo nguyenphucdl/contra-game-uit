@@ -37,10 +37,14 @@ namespace Framework
 
 		const Matrix4&	GetMatrix();
 		void			GetInverseMatrix(Matrix4& out) const;
+		void			GetInverseTransform(Transform& out) const;
 		void			GetInverseTransposeMatrix(Matrix4& out) const;
 		void			GetInverseTransposeMatrix(Matrix3& out) const;
 
 		Transform		Multiply(Transform& input) const;
+
+	public:
+		static void Vector3Transform(_In_ Vector3* pIn, _Out_ Vector3 *pOut, _In_ Transform* pTransform);
 	};
 }
 

@@ -58,18 +58,17 @@ bool Chapter6Task::Start()
 		pTileMapComponent->SetTileMap(tileMap);
 		
 		pTileMapComponent->Initialize();
-		Framework::AttachEvent(Framework::RENDER_EVENT, *pTileMapComponent);
 	}
-	m_tileMapObject.AddComponent<TransformComponent>();
+	/*m_tileMapObject.AddComponent<TransformComponent>();
 	TransformComponent* pTileMapTransformComponent = component_cast<TransformComponent>(m_tileMapObject);
 	if (pTileMapTransformComponent)
 	{
 		pTileMapTransformComponent->SetTransform(&pTileMapComponent->GetRenderable().GetTransform());
 		Transform* transform = pTileMapTransformComponent->GetTransform();
 		
-		Vector3 position = Vector3(0, 0, 0);
-		transform->SetTranslation(position);
-	}
+		Vector3 translation = Vector3(0, 100, 0);
+		transform->SetTranslation(translation);
+	}*/
 	
 	// PLAYER OBJECT
 	m_playerObject.AddComponent<SpriteComponent>();
@@ -81,6 +80,10 @@ bool Chapter6Task::Start()
 		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 0.15f, sheet, 5, 2, 4, 6);
 		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeftAnim", 0.15f, sheet, 5, 2, 1, 5);
 		Animation* sitRightAnim = Animation::CreateAnimation("sitRightAnim", 0.15f, sheet, 5, 2, 1, 4);
+
+		Vector3 position = Vector3(100, 100, 0);
+		pSpriteComponent->SetRenderTransform(false);
+		pSpriteComponent->SetOrigin(position);
 
 		pSpriteComponent->RegisterState(SpriteState::MOVELEFT, moveLeftAnim);
 		pSpriteComponent->RegisterState(SpriteState::MOVERIGHT, moveRightAnim);
@@ -95,14 +98,14 @@ bool Chapter6Task::Start()
 	{
 		pTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
 		Transform* transform = pTransformComponent->GetTransform();
-		Vector3 position = Vector3(100, 50, 0);
-		transform->SetTranslation(position);
+		Vector3 translation = Vector3(100, 150, 0);
+		transform->SetTranslation(translation);
 	}
 	m_playerObject.AddComponent<MovementComponent>();
 	MovementComponent* pMovementComponent = component_cast<MovementComponent>(m_playerObject);
 	if (pMovementComponent)
 	{
-		pMovementComponent->SetVelocityX(100.0f);
+		pMovementComponent->SetVelocityX(200.0f);
 		pMovementComponent->Initialize();
 	}
 

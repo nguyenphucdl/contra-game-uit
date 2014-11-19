@@ -52,6 +52,14 @@ namespace Framework
 
 		void RemoveState(SpriteState state);
 
+		void SetOrigin(Vector3& origin);
+
+		Vector3& GetOrigin();
+
+		void SetRenderTransform(bool renderTrans);
+
+		bool GetRenderTransform();
+
 		void SetDefaultState(SpriteState state) { m_curState = state; }
 
 		//void UpdateTransform(Transform& transfrom) { m_renderable.GetTransform().Clone(transfrom); }

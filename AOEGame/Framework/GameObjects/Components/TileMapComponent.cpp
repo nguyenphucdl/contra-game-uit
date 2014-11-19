@@ -15,7 +15,7 @@ namespace Framework
 		Framework::AttachEvent(KEYDOWN_EVENT, *this);
 		Framework::AttachEvent(KEYUP_EVENT, *this);
 		Framework::AttachEvent(UPDATE_EVENT, *this);
-		Framework::AttachEvent(RENDER_EVENT, *this);
+		Framework::AttachEvent(RENDER_EVENT, *this);		
 	}
 
 	TileMapComponent::~TileMapComponent()
@@ -36,7 +36,7 @@ namespace Framework
 		m_mapViewport = &tileMapRegion->GetRect();
 		m_renderable.SetTextureRegion(tileMapRegion);
 
-		
+		m_renderable.SetRenderTransform(false);
 
 		assert(Renderer::GetSingletonPtr());
 		Renderer::GetSingleton().AddRenderable(&m_renderable);

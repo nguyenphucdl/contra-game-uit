@@ -139,6 +139,15 @@ namespace Framework
 		out.m_m[15] = 1.0f;
 	}
 
+	void Transform::GetInverseTransform(Transform& out) const
+	{
+		float invScale = 1.0f / m_scale;
+		Vector3 invTranslation = Vector3(-m_translation.m_x, -m_translation.m_y, -m_translation.m_z);
+		out.Clone(*this);
+		out.SetScale(invScale);
+		out.SetTranslation(invTranslation);
+	}
+
 	void Transform::GetInverseTransposeMatrix(Matrix3& out) const
 	{
 		float invScale = 1.0f / m_scale;
@@ -166,5 +175,13 @@ namespace Framework
 		result.m_scale = m_scale * input.GetScale();
 
 		return result;
+	}
+
+	void Transform::Vector3Transform(_In_ Vector3* pIn, _Out_ Vector3 *pOut, _In_ Transform* pTransform)
+	{
+		Matrix4 matrixTrans = pTransform->GetMatrix();
+		D3DXVECTOR4 result;
+		D3DXVec3Transform(&result, &pIn->GetD3DVector(), &matrixTrans.GetD3DMatrix());
+		pOut->Set(result.x, result.y, result.z);
 	}
 }
