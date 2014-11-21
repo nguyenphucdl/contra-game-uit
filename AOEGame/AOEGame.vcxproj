@@ -93,6 +93,7 @@
     <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\SpriteComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\StaticComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\TileMapComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h" />
     <ClInclude Include="Framework\GameObjects\GameObject.h" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\SpriteComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\StaticComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\TileMapComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\GameObject.cpp" />

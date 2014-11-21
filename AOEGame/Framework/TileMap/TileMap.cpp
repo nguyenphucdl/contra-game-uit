@@ -47,6 +47,7 @@ namespace Framework
 		float horizontal_ratio = surface_width / mapWidth;
 
 		int scale_surface_height = screen_height;
+		float scale_ratio = (float)screen_height / (float)mapHeight;
 		int scale_surface_width = mapWidth * ((float)screen_height / (float)mapHeight);
 
 		TileSet* tileSet = m_tileSets->at(0);

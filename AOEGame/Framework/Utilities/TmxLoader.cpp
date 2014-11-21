@@ -1,6 +1,7 @@
 #include "TmxLoader.h"
 
 #include "../Renderer/Texture/TextureManager.h"
+#include "../GameObjects/Components/StaticComponent.h"
 
 namespace Framework
 {
@@ -98,22 +99,49 @@ namespace Framework
 		m_tileMap->SetTileSets(m_tileSets);
 		m_tileMap->SetMapData(mapData);
 
+		// Parse object group
+		xml_node<> *objectLayer = m_rootNode->first_node("objectgroup");
+		xml_node<> *objectNode;
+		vector<GameObject*> gameObjects;
+		objectNode = objectLayer->first_node("object");
+		for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
+		{
+			GameObject* gameObj = new GameObject();
+			gameObj->AddComponent<StaticComponent>();
+			StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
+			if (pStaticComponent)
+			{
+				int x = atoi(objectNode->first_attribute("x")->value());
+				int y = atoi(objectNode->first_attribute("y")->value());
+				int width = atoi(objectNode->first_attribute("width")->value());
+				int height = atoi(objectNode->first_attribute("height")->value());
+
+				
+				int mapWidth = m_tileMap->GetWidth() * m_tileMap->GetTileWidth();
+				int mapHeight = m_tileMap->GetHeight() * m_tileMap->GetTileHeight();
+
+				int screenWidth = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
+				int screenHeight = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
+
+				float scaleRatio = (float)screenHeight / (float)mapHeight;
+				D3DXMATRIX transform_scale;
+				D3DXMatrixAffineTransformation2D(&transform_scale, scaleRatio, NULL, NULL, NULL);
+
+				D3DXVECTOR4 pointOrigin, resultTrans;
+				pointOrigin.x = x;
+				pointOrigin.y = y;
+				
+				D3DXVec4Transform(&resultTrans, &pointOrigin, &transform_scale);
+
+				RECT bound;
+				bound.left = resultTrans.x;
+				bound.right = resultTrans.x + width * scaleRatio;
+				bound.top = resultTrans.y;
+				bound.bottom = resultTrans.y + height * scaleRatio;
+			}
+			gameObjects.push_back(gameObj);
+		}
+		m_tileMap->SetObjects(&gameObjects);
 		return true;
 	}
 }
-
-//for(int m = 0; m < mapLayerHeight; m++)
-//{
-//	for(int n = 0; n < mapLayerWidth; n++)
-//	{
-//		tileNode = mapLayer->first_node("tile");
-//		if(tileNode != NULL)
-//		{
-//			mapData[m][n] = atoi(tileNode->first_attribute("gid")->value());
-//		}
-//		else
-//		{
-//			// break and alert
-//		}
-//	}
-//}

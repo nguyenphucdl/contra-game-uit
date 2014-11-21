@@ -2,6 +2,7 @@
 #define __TILEMAP_H__
 #include "../Application/Context.h"
 #include "TileSet.h"
+#include "../GameObjects/GameObject.h"
 using  namespace std;
 
 namespace Framework
@@ -21,6 +22,7 @@ namespace Framework
 		int						m_height;
 		vector<int>*			m_mapData; 		
 		vector<TileSet*>*		m_tileSets;
+		vector<GameObject*>*	m_objects;
 
 		//RENDER TO SURFACE
 		LPDIRECT3DSURFACE9		m_tileMapSurface;
@@ -53,6 +55,15 @@ namespace Framework
 		vector<TileSet*>*	GetTileSets()
 		{
 			return m_tileSets;
+		}
+		void	SetObjects(vector<GameObject*>* gameObjects)
+		{
+			m_objects = gameObjects;
+		}
+
+		vector<GameObject*>* GetOjects()
+		{
+			return m_objects;
 		}
 		bool	Init();
 	};

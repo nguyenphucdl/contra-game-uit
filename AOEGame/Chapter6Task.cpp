@@ -57,7 +57,11 @@ bool Chapter6Task::Start()
 	if (pTileMapComponent)
 	{
 		pTileMapComponent->SetTileMap(tileMap);
-		
+		Renderable& renderable = pTileMapComponent->GetRenderable();
+		Vector3 tileMapOrigin = Vector3(0, 480, 1);
+		renderable.SetOrigin(tileMapOrigin);
+		renderable.SetRenderTransform(false);
+
 		pTileMapComponent->Initialize();
 	}
 	/*m_tileMapObject.AddComponent<TransformComponent>();
@@ -128,7 +132,7 @@ bool Chapter6Task::Start()
 		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 0.15f, sheet, 10, 10, 1, 8);
 		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 0.15f, sheet, 10, 10, 1, 9);
 
-		Vector3 position = Vector3(200, 100, 0);
+		Vector3 position = Vector3(100, 480, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 

@@ -184,23 +184,25 @@ namespace Framework
 		{
 			TextureRegion *texture = pRenderable->GetTextureRegion();
 
-			//Transform& transform = pRenderable->GetTransform();
-			//Transform worldTransform, inverseViewTransform, resultTransform;
-			//worldTransform.Clone(transform);
-			//m_viewTransform.GetInverseTransform(inverseViewTransform);
-			//worldTransform.Multiply(inverseViewTransform);
-			
-			//D3DXMATRIX matrix;
-			//D3DXMatrixAffineTransformation2D(&matrix, 2.5, 0, 0, 0);
-
-			//Matrix4 matrix = worldTransform.GetMatrix();
-
-			//m_spriteHandler->SetTransform(&matrix.GetD3DMatrix());
 			Vector3 posVector = pRenderable->GetPosition();
 			D3DXVECTOR3 pos = posVector.GetD3DVector();
-			
-			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &pos, D3DCOLOR_XRGB(255, 255, 255));
 
+			D3DXMATRIX flipYMatrix, translateMatrix;
+			D3DXMatrixIdentity(&flipYMatrix);
+			D3DXMatrixIdentity(&translateMatrix);
+			flipYMatrix._22 = -1;
+			translateMatrix._42 = 480;
+
+			D3DXMATRIX resultMatrix;
+			D3DXMatrixMultiply(&resultMatrix, &flipYMatrix, &translateMatrix);
+			D3DXVECTOR4 posTransV4;
+			D3DXVec3Transform(&posTransV4, &pos, &resultMatrix);
+			D3DXVECTOR3 positionTrans;
+			positionTrans.x = posTransV4.x;
+			positionTrans.y = posTransV4.y;
+			positionTrans.z = posTransV4.z;
+
+			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &positionTrans, D3DCOLOR_XRGB(255, 255, 255));
 		}
 	}
 
@@ -263,6 +265,12 @@ namespace Framework
 			// begin sprite handler
 			m_spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 			
+
+			
+
+			//m_spriteHandler->SetTransform(&resultMatrix);
+			
+
 			// draw 2D 
 			for(RenderableVectorIterator iter = m_renerables.begin(); iter != m_renerables.end(); ++iter)
 			{
