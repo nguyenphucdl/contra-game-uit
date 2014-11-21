@@ -55,7 +55,7 @@ namespace Framework
 
 					RECT viewport = Renderer::GetSingletonPtr()->GetViewport();
 
-					Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] Timer at %f\n", Timer::GetSingletonPtr()->GetTimeSim());
+					//Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] Timer at %f\n", Timer::GetSingletonPtr()->GetTimeSim());
 					//Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] POSTUPDATE_EVENT camera translation x %f\n", Renderer::GetSingletonPtr()->GetViewportTranslate().m_x);
 				}
 					

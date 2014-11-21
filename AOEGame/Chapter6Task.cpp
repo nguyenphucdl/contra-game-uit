@@ -33,7 +33,7 @@ bool Chapter6Task::Start()
 	Framework::AttachEvent(Framework::KEYUP_EVENT, *this);
 
 	// Test
-	TmxLoader *tmxLoader = new TmxLoader("map1-2.tmx");
+	TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
 	tmxLoader->Load();
 	
 	TileMap* tileMap = tmxLoader->GetTileMap();
@@ -41,7 +41,8 @@ bool Chapter6Task::Start()
 
 
 	Log::info(Log::LOG_LEVEL_MIN, "[Chapter6Task] Start... !\n");
-	RegisterTexture("mariobig.png");
+	RegisterTexture("mariobig.png");	
+	RegisterTexture("ContraSpriteFull.png");
 	///TextureLoad();///////////////////////////////////////////////////////////////////
 
 	RegisterEvent(UPDATE_EVENT);
@@ -70,43 +71,91 @@ bool Chapter6Task::Start()
 		transform->SetTranslation(translation);
 	}*/
 	
-	// PLAYER OBJECT
+	//// CONTRA FINAL OBJECT
+	//m_contraFinalObject.AddComponent<SpriteComponent>();
+	//SpriteComponent* pSpriteFinalComponent = component_cast<SpriteComponent>(m_contraFinalObject);
+	//if (pSpriteFinalComponent)
+	//{
+	//	Texture* sheet = GetTexture("ContraSpriteFull.png");
+	//	Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 0.15f, sheet, 10, 10, 3,  20);
+	//	Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 0.15f, sheet, 10, 10, 3, 23);
+	//	Animation* jumpRightAnim = Animation::CreateAnimation("jumpRightAnim", 0.15f, sheet, 10, 10, 4, 50);
+	//	Animation* jumpLeftAnim = Animation::CreateAnimation("jumpLeftAnim", 0.15f, sheet, 10, 10, 4, 54);
+	//	Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 0.15f, sheet, 10, 10, 1, 8);
+	//	Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 0.15f, sheet, 10, 10, 1, 9);
+
+	//	Vector3 position = Vector3(200, 100, 0);
+	//	pSpriteFinalComponent->SetRenderTransform(false);
+	//	pSpriteFinalComponent->SetOrigin(position);
+
+	//	pSpriteFinalComponent->RegisterState(SpriteState::MOVELEFT, moveLeftAnim);
+	//	pSpriteFinalComponent->RegisterState(SpriteState::MOVERIGHT, moveRightAnim);
+	//	pSpriteFinalComponent->RegisterState(SpriteState::JUMPUPLEFT, jumpLeftAnim);
+	//	pSpriteFinalComponent->RegisterState(SpriteState::JUMPUPRIGHT, jumpRightAnim);
+	//	pSpriteFinalComponent->RegisterState(SpriteState::SITLEFT, sitLeftAnim);
+	//	pSpriteFinalComponent->RegisterState(SpriteState::SITRIGHT, sitRightAnim);
+	//	pSpriteFinalComponent->SetDefaultState(SpriteState::MOVELEFT);
+	//	pSpriteFinalComponent->Initialize();
+	//}
+	//m_contraFinalObject.AddComponent<TransformComponent>();
+	//TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_contraFinalObject);
+	//if (pTransformComponent)
+	//{
+	//	pTransformComponent->SetTransform(&pSpriteFinalComponent->GetRenderable().GetTransform());
+	//	Transform* transform = pTransformComponent->GetTransform();
+	//	Vector3 translation = Vector3(100, 150, 0);
+	//	transform->SetTranslation(translation);
+	//}
+	//m_contraFinalObject.AddComponent<MovementComponent>();
+	//MovementComponent* pMovementComponent = component_cast<MovementComponent>(m_contraFinalObject);
+	//if (pMovementComponent)
+	//{
+	//	pMovementComponent->SetVelocityX(200.0f);
+	//	pMovementComponent->Initialize();
+	//}
+
+
+	//PLAYER OBJECT
 	m_playerObject.AddComponent<SpriteComponent>();
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
 	if (pSpriteComponent)
 	{
-		Texture* sheet = GetTexture("mariobig.png");
-		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 0.15f, sheet, 5, 2, 4, 0, true);
-		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 0.15f, sheet, 5, 2, 4, 6);
-		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeftAnim", 0.15f, sheet, 5, 2, 1, 5);
-		Animation* sitRightAnim = Animation::CreateAnimation("sitRightAnim", 0.15f, sheet, 5, 2, 1, 4);
+		Texture* sheet = GetTexture("ContraSpriteFull.png");
+		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 0.15f, sheet, 10, 10, 3, 20);
+		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 0.15f, sheet, 10, 10, 3, 23);
+		Animation* jumpRightAnim = Animation::CreateAnimation("jumpRightAnim", 0.15f, sheet, 10, 10, 4, 50);
+		Animation* jumpLeftAnim = Animation::CreateAnimation("jumpLeftAnim", 0.15f, sheet, 10, 10, 4, 54);
+		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 0.15f, sheet, 10, 10, 1, 8);
+		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 0.15f, sheet, 10, 10, 1, 9);
 
-		Vector3 position = Vector3(100, 100, 0);
+		Vector3 position = Vector3(200, 100, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 
 		pSpriteComponent->RegisterState(SpriteState::MOVELEFT, moveLeftAnim);
 		pSpriteComponent->RegisterState(SpriteState::MOVERIGHT, moveRightAnim);
+		pSpriteComponent->RegisterState(SpriteState::JUMPUPLEFT, jumpLeftAnim);
+		pSpriteComponent->RegisterState(SpriteState::JUMPUPRIGHT, jumpRightAnim);
 		pSpriteComponent->RegisterState(SpriteState::SITLEFT, sitLeftAnim);
 		pSpriteComponent->RegisterState(SpriteState::SITRIGHT, sitRightAnim);
-		pSpriteComponent->SetDefaultState(SpriteState::MOVERIGHT);
+		pSpriteComponent->SetDefaultState(SpriteState::MOVELEFT);
 		pSpriteComponent->Initialize();
 	}
 	m_playerObject.AddComponent<TransformComponent>();
-	TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_playerObject);
-	if (pTransformComponent)
+	TransformComponent* pPlayerTransformComponent = component_cast<TransformComponent>(m_playerObject);
+	if (pPlayerTransformComponent)
 	{
-		pTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
-		Transform* transform = pTransformComponent->GetTransform();
+		pPlayerTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
+		Transform* transform = pPlayerTransformComponent->GetTransform();
 		Vector3 translation = Vector3(100, 150, 0);
 		transform->SetTranslation(translation);
 	}
 	m_playerObject.AddComponent<MovementComponent>();
-	MovementComponent* pMovementComponent = component_cast<MovementComponent>(m_playerObject);
-	if (pMovementComponent)
+	MovementComponent* pPlayerMovementComponent = component_cast<MovementComponent>(m_playerObject);
+	if (pPlayerMovementComponent)
 	{
-		pMovementComponent->SetVelocityX(200.0f);
-		pMovementComponent->Initialize();
+		pPlayerMovementComponent->SetVelocityX(200.0f);
+		pPlayerMovementComponent->Initialize();
 	}
 
 	// CAMERA OBJECT

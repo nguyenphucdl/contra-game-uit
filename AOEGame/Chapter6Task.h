@@ -23,6 +23,8 @@ private:
 	Framework::GameObject	m_playerObject;
 	Framework::GameObject	m_tileMapObject;
 	Framework::GameObject	m_cameraObject;
+	Framework::GameObject	m_contraObject;
+	Framework::GameObject	m_contraFinalObject;
 public:
 	Chapter6Task(const unsigned int priority);
 	virtual ~Chapter6Task();

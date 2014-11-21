@@ -85,24 +85,47 @@ namespace Framework
 				{
 					if (m_curState < SpriteDirection::RIGHT)
 					{
-						m_curState = SpriteState::SITLEFT;
+						if (m_animationList.find(SpriteState::SITLEFT) != m_animationList.end())
+							m_curState = SpriteState::SITLEFT;
 					}
 					else
 					{
-						m_curState = SpriteState::SITRIGHT;
+						if (m_animationList.find(SpriteState::SITRIGHT) != m_animationList.end())
+							m_curState = SpriteState::SITRIGHT;
 					}
 				}
 				break;
 			case DIK_RIGHT:
 				{
-				m_curState = SpriteState::MOVERIGHT;
-				m_animate = true;
+					if (m_animationList.find(SpriteState::MOVERIGHT) != m_animationList.end())
+					{
+						m_curState = SpriteState::MOVERIGHT;
+						m_animate = true;
+					}
+				
 				}
 				break;
 			case DIK_LEFT:
 				{
-				m_curState = SpriteState::MOVELEFT;
-				m_animate = true;
+					if (m_animationList.find(SpriteState::MOVELEFT) != m_animationList.end())
+					{
+						m_curState = SpriteState::MOVELEFT;
+						m_animate = true;
+					}
+				}
+				break;
+			case DIK_SPACE:
+				{
+					if (m_curState < SpriteDirection::RIGHT)
+					{
+						if (m_animationList.find(SpriteState::JUMPUPLEFT) != m_animationList.end())
+							m_curState = SpriteState::JUMPUPLEFT;
+					}
+					else
+					{
+						if (m_animationList.find(SpriteState::JUMPUPRIGHT) != m_animationList.end())
+							m_curState = SpriteState::JUMPUPRIGHT;
+					}
 				}
 				break;
 			default:
@@ -116,11 +139,17 @@ namespace Framework
 		{
 			if (m_curState < SpriteDirection::RIGHT)
 			{
-				m_curState = SpriteState::MOVELEFT;
+				if (m_animationList.find(SpriteState::MOVELEFT) != m_animationList.end())
+				{
+					m_curState = SpriteState::MOVELEFT;
+				}
 			}
 			else
 			{
-				m_curState = SpriteState::MOVERIGHT;
+				if (m_animationList.find(SpriteState::MOVERIGHT) != m_animationList.end())
+				{
+					m_curState = SpriteState::MOVERIGHT;
+				}
 			}
 			m_keypressed = false;
 			m_animate = false;

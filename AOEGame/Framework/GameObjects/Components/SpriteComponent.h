@@ -19,9 +19,10 @@ namespace Framework
 	{
 		MOVELEFT = SpriteDirection::LEFT,
 		SITLEFT,
+		JUMPUPLEFT,
 		MOVERIGHT = SpriteDirection::RIGHT,
 		SITRIGHT,
-		JUMPUP
+		JUMPUPRIGHT,
 	};
 	
 	class SpriteComponent
