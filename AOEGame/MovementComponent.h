@@ -19,7 +19,7 @@ namespace Framework
 		static const unsigned int s_id = 9;
 
 		Vector3		m_velocity;
-
+		float		m_gravity;
 		bool		m_keyPressed;
 		bool		m_move;
 

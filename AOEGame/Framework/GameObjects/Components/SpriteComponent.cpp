@@ -1,5 +1,6 @@
 #include "SpriteComponent.h"
 #include "TransformComponent.h"
+#include "../../Utilities/Timer.h"
 namespace Framework
 {
 	SpriteComponent::SpriteComponent(GameObject* pOwner)
@@ -159,6 +160,14 @@ namespace Framework
 		{
 			if (m_keypressed && m_animate)
 				m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
+
+			Renderable& renderable = GetRenderable();
+			Vector3& origin = renderable.GetOrigin();
+			/*origin.m_y = origin.m_y - 5 * Timer::GetSingletonPtr()->GetTimeSim();
+			if (origin.m_y < 100)
+			{
+				origin.m_y = 100;
+			}*/
 		}
 			break;
 		case RENDER_EVENT:

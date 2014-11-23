@@ -53,13 +53,13 @@ namespace Framework
 	void Timer::Update()
 	{
 		QueryPerformanceCounter(&m_timeStart);
-		m_frameDt = (float)(m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (float)(m_timeFreq.QuadPart);
+		m_frameDt = (float)((m_timeStart.QuadPart - m_timeLastFrame.QuadPart)) / (float)(m_timeFreq.QuadPart);
 		m_simDt = m_frameDt * m_simMultiplier;
 
 		m_timeTotal += m_simDt; //Test
 		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeTotal());
 		m_timeLastFrame = m_timeStart;
-		
+		int k = 124;
 	}
 
 	void Timer::OnResume()

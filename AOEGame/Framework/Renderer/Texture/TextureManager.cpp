@@ -177,21 +177,6 @@ namespace Framework
 	void TextureManager::Update()
 	{
 		
-		//if(SUCCEEDED(Renderer::GetSingletonPtr()->beginScene()))
-		//{
-		//	// render custom task
-		//	//Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] Updating... !\n");
-
-		//	//this->DrawAll();
-
-		//	//stop rendering
-		//	Renderer::GetSingletonPtr()->endScene();
-		//}
-		//
-		//Renderer::GetSingletonPtr()->handleLostGraphicsDevice();
-		//
-
-		//Renderer::GetSingletonPtr()->showBackBuffer();
 	}
 	void TextureManager::OnResume()
 	{

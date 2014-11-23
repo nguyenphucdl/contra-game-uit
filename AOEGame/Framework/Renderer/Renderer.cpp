@@ -257,6 +257,16 @@ namespace Framework
 	}
 	void Renderer::Update()
 	{
+
+		
+		LARGE_INTEGER timeStart;
+		LARGE_INTEGER timeEnd;
+		LARGE_INTEGER timeFreq;
+		if (QueryPerformanceFrequency(&timeFreq) == false)
+			throw(GameError(GameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
+		QueryPerformanceCounter(&timeStart);
+		
+
 		if(SUCCEEDED(this->beginScene()))
 		{
 			// render custom task
@@ -292,6 +302,12 @@ namespace Framework
 		
 
 		this->showBackBuffer();
+
+
+		QueryPerformanceCounter(&timeEnd);
+		//LARGE_INTEGER numCounts = timeEnd.QuadPart – timeStart.QuadPart;
+		float frameDt = (float)((timeEnd.QuadPart - timeStart.QuadPart)) / (float)(timeFreq.QuadPart);
+		int k = 123;
 	}
 	void Renderer::OnResume()
 	{

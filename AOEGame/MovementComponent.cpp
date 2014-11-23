@@ -12,6 +12,7 @@ namespace Framework
 		, m_velocity(0, 0, 0)
 		, m_keyPressed(false)
 		, m_move(false)
+		, m_gravity(0.0f)
 	{
 		Framework::AttachEvent(JUMP_EVENT, *this);
 		Framework::AttachEvent(UPDATE_EVENT, *this);
@@ -45,7 +46,12 @@ namespace Framework
 					{
 						Vector3& translation = pTransformComponent->GetTransform()->GetTranslation();
 						translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeSim();
+						/*translation.m_y = translation.m_y - m_gravity * Timer::GetSingletonPtr()->GetTimeSim();
 
+						if (translation.m_y < 200)
+						{
+							translation.m_y = 200;
+						}*/
 						//Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
 					}
 				}
