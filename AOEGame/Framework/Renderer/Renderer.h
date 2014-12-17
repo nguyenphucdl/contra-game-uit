@@ -7,13 +7,14 @@
 #include "../Platform/Window.h"
 #include "Renderable.h"
 #include "../Application/Context.h"
+#include "../Renderer/Texture/TextureManager.h"
 
 // DirectX pointer types
 #define	LP_D3DEVICE			LPDIRECT3DDEVICE9
 #define LP_3D				LPDIRECT3D9
 #define LP_BACKBUFFER		LPDIRECT3DSURFACE9
 #define LP_SPRITEHANDLER	LPD3DXSPRITE
-
+#define DEBUG_REGION		RECT
 namespace Framework
 {
 
@@ -41,14 +42,19 @@ namespace Framework
 		COLOR_ARGB					m_backColor;
 		// width & height & another states
 
-		typedef std::vector<Renderable*>	RenderableVector;
-		typedef	RenderableVector::iterator	RenderableVectorIterator;
+		typedef std::vector<Renderable*>		RenderableVector;
+		typedef	RenderableVector::iterator		RenderableVectorIterator;
+		typedef	std::vector<DEBUG_REGION>		DebugRegionVector;
+		typedef	DebugRegionVector::iterator		DebugRegionVectorIterator;
 
 		RenderableVector					m_renerables;
+		DebugRegionVector					m_debugRegions;
 	
 		Vector3								m_viewOrigin;
 		Vector3								m_viewTranslate;
 		Transform							m_viewTransform;
+
+		D3DXMATRIX							m_worldViewMatrix;
 
 	public:
 		explicit Renderer(const unsigned int priority);
@@ -60,6 +66,9 @@ namespace Framework
 		void AddRenderable(Renderable* pRenderable);
 		void RemoveRenderable(Renderable* pRenderable);
 		
+		void AddDebug(DEBUG_REGION region);
+		void RemoveDebug(DEBUG_REGION region);
+
 		// From Task
 		virtual	bool	Start();
 		virtual	void	OnSuspend();
@@ -90,6 +99,7 @@ namespace Framework
 
 	public://test public
 		void	Draw(Renderable* pRenderable);
+		void	DrawDebug(Renderable* pRenderable);
 		void	releaseAll();
 		void	initD3Dpp();
 		bool	isAdapterCompatible();

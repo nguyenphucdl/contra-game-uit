@@ -5,6 +5,7 @@
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
 {
+
 }
 
 Chapter6Task::~Chapter6Task()
@@ -158,7 +159,7 @@ bool Chapter6Task::Start()
 	MovementComponent* pPlayerMovementComponent = component_cast<MovementComponent>(m_playerObject);
 	if (pPlayerMovementComponent)
 	{
-		pPlayerMovementComponent->SetVelocityX(200.0f);
+		pPlayerMovementComponent->SetVelocityX(100.0f);
 		pPlayerMovementComponent->Initialize();
 	}
 

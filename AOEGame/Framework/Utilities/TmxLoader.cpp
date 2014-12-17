@@ -138,6 +138,9 @@ namespace Framework
 				bound.right = resultTrans.x + width * scaleRatio;
 				bound.top = resultTrans.y;
 				bound.bottom = resultTrans.y + height * scaleRatio;
+				pStaticComponent->SetBound(bound);
+
+				pStaticComponent->Initialize();
 			}
 			gameObjects.push_back(gameObj);
 		}

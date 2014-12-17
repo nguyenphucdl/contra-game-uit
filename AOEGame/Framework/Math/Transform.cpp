@@ -184,4 +184,15 @@ namespace Framework
 		D3DXVec3Transform(&result, &pIn->GetD3DVector(), &matrixTrans.GetD3DMatrix());
 		pOut->Set(result.x, result.y, result.z);
 	}
+
+	D3DXVECTOR3 Transform::GetVector3FromWorldView(_In_ D3DXVECTOR3& posIn, _In_ D3DXMATRIX& matrixWorldView)
+	{
+		D3DXVECTOR4 posTransV4;
+		D3DXVec3Transform(&posTransV4, &posIn, &matrixWorldView);
+		D3DXVECTOR3 positionTrans;
+		positionTrans.x = posTransV4.x;
+		positionTrans.y = posTransV4.y;
+		positionTrans.z = posTransV4.z;
+		return positionTrans;
+	}
 }

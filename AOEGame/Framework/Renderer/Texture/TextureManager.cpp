@@ -154,21 +154,8 @@ namespace Framework
 	}
 
 	// From Task
-	bool TextureManager::Start(){
-
-		TextureManager::GetSingletonPtr()->RegisterTexture("mariobig.png");
-		//TextureManager::GetSingletonPtr()->RegisterTexture("mariobigbigbullet.png");
-		//TextureManager::GetSingletonPtr()->RegisterTexture("mariobigbullet.png");
-
-		//TextureManager::GetSingletonPtr()->Load();
-
-		/*HRESULT _result = D3DXCreateSprite(Renderer::GetSingletonPtr()->getD3device(), &m_spriteHandler);
-		if(FAILED(_result))
-			return false;*/
-		//srect.left = 0; 
-		//srect.top = 0; 
-		
-
+	bool TextureManager::Start()
+	{	
 		return true;
 	}
 	void TextureManager::OnSuspend()
@@ -183,81 +170,5 @@ namespace Framework
 	}
 	void TextureManager::Stop()
 	{
-	}
-
-	void TextureManager::DrawAll()
-	{
-		
-
-
-		//Log::info(Log::LOG_LEVEL_ROOT, "[TextureManager] Updating... !\n");
-		/* initialize random seed: */
-		///srand (time(NULL));
-
-		//m_spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		
-		//D3DXMATRIX matRotate;
-		//D3DXMatrixIdentity(&matRotate);
-		//D3DXVECTOR3 position(50, 100, 0);
-		//D3DXVECTOR2 pos_center(250, 250);
-		//D3DXMatrixTransformation2D(
-		//&matRotate,
-		//&pos_center,
-		//0.0f,
-		//&D3DXVECTOR2(1.0f, -1.0f),
-		//NULL,
-		//D3DXToRadian(0.0f),
-		//&D3DXVECTOR2(position.x, position.y));
-
-		//D3DXMATRIXA16 matWorld, matTranslate, matScale, rotate1;
-		//D3DXMatrixIdentity(&matScale);
-		//D3DXMatrixScaling( &matScale, 1.0f, -1.0f, 1.0f );
-
-		//D3DXMatrixIdentity(&matTranslate);
-		//D3DXMatrixTranslation( &matTranslate, -10, 600, 0 );
-		////matWorld = matScale * matTranslate;
-		//D3DXMatrixIdentity(&matWorld);
-		//D3DXMatrixMultiply(&matWorld, &matScale, &matTranslate);
-		//D3DXMatrixMultiply(&matWorld, &matRotate, &matWorld);
-
-		////D3DXMatrixTranslation(&matWorld, -cameraX, cameraY, 0);
-
-		//m_spriteHandler->SetTransform(&matWorld);
-		//D3DXVECTOR3 position(0, 0, 0);
-
-		/*Texture* pCurrent = GetTexture("mariobig.png");*/
-		//RECT srect;
-		/*srect.right = srect.left + pCurrent->GetWidth() /5;
-		srect.bottom = srect.top + pCurrent->GetHeight() /2;
-		
-
-		m_spriteHandler->Draw(pCurrent->GetTexture(), &srect, NULL, &position, D3DCOLOR_XRGB(255,255,255));
-
-		if(Timer::GetSingletonPtr()->GetTimeTotal() > MIN_FRAME_RATE / 100.0f)
-		{
-			Timer::GetSingletonPtr()->Reset();
-			srect.left += pCurrent->GetWidth() /5;
-		}*/
-		
-		
-
-		//if(srect.left > pCurrent->GetWidth())
-		//	srect.left = 0;
-		/*for(TextureVectorIterator iter = m_textureVector.begin(); iter != m_textureVector.end(); iter++)
-		{
-			Texture* pCurrent = *iter;
-			
-			
-			m_spriteHandler->Draw(pCurrent->GetTexture(), &srect, NULL, &position, D3DCOLOR_XRGB(255,255,255));
-			position.x += 150;
-			position.y += 150;
-		}*/
-
-		//D3DXMATRIX matDefaut;
-		//D3DXMatrixInverse(&matDefaut,NULL, &matWorld);
-		////D3DXMatrixTransformation2D(&matDefaut,NULL,0.0f,NULL,NULL,0.0f,NULL); 
-		//m_spriteHandler->SetTransform(&matDefaut);
-
-		/*m_spriteHandler->End();*/
 	}
 }

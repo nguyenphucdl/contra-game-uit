@@ -23,10 +23,6 @@ namespace Framework
 		TextureVector				 m_textureVector;
 		TextureRegister				 m_textureRegister;
 
-		//Test
-		//LPD3DXSPRITE				 m_spriteHandler;
-		//RECT						srect;
-
 	private:
 		void		AddTexture(Texture *pTexture);
 		void		RemoveTexture(Texture *pTexture);
@@ -41,9 +37,6 @@ namespace Framework
 		void		Destroy();
 		Texture*	GetTexture(std::string filename);
 		void	LoadTexture(std::string filename);
-
-		//Test
-		void		DrawAll();
 
 	public:
 		// From Task

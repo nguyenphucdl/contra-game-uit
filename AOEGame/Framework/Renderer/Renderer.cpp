@@ -80,6 +80,8 @@ namespace Framework
 		m_result = D3DXCreateSprite(m_device3d, &m_spriteHandler);
 		if(FAILED(m_result))
 			throw(GameError(GameErrorNS::FATAL_ERROR, "Error creating Direct3D sprite handler"));
+
+		RegisterTexture("debug-texture.png");
 	}
 	//=============================================================================
 	// Initialize D3D presentation parameters
@@ -135,8 +137,22 @@ namespace Framework
 
 	void Renderer::AddRenderable(Renderable* pRenderable)
 	{
-		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] AddRenderable... !\n");
-		m_renerables.push_back(pRenderable);
+		
+		RenderableVectorIterator iter;
+		for (iter = m_renerables.begin(); iter != m_renerables.end(); ++iter)
+		{
+			Renderable* pCurrent = *iter;
+			if (pCurrent == pRenderable)
+			{
+				return;
+			}
+			if (pCurrent->GetZIndex() > pRenderable->GetZIndex())
+			{
+				break;
+			}
+		}
+		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] AddRenderable level %d... !\n", pRenderable->GetZIndex());
+		m_renerables.insert(iter, pRenderable);
 	}
 
 	void Renderer::RemoveRenderable(Renderable* pRenderable)
@@ -182,27 +198,52 @@ namespace Framework
 		assert(pRenderable);
 		if(pRenderable)
 		{
-			TextureRegion *texture = pRenderable->GetTextureRegion();
-
 			Vector3 posVector = pRenderable->GetPosition();
 			D3DXVECTOR3 pos = posVector.GetD3DVector();
 
-			D3DXMATRIX flipYMatrix, translateMatrix;
-			D3DXMatrixIdentity(&flipYMatrix);
-			D3DXMatrixIdentity(&translateMatrix);
-			flipYMatrix._22 = -1;
-			translateMatrix._42 = 480;
+			D3DXVECTOR3 posTransform = Transform::GetVector3FromWorldView(pos, m_worldViewMatrix);
 
-			D3DXMATRIX resultMatrix;
-			D3DXMatrixMultiply(&resultMatrix, &flipYMatrix, &translateMatrix);
-			D3DXVECTOR4 posTransV4;
-			D3DXVec3Transform(&posTransV4, &pos, &resultMatrix);
-			D3DXVECTOR3 positionTrans;
-			positionTrans.x = posTransV4.x;
-			positionTrans.y = posTransV4.y;
-			positionTrans.z = posTransV4.z;
 
-			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &positionTrans, D3DCOLOR_XRGB(255, 255, 255));
+			if (pRenderable->IsVisible())
+			{
+				TextureRegion *texture = pRenderable->GetTextureRegion();
+				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+			}
+			
+
+			//debug
+			Texture* debugTexture = GetTexture("debug-texture.png");
+			RECT debugsrc;
+			debugsrc.left = 0;
+			debugsrc.right = debugTexture->GetWidth();
+			debugsrc.top = 0;
+			debugsrc.bottom = debugTexture->GetHeight();
+			m_spriteHandler->Draw(debugTexture->GetTexture(), &debugsrc, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+
+		}
+	}
+
+	void Renderer::DrawDebug(Renderable* pRenderable)
+	{
+
+	}
+
+	void Renderer::AddDebug(DEBUG_REGION region)
+	{
+		m_debugRegions.push_back(region);
+	}
+
+	void Renderer::RemoveDebug(DEBUG_REGION region)
+	{
+		for (DebugRegionVectorIterator iter = m_debugRegions.begin(); iter != m_debugRegions.end(); ++iter)
+		{
+			DEBUG_REGION current = *iter;
+			if (current.left == region.left && current.right == region.right 
+				&& current.bottom == region.bottom && current.top == region.top)
+			{
+				m_debugRegions.erase(iter);
+				break;
+			}
 		}
 	}
 
@@ -256,16 +297,7 @@ namespace Framework
 	{
 	}
 	void Renderer::Update()
-	{
-
-		
-		LARGE_INTEGER timeStart;
-		LARGE_INTEGER timeEnd;
-		LARGE_INTEGER timeFreq;
-		if (QueryPerformanceFrequency(&timeFreq) == false)
-			throw(GameError(GameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
-		QueryPerformanceCounter(&timeStart);
-		
+	{	
 
 		if(SUCCEEDED(this->beginScene()))
 		{
@@ -276,10 +308,14 @@ namespace Framework
 			m_spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 			
 
-			
-
 			//m_spriteHandler->SetTransform(&resultMatrix);
-			
+
+			D3DXMATRIX flipYMatrix, translateMatrix;
+			D3DXMatrixIdentity(&flipYMatrix);
+			D3DXMatrixIdentity(&translateMatrix);
+			flipYMatrix._22 = -1;
+			translateMatrix._42 = 480;
+			D3DXMatrixMultiply(&m_worldViewMatrix, &flipYMatrix, &translateMatrix);
 
 			// draw 2D 
 			for(RenderableVectorIterator iter = m_renerables.begin(); iter != m_renerables.end(); ++iter)
@@ -293,6 +329,8 @@ namespace Framework
 
 			m_spriteHandler->End();
 			// end sprite handler
+			
+			
 
 			// stop rendering
 			this->endScene();
@@ -302,12 +340,6 @@ namespace Framework
 		
 
 		this->showBackBuffer();
-
-
-		QueryPerformanceCounter(&timeEnd);
-		//LARGE_INTEGER numCounts = timeEnd.QuadPart – timeStart.QuadPart;
-		float frameDt = (float)((timeEnd.QuadPart - timeStart.QuadPart)) / (float)(timeFreq.QuadPart);
-		int k = 123;
 	}
 	void Renderer::OnResume()
 	{

@@ -736,6 +736,48 @@
     </data>
   </layer>
   <objectgroup name="objectgroup">
-    <object name="" x="32" y="129" width="736" height="17" />
+    <object name="" x="32" y="95" width="736" height="17" />
+    <object name="" x="160" y="127" width="96" height="17" />
+    <object name="" x="416" y="127" width="67" height="17" />
+    <object name="" x="256" y="158" width="31" height="18" />
+    <object name="" x="352" y="159" width="31" height="17" />
+    <object name="" x="288" y="191" width="64" height="19" />
+    <object name="" x="639" y="144" width="99" height="17" />
+    <object name="" x="608" y="190" width="0" height="0" />
+    <object name="" x="608" y="192" width="65" height="19" />
+    <object name="" x="896" y="95" width="162" height="16" />
+    <object name="" x="768" y="94" width="132" height="36" />
+    <object name="" x="1056" y="95" width="126" height="32" />
+    <object name="" x="1183" y="96" width="255" height="16" />
+    <object name="" x="1376" y="62" width="511" height="16" />
+    <object name="" x="1408" y="192" width="97" height="19" />
+    <object name="" x="1504" y="145" width="64" height="12" />
+    <object name="" x="1599" y="127" width="226" height="16" />
+    <object name="" x="1855" y="96" width="223" height="14" />
+    <object name="" x="2048" y="63" width="160" height="16" />
+    <object name="" x="1728" y="192" width="192" height="16" />
+    <object name="" x="1919" y="158" width="65" height="18" />
+    <object name="" x="2014" y="158" width="67" height="18" />
+    <object name="" x="2111" y="144" width="35" height="16" />
+    <object name="" x="2176" y="129" width="97" height="15" />
+    <object name="" x="2238" y="95" width="67" height="17" />
+    <object name="" x="2336" y="127" width="64" height="17" />
+    <object name="" x="2368" y="158" width="94" height="18" />
+    <object name="" x="2335" y="192" width="33" height="16" />
+    <object name="" x="2496" y="64" width="64" height="16" />
+    <object name="" x="2464" y="96" width="64" height="16" />
+    <object name="" x="2528" y="144" width="32" height="16" />
+    <object name="" x="2496" y="192" width="32" height="16" />
+    <object name="" x="2592" y="95" width="63" height="17" />
+    <object name="" x="2623" y="128" width="161" height="15" />
+    <object name="" x="2720" y="190" width="97" height="18" />
+    <object name="" x="701" y="154" width="-165" height="-12" />
+    <object name="" x="3008" y="191" width="242" height="15" />
+    <object name="" x="2848" y="160" width="65" height="16" />
+    <object name="" x="2944" y="128" width="65" height="17" />
+    <object name="" x="3040" y="144" width="96" height="16" />
+    <object name="" x="3007" y="94" width="130" height="16" />
+    <object name="" x="3134" y="128" width="33" height="17" />
+    <object name="" x="3168" y="158" width="33" height="18" />
   </objectgroup>
 </map>

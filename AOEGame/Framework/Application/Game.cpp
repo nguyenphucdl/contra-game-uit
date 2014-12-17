@@ -40,19 +40,16 @@ namespace Framework
 
 	void Game::Run()
 	{	
-		LARGE_INTEGER timeStart;
-		LARGE_INTEGER timeEnd;
-		LARGE_INTEGER timeFreq;
-		if (QueryPerformanceFrequency(&timeFreq) == false)
-			throw(GameError(GameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
-		QueryPerformanceCounter(&timeStart);
-
-		m_kernel.Execute();
-
-		QueryPerformanceCounter(&timeEnd);
-		//LARGE_INTEGER numCounts = timeEnd.QuadPart – timeStart.QuadPart;
-		float frameDt = (float)((timeEnd.QuadPart - timeStart.QuadPart)) / (float)(timeFreq.QuadPart);
-		int k = 123;
+		//Log::info(Log::LOG_LEVEL_ROOT, "[Game][Run] Timer total is %f\n", Timer::GetSingletonPtr()->GetTimeTotal());
+		if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.0333f)
+		{
+			m_kernel.Execute();
+			Timer::GetSingletonPtr()->Reset();
+		}
+		else
+		{
+			Timer::GetSingletonPtr()->Update();
+		}
 	}
 
 	void Game::DestroyAll()

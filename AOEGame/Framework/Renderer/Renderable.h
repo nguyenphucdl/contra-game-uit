@@ -22,6 +22,7 @@ namespace Framework
 		Transform				m_transform;
 		Vector3					m_origin;
 		bool					m_renderTrans ;// Enable OR Disable transform
+		bool					m_visible;
 
 
 		// Fulture use only
@@ -56,6 +57,12 @@ namespace Framework
 		bool				GetRenderTransform()						{ return m_renderTrans; }
 		void				SetRenderTransform(bool renderTrans)		{ m_renderTrans = renderTrans; }
 
+		void				IsVisible(bool visible)				{ m_visible = visible; }
+		bool				IsVisible()							{ return m_visible; }
+
+		void				SetZIndex(int idx)					{ m_zIndex = idx; }
+		int					GetZIndex()							{ return m_zIndex; }
+
 		Vector3			GetPosition();
 		//bool				IsInitialized() const { return m_pGeometry; }
 	};
@@ -66,6 +73,7 @@ namespace Framework
 		, m_zIndex(RenderableIndex::OBJECT_INDEX)
 		, m_renderTrans(true)
 		, m_origin(0, 0, 0)
+		, m_visible(true)
 	{
 	}
 	inline Renderable::~Renderable()

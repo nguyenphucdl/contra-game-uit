@@ -2,6 +2,7 @@
 #define	__STATICCOMPONENT_H__
 
 #include "../../Application/Context.h"
+#include "../../Renderer/Renderable.h"
 #include "../GameObject.h"
 
 namespace Framework
@@ -11,6 +12,8 @@ namespace Framework
 	{
 	private:
 		static const unsigned int	s_id = 5;
+
+		Renderable		m_renderable; // Debug only
 
 		RECT m_bound;
 	public:

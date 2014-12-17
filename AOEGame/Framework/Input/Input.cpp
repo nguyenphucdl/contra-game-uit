@@ -116,6 +116,14 @@ namespace Framework
 
 	void Input::Update()
 	{
+		LARGE_INTEGER timeStart;
+		LARGE_INTEGER timeEnd;
+		LARGE_INTEGER timeFreq;
+		if (QueryPerformanceFrequency(&timeFreq) == false)
+			throw(GameError(GameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
+		QueryPerformanceCounter(&timeStart);
+
+
 		// Collect all key states first
 		m_keyboard->GetDeviceState(sizeof(m_keyState), m_keyState);
 
@@ -167,6 +175,11 @@ namespace Framework
 				Log::info(Log::LOG_LEVEL_HIGHT, "Accquire input device successfully!\n");
 			}
 		}
+
+		QueryPerformanceCounter(&timeEnd);
+		//LARGE_INTEGER numCounts = timeEnd.QuadPart – timeStart.QuadPart;
+		float frameDt = (float)((timeEnd.QuadPart - timeStart.QuadPart)) / (float)(timeFreq.QuadPart);
+		int k = 123;
 	}
 
 	void Input::OnResume()

@@ -38,7 +38,7 @@ namespace Framework
 
 	TextureRegion* Animation::Next()
 	{
-		m_elapse += Timer::GetSingletonPtr()->GetTimeSim();
+		m_elapse += Timer::GetSingletonPtr()->GetTimeTotal();
 		//Log::info(Log::LOG_LEVEL_MEDIUM, "Animation elapse: %f\n", m_elapse);
 		if (m_elapse > m_delay)
 		{

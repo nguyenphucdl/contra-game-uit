@@ -127,6 +127,10 @@ namespace Framework
 						if (m_animationList.find(SpriteState::JUMPUPRIGHT) != m_animationList.end())
 							m_curState = SpriteState::JUMPUPRIGHT;
 					}
+
+					Renderable& renderable = GetRenderable();
+					Vector3& origin = renderable.GetOrigin();
+					origin.m_y = 300;
 				}
 				break;
 			default:
@@ -163,11 +167,12 @@ namespace Framework
 
 			Renderable& renderable = GetRenderable();
 			Vector3& origin = renderable.GetOrigin();
-			/*origin.m_y = origin.m_y - 5 * Timer::GetSingletonPtr()->GetTimeSim();
+			origin.m_y = origin.m_y - 300 * Timer::GetSingletonPtr()->GetTimeTotal();
 			if (origin.m_y < 100)
 			{
 				origin.m_y = 100;
-			}*/
+			}
+			//Log::info(Log::LOG_LEVEL_HIGHT, "Update gravity at time sime() %f!\n", Timer::GetSingletonPtr()->GetTimeSim());
 		}
 			break;
 		case RENDER_EVENT:

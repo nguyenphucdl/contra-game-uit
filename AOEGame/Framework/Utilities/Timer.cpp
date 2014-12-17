@@ -57,7 +57,7 @@ namespace Framework
 		m_simDt = m_frameDt * m_simMultiplier;
 
 		m_timeTotal += m_simDt; //Test
-		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeTotal());
+		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeSim());
 		m_timeLastFrame = m_timeStart;
 		int k = 124;
 	}

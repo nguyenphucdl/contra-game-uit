@@ -45,6 +45,7 @@ namespace Framework
 
 	public:
 		static void Vector3Transform(_In_ Vector3* pIn, _Out_ Vector3 *pOut, _In_ Transform* pTransform);
+		static D3DXVECTOR3 GetVector3FromWorldView(_In_ D3DXVECTOR3& posIn, _In_ D3DXMATRIX& matrixWorldView);
 	};
 }
 
