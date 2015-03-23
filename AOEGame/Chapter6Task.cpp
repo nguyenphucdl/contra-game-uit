@@ -14,7 +14,7 @@ Chapter6Task::~Chapter6Task()
 
 void Chapter6Task::HandleEvent(Event* pEvent)
 {
-	assert(pEvent);
+	/*assert(pEvent);
 
 	if(pEvent->GetID() == Framework::KEYDOWN_EVENT)
 	{
@@ -24,14 +24,14 @@ void Chapter6Task::HandleEvent(Event* pEvent)
 		{
 			Framework::SendEvent(JUMP_EVENT, NULL);
 		}
-	}
+	}*/
 	
 }
 
 bool Chapter6Task::Start()
 {
-	Framework::AttachEvent(Framework::KEYDOWN_EVENT, *this);
-	Framework::AttachEvent(Framework::KEYUP_EVENT, *this);
+	//Framework::AttachEvent(Framework::KEYDOWN_EVENT, *this);
+	//Framework::AttachEvent(Framework::KEYUP_EVENT, *this);
 
 	// Test
 	TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
