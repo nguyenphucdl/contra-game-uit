@@ -1,4 +1,5 @@
-#include "Renderer.h"
+﻿#include "Renderer.h"
+#include "../EventManager/EventManager.h"
 
 namespace Framework
 {
@@ -71,7 +72,7 @@ namespace Framework
 			behavior,
 			&m_d3dpp,
 			&m_device3d);
-
+		
 		if(FAILED(m_result))
 			throw(GameError(GameErrorNS::FATAL_ERROR, "Error creating Direct3D device"));
 
@@ -81,7 +82,9 @@ namespace Framework
 		if(FAILED(m_result))
 			throw(GameError(GameErrorNS::FATAL_ERROR, "Error creating Direct3D sprite handler"));
 
-		RegisterTexture("debug-texture.png");
+		/*REGISTER EVENT*/
+		RegisterEvent(Events::PRE_RENDER_EVENT);
+		RegisterEvent(Events::RENDER_EVENT);
 	}
 	//=============================================================================
 	// Initialize D3D presentation parameters
@@ -209,43 +212,9 @@ namespace Framework
 				TextureRegion *texture = pRenderable->GetTextureRegion();
 				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
 			}
-			
-
-			//debug
-			Texture* debugTexture = GetTexture("debug-texture.png");
-			RECT debugsrc;
-			debugsrc.left = 0;
-			debugsrc.right = debugTexture->GetWidth();
-			debugsrc.top = 0;
-			debugsrc.bottom = debugTexture->GetHeight();
-			m_spriteHandler->Draw(debugTexture->GetTexture(), &debugsrc, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
-
 		}
 	}
 
-	void Renderer::DrawDebug(Renderable* pRenderable)
-	{
-
-	}
-
-	void Renderer::AddDebug(DEBUG_REGION region)
-	{
-		m_debugRegions.push_back(region);
-	}
-
-	void Renderer::RemoveDebug(DEBUG_REGION region)
-	{
-		for (DebugRegionVectorIterator iter = m_debugRegions.begin(); iter != m_debugRegions.end(); ++iter)
-		{
-			DEBUG_REGION current = *iter;
-			if (current.left == region.left && current.right == region.right 
-				&& current.bottom == region.bottom && current.top == region.top)
-			{
-				m_debugRegions.erase(iter);
-				break;
-			}
-		}
-	}
 
 	//=============================================================================
 	// Test for lost device
@@ -288,7 +257,7 @@ namespace Framework
 	// From Task
 	bool Renderer::Start()
 	{
-		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer][Start] Entering...\n");
+		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer][Start] Starting...\n");
 		Init();
 
 		return true;
@@ -301,15 +270,10 @@ namespace Framework
 
 		if(SUCCEEDED(this->beginScene()))
 		{
-			// render custom task
-			//Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] Updating... !\n");
-
 			// begin sprite handler
 			m_spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-			
 
-			//m_spriteHandler->SetTransform(&resultMatrix);
-
+			// flip coordinate system
 			D3DXMATRIX flipYMatrix, translateMatrix;
 			D3DXMatrixIdentity(&flipYMatrix);
 			D3DXMatrixIdentity(&translateMatrix);
@@ -317,7 +281,10 @@ namespace Framework
 			translateMatrix._42 = 480;
 			D3DXMatrixMultiply(&m_worldViewMatrix, &flipYMatrix, &translateMatrix);
 
-			// draw 2D 
+			// send PRE_RENDER_EVENT
+			Framework::SendEvent(Events::PRE_RENDER_EVENT);
+
+			// draw 2D [FULTURE: renderable object get from scene grapth]
 			for(RenderableVectorIterator iter = m_renerables.begin(); iter != m_renerables.end(); ++iter)
 			{
 				Renderable* pRenderable = *iter;

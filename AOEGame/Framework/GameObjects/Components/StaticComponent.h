@@ -11,7 +11,7 @@ namespace Framework
 		: public Component
 	{
 	private:
-		static const unsigned int	s_id = 5;
+		static const unsigned int	s_id = ComponentIDs::StaticComponentId;
 
 		Renderable		m_renderable; // Debug only
 

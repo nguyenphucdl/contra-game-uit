@@ -1,258 +1,310 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{f43dce36-2e86-495f-a805-3a6fcf5a0de9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Application">
+      <UniqueIdentifier>{0afec7f4-42de-4c9f-a876-b55336077951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Debug">
+      <UniqueIdentifier>{c1b22665-59aa-48c6-a5a1-786a9b38c26a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\EventManager">
+      <UniqueIdentifier>{63df7748-4c06-45ff-b66c-a84c57293099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObjects">
+      <UniqueIdentifier>{1220b2a6-32bf-4285-9b2c-cffba8b2ff38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Input">
+      <UniqueIdentifier>{7ad6bb55-2728-4cff-b536-9b82de709ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Kernel">
+      <UniqueIdentifier>{b9ce27c4-5d2c-4be2-80e2-aaeb363344e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Lib">
+      <UniqueIdentifier>{af6745dc-3ac4-4ed6-b32f-4d3eba4e4817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Log">
+      <UniqueIdentifier>{87331008-0fe2-47b4-b34b-7f48353fa5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Math">
+      <UniqueIdentifier>{e895e60d-e142-4108-9dc9-d256428b7c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Platform">
+      <UniqueIdentifier>{445d0529-dfb2-4720-8d93-e10e0ba9cf39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Renderer">
+      <UniqueIdentifier>{b80f204b-d95a-43c2-93c9-4f1378192136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\TileMap">
+      <UniqueIdentifier>{318b020b-6515-4342-9b3c-6e09f81f2b0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Utilities">
+      <UniqueIdentifier>{490169e9-3b8d-41e8-b020-f93d6f792d0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObjects\CommonComponents">
+      <UniqueIdentifier>{327c06f9-9614-409a-b5ca-753fc8dd6800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObjects\GameComponents">
+      <UniqueIdentifier>{96a28031-b653-45a5-bd4d-045ffcbc0fb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Renderer\Texture">
+      <UniqueIdentifier>{8a5b7f87-12d4-4067-a3e5-96787535b6b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameObjects\Animation">
+      <UniqueIdentifier>{3e3ed526-5bea-4d4b-8c95-83ab86e42ed9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{bb4a677f-78e4-4c20-9206-3d336cf1475d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Framework\Application\Context.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Application\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Debug\DebugConsole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Kernel\Kernel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Kernel\Task.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Log\Log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Platform\String.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Platform\Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Renderer\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\GameConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Singleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\GameError.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Renderer\Texture\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Renderer\Texture\TextureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Renderer\Texture\TextureRegion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Renderer\Renderable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\EventManager\Event.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Framework\EventManager\EventManager.h">
+      <Filter>Framework\EventManager</Filter>
     </ClInclude>
     <ClInclude Include="Framework\EventManager\EventId.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework\EventManager</Filter>
     </ClInclude>
     <ClInclude Include="Framework\EventManager\EventHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework\EventManager</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\EventManager\EventManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\Hash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Chapter6Task.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Chapter6App.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Framework\EventManager\Event.h">
+      <Filter>Framework\EventManager</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Input\Input.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Vector4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Matrix3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Matrix4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Math\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\TileMap\TileSet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\TileMap\TileMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utilities\TmxLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\TileMapComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\SpriteComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Actions\Animation.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Framework\Renderer\Renderable.h">
+      <Filter>Framework\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Framework\GameObjects\Components\StaticComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\SpriteComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Vector4.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Vector3.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Transform.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Renderer\Texture\TextureManager.h">
+      <Filter>Framework\Renderer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Renderer\Texture\TextureRegion.h">
+      <Filter>Framework\Renderer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Renderer\Texture\Texture.h">
+      <Filter>Framework\Renderer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\TmxLoader.h">
+      <Filter>Framework\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\TileMap\TileSet.h">
+      <Filter>Framework\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\TileMap\TileMap.h">
+      <Filter>Framework\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Hash.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Matrix4.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Matrix3.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Log\Log.h">
+      <Filter>Framework\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Component.h">
+      <Filter>Framework\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\GameObject.h">
+      <Filter>Framework\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\GameConfig.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\GameError.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Renderer\Renderer.h">
+      <Filter>Framework\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Singleton.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Debug\DebugConsole.h">
+      <Filter>Framework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Application\Context.h">
+      <Filter>Framework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Application\Game.h">
+      <Filter>Framework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Kernel\Kernel.h">
+      <Filter>Framework\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Kernel\Task.h">
+      <Filter>Framework\Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Platform\String.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Timer.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Constants.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Platform\Window.h">
+      <Filter>Framework\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Actions\Animation.h">
+      <Filter>Framework\GameObjects\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapter6Task.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapter6App.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\TileMapComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Enums.h">
+      <Filter>Framework\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Framework\Application\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Debug\DebugConsole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Kernel\Kernel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Log\Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Platform\String.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Platform\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Renderer\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\GameConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utilities\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WinMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Renderer\Texture\TextureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Renderer\Texture\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Renderer\Texture\TextureRegion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\EventManager\Event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\EventManager\EventManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Math\Vector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\Input\Input.cpp">
+      <Filter>Framework\Input</Filter>
     </ClCompile>
     <ClCompile Include="Chapter6Task.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Chapter6App.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Input\Input.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\EventManager\Event.cpp">
+      <Filter>Framework\EventManager</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Math\Vector4.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\EventManager\EventManager.cpp">
+      <Filter>Framework\EventManager</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Math\Matrix4.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\Log\Log.cpp">
+      <Filter>Framework\Log</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Math\Matrix3.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\Renderer\Texture\TextureManager.cpp">
+      <Filter>Framework\Renderer\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Math\Transform.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\Renderer\Texture\TextureRegion.cpp">
+      <Filter>Framework\Renderer\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\TileMap\TileMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\TileMap\TileSet.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Framework\Renderer\Texture\Texture.cpp">
+      <Filter>Framework\Renderer\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Utilities\TmxLoader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\TileMap\TileSet.cpp">
+      <Filter>Framework\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\TileMap\TileMap.cpp">
+      <Filter>Framework\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Framework\GameObjects\Components\TileMapComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\SpriteComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Actions\Animation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework\GameObjects\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Framework\GameObjects\Components\StaticComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\SpriteComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Platform\Window.cpp">
+      <Filter>Framework\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Math\Vector4.cpp">
+      <Filter>Framework\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Math\Vector3.cpp">
+      <Filter>Framework\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Math\Transform.cpp">
+      <Filter>Framework\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Math\Matrix4.cpp">
+      <Filter>Framework\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Math\Matrix3.cpp">
+      <Filter>Framework\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Platform\String.cpp">
+      <Filter>Framework\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Actions\Animation.cpp">
+      <Filter>Framework\GameObjects\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\GameObject.cpp">
+      <Filter>Framework\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\GameConfig.cpp">
+      <Filter>Framework\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\Timer.cpp">
+      <Filter>Framework\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Renderer\Renderer.cpp">
+      <Filter>Framework\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Debug\DebugConsole.cpp">
+      <Filter>Framework\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Application\Game.cpp">
+      <Filter>Framework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Kernel\Kernel.cpp">
+      <Filter>Framework\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="Chapter6App.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -44,11 +44,8 @@ namespace Framework
 
 		typedef std::vector<Renderable*>		RenderableVector;
 		typedef	RenderableVector::iterator		RenderableVectorIterator;
-		typedef	std::vector<DEBUG_REGION>		DebugRegionVector;
-		typedef	DebugRegionVector::iterator		DebugRegionVectorIterator;
 
 		RenderableVector					m_renerables;
-		DebugRegionVector					m_debugRegions;
 	
 		Vector3								m_viewOrigin;
 		Vector3								m_viewTranslate;
@@ -64,10 +61,7 @@ namespace Framework
 		void Destroy();
 
 		void AddRenderable(Renderable* pRenderable);
-		void RemoveRenderable(Renderable* pRenderable);
-		
-		void AddDebug(DEBUG_REGION region);
-		void RemoveDebug(DEBUG_REGION region);
+		void RemoveRenderable(Renderable* pRenderable);		
 
 		// From Task
 		virtual	bool	Start();
@@ -97,9 +91,9 @@ namespace Framework
 	private:
 		void		_UpdateViewport();
 
-	public://test public
+	private:
 		void	Draw(Renderable* pRenderable);
-		void	DrawDebug(Renderable* pRenderable);
+		
 		void	releaseAll();
 		void	initD3Dpp();
 		bool	isAdapterCompatible();

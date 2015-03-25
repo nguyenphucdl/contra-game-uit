@@ -156,6 +156,7 @@ namespace Framework
 	// From Task
 	bool TextureManager::Start()
 	{	
+
 		return true;
 	}
 	void TextureManager::OnSuspend()

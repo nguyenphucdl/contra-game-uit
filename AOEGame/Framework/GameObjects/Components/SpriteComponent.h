@@ -30,7 +30,7 @@ namespace Framework
 		, public EventHandler
 	{
 	private:
-		static const unsigned int s_id = 4;
+		static const unsigned int s_id = ComponentIDs::SpriteComponentId;
 
 		typedef std::map<int, Animation*>	AnimationMap;
 		typedef AnimationMap::iterator				AnimationMapIterator;

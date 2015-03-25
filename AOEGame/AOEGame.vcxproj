@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="Chapter6App.h" />
     <ClInclude Include="Chapter6Task.h" />
+    <ClInclude Include="Framework\Utilities\Enums.h" />
     <ClInclude Include="Framework\Application\Context.h" />
     <ClInclude Include="Framework\Application\Game.h" />
     <ClInclude Include="Framework\Debug\DebugConsole.h" />

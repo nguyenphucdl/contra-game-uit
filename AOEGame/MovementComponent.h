@@ -16,7 +16,7 @@ namespace Framework
 		,	public	Framework::EventHandler
 	{
 	private:
-		static const unsigned int s_id = 9;
+		static const unsigned int s_id = ComponentIDs::MovementComponentId;
 
 		Vector3		m_velocity;
 		float		m_gravity;

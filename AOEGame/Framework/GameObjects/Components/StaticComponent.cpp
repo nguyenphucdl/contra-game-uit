@@ -15,13 +15,13 @@ namespace Framework
 	void StaticComponent::Initialize()
 	{
 		//Debug renderable
-		m_renderable.IsVisible(false);
+		/*m_renderable.IsVisible(false);
 		m_renderable.SetZIndex(1000);
 		TextureRegion* nullTexture = new TextureRegion(NULL, m_bound);
 		m_renderable.SetTextureRegion(nullTexture);
 		m_renderable.SetOrigin(Vector3(m_bound.left, m_bound.top, 1.0f));
 
 		assert(Renderer::GetSingletonPtr());
-		Renderer::GetSingleton().AddRenderable(&m_renderable);
+		Renderer::GetSingleton().AddRenderable(&m_renderable);*/
 	}
 }

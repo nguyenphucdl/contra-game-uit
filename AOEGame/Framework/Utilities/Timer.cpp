@@ -9,10 +9,10 @@ namespace Framework
 			, m_frameDt(0.0f)
 			, m_simDt(0.0f)
 			, m_simMultiplier(1.0f)
+			, m_timeTotal(0.0f)
 	{
-		Log::info(Log::LOG_LEVEL_ROOT, "[Timer] Constructor !\n");
-		//int game_width = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
-		//const wchar_t* testkey = L"GAME_WIDTH";
+		
+		
 
 		int game_width = GameConfig::GetSingletonPtr()->GetInt(std::string(ConfigKey::GAME_WIDTH));
 		float game_width2 = GameConfig::GetSingletonPtr()->GetInt("TestFloat1");
@@ -53,11 +53,17 @@ namespace Framework
 	void Timer::Update()
 	{
 		QueryPerformanceCounter(&m_timeStart);
-		m_frameDt = (float)((m_timeStart.QuadPart - m_timeLastFrame.QuadPart)) / (float)(m_timeFreq.QuadPart);
-		m_simDt = m_frameDt * m_simMultiplier;
+		LONGLONG llTimeDiff = m_timeStart.QuadPart - m_timeLastFrame.QuadPart;
 
-		m_timeTotal += m_simDt; //Test
-		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeSim());
+		m_frameDt = (float)((llTimeDiff) / (m_timeFreq.QuadPart));//seconds
+
+		double m_dt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart / 1000.0f);
+
+		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeDt %f !\n", m_dt);
+		m_simDt = m_dt * m_simMultiplier;
+
+		m_timeTotal += m_dt; //Test
+		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeTotal());
 		m_timeLastFrame = m_timeStart;
 		int k = 124;
 	}

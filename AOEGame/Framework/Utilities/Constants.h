@@ -1,5 +1,4 @@
-﻿// Constants.h v1.0
-#ifndef __CONSTANTS_H__			// prevent multiple definitions if this 
+﻿#ifndef __CONSTANTS_H__			// prevent multiple definitions if this 
 #define __CONSTANTS_H__			// ..file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 

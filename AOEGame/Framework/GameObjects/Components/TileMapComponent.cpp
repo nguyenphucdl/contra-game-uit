@@ -12,10 +12,10 @@ namespace Framework
 		, m_tileMap(NULL)
 		, m_mapViewport(NULL)
 	{
-		Framework::AttachEvent(KEYDOWN_EVENT, *this);
-		Framework::AttachEvent(KEYUP_EVENT, *this);
-		Framework::AttachEvent(UPDATE_EVENT, *this);
-		Framework::AttachEvent(RENDER_EVENT, *this);		
+		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
+		Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
+		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::RENDER_EVENT, *this);		
 	}
 
 	TileMapComponent::~TileMapComponent()
@@ -68,18 +68,19 @@ namespace Framework
 	{
 		switch (pEvent->GetID())
 		{
-		case KEYDOWN_EVENT:
+		case Events::KEY_DOWN_EVENT:
 			m_scroll = true;
 			break;
-		case KEYUP_EVENT:
+		case Events::KEY_UP_EVENT:
 			m_scroll = false;
 			break;
-		case UPDATE_EVENT:
+		case Events::UPDATE_EVENT:
 			
 
 			break;
-		case RENDER_EVENT:
+		case Events::RENDER_EVENT:
 			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetViewport().left);
+			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetViewport().top);
 			break;
 		default:
 			m_scroll = false;

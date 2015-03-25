@@ -23,11 +23,11 @@ namespace Framework
 		CreateSingletons();
 
 		ret = m_kernel.AddTask(&m_windowsTask);
+		//ret = m_kernel.AddTask(EventManager::GetSingletonPtr());
 		ret = m_kernel.AddTask(Timer::GetSingletonPtr());
 		ret = m_kernel.AddTask(Renderer::GetSingletonPtr());
 		ret = m_kernel.AddTask(Input::GetSingletonPtr());
-		//m_kernel.AddTask(TextureManager::GetSingletonPtr());
-		// Add custom task
+		
 		
 		return ret;
 	}
@@ -40,8 +40,7 @@ namespace Framework
 
 	void Game::Run()
 	{	
-		//Log::info(Log::LOG_LEVEL_ROOT, "[Game][Run] Timer total is %f\n", Timer::GetSingletonPtr()->GetTimeTotal());
-		if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.0333f)
+		if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.0333f) // NEED REFACTOR
 		{
 			m_kernel.Execute();
 			Timer::GetSingletonPtr()->Reset();
@@ -60,10 +59,11 @@ namespace Framework
 	void Game::CreateSingletons()
 	{
 		// Create all task singleton
+		new EventManager();
 		new Timer(Task::TIMER_PRIORITY);
 		new Renderer(Task::RENDER_PRIORITY);
 		new TextureManager(Task::FILE_PRIORITY);
-		new EventManager();
+		
 		new Input(Window::GetSingletonPtr()->GetWindowHandle(), Task::PLATFORM_PRIORITY);
 	}
 

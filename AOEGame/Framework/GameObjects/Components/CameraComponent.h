@@ -17,7 +17,7 @@ namespace Framework
 		,	public EventHandler
 	{		
 	private:
-		static const unsigned int s_id = 3;
+		static const unsigned int s_id = ComponentIDs::CameraComponentId;
 
 		GameObject*		m_attachObject;
 

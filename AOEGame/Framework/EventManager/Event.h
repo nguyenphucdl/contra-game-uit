@@ -7,6 +7,7 @@
 
 namespace Framework
 {
+	typedef unsigned int EventID;
 	class Event 
 	{
 	private:

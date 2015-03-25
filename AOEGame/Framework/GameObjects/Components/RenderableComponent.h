@@ -11,10 +11,9 @@ namespace Framework
 {
 	class RenderableComponent
 		: public Component
-		, public EventHandler
 	{
 	private:
-		static const unsigned int s_id = 1;
+		static const unsigned int s_id = ComponentIDs::RenderableComponentId;
 
 		Renderable		m_renderable;
 
@@ -27,9 +26,6 @@ namespace Framework
 		virtual void Initialize();
 
 		Renderable&	GetRenderable() { return m_renderable; }
-
-		virtual void HandleEvent(Event* pEvent);
-
 	};
 }
 #endif//__RENDERABLECOMPONENT_H__

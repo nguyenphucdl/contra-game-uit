@@ -8,7 +8,7 @@ namespace Framework
 	RenderableComponent::RenderableComponent(GameObject* pOwner)
 		:	Component(pOwner)
 	{
-		Framework::AttachEvent(RENDER_EVENT, *this);
+
 	}
 
 	RenderableComponent::~RenderableComponent()
@@ -18,19 +18,8 @@ namespace Framework
 
 	void RenderableComponent::Initialize()
 	{
-		Log::info(Log::LOG_LEVEL_ROOT, "[RenderableComponent] Initialize...\n");
-
 		assert(Renderer::GetSingletonPtr());
-		Renderer::GetSingleton().AddRenderable(&m_renderable);
-	}
-
-	void RenderableComponent::HandleEvent(Event* pEvent)
-	{
-		assert(pEvent);
-		if(pEvent->GetID() == RENDER_EVENT)
-		{
-			
-		}
+		Renderer::GetSingleton().AddRenderable(&m_renderable);		//[FULTURE: Add to scene grapth]
 	}
 }
 	

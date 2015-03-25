@@ -3,6 +3,7 @@
 
 #include "../Application/Context.h"
 #include <unordered_map>
+#include "../Kernel/Task.h"
 #include "EventId.h"
 #include "Event.h"
 

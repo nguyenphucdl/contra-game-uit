@@ -18,7 +18,7 @@ namespace Framework
 		, public EventHandler
 	{
 	private:
-		static const unsigned int s_id = 3;
+		static const unsigned int s_id = ComponentIDs::TileMapComponentId;
 
 		TileMap*				m_tileMap;		
 		Renderable				m_renderable;

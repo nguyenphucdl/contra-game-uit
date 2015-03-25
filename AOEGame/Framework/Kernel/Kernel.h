@@ -21,7 +21,6 @@ namespace Framework
 		virtual ~Kernel();
 
 		void	Execute();
-
 		bool	AddTask(Task* pTask);
 		void	SuspendTask(Task* task);
 		void	ResumeTask(Task* task);

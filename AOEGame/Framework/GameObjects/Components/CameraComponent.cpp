@@ -10,9 +10,9 @@ namespace Framework
 		, m_attachObject(NULL)
 		, m_pressed(false)
 	{
-		Framework::AttachEvent(Framework::POSTUPDATE_EVENT, *this);
-		Framework::AttachEvent(Framework::KEYDOWN_EVENT, *this);
-		Framework::AttachEvent(Framework::KEYUP_EVENT, *this);
+		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
+		Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
 	}
 
 	void CameraComponent::SetViewportOrigin(int x, int y)
@@ -35,13 +35,13 @@ namespace Framework
 		assert(pEvent);
 		switch (pEvent->GetID())
 		{
-		case KEYDOWN_EVENT:
+		case Events::KEY_DOWN_EVENT:
 			m_pressed = true;
 			break;
-		case KEYUP_EVENT:
+		case Events::KEY_UP_EVENT:
 			m_pressed = false;
 			break;
-		case POSTUPDATE_EVENT:
+		case Events::POST_UPDATE_EVENT:
 		{
 			if (m_pressed)
 			{

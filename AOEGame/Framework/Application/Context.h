@@ -16,6 +16,7 @@
 #include "../Utilities/Singleton.h"
 #include "../Platform/String.h"
 #include "../Utilities/Constants.h"
+#include "../Utilities/Enums.h"
 #include "../Utilities/GameError.h"
 #include "../Utilities/GameConfig.h"
 #include "../Log/Log.h"

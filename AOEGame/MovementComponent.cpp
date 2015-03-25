@@ -14,10 +14,10 @@ namespace Framework
 		, m_move(false)
 		, m_gravity(0.0f)
 	{
-		Framework::AttachEvent(JUMP_EVENT, *this);
-		Framework::AttachEvent(UPDATE_EVENT, *this);
-		Framework::AttachEvent(KEYDOWN_EVENT, *this);
-		Framework::AttachEvent(KEYUP_EVENT, *this);
+		Framework::AttachEvent(GameEvents::PLAYER_JUMP_EVENT, *this);
+		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
+		Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
 	}
 
 	MovementComponent::~MovementComponent()
@@ -31,9 +31,9 @@ namespace Framework
 
 	void MovementComponent::HandleEvent(Event* pEvent)
 	{
-		if(pEvent->GetID() == JUMP_EVENT)
+		if(pEvent->GetID() == GameEvents::PLAYER_JUMP_EVENT)
 		{
-			
+			int i = 3;
 		}
 		else if(pEvent->GetID() == UPDATE_EVENT)
 		{
@@ -45,19 +45,23 @@ namespace Framework
 					if (pTransformComponent)
 					{
 						Vector3& translation = pTransformComponent->GetTransform()->GetTranslation();
-						translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeTotal();
+						//translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeTotal();
+						translation.m_x += + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeSim();
+						translation.m_y += + m_velocity.m_y * Timer::GetSingletonPtr()->GetTimeSim();
+						//Log::info(Log::LOG_LEVEL_HIGHT, "Update movement at time sime() %f and v %f!\n", Timer::GetSingletonPtr()->GetTimeSim(), m_velocity.m_x);
 						//translation.m_y = translation.m_y - m_gravity * Timer::GetSingletonPtr()->GetTimeSim();
 
 						/*if (translation.m_y < 50)
 						{
 							translation.m_y = 50;
-						}
-						Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move y %f\n", translation.m_y);*/
+						}*/
+						Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
+						Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move y %f\n", translation.m_y);
 					}
 				}
 			}
 		}
-		else if (pEvent->GetID() == KEYDOWN_EVENT)
+		else if (pEvent->GetID() == Events::KEY_DOWN_EVENT)
 		{
 			int keyCode = (int)pEvent->GetData();
 
@@ -75,6 +79,18 @@ namespace Framework
 				m_move = true;
 			}
 				break;
+			case DIK_UP:
+			{
+				m_velocity.m_y *= (m_velocity.m_y > 0) ? -1.0f : 1.0f;
+				m_move = true;
+			}
+				break;
+			case DIK_DOWN:
+			{
+				m_velocity.m_y *= (m_velocity.m_y < 0) ? -1.0f : 1.0f;
+				m_move = true;
+			}
+				break;
 			default:
 				m_move = false;
 				break;
@@ -82,7 +98,7 @@ namespace Framework
 
 			m_keyPressed = true;
 		}
-		else if (pEvent->GetID() == KEYUP_EVENT)
+		else if (pEvent->GetID() == Events::KEY_UP_EVENT)
 		{
 			m_keyPressed = false;
 			m_move = false;

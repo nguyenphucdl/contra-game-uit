@@ -17,7 +17,7 @@ namespace Framework
 		TimeUints		m_timeStart;
 		TimeUints		m_timeLastFrame;
 		TimeUints		m_timeFreq;
-		float			m_timeTotal; //Test
+		double 			m_timeTotal; //Test
 		
 		float			m_frameDt;
 		float			m_simDt;

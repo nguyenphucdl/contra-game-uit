@@ -104,8 +104,6 @@ namespace Framework
 	// Task
 	bool Input::Start()
 	{
-		RegisterEvent(KEYDOWN_EVENT);
-		RegisterEvent(KEYUP_EVENT);
 		_InitInputDevice();
 		return true;
 	}
@@ -153,13 +151,13 @@ namespace Framework
 				{
 					//Sent KEYDOWN_EVENT with keycode parameters
 					Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYDOWN_EVENT !\n");
-					SendEvent(KEYDOWN_EVENT, (void *)keyCode);
+					SendEvent(Events::KEY_DOWN_EVENT, (void *)keyCode);
 				}
 				else
 				{
 					//Sent KEYDUP_EVENT with keycode parameters
 					Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYUP_EVENT !\n");
-					SendEvent(KEYUP_EVENT, (void*)keyCode);
+					SendEvent(Events::KEY_UP_EVENT, (void*)keyCode);
 				}
 			}
 

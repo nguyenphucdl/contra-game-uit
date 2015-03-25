@@ -4,7 +4,16 @@ namespace Framework
 {
 	EventManager::EventManager()
 	{
-
+		//Fire from input task               // NEED REFACTOR
+		RegisterEvent(Events::KEY_DOWN_EVENT);
+		RegisterEvent(Events::KEY_UP_EVENT);
+		//Game event processing
+		RegisterEvent(Events::UPDATE_EVENT);
+		RegisterEvent(Events::POST_UPDATE_EVENT);
+		RegisterEvent(Events::RENDER_EVENT);
+		//Actor event
+		RegisterEvent(GameEvents::PLAYER_JUMP_EVENT);
+		
 	}
 
 	EventManager::~EventManager()
@@ -65,7 +74,7 @@ namespace Framework
 			}
 		}
 
-		assert(added);
+		//assert(added);
 		return added;
 	}
 

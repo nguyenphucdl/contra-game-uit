@@ -9,10 +9,10 @@ namespace Framework
 		, m_keypressed(false)
 		, m_animate(false)
 	{
-		Framework::AttachEvent(JUMP_EVENT, *this);
+		//Framework::AttachEvent(JUMP_EVENT, *this);
 		Framework::AttachEvent(UPDATE_EVENT, *this);
-		Framework::AttachEvent(KEYDOWN_EVENT, *this);
-		Framework::AttachEvent(KEYUP_EVENT, *this);
+		//Framework::AttachEvent(KEYDOWN_EVENT, *this);
+		//Framework::AttachEvent(KEYUP_EVENT, *this);
 		Framework::AttachEvent(RENDER_EVENT, *this);
 	}
 
@@ -76,7 +76,7 @@ namespace Framework
 	{
 		switch (pEvent->GetID())
 		{
-		case KEYDOWN_EVENT:
+		case Events::KEY_DOWN_EVENT:
 		{
 			int keyCode = (int)pEvent->GetData();
 
@@ -127,10 +127,9 @@ namespace Framework
 						if (m_animationList.find(SpriteState::JUMPUPRIGHT) != m_animationList.end())
 							m_curState = SpriteState::JUMPUPRIGHT;
 					}
-
-					Renderable& renderable = GetRenderable();
-					Vector3& origin = renderable.GetOrigin();
-					origin.m_y = 300;
+					//Renderable& renderable = GetRenderable();
+					//Vector3& origin = renderable.GetOrigin();
+					//origin.m_y = 300;
 				}
 				break;
 			default:
@@ -140,7 +139,7 @@ namespace Framework
 			m_keypressed = true;
 		}
 			break;
-		case KEYUP_EVENT:
+		case Events::KEY_UP_EVENT:
 		{
 			if (m_curState < SpriteDirection::RIGHT)
 			{
@@ -160,22 +159,22 @@ namespace Framework
 			m_animate = false;
 		}
 			break;
-		case UPDATE_EVENT:
+		case Events::UPDATE_EVENT:
 		{
-			if (m_keypressed && m_animate)
+			//if (m_keypressed && m_animate)
 				m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
-
-			Renderable& renderable = GetRenderable();
+				//Log::info(Log::LOG_LEVEL_HIGHT, "Update gravity at time sime() %f!\n", Timer::GetSingletonPtr()->GetTimeSim());
+			/*Renderable& renderable = GetRenderable();
 			Vector3& origin = renderable.GetOrigin();
 			origin.m_y = origin.m_y - 300 * Timer::GetSingletonPtr()->GetTimeTotal();
 			if (origin.m_y < 100)
 			{
 				origin.m_y = 100;
-			}
+			}*/
 			//Log::info(Log::LOG_LEVEL_HIGHT, "Update gravity at time sime() %f!\n", Timer::GetSingletonPtr()->GetTimeSim());
 		}
 			break;
-		case RENDER_EVENT:
+		case Events::RENDER_EVENT:
 		{
 			m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
 		}
