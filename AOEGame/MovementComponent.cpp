@@ -45,16 +45,11 @@ namespace Framework
 					if (pTransformComponent)
 					{
 						Vector3& translation = pTransformComponent->GetTransform()->GetTranslation();
-						//translation.m_x = translation.m_x + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeTotal();
+						
 						translation.m_x += + m_velocity.m_x * Timer::GetSingletonPtr()->GetTimeSim();
-						translation.m_y += + m_velocity.m_y * Timer::GetSingletonPtr()->GetTimeSim();
-						//Log::info(Log::LOG_LEVEL_HIGHT, "Update movement at time sime() %f and v %f!\n", Timer::GetSingletonPtr()->GetTimeSim(), m_velocity.m_x);
-						//translation.m_y = translation.m_y - m_gravity * Timer::GetSingletonPtr()->GetTimeSim();
+						//translation.m_y += + m_velocity.m_y * Timer::GetSingletonPtr()->GetTimeSim();
+						
 
-						/*if (translation.m_y < 50)
-						{
-							translation.m_y = 50;
-						}*/
 						Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move x %f\n", translation.m_x);
 						Log::info(Log::LOG_LEVEL_MEDIUM, "[MovementComponent] Move y %f\n", translation.m_y);
 					}

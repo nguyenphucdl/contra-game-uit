@@ -29,7 +29,7 @@ namespace Framework
 			Log::error("TileMap not set in component !");
 			throw new GameError(GameErrorNS::FATAL_ERROR, "TileMap not set in component !");
 		}
-		RECT vport = Renderer::GetSingletonPtr()->GetViewport();
+		RECT vport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
 		Texture* tilemapTexture = GetTexture(m_tileMap->GetTag());
 		TextureRegion *tileMapRegion = new TextureRegion(tilemapTexture, vport);
 		m_mapViewport = &tileMapRegion->GetRect();
@@ -73,8 +73,8 @@ namespace Framework
 			break;
 		
 		case Events::PRE_RENDER_EVENT:
-			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetViewport().left);
-			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetViewport().top);
+			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().left);
+			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().top);
 			break;
 		default:
 			m_scroll = false;

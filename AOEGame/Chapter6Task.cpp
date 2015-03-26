@@ -31,7 +31,6 @@ bool Chapter6Task::Start()
 	Log::info(Log::LOG_LEVEL_MIN, "[Chapter6Task] Start... !\n");
 	RegisterTexture("mariobig.png");	
 	RegisterTexture("ContraSpriteFull.png");
-	///TextureLoad();///////////////////////////////////////////////////////////////////
 
 
 
@@ -41,11 +40,8 @@ bool Chapter6Task::Start()
 	if (pTileMapComponent)
 	{
 		pTileMapComponent->SetTileMap(tileMap);
-		Renderable& renderable = pTileMapComponent->GetRenderable();
-		Vector3 tileMapOrigin = Vector3(0, 480, 1);
-		renderable.SetOrigin(tileMapOrigin);
-		renderable.SetRenderTransform(false);
-
+		pTileMapComponent->SetOrigin(0, 480, 1);
+		pTileMapComponent->SetRenderTransform(false);
 		pTileMapComponent->Initialize();
 	}
 	
@@ -65,7 +61,7 @@ bool Chapter6Task::Start()
 		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 33.0f, sheet, 10, 10, 1, 9);
 
 		Vector3 position = Vector3(100, 100, 0);
-		pSpriteComponent->SetRenderTransform(false);
+		pSpriteComponent->SetRenderTransform(true);
 		pSpriteComponent->SetOrigin(position);
 
 		pSpriteComponent->RegisterState(SpriteState::MOVELEFT, moveLeftAnim);
@@ -81,10 +77,15 @@ bool Chapter6Task::Start()
 	TransformComponent* pPlayerTransformComponent = component_cast<TransformComponent>(m_playerObject);
 	if (pPlayerTransformComponent)
 	{
-		pPlayerTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
+		pPlayerTransformComponent->AttachRenderableTransform(pSpriteComponent);
+		Vector3 translation = Vector3(100, 100, 0);
+		pPlayerTransformComponent->SetTranslation(&translation);
+		pPlayerTransformComponent->Initialize();
+
+		/*pPlayerTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
 		Transform* transform = pPlayerTransformComponent->GetTransform();
 		Vector3 translation = Vector3(0, 0, 0);
-		transform->SetTranslation(translation);
+		transform->SetTranslation(translation);*/
 	}
 	m_playerObject.AddComponent<MovementComponent>();
 	MovementComponent* pPlayerMovementComponent = component_cast<MovementComponent>(m_playerObject);

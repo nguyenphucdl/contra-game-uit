@@ -52,7 +52,9 @@ namespace Framework
 		bool				GetUseBounds() const				{ return m_useBounds;	}
 
 		Vector3&			GetOrigin()							{ return m_origin;		}
+
 		void				SetOrigin(Vector3& origin)			{ m_origin = origin;	}
+		void				SetOrigin(int x, int y, int z)		{ m_origin.m_x = x; m_origin.m_y = y, m_origin.m_z = z; }
 
 		bool				GetRenderTransform()						{ return m_renderTrans; }
 		void				SetRenderTransform(bool renderTrans)		{ m_renderTrans = renderTrans; }

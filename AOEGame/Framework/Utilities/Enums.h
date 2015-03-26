@@ -34,7 +34,28 @@ namespace Framework
 		SpriteComponentId,
 		TileMapComponentId,
 		MovementComponentId,
-		StaticComponentId
+		StaticComponentId,
+
+		//Player Components
+		PlayerMovementComponent
 	};
+
+	enum SpriteDirection
+	{
+		LEFT = 0,
+		RIGHT = 100
+	};
+
+	enum SpriteState
+	{
+		MOVELEFT = SpriteDirection::LEFT,
+		SITLEFT,
+		JUMPUPLEFT,
+		MOVERIGHT = SpriteDirection::RIGHT,
+		SITRIGHT,
+		JUMPUPRIGHT,
+		SILENT
+	};
+
 }
 #endif

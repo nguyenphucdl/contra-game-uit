@@ -1,4 +1,6 @@
 #include "TransformComponent.h"
+#include "../GameObject.h"
+
 
 namespace Framework
 {
@@ -16,6 +18,13 @@ namespace Framework
 
 	void TransformComponent::Initialize()
 	{
+		
+	}
 
+	bool TransformComponent::AttachRenderableTransform(RenderableComponent *pRenderableComponent)
+	{
+		assert(pRenderableComponent); // Need to check runtime error and throw game exception
+		SetTransform(&pRenderableComponent->GetRenderable().GetTransform());
+		return true;
 	}
 }

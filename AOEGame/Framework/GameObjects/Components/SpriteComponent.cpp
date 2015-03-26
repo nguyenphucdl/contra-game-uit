@@ -4,16 +4,12 @@
 namespace Framework
 {
 	SpriteComponent::SpriteComponent(GameObject* pOwner)
-		: Component(pOwner)
+		: RenderableComponent(pOwner)
 		, m_animationList()
 		, m_keypressed(false)
 		, m_animate(false)
 	{
-		//Framework::AttachEvent(JUMP_EVENT, *this);
-		Framework::AttachEvent(UPDATE_EVENT, *this);
-		//Framework::AttachEvent(KEYDOWN_EVENT, *this);
-		//Framework::AttachEvent(KEYUP_EVENT, *this);
-		Framework::AttachEvent(RENDER_EVENT, *this);
+		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
 	}
 
 	SpriteComponent::~SpriteComponent()
@@ -44,142 +40,36 @@ namespace Framework
 		if (exist)
 			m_animationList.erase(m_animIt);
 	}
-	void SpriteComponent::SetOrigin(Vector3& origin)
-	{
-		m_renderable.SetOrigin(origin);
-	}
 
-	Vector3& SpriteComponent::GetOrigin()
+	void SpriteComponent::RunState(SpriteState state)
 	{
-		return m_renderable.GetOrigin();
+		m_curState = state;
+		m_animate = true;
 	}
-
-	void SpriteComponent::SetRenderTransform(bool renderTrans)
+	
+	void SpriteComponent::PauseState()
 	{
-		m_renderable.SetRenderTransform(renderTrans);
-	}
-
-	bool SpriteComponent::GetRenderTransform()
-	{
-		return m_renderable.GetRenderTransform();
+		m_animate = false;
 	}
 
 	void SpriteComponent::Initialize()
 	{
-		m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
-
-		assert(Renderer::GetSingletonPtr());
-		Renderer::GetSingleton().AddRenderable(&m_renderable);
+		RenderableComponent::Initialize();
+		m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());		
 	}
 
 	void SpriteComponent::HandleEvent(Event* pEvent)
 	{
-		switch (pEvent->GetID())
+		switch (m_curState)
 		{
-		case Events::KEY_DOWN_EVENT:
-		{
-			int keyCode = (int)pEvent->GetData();
+		case SpriteState::SILENT:
+			break;
 
-			switch (keyCode)
-			{
-			case DIK_DOWN:
-				{
-					if (m_curState < SpriteDirection::RIGHT)
-					{
-						if (m_animationList.find(SpriteState::SITLEFT) != m_animationList.end())
-							m_curState = SpriteState::SITLEFT;
-					}
-					else
-					{
-						if (m_animationList.find(SpriteState::SITRIGHT) != m_animationList.end())
-							m_curState = SpriteState::SITRIGHT;
-					}
-				}
-				break;
-			case DIK_RIGHT:
-				{
-					if (m_animationList.find(SpriteState::MOVERIGHT) != m_animationList.end())
-					{
-						m_curState = SpriteState::MOVERIGHT;
-						m_animate = true;
-					}
-				
-				}
-				break;
-			case DIK_LEFT:
-				{
-					if (m_animationList.find(SpriteState::MOVELEFT) != m_animationList.end())
-					{
-						m_curState = SpriteState::MOVELEFT;
-						m_animate = true;
-					}
-				}
-				break;
-			case DIK_SPACE:
-				{
-					if (m_curState < SpriteDirection::RIGHT)
-					{
-						if (m_animationList.find(SpriteState::JUMPUPLEFT) != m_animationList.end())
-							m_curState = SpriteState::JUMPUPLEFT;
-					}
-					else
-					{
-						if (m_animationList.find(SpriteState::JUMPUPRIGHT) != m_animationList.end())
-							m_curState = SpriteState::JUMPUPRIGHT;
-					}
-					//Renderable& renderable = GetRenderable();
-					//Vector3& origin = renderable.GetOrigin();
-					//origin.m_y = 300;
-				}
-				break;
-			default:
-				break;
-			}
-
-			m_keypressed = true;
-		}
-			break;
-		case Events::KEY_UP_EVENT:
-		{
-			if (m_curState < SpriteDirection::RIGHT)
-			{
-				if (m_animationList.find(SpriteState::MOVELEFT) != m_animationList.end())
-				{
-					m_curState = SpriteState::MOVELEFT;
-				}
-			}
-			else
-			{
-				if (m_animationList.find(SpriteState::MOVERIGHT) != m_animationList.end())
-				{
-					m_curState = SpriteState::MOVERIGHT;
-				}
-			}
-			m_keypressed = false;
-			m_animate = false;
-		}
-			break;
-		case Events::UPDATE_EVENT:
-		{
-			//if (m_keypressed && m_animate)
-				m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
-				//Log::info(Log::LOG_LEVEL_HIGHT, "Update gravity at time sime() %f!\n", Timer::GetSingletonPtr()->GetTimeSim());
-			/*Renderable& renderable = GetRenderable();
-			Vector3& origin = renderable.GetOrigin();
-			origin.m_y = origin.m_y - 300 * Timer::GetSingletonPtr()->GetTimeTotal();
-			if (origin.m_y < 100)
-			{
-				origin.m_y = 100;
-			}*/
-			//Log::info(Log::LOG_LEVEL_HIGHT, "Update gravity at time sime() %f!\n", Timer::GetSingletonPtr()->GetTimeSim());
-		}
-			break;
-		case Events::RENDER_EVENT:
-		{
-			m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
-		}
-			break;
 		default:
+			if (m_animate)
+			{
+				m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
+			}
 			break;
 		}
 	}

@@ -62,6 +62,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{bb4a677f-78e4-4c20-9206-3d336cf1475d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{72f184d2-8c67-4ff8-a5e2-7d9438493ec3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\EventManager\EventManager.h">
@@ -202,6 +205,9 @@
     <ClInclude Include="Framework\Renderer\Camera.h">
       <Filter>Framework\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerMovementComponent.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -311,6 +317,9 @@
     </ClCompile>
     <ClCompile Include="Framework\Renderer\Camera.cpp">
       <Filter>Framework\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovementComponent.cpp">
+      <Filter>Game\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,46 +2,29 @@
 #define	__SPRITECOMPONENT_H__
 #include "../../Application/Context.h"
 #include "../GameObject.h"
-#include "../Component.h"
-#include "../../Renderer/Renderable.h"
+#include "RenderableComponent.h"
 #include "../../EventManager/EventHandler.h"
 #include "../../EventManager/EventManager.h"
 #include "../Actions/Animation.h"
 namespace Framework
 {
-	enum SpriteDirection
-	{
-		LEFT = 0,
-		RIGHT = 100
-	};
-
-	enum SpriteState 
-	{
-		MOVELEFT = SpriteDirection::LEFT,
-		SITLEFT,
-		JUMPUPLEFT,
-		MOVERIGHT = SpriteDirection::RIGHT,
-		SITRIGHT,
-		JUMPUPRIGHT,
-	};
 	
 	class SpriteComponent
-		: public Component
+		: public RenderableComponent
 		, public EventHandler
 	{
 	private:
 		static const unsigned int s_id = ComponentIDs::SpriteComponentId;
 
-		typedef std::map<int, Animation*>	AnimationMap;
+		typedef std::map<int, Animation*>			AnimationMap;
 		typedef AnimationMap::iterator				AnimationMapIterator;
-		AnimationMap			m_animationList;
-		AnimationMapIterator	m_animIt;
+		AnimationMap				m_animationList;
+		AnimationMapIterator		m_animIt;
 
-		Renderable		m_renderable;
-		SpriteState		m_curState;
+		SpriteState					m_curState;
 
-		bool			m_keypressed;
-		bool			m_animate;
+		bool						m_keypressed;
+		bool						m_animate;
 		
 	public:
 		static unsigned int GetId() { return s_id; }
@@ -49,23 +32,14 @@ namespace Framework
 		explicit SpriteComponent(GameObject* pOwner);
 		virtual ~SpriteComponent();
 
-		void RegisterState(SpriteState state, Animation* anim);
-
-		void RemoveState(SpriteState state);
-
-		void SetOrigin(Vector3& origin);
-
-		Vector3& GetOrigin();
-
-		void SetRenderTransform(bool renderTrans);
-
-		bool GetRenderTransform();
 
 		void SetDefaultState(SpriteState state) { m_curState = state; }
 
-		//void UpdateTransform(Transform& transfrom) { m_renderable.GetTransform().Clone(transfrom); }
+		void RegisterState(SpriteState state, Animation* anim);
+		void RemoveState(SpriteState state);
+		void RunState(SpriteState state);
+		void PauseState();
 
-		Renderable&	GetRenderable() { return m_renderable; }
 
 		virtual void Initialize();
 

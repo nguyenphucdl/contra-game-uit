@@ -35,7 +35,7 @@ namespace Framework
 
 	void Transform::SetTranslation(const Vector3& translation)
 	{
-		m_translation = translation;
+		m_translation.Set(translation);
 	}
 
 	Vector3& Transform::GetTranslation()

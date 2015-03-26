@@ -8,9 +8,8 @@ namespace Framework
 		, m_direct3d(NULL)
 		, m_device3d(NULL)
 		, m_fullScreen(false)
-		, m_viewOrigin(0, 0, 0)
-		, m_viewTranslate(0, 0, 0)
-		, m_viewTransform()
+		//, m_viewOrigin(0, 0, 0)
+		//, m_viewTranslate(0, 0, 0)
 		
 	{
 		m_width = GameConfig::GetSingletonPtr()->GetInt("GAME_WIDTH");
@@ -81,6 +80,9 @@ namespace Framework
 		m_result = D3DXCreateSprite(m_device3d, &m_spriteHandler);
 		if(FAILED(m_result))
 			throw(GameError(GameErrorNS::FATAL_ERROR, "Error creating Direct3D sprite handler"));
+		/*Setting Camera*/
+		m_camera.SetWidth(m_width);
+		m_camera.SetHeight(m_height);
 
 		/*REGISTER EVENT*/
 		RegisterEvent(Events::PRE_RENDER_EVENT);
@@ -313,43 +315,5 @@ namespace Framework
 	}
 	void Renderer::Stop()
 	{
-	}
-	
-	RECT& Renderer::GetViewport()
-	{
-		Vector3 pos = m_viewOrigin;
-		pos.Add(m_viewTranslate);
-		RECT result;
-		result.left = pos.m_x;
-		result.right = result.left + m_width;
-		result.top = pos.m_y;
-		result.bottom = result.top + m_height;
-		return result;
-	}
-
-	void Renderer::SetViewportOrigin(int x, int y)
-	{
-		m_viewOrigin.m_x = x;
-		m_viewOrigin.m_y = y;
-	}
-
-	void Renderer::ResetViewport()
-	{
-		m_viewTranslate.Set(0, 0, 0);
-	}
-
-	void Renderer::UpdateViewport(Vector3* translate)
-	{
-		m_viewTranslate.Set(translate->m_x, translate->m_y, translate->m_z);
-	}
-
-	Transform& Renderer::GetViewTransform()
-	{
-		return m_viewTransform;
-	}
-
-	void Renderer::UpdateViewTransform(Transform* trans)
-	{
-		m_viewTransform.Clone(*trans);
-	}
+	}	
 }

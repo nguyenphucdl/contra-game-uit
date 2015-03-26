@@ -8,6 +8,7 @@
 #include "Renderable.h"
 #include "../Application/Context.h"
 #include "../Renderer/Texture/TextureManager.h"
+#include "Camera.h"
 
 // DirectX pointer types
 #define	LP_D3DEVICE			LPDIRECT3DDEVICE9
@@ -44,9 +45,11 @@ namespace Framework
 
 		RenderableVector					m_renerables;
 	
-		Vector3								m_viewOrigin;
-		Vector3								m_viewTranslate;
-		Transform							m_viewTransform;
+		Camera								m_camera;
+
+		//Vector3								m_viewOrigin;
+		//Vector3								m_viewTranslate;
+		//Transform							m_viewTransform;
 
 		D3DXMATRIX							m_worldViewMatrix;
 
@@ -76,17 +79,8 @@ namespace Framework
 		// get functions
 		LP_D3DEVICE	getD3device()					{ return m_device3d; }	
 		LP_3D		get3D()							{ return m_direct3d; }
-		RECT&		GetViewport();
-		Vector3&	GetViewportTranslate()			{ return m_viewTranslate; }
-		void		UpdateViewport(Vector3* translate);
-		void		ResetViewport();
-		void		SetViewportOrigin(int x, int y);
-		Vector3		GetViewportLocation();
-		Transform&	GetViewTransform();
-		void		UpdateViewTransform(Transform* trans);
-
-	private:
-		void		_UpdateViewport();
+		
+		Camera&		GetCamera()						{ return m_camera;	 }
 
 	private:
 		void	Draw(Renderable* pRenderable);

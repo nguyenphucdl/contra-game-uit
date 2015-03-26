@@ -17,8 +17,8 @@ namespace Framework
 
 	void CameraComponent::SetViewportOrigin(int x, int y)
 	{
-		Renderer::GetSingletonPtr()->SetViewportOrigin(x, y);
-		Renderer::GetSingletonPtr()->ResetViewport();
+		Renderer::GetSingletonPtr()->GetCamera().SetViewPortOrigin(x, y);
+		Renderer::GetSingletonPtr()->GetCamera().ResetViewport();
 	}
 
 	CameraComponent::~CameraComponent()
@@ -51,9 +51,9 @@ namespace Framework
 					Transform* transform = pTransformComponent->GetTransform();
 					Vector3& translation = transform->GetTranslation();
 					
-					Renderer::GetSingletonPtr()->UpdateViewport(&translation);
+					Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&translation);
 
-					RECT viewport = Renderer::GetSingletonPtr()->GetViewport();
+					RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
 
 					//Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] Timer at %f\n", Timer::GetSingletonPtr()->GetTimeSim());
 					//Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] POSTUPDATE_EVENT camera translation x %f\n", Renderer::GetSingletonPtr()->GetViewportTranslate().m_x);
