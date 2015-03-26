@@ -52,6 +52,12 @@ namespace ConfigKey
 	const char GAME_TITLE[] = "GAME_TITLE";
 	const char CLASS_NAME[] = "CLASS_NAME";
 }
+
+namespace LogConfig
+{
+	const char outPath[] = "printObject.log";
+	const bool outToFile = true;
+}
 /*LƯU Ý 
 	const wchar_t *GAME_WIDTH2[] = L"GAME_WIDTH"; => ERROR already defined
 */

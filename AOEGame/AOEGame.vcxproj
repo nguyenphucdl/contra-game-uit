@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Renderer\Camera.h" />
     <ClInclude Include="Chapter6App.h" />
     <ClInclude Include="Chapter6Task.h" />
     <ClInclude Include="Framework\Utilities\Enums.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="MovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Renderer\Camera.cpp" />
     <ClCompile Include="Chapter6App.cpp" />
     <ClCompile Include="Chapter6Task.cpp" />
     <ClCompile Include="Framework\Application\Game.cpp" />

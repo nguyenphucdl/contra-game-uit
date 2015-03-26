@@ -10,18 +10,18 @@
 #include "../../Renderer/Texture/Texture.h"
 #include "../../Renderer/Texture/TextureRegion.h"
 #include "../../TileMap/TileMap.h"
+#include "RenderableComponent.h"
 
 namespace Framework
 {
 	class TileMapComponent
-		: public Component
+		: public RenderableComponent
 		, public EventHandler
 	{
 	private:
 		static const unsigned int s_id = ComponentIDs::TileMapComponentId;
 
 		TileMap*				m_tileMap;		
-		Renderable				m_renderable;
 		RECT*					m_mapViewport;
 		bool					m_scroll;
 
@@ -33,7 +33,7 @@ namespace Framework
 
 		virtual void Initialize();
 
-		Renderable&	GetRenderable() { return m_renderable; }
+		Renderable&	GetRenderable() { return RenderableComponent::m_renderable; }
 
 		virtual void HandleEvent(Event* pEvent);
 

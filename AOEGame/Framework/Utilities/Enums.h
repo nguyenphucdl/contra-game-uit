@@ -6,16 +6,16 @@ namespace Framework
 	enum Events
 	{
 		//Main events
-		PRE_UPDATE_EVENT,
-		UPDATE_EVENT,
-		POST_UPDATE_EVENT,
+		PRE_UPDATE_EVENT,	// UNUSED
+		UPDATE_EVENT,		// UNUSED
+		POST_UPDATE_EVENT,	// UNUSED
 		PRE_RENDER_EVENT,
-		RENDER_EVENT,
-		POST_RENDER_EVENT,
+		RENDER_EVENT,		// UNUSED
+		POST_RENDER_EVENT,	// UNUSED
 
 		//Input events
-		KEY_DOWN_EVENT,
-		KEY_UP_EVENT
+		KEY_DOWN_EVENT,		// Fire from Input task
+		KEY_UP_EVENT		// Fire form Input task
 	};
 
 	enum GameEvents

@@ -1,5 +1,11 @@
 #include "Log.h"
-
+#include "../Utilities/GameConfig.h"
+#include "../GameObjects/Components/RenderableComponent.h"//TEST
+#include "../GameObjects/Components/TransformComponent.h"
+#include "../GameObjects/Components/CameraComponent.h"
+#include "../GameObjects/Components/SpriteComponent.h"
+#include "../GameObjects/Components/TileMapComponent.h"
+#include "../GameObjects/Components/StaticComponent.h"
 
 namespace Framework
 {
@@ -63,4 +69,29 @@ namespace Framework
 		fputs ( buffer, stdout );
 		va_end(lVarArgs);
 	}
+
+	void Log::printComponentIDs()
+	{
+		if (Log::isDebug())
+		{
+			string logPath = LogConfig::outPath;
+
+			std::filebuf fb;
+			fb.open(logPath, std::ios::out);
+			std::ostream os(&fb);
+			os << "<ComponentIDs>" << endl;
+			os << "RenderableComponent(" << RenderableComponent::GetId() << ") TransformComponent(" << TransformComponent::GetId() << ") ";
+			os << "TileMapComponent(" << TileMapComponent::GetId() << ") CameraComponent(" << CameraComponent::GetId() << ") ";
+			os << "SpriteComponent(" << SpriteComponent::GetId() << ") StaticComponent(" << StaticComponent::GetId() << ") ";
+			os << endl << "</ComponentIDs>";
+			fb.close();
+		}
+	}
+	bool Log::isDebug()
+	{
+		bool isDebug = LogConfig::outToFile;
+
+		return isDebug;
+	}
+
 }

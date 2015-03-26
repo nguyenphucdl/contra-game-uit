@@ -49,6 +49,7 @@ bool Chapter6Task::Start()
 		pTileMapComponent->Initialize();
 	}
 	
+	
 
 	//PLAYER OBJECT
 	m_playerObject.AddComponent<SpriteComponent>();
@@ -102,6 +103,8 @@ bool Chapter6Task::Start()
 		pCameraComponent->AttachObject(&m_playerObject);
 		pCameraComponent->Initialize();
 	}
+
+	
 
 	return true;
 }

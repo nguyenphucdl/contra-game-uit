@@ -12,7 +12,7 @@ namespace Framework
 	class RenderableComponent
 		: public Component
 	{
-	private:
+	protected:
 		static const unsigned int s_id = ComponentIDs::RenderableComponentId;
 
 		Renderable		m_renderable;

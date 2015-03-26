@@ -14,7 +14,7 @@
 #define LP_3D				LPDIRECT3D9
 #define LP_BACKBUFFER		LPDIRECT3DSURFACE9
 #define LP_SPRITEHANDLER	LPD3DXSPRITE
-#define DEBUG_REGION		RECT
+
 namespace Framework
 {
 
@@ -23,25 +23,22 @@ namespace Framework
 		,	public Singleton<Renderer>
 	{
 	private:
+		/*DirectX Specific*/
 		bool						m_initialized;
-		// DirectX states
 		LP_3D						m_direct3d;
 		LP_D3DEVICE					m_device3d;
 		LP_BACKBUFFER				m_backbuffer;
 		LP_SPRITEHANDLER			m_spriteHandler;
-
 		D3DPRESENT_PARAMETERS		m_d3dpp;
 		D3DDISPLAYMODE				m_displayMode;
-
-		// Another states
 		HRESULT						m_result;
 		HWND						m_hwnd;
 		bool						m_fullScreen;
 		int							m_width;
 		int							m_height;
 		COLOR_ARGB					m_backColor;
-		// width & height & another states
-
+		
+		/*Render states*/
 		typedef std::vector<Renderable*>		RenderableVector;
 		typedef	RenderableVector::iterator		RenderableVectorIterator;
 

@@ -23,6 +23,7 @@ namespace Framework
 		//test
 		m_timeTotal = 0;
 		Log::info(Log::LOG_LEVEL_ROOT, "[Timer] Constructor Get Config %d, %f, %f, %f !\n", game_width, game_width2, game_width3, game_width4);
+		Log::printComponentIDs();
 	}
 
 	Timer::~Timer()

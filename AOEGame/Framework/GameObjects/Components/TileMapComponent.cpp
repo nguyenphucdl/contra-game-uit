@@ -7,15 +7,12 @@
 namespace Framework
 {
 	TileMapComponent::TileMapComponent(GameObject* pOwner)
-		: Component(pOwner)
+		: RenderableComponent(pOwner)
 		, m_scroll(false)
 		, m_tileMap(NULL)
 		, m_mapViewport(NULL)
 	{
-		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
-		Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
-		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
-		Framework::AttachEvent(Events::RENDER_EVENT, *this);		
+		Framework::AttachEvent(Events::PRE_RENDER_EVENT, *this);		
 	}
 
 	TileMapComponent::~TileMapComponent()
@@ -24,6 +21,8 @@ namespace Framework
 
 	void TileMapComponent::Initialize()
 	{
+		RenderableComponent::Initialize();
+
 		Log::info(Log::LOG_LEVEL_ROOT, "[TileMapComponent] Initialize...\n");
 		if(m_tileMap == NULL)
 		{
@@ -38,8 +37,6 @@ namespace Framework
 
 		m_renderable.SetRenderTransform(false);
 
-		assert(Renderer::GetSingletonPtr());
-		Renderer::GetSingleton().AddRenderable(&m_renderable);
 	}
 
 	void TileMapComponent::UpdateMapView(RECT view)
@@ -74,11 +71,8 @@ namespace Framework
 		case Events::KEY_UP_EVENT:
 			m_scroll = false;
 			break;
-		case Events::UPDATE_EVENT:
-			
-
-			break;
-		case Events::RENDER_EVENT:
+		
+		case Events::PRE_RENDER_EVENT:
 			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetViewport().left);
 			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetViewport().top);
 			break;

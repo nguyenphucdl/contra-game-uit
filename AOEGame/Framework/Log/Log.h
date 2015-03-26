@@ -4,9 +4,13 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string>
+#include <fstream>		//for filebuf
+#include <ostream>		//fstream
+
 
 namespace Framework
 {
+
 	class Log
 	{
 	public:
@@ -27,6 +31,11 @@ namespace Framework
 		static void warn(int level, Log_Str pMessage, ...);
 		static void info(int level, Log_Str pMessage, ...);
 		static void debug(int level, Log_Str pMessage, ...);
+
+	public:
+		static void printComponentIDs();
+		static bool isDebug();
+	
 	};
 }
 

@@ -199,6 +199,9 @@
     <ClInclude Include="Framework\Utilities\Enums.h">
       <Filter>Framework\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Renderer\Camera.h">
+      <Filter>Framework\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Renderer\Camera.cpp">
+      <Filter>Framework\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
