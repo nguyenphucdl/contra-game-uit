@@ -3,7 +3,7 @@ using namespace Framework;
 
 
 PlayerMovementComponent::PlayerMovementComponent(GameObject* pOwner)
-	: Component(pOwner)
+	: TransformComponent(pOwner)
 {
 	Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
 	Framework::AttachEvent(Events::KEY_UP_EVENT, *this);

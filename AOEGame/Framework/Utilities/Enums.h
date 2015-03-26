@@ -37,7 +37,7 @@ namespace Framework
 		StaticComponentId,
 
 		//Player Components
-		PlayerMovementComponent
+		PlayerMovementComponentId
 	};
 
 	enum SpriteDirection

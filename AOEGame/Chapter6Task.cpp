@@ -2,6 +2,7 @@
 #include "Framework\Utilities\TmxLoader.h"
 #include "Framework\GameObjects\Components\SpriteComponent.h"
 
+
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
 {
@@ -73,28 +74,28 @@ bool Chapter6Task::Start()
 		pSpriteComponent->SetDefaultState(SpriteState::MOVELEFT);
 		pSpriteComponent->Initialize();
 	}
-	m_playerObject.AddComponent<TransformComponent>();
-	TransformComponent* pPlayerTransformComponent = component_cast<TransformComponent>(m_playerObject);
+	m_playerObject.AddComponent<PlayerMovementComponent>();
+	PlayerMovementComponent* pPlayerTransformComponent = component_cast<PlayerMovementComponent>(m_playerObject);
 	if (pPlayerTransformComponent)
 	{
 		pPlayerTransformComponent->AttachRenderableTransform(pSpriteComponent);
 		Vector3 translation = Vector3(100, 100, 0);
 		pPlayerTransformComponent->SetTranslation(&translation);
 		pPlayerTransformComponent->Initialize();
-
-		/*pPlayerTransformComponent->SetTransform(&pSpriteComponent->GetRenderable().GetTransform());
-		Transform* transform = pPlayerTransformComponent->GetTransform();
-		Vector3 translation = Vector3(0, 0, 0);
-		transform->SetTranslation(translation);*/
 	}
-	m_playerObject.AddComponent<MovementComponent>();
+
+	TransformComponent* testTransformComponent = component_cast<TransformComponent>(m_playerObject);
+
+	PlayerMovementComponent* testPlayerComponent = dynamic_cast<PlayerMovementComponent*>(testTransformComponent);
+
+	/*m_playerObject.AddComponent<MovementComponent>();
 	MovementComponent* pPlayerMovementComponent = component_cast<MovementComponent>(m_playerObject);
 	if (pPlayerMovementComponent)
 	{
 		Vector3 velocity = Vector3(50.0f, 50.0f, 0);
 		pPlayerMovementComponent->SetVelocity(velocity);
 		pPlayerMovementComponent->Initialize();
-	}
+	}*/
 
 	// CAMERA OBJECT
 	m_cameraObject.AddComponent<CameraComponent>();
