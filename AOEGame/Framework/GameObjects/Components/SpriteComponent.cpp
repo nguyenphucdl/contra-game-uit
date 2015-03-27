@@ -9,7 +9,7 @@ namespace Framework
 		, m_keypressed(false)
 		, m_animate(false)
 	{
-		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
 	}
 
 	SpriteComponent::~SpriteComponent()
@@ -41,15 +41,24 @@ namespace Framework
 			m_animationList.erase(m_animIt);
 	}
 
-	void SpriteComponent::RunState(SpriteState state)
+	void SpriteComponent::UpdateState(SpriteState state)
 	{
 		m_curState = state;
+	}
+
+	void SpriteComponent::Animate()
+	{
 		m_animate = true;
 	}
 	
-	void SpriteComponent::PauseState()
+	void SpriteComponent::Pause()
 	{
 		m_animate = false;
+	}
+
+	void SpriteComponent::Reset()
+	{
+		m_animationList[m_curState]->Reset();
 	}
 
 	void SpriteComponent::Initialize()
@@ -69,6 +78,10 @@ namespace Framework
 			if (m_animate)
 			{
 				m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
+			}
+			else
+			{
+				m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
 			}
 			break;
 		}

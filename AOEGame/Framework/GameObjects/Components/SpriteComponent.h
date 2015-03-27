@@ -37,8 +37,10 @@ namespace Framework
 
 		void RegisterState(SpriteState state, Animation* anim);
 		void RemoveState(SpriteState state);
-		void RunState(SpriteState state);
-		void PauseState();
+		void UpdateState(SpriteState state);
+		void Animate();
+		void Reset();
+		void Pause();
 
 
 		virtual void Initialize();

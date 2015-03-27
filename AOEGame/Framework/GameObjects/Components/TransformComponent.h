@@ -11,7 +11,7 @@ namespace Framework
 	class TransformComponent
 		: public Component
 	{
-	private:
+	protected:
 		static const unsigned int	s_id = ComponentIDs::TransformComponentId;
 
 		Transform*	m_transform;

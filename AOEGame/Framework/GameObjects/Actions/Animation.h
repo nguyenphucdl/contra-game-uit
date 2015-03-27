@@ -27,8 +27,9 @@ namespace Framework
 		std::string GetName()				{ return m_name; }
 		void	SetFrameIndex(int idx);
 		void	Reverse();
-		int		GetFrameIndex()			{ return m_curIdx; }		
+		int		GetFrameIndex()				{ return m_curIdx; }		
 		void	AddFrame(TextureRegion* frame);
+		void	Reset()						{ m_curIdx = 0; }
 
 	public:
 		static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset = 0);

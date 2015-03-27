@@ -61,8 +61,8 @@ bool Chapter6Task::Start()
 		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 333.0f, sheet, 10, 10, 1, 8);
 		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 33.0f, sheet, 10, 10, 1, 9);
 
-		Vector3 position = Vector3(100, 100, 0);
-		pSpriteComponent->SetRenderTransform(true);
+		Vector3 position = Vector3(100, 200, 0);
+		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 
 		pSpriteComponent->RegisterState(SpriteState::MOVELEFT, moveLeftAnim);
@@ -74,12 +74,14 @@ bool Chapter6Task::Start()
 		pSpriteComponent->SetDefaultState(SpriteState::MOVELEFT);
 		pSpriteComponent->Initialize();
 	}
+	
+
 	m_playerObject.AddComponent<PlayerMovementComponent>();
 	PlayerMovementComponent* pPlayerTransformComponent = component_cast<PlayerMovementComponent>(m_playerObject);
 	if (pPlayerTransformComponent)
 	{
 		pPlayerTransformComponent->AttachRenderableTransform(pSpriteComponent);
-		Vector3 translation = Vector3(100, 100, 0);
+		Vector3 translation = Vector3(0, 0, 0);
 		pPlayerTransformComponent->SetTranslation(&translation);
 		pPlayerTransformComponent->Initialize();
 	}
