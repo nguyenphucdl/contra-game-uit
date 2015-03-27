@@ -47,11 +47,10 @@ namespace Framework
 	
 		Camera								m_camera;
 
-		//Vector3								m_viewOrigin;
-		//Vector3								m_viewTranslate;
-		//Transform							m_viewTransform;
-
 		D3DXMATRIX							m_worldViewMatrix;
+
+		/*Debug texture*/
+		Texture*							m_debugTexture;
 
 	public:
 		explicit Renderer(const unsigned int priority);

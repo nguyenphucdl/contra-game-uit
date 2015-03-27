@@ -208,11 +208,31 @@ namespace Framework
 
 			D3DXVECTOR3 posTransform = Transform::GetVector3FromWorldView(pos, m_worldViewMatrix);
 
+			TextureRegion *texture = pRenderable->GetTextureRegion();
+			RECT srcRect = texture->GetRect();
 
 			if (pRenderable->IsVisible())
 			{
-				TextureRegion *texture = pRenderable->GetTextureRegion();
-				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &texture->GetRect(), NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+			}
+
+			if (pRenderable->IsDebug())
+			{
+				RECT rect1, rect2;
+				int w = 200;
+				int h = 200;
+				rect1.top = 0;
+				rect1.bottom = rect1.top + (srcRect.bottom - srcRect.top);
+				rect1.left = 0;
+				rect1.right = rect1.left + (srcRect.right - srcRect.left);
+
+				rect2.top = 480 - (srcRect.bottom - srcRect.top);
+				rect2.bottom = 480;
+				rect2.left = 0;
+				rect2.right = rect2.left + (srcRect.right - srcRect.left);
+				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect1, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect2, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+
 			}
 		}
 	}
@@ -260,8 +280,10 @@ namespace Framework
 	bool Renderer::Start()
 	{
 		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer][Start] Starting...\n");
-		Init();
 
+		Init();
+		RegisterTexture("debug-texture.png");
+		m_debugTexture = GetTexture("debug-texture.png");
 		return true;
 	}
 	void Renderer::OnSuspend()

@@ -42,6 +42,8 @@ bool Chapter6Task::Start()
 	{
 		pTileMapComponent->SetTileMap(tileMap);
 		pTileMapComponent->SetOrigin(0, 480, 1);
+		pTileMapComponent->SetTag("TileMap");
+		pTileMapComponent->SetDebug(false);
 		pTileMapComponent->SetRenderTransform(false);
 		pTileMapComponent->Initialize();
 	}

@@ -10,6 +10,7 @@ namespace Framework
 	private:
 		GameObject*			m_pOwner;
 
+
 	public:
 		explicit Component(GameObject* pOwner)
 			: m_pOwner(pOwner)

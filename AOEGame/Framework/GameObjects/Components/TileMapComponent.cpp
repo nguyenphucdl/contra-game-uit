@@ -36,7 +36,7 @@ namespace Framework
 		m_renderable.SetTextureRegion(tileMapRegion);
 
 		m_renderable.SetRenderTransform(false);
-
+		//m_renderable.SetT
 	}
 
 	void TileMapComponent::UpdateMapView(RECT view)

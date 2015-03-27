@@ -31,6 +31,10 @@ namespace Framework
 		void SetOrigin(Vector3& origin)					{ m_renderable.SetOrigin(origin);	}
 		void SetOrigin(int x, int y, int z)				{ m_renderable.SetOrigin(x, y, z);	}
 		void SetRenderTransform(bool renderTrans)		{ m_renderable.SetRenderTransform(renderTrans); }
+		void SetTag(std::string tagName)				{ m_renderable.SetTag(tagName); }
+		std::string GetTag()							{ return m_renderable.GetTag(); }
+		void SetDebug(bool debug)						{ m_renderable.SetDebug(debug); }
+		bool IsDebug()									{ return m_renderable.IsDebug(); }
 	};
 }
 #endif//__RENDERABLECOMPONENT_H__

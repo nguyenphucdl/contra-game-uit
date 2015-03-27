@@ -332,5 +332,8 @@
     <Image Include="mariobigbigbullet.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\..\..\..\..\Desktop\debug-texture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

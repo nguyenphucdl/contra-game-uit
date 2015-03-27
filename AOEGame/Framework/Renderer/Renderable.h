@@ -21,9 +21,10 @@ namespace Framework
 		TextureRegion*			m_pTextureRegion;
 		Transform				m_transform;
 		Vector3					m_origin;
-		bool					m_renderTrans ;// Enable OR Disable transform
+		bool					m_renderTrans;// Enable OR Disable transform
 		bool					m_visible;
-
+		std::string				m_tag;
+		bool					m_debug;
 
 		// Fulture use only
 		Vector3					m_min;
@@ -42,14 +43,20 @@ namespace Framework
 		Transform&			GetTransform()						{ return m_transform; }
 		void				SetTransform(Transform &pTransform)	{ m_transform = pTransform; }
 
-		void				SetBoundMin(const Vector3& min)	{ m_min = min;  }
-		const Vector3&		GetBoundMin() const					{ return m_min; }	
+		void				SetBoundMin(const Vector3& min)	{ m_min = min; }
+		const Vector3&		GetBoundMin() const					{ return m_min; }
 
-		void				SetBoundMax(const Vector3&	max)	{ m_max = max;  }
-		const Vector3&		GetBoundMax() const					{ return m_max;	}
+		void				SetBoundMax(const Vector3&	max)	{ m_max = max; }
+		const Vector3&		GetBoundMax() const					{ return m_max; }
 
-		void				SetUseBounds(bool enabled)			{ m_useBounds = enabled;	}
-		bool				GetUseBounds() const				{ return m_useBounds;	}
+		void				SetUseBounds(bool enabled)			{ m_useBounds = enabled; }
+		bool				GetUseBounds() const				{ return m_useBounds; }
+
+		void				SetTag(std::string tagName)			{ m_tag = tagName; }
+		std::string			GetTag()							{ return m_tag; }
+
+		void				SetDebug(bool debug)				{ m_debug = debug;		}
+		bool				IsDebug()							{ return m_debug;		}
 
 		Vector3&			GetOrigin()							{ return m_origin;		}
 
@@ -76,6 +83,8 @@ namespace Framework
 		, m_renderTrans(true)
 		, m_origin(0, 0, 0)
 		, m_visible(true)
+		, m_tag("")
+		, m_debug(true)
 	{
 	}
 	inline Renderable::~Renderable()
