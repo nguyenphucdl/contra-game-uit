@@ -207,13 +207,29 @@ namespace Framework
 			D3DXVECTOR3 pos = posVector.GetD3DVector();
 
 			D3DXVECTOR3 posTransform = Transform::GetVector3FromWorldView(pos, m_worldViewMatrix);
+			Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverse();
+			
+			
+			
+
+			D3DXVECTOR4 posInScreenCoord(posTransform.x, posTransform.y, posTransform.z, 1);
+			
+
+			if (pRenderable->GetTag() != "TileMap" && pRenderable->GetRenderTransform())
+			{
+				D3DXMATRIX inverseMatrixTranslate;
+				D3DXMatrixIdentity(&inverseMatrixTranslate);
+				D3DXMatrixTransformation2D(&inverseMatrixTranslate, NULL, 0, NULL, 0, 0, &D3DXVECTOR2(inverseViewTranslate.m_x, inverseViewTranslate.m_y));
+				D3DXVec3Transform(&posInScreenCoord, &posTransform, &inverseMatrixTranslate);
+			}
+
 
 			TextureRegion *texture = pRenderable->GetTextureRegion();
 			RECT srcRect = texture->GetRect();
 
 			if (pRenderable->IsVisible())
 			{
-				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
 			}
 
 			if (pRenderable->IsDebug())
@@ -230,8 +246,8 @@ namespace Framework
 				rect2.bottom = 480;
 				rect2.left = 0;
 				rect2.right = rect2.left + (srcRect.right - srcRect.left);
-				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect1, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
-				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect2, NULL, &posTransform, D3DCOLOR_XRGB(255, 255, 255));
+				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect1, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
+				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect2, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
 
 			}
 		}

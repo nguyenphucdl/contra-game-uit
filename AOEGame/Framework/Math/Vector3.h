@@ -28,7 +28,7 @@ namespace Framework
 		void	Divide(const float scalar);
 		void	Add(const Vector3& in);
 		void	Subtract(const Vector3& in);
-		void	Negate();
+		Vector3	GetInverse();
 		float	Length() const;
 		float	LengthSquared() const;
 		float	Distance2(const Vector3& in);

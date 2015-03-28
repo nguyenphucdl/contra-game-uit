@@ -737,5 +737,12 @@
   </layer>
   <objectgroup name="objectgroup">
     <object name="" x="32" y="129" width="736" height="17" />
+    <object name="" x="160" y="97" width="96" height="15" />
+    <object name="" x="416" y="96" width="65" height="17" />
+    <object name="" x="255" y="65" width="32" height="17" />
+    <object name="" x="288" y="33" width="64" height="17" />
+    <object name="" x="352" y="64" width="33" height="16" />
+    <object name="" x="640" y="80" width="96" height="15" />
+    <object name="" x="608" y="33" width="64" height="22" />
   </objectgroup>
 </map>

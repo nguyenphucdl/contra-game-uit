@@ -68,9 +68,10 @@ namespace Framework
 		m_z -= in.m_z;
 	}
 
-	void Vector3::Negate()
+	Vector3 Vector3::GetInverse()
 	{
-		m_x = -m_x; m_y = -m_y; m_z = -m_z;
+		//m_x = -m_x; m_y = -m_y; m_z = -m_z;
+		return Vector3(-m_x, -m_y, -m_z);
 	}
 
 	Vector3& Vector3::operator=(const Vector3& in)

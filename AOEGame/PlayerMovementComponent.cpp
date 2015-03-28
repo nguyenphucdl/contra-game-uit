@@ -44,7 +44,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 		if (m_pressed && m_animate)
 		{
 			Vector3& translation = m_transform->GetTranslation();
-			//translation.m_x += 50 * Timer::GetSingletonPtr()->GetTimeSim();
+			translation.m_x += 50 * Timer::GetSingletonPtr()->GetTimeSim();
 			pSprite->Animate();
 		}
 		else

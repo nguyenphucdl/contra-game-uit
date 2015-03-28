@@ -63,7 +63,7 @@ bool Chapter6Task::Start()
 		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 333.0f, sheet, 10, 10, 1, 8);
 		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 33.0f, sheet, 10, 10, 1, 9);
 
-		Vector3 position = Vector3(100, 200, 0);
+		Vector3 position = Vector3(0, 100, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 

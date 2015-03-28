@@ -27,6 +27,8 @@ namespace Framework
 		void			ResetViewport();
 
 		RECT&			GetViewPort();
+		Vector3			GetViewOrigin()			{ return m_viewOrigin; }
+		Vector3			GetViewTranslate()		{ return m_viewTranslate; }
 
 	};
 }
