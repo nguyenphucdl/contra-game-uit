@@ -70,23 +70,87 @@ namespace Framework
 		va_end(lVarArgs);
 	}
 
+	void Log::start()
+	{
+		string __trace_file = LogConfig::outPath;
+
+		FILE *f = stderr;
+		if (fopen_s(&f, __trace_file.c_str(), "w") != 0)
+		{
+			fprintf(stderr, "WARNING: Failed to open trace file '%s' for writing!\n", __trace_file);
+			return;
+		}
+
+		if (__trace_file.c_str() != NULL)
+			fclose(f);
+	}
+
 	void Log::printComponentIDs()
 	{
+		string __trace_file = LogConfig::outPath;
+
+		FILE *f = stderr;
+		if (fopen_s(&f, __trace_file.c_str(), "a") != 0)
+		{
+			fprintf(stderr, "WARNING: Failed to open trace file '%s' for writing!\n", __trace_file);
+			return;
+		}
+
 		if (Log::isDebug())
 		{
-			string logPath = LogConfig::outPath;
-
-			std::filebuf fb;
-			fb.open(logPath, std::ios::out);
-			std::ostream os(&fb);
-			os << "<ComponentIDs>" << endl;
-			os << "RenderableComponent(" << RenderableComponent::GetId() << ") TransformComponent(" << TransformComponent::GetId() << ") ";
-			os << "TileMapComponent(" << TileMapComponent::GetId() << ") CameraComponent(" << CameraComponent::GetId() << ") ";
-			os << "SpriteComponent(" << SpriteComponent::GetId() << ") StaticComponent(" << StaticComponent::GetId() << ") ";
-			os << endl << "</ComponentIDs>";
-			fb.close();
+			fprintf_s(f, "<ComponentIDs>\n");
+			fprintf_s(f, "   <RenderableComponent id=%d />\n   <TransformComponent id=%d />\n", RenderableComponent::GetId(), TransformComponent::GetId());
+			fprintf_s(f, "   <TileMapComponent id=%d />\n   <CameraComponent id=%d />\n", TileMapComponent::GetId(), CameraComponent::GetId());
+			fprintf_s(f, "   <SpriteComponent id=%d />\n   <StaticComponent id=%d />\n", SpriteComponent::GetId(), StaticComponent::GetId());
+			fprintf_s(f, "</ComponentIDs>\n");
 		}
+
+		if (__trace_file.c_str() != NULL) 
+			fclose(f);
 	}
+
+	void Log::printMapEvents()
+	{
+		string __trace_file = LogConfig::outPath;
+
+		FILE *f = stderr;
+		if (fopen_s(&f, __trace_file.c_str(), "a") != 0)
+		{
+			fprintf(stderr, "WARNING: Failed to open trace file '%s' for writing!\n", __trace_file);
+			return;
+		}
+
+		string eventName[10] = { };
+		eventName[Events::KEY_DOWN_EVENT] = "KEY_DOWN_EVENT";
+		eventName[Events::KEY_UP_EVENT] = "KEY_UP_EVENT";
+		eventName[Events::POST_RENDER_EVENT] = "POST_RENDER_EVENT";
+		eventName[Events::POST_UPDATE_EVENT] = "POST_UPDATE_EVENT";
+		eventName[Events::PRE_RENDER_EVENT] = "PRE_RENDER_EVENT";
+		eventName[Events::PRE_UPDATE_EVENT] = "PRE_UPDATE_EVENT";
+		eventName[Events::RENDER_EVENT] = "RENDER_EVENT";
+		eventName[Events::UPDATE_EVENT] = "UPDATE_EVENT";
+
+
+		if (Log::isDebug())
+		{
+			
+
+			fprintf_s(f, "<EventMap>\n");
+			EventManager::EventMap* eventMap = &EventManager::GetSingletonPtr()->m_eventMap;
+			for (EventManager::EventMapIterator iter = eventMap->begin(); iter != eventMap->end(); ++iter)
+			{
+				Event* pEvent = iter->second;
+				fprintf_s(f, "	<Event id=%d name=%s reference=%d />\n", pEvent->GetID(), eventName[pEvent->GetID()].c_str(), pEvent->m_listeners.size());
+				
+			}
+			fprintf_s(f, "<EventMap>\n");
+			
+		}
+
+		if (__trace_file.c_str() != NULL)
+			fclose(f);
+	}
+
 	bool Log::isDebug()
 	{
 		bool isDebug = LogConfig::outToFile;

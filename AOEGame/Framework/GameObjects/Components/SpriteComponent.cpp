@@ -7,7 +7,8 @@ namespace Framework
 		: RenderableComponent(pOwner)
 		, m_animationList()
 		, m_keypressed(false)
-		, m_animate(false)
+		, m_curState(SpriteStates::STATIONARY)
+		, m_curDirection(SpriteDirections::RIGHT)
 	{
 		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
 	}
@@ -16,22 +17,25 @@ namespace Framework
 	{
 	}
 
-	void SpriteComponent::RegisterState(SpriteState state, Animation* anim)
+	void SpriteComponent::RegisterState(SpriteStates state, SpriteDirections direction, Animation* anim)
 	{
-		if (m_animationList.find(state) == m_animationList.end())
+		int stateCode = state + direction;
+
+		if (m_animationList.find(stateCode) == m_animationList.end())
 		{
-			m_animationList.insert(AnimationMap::value_type(state, anim));
+			m_animationList.insert(AnimationMap::value_type(stateCode, anim));
 		}
-		m_curState = state;
 	}
 
-	void SpriteComponent::RemoveState(SpriteState state)
+	void SpriteComponent::RemoveState(SpriteStates state, SpriteDirections direction)
 	{
+		int stateCode = state + direction;
+
 		bool exist = false;
 		for (m_animIt = m_animationList.begin(); m_animIt != m_animationList.end(); m_animIt++)
 		{
 			int nstate = (*m_animIt).first;
-			if (nstate == state)
+			if (nstate == stateCode)
 			{
 				exist = true;
 				break;
@@ -41,48 +45,43 @@ namespace Framework
 			m_animationList.erase(m_animIt);
 	}
 
-	void SpriteComponent::UpdateState(SpriteState state)
+	void SpriteComponent::RemoveStates(SpriteStates state)
+	{
+		for (m_animIt = m_animationList.begin(); m_animIt != m_animationList.end(); m_animIt++)
+		{
+			int nstate = (*m_animIt).first;
+			if (nstate / state == 1)
+			{
+				m_animationList.erase(m_animIt);
+				break;
+			}
+		}
+	}
+
+	void SpriteComponent::SetCurrentState(SpriteStates state)
 	{
 		m_curState = state;
 	}
 
-	void SpriteComponent::Animate()
+	void SpriteComponent::SetCurrentDirection(SpriteDirections direction)
 	{
-		m_animate = true;
-	}
-	
-	void SpriteComponent::Pause()
-	{
-		m_animate = false;
-	}
-
-	void SpriteComponent::Reset()
-	{
-		m_animationList[m_curState]->Reset();
+		m_curDirection = direction;
 	}
 
 	void SpriteComponent::Initialize()
 	{
 		RenderableComponent::Initialize();
-		m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());		
+		m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Current());		
 	}
 
 	void SpriteComponent::HandleEvent(Event* pEvent)
 	{
-		switch (m_curState)
-		{
-		case SpriteState::SILENT:
-			break;
 
+		switch (pEvent->GetID())
+		{
+		case Events::POST_UPDATE_EVENT:
 		default:
-			if (m_animate)
-			{
-				m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
-			}
-			else
-			{
-				m_renderable.SetTextureRegion(m_animationList[m_curState]->Current());
-			}
+			m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Next());
 			break;
 		}
 	}

@@ -10,6 +10,7 @@ namespace Framework
 	typedef unsigned int EventID;
 	class Event 
 	{
+		friend class Log;
 	private:
 		typedef std::vector<EventHandler*>		EventHandlerList;
 		typedef EventHandlerList::iterator		EventHandlerListIterator;

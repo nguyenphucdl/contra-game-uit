@@ -21,10 +21,11 @@ namespace Framework
 		AnimationMap				m_animationList;
 		AnimationMapIterator		m_animIt;
 
-		SpriteState					m_curState;
+		SpriteStates				m_curState;
+		SpriteDirections			m_curDirection;
 
 		bool						m_keypressed;
-		bool						m_animate;
+		//bool						m_animate;
 		
 	public:
 		static unsigned int GetId() { return s_id; }
@@ -33,14 +34,15 @@ namespace Framework
 		virtual ~SpriteComponent();
 
 
-		void SetDefaultState(SpriteState state) { m_curState = state; }
+		void SetDefaultState(SpriteStates state)					{ m_curState = state; }
+		void SetDefaultDirection(SpriteDirections direction)		{ m_curDirection = direction; }
 
-		void RegisterState(SpriteState state, Animation* anim);
-		void RemoveState(SpriteState state);
-		void UpdateState(SpriteState state);
-		void Animate();
-		void Reset();
-		void Pause();
+		void RegisterState(SpriteStates state,SpriteDirections direction,Animation* anim);
+		void RemoveState(SpriteStates state, SpriteDirections direction);
+		void RemoveStates(SpriteStates state);
+
+		void SetCurrentState(SpriteStates state);
+		void SetCurrentDirection(SpriteDirections direction);
 
 
 		virtual void Initialize();

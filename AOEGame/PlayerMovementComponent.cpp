@@ -9,8 +9,8 @@ PlayerMovementComponent::PlayerMovementComponent(GameObject* pOwner)
 	: TransformComponent(pOwner)
 	, m_pressed(false)
 	, m_animate(true)
-	, m_currentState(SpriteState::MOVELEFT)
-	, m_currentDirection(SpriteDirection::LEFT)
+	, m_currentState(SpriteStates::STATIONARY)
+	, m_currentDirection(SpriteDirections::RIGHT)
 {
 	Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
 	Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
@@ -39,17 +39,23 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 		_ProcessPollInput();
 
 		SpriteComponent* pSprite = component_cast<SpriteComponent>(GetOwner());
-		pSprite->UpdateState(m_currentState);
+		pSprite->SetCurrentState(m_currentState);
+		pSprite->SetCurrentDirection(m_currentDirection);
 
 		if (m_pressed && m_animate)
 		{
 			Vector3& translation = m_transform->GetTranslation();
-			translation.m_x += 50 * Timer::GetSingletonPtr()->GetTimeSim();
-			pSprite->Animate();
-		}
-		else
-		{
-			pSprite->Pause();
+
+			// Update translation
+			if (m_currentState == SpriteStates::MOVE)
+			{
+				/*if (m_currentDirection == SpriteDirections::RIGHT)
+					translation.m_x += 50 * Timer::GetSingletonPtr()->GetTimeSim();
+				else if (m_currentDirection == SpriteDirections::LEFT)
+					translation.m_x -= 50 * Timer::GetSingletonPtr()->GetTimeSim();*/
+			}
+
+			//pSprite->Animate();
 		}
 		
 	}
@@ -66,30 +72,24 @@ void PlayerMovementComponent::_ProcessPollInput()
 
 	if (IS_KEYDOWN(DIK_LEFT))
 	{
-		m_currentDirection = SpriteDirection::LEFT;
-		m_currentState = SpriteState::MOVELEFT;
+		m_currentDirection = SpriteDirections::LEFT;
+		m_currentState = SpriteStates::MOVE;
 	}
 	else if (IS_KEYDOWN(DIK_RIGHT))
 	{
-		m_currentDirection = SpriteDirection::RIGHT;
-		m_currentState = SpriteState::MOVERIGHT;
+		m_currentDirection = SpriteDirections::RIGHT;
+		m_currentState = SpriteStates::MOVE;
 	} 
 	else if (IS_KEYDOWN(DIK_DOWN))
 	{
-		if (m_currentDirection == SpriteDirection::LEFT)
-			m_currentState = SpriteState::SITLEFT;
-		else
-			m_currentState = SpriteState::SITRIGHT;
+		m_currentState = SpriteStates::SIT;
 	}
 	else
 	{
 		m_pressed = false;
 		//Restore states
 		isAnimate = false;
-		if (m_currentDirection == SpriteDirection::LEFT)
-			m_currentState = SpriteState::MOVELEFT;
-		else
-			m_currentState = SpriteState::MOVERIGHT;
+		m_currentState = SpriteStates::STATIONARY;
 	}
 
 	if (isAnimate)

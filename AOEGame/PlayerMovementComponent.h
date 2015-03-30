@@ -15,10 +15,10 @@ using namespace Framework;
 	{
 	private:
 		//static const unsigned int s_id = ComponentIDs::PlayerMovementComponentId;
-		bool			m_pressed;
-		bool			m_animate;
-		SpriteState		m_currentState;
-		SpriteDirection	m_currentDirection;
+		bool				m_pressed;
+		bool				m_animate;
+		SpriteStates		m_currentState;
+		SpriteDirections	m_currentDirection;
 
 	public:
 		//static unsigned int GetId() { return s_id; }

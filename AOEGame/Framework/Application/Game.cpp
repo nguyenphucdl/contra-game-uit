@@ -7,9 +7,10 @@ namespace Framework
 	Game::Game()
 		: m_windowsTask(Task::PLATFORM_PRIORITY)
 	{
-		CHAR NPath[MAX_PATH];
-		GetCurrentDirectory(MAX_PATH, NPath);
-		Log::info(Log::LOG_LEVEL_ROOT, "Root path is %s\n", NPath);
+		//CHAR NPath[MAX_PATH];
+		//GetCurrentDirectory(MAX_PATH, NPath);
+		//Log::info(Log::LOG_LEVEL_ROOT, "Root path is %s\n", NPath);
+		Log::start();
 	}
 
 	Game::~Game()

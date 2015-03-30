@@ -34,8 +34,9 @@ namespace Framework
 
 	public:
 		static void printComponentIDs();
+		static void printMapEvents();
 		static bool isDebug();
-	
+		static void start();
 	};
 }
 

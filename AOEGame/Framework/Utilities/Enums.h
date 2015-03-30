@@ -40,21 +40,20 @@ namespace Framework
 		PlayerMovementComponentId
 	};
 
-	enum SpriteDirection
+	enum SpriteDirections
 	{
 		LEFT = 0,
-		RIGHT = 100
+		RIGHT = 1,
+		UP = 2,
+		DOWN = 4
 	};
 
-	enum SpriteState
+	enum SpriteStates
 	{
-		MOVELEFT = SpriteDirection::LEFT,
-		SITLEFT,
-		JUMPUPLEFT,
-		MOVERIGHT = SpriteDirection::RIGHT,
-		SITRIGHT,
-		JUMPUPRIGHT,
-		SILENT
+		STATIONARY = 100,
+		MOVE = 200,
+		SIT = 300,
+		JUMP = 400,
 	};
 
 }

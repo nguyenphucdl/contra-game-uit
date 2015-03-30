@@ -53,7 +53,7 @@ int WINAPI WinMain( HINSTANCE hInstance,
 	try
 	{
 		game->Initialize();  // throws GameError
-
+		
 		// main message loop
 		int done = 0;
 		while (!done)

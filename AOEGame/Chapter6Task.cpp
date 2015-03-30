@@ -62,18 +62,24 @@ bool Chapter6Task::Start()
 		Animation* jumpLeftAnim = Animation::CreateAnimation("jumpLeftAnim", 333.0f, sheet, 10, 10, 4, 54);
 		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 333.0f, sheet, 10, 10, 1, 8);
 		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 33.0f, sheet, 10, 10, 1, 9);
+		Animation* stationaryRight = Animation::CreateAnimation("stationayRight", 33.0f, sheet, 10, 10, 1, 23);
+		Animation* stationaryLeft = Animation::CreateAnimation("stationaryLeft", 33.0f, sheet, 10, 10, 1, 22);
 
-		Vector3 position = Vector3(0, 100, 0);
+		Vector3 position = Vector3(100, 100, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 
-		pSpriteComponent->RegisterState(SpriteState::MOVELEFT, moveLeftAnim);
-		pSpriteComponent->RegisterState(SpriteState::MOVERIGHT, moveRightAnim);
-		pSpriteComponent->RegisterState(SpriteState::JUMPUPLEFT, jumpLeftAnim);
-		pSpriteComponent->RegisterState(SpriteState::JUMPUPRIGHT, jumpRightAnim);
-		pSpriteComponent->RegisterState(SpriteState::SITLEFT, sitLeftAnim);
-		pSpriteComponent->RegisterState(SpriteState::SITRIGHT, sitRightAnim);
-		pSpriteComponent->SetDefaultState(SpriteState::MOVELEFT);
+		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryLeft);
+		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationaryRight);
+		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::LEFT, moveLeftAnim);
+		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::RIGHT, moveRightAnim);
+		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, jumpRightAnim);
+		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpLeftAnim);
+		pSpriteComponent->RegisterState(SpriteStates::SIT, SpriteDirections::RIGHT, sitRightAnim);
+		pSpriteComponent->RegisterState(SpriteStates::SIT, SpriteDirections::LEFT, sitLeftAnim);
+
+		pSpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
+		pSpriteComponent->SetDefaultDirection(SpriteDirections::RIGHT);
 		pSpriteComponent->Initialize();
 	}
 	
@@ -111,6 +117,8 @@ bool Chapter6Task::Start()
 	}
 
 	
+	Log::printComponentIDs();
+	Log::printMapEvents();
 
 	return true;
 }

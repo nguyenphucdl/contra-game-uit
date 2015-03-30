@@ -18,6 +18,8 @@ namespace Framework
 		friend void AttachEvent(EventID eventId, EventHandler& eventHandler);
 		friend void DetachEvent(EventID eventId, EventHandler& eventHandler);
 
+		friend class Log;
+
 	private:
 		typedef std::tr1::unordered_map<EventID, Event*>	EventMap;
 		typedef EventMap::iterator							EventMapIterator;
