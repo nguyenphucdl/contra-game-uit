@@ -5,6 +5,8 @@
 #include "../Kernel/Task.h"
 #include "../EventManager/EventManager.h"
 
+#define IS_KEYDOWN(keyCode) ( Input::GetSingletonPtr()->IsKeyDown(keyCode) )
+
 namespace Framework
 {
 	class Input

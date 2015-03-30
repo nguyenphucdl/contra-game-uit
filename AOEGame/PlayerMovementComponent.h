@@ -19,7 +19,6 @@ using namespace Framework;
 		bool			m_animate;
 		SpriteState		m_currentState;
 		SpriteDirection	m_currentDirection;
-		int				m_countAction;
 
 	public:
 		//static unsigned int GetId() { return s_id; }
@@ -33,6 +32,7 @@ using namespace Framework;
 	private:
 		void _ProcessKeydownEvent(Event* pEvent);
 		void _ProcessKeyupEvent(Event* pEvent);
+		void _ProcessPollInput();
 	};
 
 

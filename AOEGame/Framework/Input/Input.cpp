@@ -150,13 +150,13 @@ namespace Framework
 				if ((keystate & 0x80) > 0)
 				{
 					//Sent KEYDOWN_EVENT with keycode parameters
-					Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYDOWN_EVENT !\n");
+					//Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYDOWN_EVENT !\n");
 					SendEvent(Events::KEY_DOWN_EVENT, (void *)keyCode);
 				}
 				else
 				{
 					//Sent KEYDUP_EVENT with keycode parameters
-					Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYUP_EVENT !\n");
+					//Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYUP_EVENT !\n");
 					SendEvent(Events::KEY_UP_EVENT, (void*)keyCode);
 				}
 			}
