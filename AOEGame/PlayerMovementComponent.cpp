@@ -49,10 +49,10 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			// Update translation
 			if (m_currentState == SpriteStates::MOVE)
 			{
-				/*if (m_currentDirection == SpriteDirections::RIGHT)
+				if (m_currentDirection == SpriteDirections::RIGHT)
 					translation.m_x += 50 * Timer::GetSingletonPtr()->GetTimeSim();
 				else if (m_currentDirection == SpriteDirections::LEFT)
-					translation.m_x -= 50 * Timer::GetSingletonPtr()->GetTimeSim();*/
+					translation.m_x -= 50 * Timer::GetSingletonPtr()->GetTimeSim();
 			}
 
 			//pSprite->Animate();

@@ -1,7 +1,7 @@
 #include "Chapter6Task.h"
 #include "Framework\Utilities\TmxLoader.h"
 #include "Framework\GameObjects\Components\SpriteComponent.h"
-
+#include "Framework\Font\Font.h"
 
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
@@ -21,6 +21,8 @@ void Chapter6Task::HandleEvent(Event* pEvent)
 
 bool Chapter6Task::Start()
 {
+	Font *font = new Font();
+
 	// Test
 	TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
 	tmxLoader->Load();
@@ -32,6 +34,7 @@ bool Chapter6Task::Start()
 	Log::info(Log::LOG_LEVEL_MIN, "[Chapter6Task] Start... !\n");
 	RegisterTexture("mariobig.png");	
 	RegisterTexture("ContraSpriteFull.png");
+	RegisterTexture("system12.tga");
 
 
 
@@ -57,6 +60,7 @@ bool Chapter6Task::Start()
 	{
 		Texture* sheet = GetTexture("ContraSpriteFull.png");
 		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 333.0f, sheet, 10, 10, 3, 20);
+		moveLeftAnim->Reverse();
 		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 333.0f, sheet, 10, 10, 3, 23);
 		Animation* jumpRightAnim = Animation::CreateAnimation("jumpRightAnim", 333.0f, sheet, 10, 10, 4, 50);
 		Animation* jumpLeftAnim = Animation::CreateAnimation("jumpLeftAnim", 333.0f, sheet, 10, 10, 4, 54);

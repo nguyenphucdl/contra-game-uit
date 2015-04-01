@@ -65,6 +65,9 @@
     <Filter Include="Game\Player">
       <UniqueIdentifier>{72f184d2-8c67-4ff8-a5e2-7d9438493ec3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Font">
+      <UniqueIdentifier>{4ee8cf57-5b18-4e7e-a4a3-53c5e90fcf32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\EventManager\EventManager.h">
@@ -208,6 +211,12 @@
     <ClInclude Include="PlayerMovementComponent.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Renderer\Drawable.h">
+      <Filter>Framework\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Font\Font.h">
+      <Filter>Framework\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -321,6 +330,9 @@
     <ClCompile Include="PlayerMovementComponent.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Font\Font.cpp">
+      <Filter>Framework\Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="mariobigbullet.png">
@@ -333,6 +345,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\..\..\..\..\Desktop\debug-texture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

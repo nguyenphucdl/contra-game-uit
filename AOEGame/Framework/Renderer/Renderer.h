@@ -9,6 +9,7 @@
 #include "../Application/Context.h"
 #include "../Renderer/Texture/TextureManager.h"
 #include "Camera.h"
+#include "Drawable.h"
 
 // DirectX pointer types
 #define	LP_D3DEVICE			LPDIRECT3DDEVICE9
@@ -42,13 +43,17 @@ namespace Framework
 		/*Render states*/
 		typedef std::vector<Renderable*>		RenderableVector;
 		typedef	RenderableVector::iterator		RenderableVectorIterator;
+		typedef std::vector<Drawable*>			DrawableVector;
+		typedef DrawableVector::iterator		DrawableVectorIterator;
 
 		RenderableVector					m_renerables;
+		DrawableVector						m_drawables;
 	
 		Camera								m_camera;
 
 		D3DXMATRIX							m_worldViewMatrix;
-
+		D3DXMATRIX							m_transformCoordinateMatrix; // flip & translate coordinate
+		D3DXMATRIX							m_viewMatrix;
 		/*Debug texture*/
 		Texture*							m_debugTexture;
 
@@ -60,7 +65,9 @@ namespace Framework
 		void Destroy();
 
 		void AddRenderable(Renderable* pRenderable);
-		void RemoveRenderable(Renderable* pRenderable);		
+		void RemoveRenderable(Renderable* pRenderable);	
+		void AddDrawable(Drawable* pDrawable);
+		void RemoveDrawble(Drawable* pDrawable);
 
 		// From Task
 		virtual	bool	Start();
@@ -83,7 +90,9 @@ namespace Framework
 
 	private:
 		void	Draw(Renderable* pRenderable);
-		
+		void	InitWorldViewMatrix();
+		void	PrepareViewMatrix();
+
 		void	releaseAll();
 		void	initD3Dpp();
 		bool	isAdapterCompatible();

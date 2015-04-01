@@ -1,5 +1,6 @@
 ﻿#include "Renderer.h"
 #include "../EventManager/EventManager.h"
+#include <math.h>
 
 namespace Framework
 {
@@ -8,9 +9,6 @@ namespace Framework
 		, m_direct3d(NULL)
 		, m_device3d(NULL)
 		, m_fullScreen(false)
-		//, m_viewOrigin(0, 0, 0)
-		//, m_viewTranslate(0, 0, 0)
-		
 	{
 		m_width = GameConfig::GetSingletonPtr()->GetInt("GAME_WIDTH");
 		m_height = GameConfig::GetSingletonPtr()->GetInt("GAME_HEIGHT");
@@ -173,6 +171,37 @@ namespace Framework
 		}
 	}
 
+	void Renderer::AddDrawable(Drawable* pDrawable)
+	{
+		DrawableVectorIterator iter;
+		for (iter = m_drawables.begin(); iter != m_drawables.end(); ++iter)
+		{
+			Drawable* pCurrent = *iter;
+			if (pCurrent == pDrawable)
+			{
+				return;
+			}
+			/*if (pCurrent->GetZIndex() > pRenderable->GetZIndex())
+			{
+				break;
+			}*/
+		}
+		m_drawables.insert(iter, pDrawable);
+	}
+
+	void Renderer::RemoveDrawble(Drawable* pDrawable)
+	{
+		for (DrawableVectorIterator iter = m_drawables.begin(); iter != m_drawables.end(); ++iter)
+		{
+			Drawable* pCurrent = *iter;
+			if (pCurrent == pDrawable)
+			{
+				m_drawables.erase(iter);
+				break;
+			}
+		}
+	}
+
 	//=============================================================================
 	// Display the backbuffer
 	//=============================================================================
@@ -203,24 +232,15 @@ namespace Framework
 		assert(pRenderable);
 		if(pRenderable)
 		{
-			Vector3 posVector = pRenderable->GetPosition();
-			D3DXVECTOR3 pos = posVector.GetD3DVector();
+			D3DXVECTOR3 pos = pRenderable->GetPosition().GetD3DVector();
 
-			D3DXVECTOR3 posTransform = Transform::GetVector3FromWorldView(pos, m_worldViewMatrix);
-			Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverse();
-			
-			
-			
-
+			D3DXVECTOR3 posTransform = Transform::GetVector3FromWorldView(pos, m_transformCoordinateMatrix);
 			D3DXVECTOR4 posInScreenCoord(posTransform.x, posTransform.y, posTransform.z, 1);
 			
 
 			if (pRenderable->GetTag() != "TileMap" && pRenderable->GetRenderTransform())
 			{
-				D3DXMATRIX inverseMatrixTranslate;
-				D3DXMatrixIdentity(&inverseMatrixTranslate);
-				D3DXMatrixTransformation2D(&inverseMatrixTranslate, NULL, 0, NULL, 0, 0, &D3DXVECTOR2(inverseViewTranslate.m_x, inverseViewTranslate.m_y));
-				D3DXVec3Transform(&posInScreenCoord, &posTransform, &inverseMatrixTranslate);
+				D3DXVec3Transform(&posInScreenCoord, &posTransform, &m_viewMatrix);
 			}
 
 
@@ -232,23 +252,26 @@ namespace Framework
 				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
 			}
 
-			if (pRenderable->IsDebug())
+			if (pRenderable->IsDebug() && false)
 			{
-				RECT rect1, rect2;
-				int w = 200;
-				int h = 200;
-				rect1.top = 0;
-				rect1.bottom = rect1.top + (srcRect.bottom - srcRect.top);
-				rect1.left = 0;
-				rect1.right = rect1.left + (srcRect.right - srcRect.left);
+				int textureW = abs(texture->GetRect().right - texture->GetRect().left);
+				int textureH = abs(texture->GetRect().top - texture->GetRect().bottom);
 
-				rect2.top = 480 - (srcRect.bottom - srcRect.top);
-				rect2.bottom = 480;
-				rect2.left = 0;
-				rect2.right = rect2.left + (srcRect.right - srcRect.left);
-				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect1, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
-				m_spriteHandler->Draw(m_debugTexture->GetTexture(), &rect2, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
+				float scaleX = (float)textureW / 200;
+				float scaleY = (float)textureH / 200;
 
+				D3DXVECTOR2 scaleVector(scaleX, scaleY);
+				D3DXVECTOR2 centerVector((float)(200 * scaleX) / 2, (float)(200 * scaleY) / 2);
+				D3DXVECTOR2 trans((float)posInScreenCoord.x, (float)posInScreenCoord.y);
+				D3DXMATRIX  viewMatrix;
+				D3DXMatrixIdentity(&viewMatrix);
+				D3DXMatrixTransformation2D(&viewMatrix, NULL, 0, &scaleVector, &centerVector, 0, &trans);
+
+				m_spriteHandler->SetTransform(&viewMatrix);
+
+				m_spriteHandler->Draw(m_debugTexture->GetTexture(), NULL, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+				//restore matrix
+				m_spriteHandler->SetTransform(&m_worldViewMatrix);
 			}
 		}
 	}
@@ -298,6 +321,8 @@ namespace Framework
 		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer][Start] Starting...\n");
 
 		Init();
+		InitWorldViewMatrix();
+		
 		RegisterTexture("debug-texture.png");
 		m_debugTexture = GetTexture("debug-texture.png");
 		return true;
@@ -307,24 +332,20 @@ namespace Framework
 	}
 	void Renderer::Update()
 	{	
-
 		if(SUCCEEDED(this->beginScene()))
 		{
-			// begin sprite handler
+			// Begin sprite handler
 			m_spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-			// flip coordinate system
-			D3DXMATRIX flipYMatrix, translateMatrix;
-			D3DXMatrixIdentity(&flipYMatrix);
-			D3DXMatrixIdentity(&translateMatrix);
-			flipYMatrix._22 = -1;
-			translateMatrix._42 = 480;
-			D3DXMatrixMultiply(&m_worldViewMatrix, &flipYMatrix, &translateMatrix);
+			// Set world matrix
+			m_spriteHandler->SetTransform(&m_worldViewMatrix);
 
-			// send PRE_RENDER_EVENT
+			PrepareViewMatrix();
+
+			// Send PRE_RENDER_EVENT
 			Framework::SendEvent(Events::PRE_RENDER_EVENT);
 
-			// draw 2D [FULTURE: renderable object get from scene grapth]
+			// Draw 2D [FULTURE: renderable object get from scene grapth]
 			for(RenderableVectorIterator iter = m_renerables.begin(); iter != m_renerables.end(); ++iter)
 			{
 				Renderable* pRenderable = *iter;
@@ -334,20 +355,48 @@ namespace Framework
 				}
 			}
 
-			m_spriteHandler->End();
+			// Custom draw handler
+			for (DrawableVectorIterator iter = m_drawables.begin(); iter != m_drawables.end(); ++iter)
+			{
+				Drawable* pDrawable = *iter;
+				if (pDrawable)
+				{
+					pDrawable->Draw(m_spriteHandler);
+				}
+			}
+			
+
 			// end sprite handler
-			
-			
+			m_spriteHandler->End();
 
 			// stop rendering
 			this->endScene();
 		}
-		
 		this->handleLostGraphicsDevice();
-		
-
 		this->showBackBuffer();
 	}
+
+	void Renderer::InitWorldViewMatrix()
+	{
+		// flip coordinate system
+		D3DXMATRIX flipYMatrix, translateMatrix;
+		D3DXMatrixIdentity(&flipYMatrix);
+		D3DXMatrixIdentity(&translateMatrix);
+		flipYMatrix._22 = -1;
+		translateMatrix._42 = 480;
+		D3DXMatrixMultiply(&m_transformCoordinateMatrix, &flipYMatrix, &translateMatrix);
+
+		// prepare world view matrix
+		D3DXMatrixIdentity(&m_worldViewMatrix);
+	}
+
+	void Renderer::PrepareViewMatrix()
+	{
+		Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverse();
+		D3DXMatrixIdentity(&m_viewMatrix);
+		D3DXMatrixTransformation2D(&m_viewMatrix, NULL, 0, NULL, 0, 0, &D3DXVECTOR2(inverseViewTranslate.m_x, inverseViewTranslate.m_y));
+	}
+
 	void Renderer::OnResume()
 	{
 	}

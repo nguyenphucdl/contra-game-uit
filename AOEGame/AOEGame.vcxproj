@@ -79,9 +79,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Font\Font.h" />
     <ClInclude Include="Framework\Renderer\Camera.h" />
     <ClInclude Include="Chapter6App.h" />
     <ClInclude Include="Chapter6Task.h" />
+    <ClInclude Include="Framework\Renderer\Drawable.h" />
     <ClInclude Include="Framework\Utilities\Enums.h" />
     <ClInclude Include="Framework\Application\Context.h" />
     <ClInclude Include="Framework\Application\Game.h" />
@@ -128,6 +130,7 @@
     <ClInclude Include="PlayerMovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Font\Font.cpp" />
     <ClCompile Include="Framework\Renderer\Camera.cpp" />
     <ClCompile Include="Chapter6App.cpp" />
     <ClCompile Include="Chapter6Task.cpp" />
@@ -168,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\Desktop\debug-texture.png" />
+    <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga" />
     <Image Include="mariobig.png" />
     <Image Include="mariobigbigbullet.png" />
     <Image Include="mariobigbullet.png" />
