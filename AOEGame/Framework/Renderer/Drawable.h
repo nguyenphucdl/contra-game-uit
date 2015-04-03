@@ -9,8 +9,8 @@ namespace Framework
 
 	class Drawable 
 	{
-
-	public:
+		friend class Renderer;
+	protected:
 		virtual void Draw(LPD3DXSPRITE spriteHandler) = 0;
 	};
 }

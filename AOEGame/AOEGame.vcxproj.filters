@@ -68,6 +68,9 @@
     <Filter Include="Framework\Font">
       <UniqueIdentifier>{4ee8cf57-5b18-4e7e-a4a3-53c5e90fcf32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Collision">
+      <UniqueIdentifier>{bbce485d-65ab-4f95-8f69-093eb0c19240}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\EventManager\EventManager.h">
@@ -178,9 +181,6 @@
     <ClInclude Include="Framework\Kernel\Task.h">
       <Filter>Framework\Kernel</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Platform\String.h">
-      <Filter>Framework\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\Timer.h">
       <Filter>Framework\Utilities</Filter>
     </ClInclude>
@@ -216,6 +216,27 @@
     </ClInclude>
     <ClInclude Include="Framework\Font\Font.h">
       <Filter>Framework\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Font\TextDraw.h">
+      <Filter>Framework\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Platform\String_old.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Console.h">
+      <Filter>Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Collision\CollisionBin.h">
+      <Filter>Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Collision\CollisionListener.h">
+      <Filter>Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Collision\CollisionManager.h">
+      <Filter>Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\CollisionComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,9 +312,6 @@
     <ClCompile Include="Framework\Math\Matrix3.cpp">
       <Filter>Framework\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Platform\String.cpp">
-      <Filter>Framework\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\GameObjects\Actions\Animation.cpp">
       <Filter>Framework\GameObjects\Animation</Filter>
     </ClCompile>
@@ -333,6 +351,21 @@
     <ClCompile Include="Framework\Font\Font.cpp">
       <Filter>Framework\Font</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Platform\String_old.cpp">
+      <Filter>Framework\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\Console.cpp">
+      <Filter>Framework\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Collision\CollisionBin.cpp">
+      <Filter>Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Collision\CollisionManager.cpp">
+      <Filter>Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\CollisionComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="mariobigbullet.png">
@@ -348,6 +381,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="panel.tga">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

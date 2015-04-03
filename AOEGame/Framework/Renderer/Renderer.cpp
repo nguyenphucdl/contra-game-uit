@@ -252,7 +252,7 @@ namespace Framework
 				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
 			}
 
-			if (pRenderable->IsDebug() && false)
+			if (pRenderable->IsDebug())
 			{
 				int textureW = abs(texture->GetRect().right - texture->GetRect().left);
 				int textureH = abs(texture->GetRect().top - texture->GetRect().bottom);

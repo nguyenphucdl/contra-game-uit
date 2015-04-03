@@ -12,6 +12,7 @@ namespace Framework
 		PRE_RENDER_EVENT,
 		RENDER_EVENT,		// UNUSED
 		POST_RENDER_EVENT,	// UNUSED
+		COLLISION_EVENT,
 
 		//Input events
 		KEY_DOWN_EVENT,		// Fire from Input task
@@ -35,6 +36,7 @@ namespace Framework
 		TileMapComponentId,
 		MovementComponentId,
 		StaticComponentId,
+		CollisionComponentId,
 
 		//Player Components
 		PlayerMovementComponentId

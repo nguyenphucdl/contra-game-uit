@@ -85,8 +85,9 @@ namespace Framework
 		// get functions
 		LP_D3DEVICE	getD3device()					{ return m_device3d; }	
 		LP_3D		get3D()							{ return m_direct3d; }
-		
 		Camera&		GetCamera()						{ return m_camera;	 }
+		int			GetWidth()						{ return m_width; }
+		int			GetHeight()						{ return m_height; }
 
 	private:
 		void	Draw(Renderable* pRenderable);

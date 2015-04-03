@@ -6,10 +6,7 @@ namespace Framework
 {
 	class GameObject;
 
-	struct CollisionEventData
-	{
-		GameObject* m_pCollider;
-	};
+
 
 }
 #endif

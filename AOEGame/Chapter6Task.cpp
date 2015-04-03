@@ -1,7 +1,7 @@
 #include "Chapter6Task.h"
 #include "Framework\Utilities\TmxLoader.h"
 #include "Framework\GameObjects\Components\SpriteComponent.h"
-#include "Framework\Font\Font.h"
+#include "Framework\Utilities\Console.h"
 
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
@@ -21,7 +21,21 @@ void Chapter6Task::HandleEvent(Event* pEvent)
 
 bool Chapter6Task::Start()
 {
-	Font *font = new Font();
+	/*Font *font = new Font();
+	font->setCharSize(14, 16);
+	font->setColumns(16);
+	font->Print(100, 100, "HELLO WORLD!");*/
+
+	Console* console = new Console();
+	console->init();
+	console->print("Hello World!");
+	console->print("Nguyen Hong Phuc!", 3);
+	
+	//Test
+	/*std::ostringstream os;
+	os.str("");
+	os << "TIMER " << (float)Timer::GetSingletonPtr()->GetTimeSim() << "!";
+	font->Print(0, 0, os.str(), 0xFF991111);*/
 
 	// Test
 	TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
