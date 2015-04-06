@@ -220,9 +220,6 @@
     <ClInclude Include="Framework\Font\TextDraw.h">
       <Filter>Framework\Font</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Platform\String_old.h">
-      <Filter>Framework\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\Console.h">
       <Filter>Framework\Utilities</Filter>
     </ClInclude>
@@ -350,9 +347,6 @@
     </ClCompile>
     <ClCompile Include="Framework\Font\Font.cpp">
       <Filter>Framework\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Platform\String_old.cpp">
-      <Filter>Framework\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Utilities\Console.cpp">
       <Filter>Framework\Utilities</Filter>

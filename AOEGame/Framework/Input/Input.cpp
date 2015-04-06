@@ -152,6 +152,10 @@ namespace Framework
 					//Sent KEYDOWN_EVENT with keycode parameters
 					//Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYDOWN_EVENT !\n");
 					SendEvent(Events::KEY_DOWN_EVENT, (void *)keyCode);
+					if (keyCode == DIK_SPACE)
+					{
+						SendEvent(GameEvents::PLAYER_JUMP_EVENT);
+					}
 				}
 				else
 				{

@@ -129,6 +129,7 @@ namespace Framework
 		eventName[Events::PRE_UPDATE_EVENT] = "PRE_UPDATE_EVENT";
 		eventName[Events::RENDER_EVENT] = "RENDER_EVENT";
 		eventName[Events::UPDATE_EVENT] = "UPDATE_EVENT";
+		eventName[GameEvents::PLAYER_JUMP_EVENT] = "PLAYER_JUMP_EVENT";
 
 
 		if (Log::isDebug())
