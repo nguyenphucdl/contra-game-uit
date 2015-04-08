@@ -74,6 +74,16 @@ namespace Framework
 		return Vector3(-m_x, -m_y, -m_z);
 	}
 
+	Vector3 Vector3::GetInverseX()
+	{
+		return Vector3(-m_x, m_y, m_z);
+	}
+
+	Vector3 Vector3::GetInverseY()
+	{
+		return Vector3(m_x, -m_y, m_z);
+	}
+
 	Vector3& Vector3::operator=(const Vector3& in)
 	{
 		m_x = in.m_x; m_y = in.m_y; m_z = in.m_z;

@@ -40,7 +40,7 @@ namespace Framework
 		void UpdateMapView(RECT view);
 
 		void UpdateHorizontalScrollView(int x);
-
+		
 		void UpdateVerticalScrollView(int y);
 
 		void SetTileMap(TileMap* tileMap)

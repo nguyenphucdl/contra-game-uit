@@ -11,8 +11,6 @@ namespace Framework
 		, m_pressed(false)
 	{
 		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
-		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
-		Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
 	}
 
 	void CameraComponent::SetViewportOrigin(int x, int y)
@@ -35,30 +33,15 @@ namespace Framework
 		assert(pEvent);
 		switch (pEvent->GetID())
 		{
-		case Events::KEY_DOWN_EVENT:
-			m_pressed = true;
-			break;
-		case Events::KEY_UP_EVENT:
-			m_pressed = false;
-			break;
 		case Events::POST_UPDATE_EVENT:
 		{
-			if (m_pressed)
+			TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_attachObject);
+			if (pTransformComponent)
 			{
-				TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_attachObject);
-				if (pTransformComponent)
-				{
-					Transform* transform = pTransformComponent->GetTransform();
-					Vector3& translation = transform->GetTranslation();
+				Transform* transform = pTransformComponent->GetTransform();
+				Vector3& translation = transform->GetTranslation();
 					
-					Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&translation);
-
-					RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
-
-					//Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] Timer at %f\n", Timer::GetSingletonPtr()->GetTimeSim());
-					//Log::info(Log::LOG_LEVEL_MEDIUM, "[CameraComponent] POSTUPDATE_EVENT camera translation x %f\n", Renderer::GetSingletonPtr()->GetViewportTranslate().m_x);
-				}
-					
+				Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&translation);
 			}
 		}
 			break;

@@ -35,16 +35,8 @@ namespace Framework
 		m_mapViewport = &tileMapRegion->GetRect();
 		m_renderable.SetTextureRegion(tileMapRegion);
 
-		m_renderable.SetRenderTransform(false);
-		//m_renderable.SetT
-	}
-
-	void TileMapComponent::UpdateMapView(RECT view)
-	{
-		m_mapViewport->left = view.left;
-		m_mapViewport->right = view.right;
-		m_mapViewport->top = view.top;
-		m_mapViewport->bottom = view.bottom;
+		m_renderable.SetRenderTransform(false);//CHECK LATER!
+		m_renderable.SetDebug(true);
 	}
 
 	void TileMapComponent::UpdateHorizontalScrollView(int x)
@@ -59,25 +51,21 @@ namespace Framework
 		int delta = y - m_mapViewport->top;
 		m_mapViewport->top += delta;
 		m_mapViewport->bottom += delta;
+		Log::info(Log::LOG_LEVEL_HIGHT, "[UpdateVerticalScrollView] mapViewport top %d\n", m_mapViewport->top);
 	}
+
 
 	void TileMapComponent::HandleEvent(Event* pEvent)
 	{
 		switch (pEvent->GetID())
 		{
-		case Events::KEY_DOWN_EVENT:
-			m_scroll = true;
-			break;
-		case Events::KEY_UP_EVENT:
-			m_scroll = false;
-			break;
-		
 		case Events::PRE_RENDER_EVENT:
 			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().left);
 			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().top);
+			
+			Log::info(Log::LOG_LEVEL_HIGHT, "Viewport top %d, Viewport left %d\n", Renderer::GetSingletonPtr()->GetCamera().GetViewPort().top, Renderer::GetSingletonPtr()->GetCamera().GetViewPort().left);
 			break;
 		default:
-			m_scroll = false;
 			break;
 		}
 

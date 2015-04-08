@@ -101,50 +101,54 @@ namespace Framework
 
 		// Parse object group
 		xml_node<> *objectLayer = m_rootNode->first_node("objectgroup");
-		xml_node<> *objectNode;
-		vector<GameObject*> gameObjects;
-		objectNode = objectLayer->first_node("object");
-		for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
+		if (objectLayer != NULL)
 		{
-			GameObject* gameObj = new GameObject();
-			gameObj->AddComponent<StaticComponent>();
-			StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
-			if (pStaticComponent)
+			xml_node<> *objectNode;
+			vector<GameObject*> gameObjects;
+			objectNode = objectLayer->first_node("object");
+			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
 			{
-				int x = atoi(objectNode->first_attribute("x")->value());
-				int y = atoi(objectNode->first_attribute("y")->value());
-				int width = atoi(objectNode->first_attribute("width")->value());
-				int height = atoi(objectNode->first_attribute("height")->value());
+				GameObject* gameObj = new GameObject();
+				gameObj->AddComponent<StaticComponent>();
+				StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
+				if (pStaticComponent)
+				{
+					int x = atoi(objectNode->first_attribute("x")->value());
+					int y = atoi(objectNode->first_attribute("y")->value());
+					int width = atoi(objectNode->first_attribute("width")->value());
+					int height = atoi(objectNode->first_attribute("height")->value());
 
-				
-				int mapWidth = m_tileMap->GetWidth() * m_tileMap->GetTileWidth();
-				int mapHeight = m_tileMap->GetHeight() * m_tileMap->GetTileHeight();
 
-				int screenWidth = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
-				int screenHeight = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
+					int mapWidth = m_tileMap->GetWidth() * m_tileMap->GetTileWidth();
+					int mapHeight = m_tileMap->GetHeight() * m_tileMap->GetTileHeight();
 
-				float scaleRatio = (float)screenHeight / (float)mapHeight;
-				D3DXMATRIX transform_scale;
-				D3DXMatrixAffineTransformation2D(&transform_scale, scaleRatio, NULL, NULL, NULL);
+					int screenWidth = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
+					int screenHeight = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 
-				D3DXVECTOR4 pointOrigin, resultTrans;
-				pointOrigin.x = x;
-				pointOrigin.y = y;
-				
-				D3DXVec4Transform(&resultTrans, &pointOrigin, &transform_scale);
+					float scaleRatio = (float)screenHeight / (float)mapHeight;
+					D3DXMATRIX transform_scale;
+					D3DXMatrixAffineTransformation2D(&transform_scale, scaleRatio, NULL, NULL, NULL);
 
-				RECT bound;
-				bound.left = resultTrans.x;
-				bound.right = resultTrans.x + width * scaleRatio;
-				bound.top = resultTrans.y;
-				bound.bottom = resultTrans.y + height * scaleRatio;
-				pStaticComponent->SetBound(bound);
+					D3DXVECTOR4 pointOrigin, resultTrans;
+					pointOrigin.x = x;
+					pointOrigin.y = y;
 
-				pStaticComponent->Initialize();
+					D3DXVec4Transform(&resultTrans, &pointOrigin, &transform_scale);
+
+					RECT bound;
+					bound.left = resultTrans.x;
+					bound.right = resultTrans.x + width * scaleRatio;
+					bound.top = resultTrans.y;
+					bound.bottom = resultTrans.y + height * scaleRatio;
+					pStaticComponent->SetBound(bound);
+
+					pStaticComponent->Initialize();
+				}
+				gameObjects.push_back(gameObj);
 			}
-			gameObjects.push_back(gameObj);
+			m_tileMap->SetObjects(&gameObjects);
 		}
-		m_tileMap->SetObjects(&gameObjects);
+		
 		return true;
 	}
 }

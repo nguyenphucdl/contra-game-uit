@@ -20,6 +20,13 @@ using namespace Framework;
 		SpriteStates		m_currentState;
 		SpriteDirections	m_currentDirection;
 
+
+		Vector3				m_velocity;
+		Vector3				m_acceleration;
+
+		float				m_floor;
+		bool				m_isSupported;
+
 	public:
 		//static unsigned int GetId() { return s_id; }
 
@@ -33,6 +40,8 @@ using namespace Framework;
 		void _ProcessKeydownEvent(Event* pEvent);
 		void _ProcessKeyupEvent(Event* pEvent);
 		void _ProcessPollInput();
+
+		void SetIsSupported(bool isSupported, float floor = 0.0f) { m_isSupported = isSupported; m_floor = floor; }
 	};
 
 

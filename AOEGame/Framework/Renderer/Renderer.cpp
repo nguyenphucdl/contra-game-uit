@@ -238,10 +238,18 @@ namespace Framework
 			D3DXVECTOR4 posInScreenCoord(posTransform.x, posTransform.y, posTransform.z, 1);
 			
 
-			if (pRenderable->GetTag() != "TileMap" && pRenderable->GetRenderTransform())
+			/*if (pRenderable->GetTag() != "TileMap" && pRenderable->GetRenderTransform())
+			{
+				D3DXVec3Transform(&posInScreenCoord, &posTransform, &m_viewMatrix);
+			}*/
+
+			if (pRenderable->GetRenderTransform())
 			{
 				D3DXVec3Transform(&posInScreenCoord, &posTransform, &m_viewMatrix);
 			}
+			
+			
+
 
 
 			TextureRegion *texture = pRenderable->GetTextureRegion();
@@ -392,7 +400,7 @@ namespace Framework
 
 	void Renderer::PrepareViewMatrix()
 	{
-		Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverse();
+		Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverseX();
 		D3DXMatrixIdentity(&m_viewMatrix);
 		D3DXMatrixTransformation2D(&m_viewMatrix, NULL, 0, NULL, 0, 0, &D3DXVECTOR2(inverseViewTranslate.m_x, inverseViewTranslate.m_y));
 	}

@@ -80,13 +80,13 @@ int WINAPI WinMain( HINSTANCE hInstance,
 		MessageBox(NULL, err.getMessage(), "Error", MB_OK);
 
 	}
-	catch(...)
+	catch(exception e)
 	{
 		game->DestroyAll();
 		MessageBox(NULL, "Unknown error occured in game.", "Error", MB_OK);
 	}
     
 	Sleep(2000);
-    return msg.wParam;
+	return 0;
 }
 //fprintf(stdout, "Test output to stdout\n");

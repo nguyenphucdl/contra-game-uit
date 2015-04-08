@@ -29,6 +29,8 @@ namespace Framework
 		void	Add(const Vector3& in);
 		void	Subtract(const Vector3& in);
 		Vector3	GetInverse();
+		Vector3 GetInverseY();
+		Vector3 GetInverseX();
 		float	Length() const;
 		float	LengthSquared() const;
 		float	Distance2(const Vector3& in);

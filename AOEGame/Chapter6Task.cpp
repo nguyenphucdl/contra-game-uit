@@ -38,7 +38,7 @@ bool Chapter6Task::Start()
 	font->Print(0, 0, os.str(), 0xFF991111);*/
 
 	// Test
-	TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
+	TmxLoader *tmxLoader = new TmxLoader("MegamanMap1.tmx");
 	tmxLoader->Load();
 	
 	TileMap* tileMap = tmxLoader->GetTileMap();
@@ -83,7 +83,7 @@ bool Chapter6Task::Start()
 		Animation* stationaryRight = Animation::CreateAnimation("stationayRight", 33.0f, sheet, 10, 10, 1, 23);
 		Animation* stationaryLeft = Animation::CreateAnimation("stationaryLeft", 33.0f, sheet, 10, 10, 1, 22);
 
-		Vector3 position = Vector3(100, 100, 0);
+		Vector3 position = Vector3(100, 200, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 
