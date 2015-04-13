@@ -20,6 +20,7 @@ namespace Framework
 		static const unsigned int s_id = ComponentIDs::CameraComponentId;
 
 		GameObject*		m_attachObject;
+		Vector3			m_transOrigin;
 
 		bool			m_pressed;
 	public:
@@ -31,6 +32,7 @@ namespace Framework
 		virtual void Initialize();
 
 		void	SetViewportOrigin(int x, int y);
+		void	SetViewportTranslate(int mx, int my);
 		void	AttachObject(GameObject* gameObj)	{ m_attachObject = gameObj; }
 		GameObject* GetAttachObject()				{ return m_attachObject; }
 

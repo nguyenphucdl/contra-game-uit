@@ -245,6 +245,9 @@ namespace Framework
 
 			if (pRenderable->GetRenderTransform())
 			{
+				//D3DXMATRIX _result;
+				//D3DXMatrixIdentity(&_result);
+				//D3DXMatrixMultiply(&_result, &m_transformCoordinateMatrix, &m_viewMatrix);
 				D3DXVec3Transform(&posInScreenCoord, &posTransform, &m_viewMatrix);
 			}
 			
@@ -400,7 +403,7 @@ namespace Framework
 
 	void Renderer::PrepareViewMatrix()
 	{
-		Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverseX();
+		Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverse();
 		D3DXMatrixIdentity(&m_viewMatrix);
 		D3DXMatrixTransformation2D(&m_viewMatrix, NULL, 0, NULL, 0, 0, &D3DXVECTOR2(inverseViewTranslate.m_x, inverseViewTranslate.m_y));
 	}

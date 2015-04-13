@@ -39,6 +39,7 @@ bool Chapter6Task::Start()
 
 	// Test
 	TmxLoader *tmxLoader = new TmxLoader("MegamanMap1.tmx");
+	//TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
 	tmxLoader->Load();
 	
 	TileMap* tileMap = tmxLoader->GetTileMap();
@@ -83,7 +84,7 @@ bool Chapter6Task::Start()
 		Animation* stationaryRight = Animation::CreateAnimation("stationayRight", 33.0f, sheet, 10, 10, 1, 23);
 		Animation* stationaryLeft = Animation::CreateAnimation("stationaryLeft", 33.0f, sheet, 10, 10, 1, 22);
 
-		Vector3 position = Vector3(100, 200, 0);
+		Vector3 position = Vector3(0, 100, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 
@@ -131,6 +132,8 @@ bool Chapter6Task::Start()
 	if (pCameraComponent)
 	{
 		pCameraComponent->AttachObject(&m_playerObject);
+		pCameraComponent->SetViewportOrigin(0, 3680);
+		pCameraComponent->SetViewportTranslate(0, -1000);
 		pCameraComponent->Initialize();
 	}
 

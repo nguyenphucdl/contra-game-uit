@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<map version="1.0" orientation="orthogonal" width="16" height="104" tilewidth="16" tileheight="16">
+<map version="1.0" tilewidth="16" tileheight="16" width="16" height="104" orientation="orthogonal">
   <tileset firstgid="1" name="MegamanMap1" tilewidth="16" tileheight="16">
     <image source="MegamanMap1-TileSet85.png" width="160" height="160" />
   </tileset>
@@ -1671,4 +1671,19 @@
       <tile gid="5" />
     </data>
   </layer>
+  <objectgroup name="objectgroup">
+    <object name="" x="160" y="1664" width="94" height="119" />
+    <object name="" x="0" y="1512" width="209" height="111" />
+    <object name="" x="223" y="1547" width="30" height="545" />
+    <object name="" x="159" y="1402" width="33" height="50" />
+    <object name="" x="97" y="1321" width="112" height="16" />
+    <object name="" x="128" y="1303" width="66" height="94" />
+    <object name="" x="160" y="1225" width="45" height="63" />
+    <object name="" x="208" y="1370" width="12" height="15" />
+    <object name="" x="208" y="1273" width="14" height="16" />
+    <object name="" x="48" y="250" width="205" height="49" />
+    <object name="" x="240" y="201" width="13" height="200" />
+    <object name="" x="1" y="201" width="13" height="192" />
+    <object name="" x="1" y="27" width="253" height="22" />
+  </objectgroup>
 </map>

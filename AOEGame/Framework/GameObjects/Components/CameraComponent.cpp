@@ -9,6 +9,7 @@ namespace Framework
 		: Component(pOwner)
 		, m_attachObject(NULL)
 		, m_pressed(false)
+		, m_transOrigin(0.0f, 0.0f, 0.0f)
 	{
 		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
 	}
@@ -18,6 +19,13 @@ namespace Framework
 		Renderer::GetSingletonPtr()->GetCamera().SetViewPortOrigin(x, y);
 		Renderer::GetSingletonPtr()->GetCamera().ResetViewport();
 	}
+
+	void CameraComponent::SetViewportTranslate(int mx, int my)
+	{
+		m_transOrigin = Vector3(mx, my, 0);
+		Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&m_transOrigin);
+	}
+
 
 	CameraComponent::~CameraComponent()
 	{
@@ -35,12 +43,14 @@ namespace Framework
 		{
 		case Events::POST_UPDATE_EVENT:
 		{
-			TransformComponent* pTransformComponent = component_cast<TransformComponent>(m_attachObject);
-			if (pTransformComponent)
+			TransformComponent* pObjTransformComponent = component_cast<TransformComponent>(m_attachObject);
+			if (pObjTransformComponent)
 			{
-				Transform* transform = pTransformComponent->GetTransform();
-				Vector3& translation = transform->GetTranslation();
-					
+				Transform* transform = pObjTransformComponent->GetTransform();
+				Vector3& translation = transform->GetTranslation().GetInverseY();
+
+				translation.Add(m_transOrigin);
+
 				Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&translation);
 			}
 		}

@@ -125,7 +125,18 @@ namespace Framework
 					int screenWidth = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
 					int screenHeight = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 
-					float scaleRatio = (float)screenHeight / (float)mapHeight;
+					float scaleRatio = 1.0f;
+					bool isHorizDirection = (mapWidth > mapHeight) ? true : false;
+					if (isHorizDirection)
+					{
+						scaleRatio = (float)screenHeight / (float)mapHeight;
+					}
+					else
+					{
+						scaleRatio = (float)screenWidth / (float)mapWidth;
+					}
+
+					//float scaleRatio = (float)screenHeight / (float)mapHeight;
 					D3DXMATRIX transform_scale;
 					D3DXMatrixAffineTransformation2D(&transform_scale, scaleRatio, NULL, NULL, NULL);
 

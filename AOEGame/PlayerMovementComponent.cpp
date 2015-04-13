@@ -46,9 +46,9 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			if (m_currentState == SpriteStates::MOVE)
 			{
 				if (m_currentDirection == SpriteDirections::RIGHT)
-					m_velocity.m_x = 50.0f;
+					m_velocity.m_x = 0.0f;
 				else if (m_currentDirection == SpriteDirections::LEFT)
-					m_velocity.m_x = -50.0f;
+					m_velocity.m_x = 0.0f;
 			}
 		//}
 
@@ -56,11 +56,11 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 		//position.m_y += 10.0f * Timer::GetSingletonPtr()->GetTimeSim();
 		if (IS_KEYDOWN(DIK_UP))
 		{
-			position.m_y += 10.0f * Timer::GetSingletonPtr()->GetTimeSim();
+			position.m_y += 30.0f * Timer::GetSingletonPtr()->GetTimeSim();
 		}
 		else if (IS_KEYDOWN(DIK_DOWN))
 		{
-			position.m_y -= 10.0f * Timer::GetSingletonPtr()->GetTimeSim();
+			position.m_y -= 30.0f * Timer::GetSingletonPtr()->GetTimeSim();
 		}
 
 
@@ -68,7 +68,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 		translation.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
 		translation.Add(position);
 
-		//Log::info(Log::LOG_LEVEL_HIGHT, "[PlayerMovementComponent] Update translate %f\n", position.m_y);
+		Log::info(Log::LOG_LEVEL_HIGHT, "[PlayerMovementComponent] Update translate %f\n", position.m_y);
 		SetTranslation(&translation);
 		//m_transform->SetTranslation(translation);
 
