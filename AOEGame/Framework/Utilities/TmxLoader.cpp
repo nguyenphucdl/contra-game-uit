@@ -2,6 +2,7 @@
 
 #include "../Renderer/Texture/TextureManager.h"
 #include "../GameObjects/Components/StaticComponent.h"
+#include "../Utilities/Utils.h"
 
 namespace Framework
 {
@@ -9,6 +10,7 @@ namespace Framework
 		: m_file(file)
 	{		
 		m_tileSets = new vector<TileSet*>();
+		m_basePath = Utils::getPathOfFile(file);
 	}
 
 	TmxLoader::~TmxLoader()
@@ -70,8 +72,13 @@ namespace Framework
 			imageSourceName = imageNode->first_attribute("source")->value();
 			dimensionX = (atoi(imageNode->first_attribute("width")->value()) / tileSetWidth);
 			dimensionY = (atoi(imageNode->first_attribute("height")->value()) / tileSetHeight);
+
+			std::string texturePath = imageSourceName;
+			if (Utils::isPath(m_basePath))
+				texturePath = m_basePath + "\\" + imageSourceName;
+
 			//Register texture
-			RegisterTexture(imageSourceName);
+			RegisterTexture(texturePath);
 
 			
 			TileSet* tileSet = new TileSet(firstgid, tileSetWidth, tileSetHeight, imageSourceName, dimensionX, dimensionY, tileSetName);

@@ -23,7 +23,7 @@ namespace Framework
 		m_font = new Font();
 		m_font->setCharSize(14, 16);
 		m_font->setColumns(16);
-		RegisterTexture("panel.png");
+		RegisterTexture("Resources\\Font\\panel.png");
 		m_panel = GetTexture("panel.png");
 		return true;
 	}

@@ -31,14 +31,15 @@ bool Chapter6Task::Start()
 	console->print("Hello World!");
 	console->print("Nguyen Hong Phuc!", 3);
 	
+	
 	//Test
-	/*std::ostringstream os;
+	std::ostringstream os;
 	os.str("");
 	os << "TIMER " << (float)Timer::GetSingletonPtr()->GetTimeSim() << "!";
-	font->Print(0, 0, os.str(), 0xFF991111);*/
+	console->print(os.str());
 
 	// Test
-	TmxLoader *tmxLoader = new TmxLoader("MegamanMap1.tmx");
+	TmxLoader *tmxLoader = new TmxLoader("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
 	//TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
 	tmxLoader->Load();
 	
@@ -132,8 +133,8 @@ bool Chapter6Task::Start()
 	if (pCameraComponent)
 	{
 		pCameraComponent->AttachObject(&m_playerObject);
-		pCameraComponent->SetViewportOrigin(0, 3680);
-		pCameraComponent->SetViewportTranslate(0, -1000);
+		pCameraComponent->SetViewportOrigin(0, 0);
+		pCameraComponent->SetViewportTranslate(0, 0);
 		pCameraComponent->Initialize();
 	}
 

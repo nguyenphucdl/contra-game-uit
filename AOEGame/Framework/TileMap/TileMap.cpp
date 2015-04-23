@@ -104,8 +104,8 @@ namespace Framework
 			desc.MultiSampleType, desc.MultiSampleQuality, false, &pViewportSurface, NULL);
 		device3D->StretchRect(m_tileMapSurface, NULL, pViewportSurface, NULL, D3DTEXF_NONE);
 
-		D3DXSaveSurfaceToFile("renderSurfaceOrigin.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapSurface, NULL, NULL);
-		D3DXSaveSurfaceToFile("renderViewportSurface.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, pViewportSurface, NULL, NULL);
+		//D3DXSaveSurfaceToFile("renderSurfaceOrigin.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapSurface, NULL, NULL);
+		//D3DXSaveSurfaceToFile("renderViewportSurface.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, pViewportSurface, NULL, NULL);
 
 		LPDIRECT3DSURFACE9 pSurface;
 		HRESULT result2 = device3D->CreateOffscreenPlainSurface(
@@ -152,7 +152,7 @@ namespace Framework
 		}
 
 		
-		D3DXSaveTextureToFile("renderViewportTexture.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapTexture, NULL);
+		//D3DXSaveTextureToFile("renderViewportTexture.png", D3DXIMAGE_FILEFORMAT::D3DXIFF_PNG, m_tileMapTexture, NULL);
 
 		Texture *texture = new Texture(m_tag, m_tileMapTexture, viewportSurfaceWidth, viewportSurfaceHeight);
 		RegisterTexture(m_tag, texture);

@@ -3,9 +3,8 @@
 
 
 #include "../../Kernel/Task.h"
-#include "../../Renderer/Renderer.h"// Test
 #include "Texture.h"	// TEMP ! 
-//#include "../../Utilities/Timer.h" //Test
+
 namespace Framework
 {
 	

@@ -133,6 +133,7 @@
     <ClInclude Include="Framework\Utilities\TmxLoader.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PlayerMovementComponent.h" />
+    <ClInclude Include="Framework\Utilities\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Collision\CollisionBin.cpp" />

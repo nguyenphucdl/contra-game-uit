@@ -30,6 +30,7 @@ namespace Framework
 
 	private:
 		std::string			m_file;
+		std::string			m_basePath;
 		TileMap *			m_tileMap;
 		vector<TileSet*>*	m_tileSets;
 		xml_document<>		m_doc;

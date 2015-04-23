@@ -334,7 +334,7 @@ namespace Framework
 		Init();
 		InitWorldViewMatrix();
 		
-		RegisterTexture("debug-texture.png");
+		RegisterTexture("Resources\\debug-texture.png");
 		m_debugTexture = GetTexture("debug-texture.png");
 		return true;
 	}

@@ -6,10 +6,10 @@ namespace Framework
 	Font::Font()
 		: m_width(0), m_height(0), m_columns(0)
 	{
-		RegisterTexture("system12.tga");
+		RegisterTexture("Resources\\Font\\system12.tga");
 		m_fontTexture = GetTexture("system12.tga");
 
-		loadWidthData("system12.dat");
+		loadWidthData("Resources\\Font\\system12.dat");
 	}
 
 	void Font::Draw(LPD3DXSPRITE spriteHandler)

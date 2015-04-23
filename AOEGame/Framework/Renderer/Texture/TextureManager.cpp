@@ -1,13 +1,12 @@
 #include "TextureManager.h"
-
-
+#include "../../Utilities/Utils.h"
+#include "../../Renderer/Renderer.h"
 namespace Framework
 {
 	TextureManager::TextureManager(const unsigned int priority)
 		: Task(priority, "TextureManager Task")
 	{
-		m_textureVector.reserve(10);//TEMP
-		m_textureRegister.reserve(10);//TEMP
+		
 	}
 	TextureManager::~TextureManager()
 	{
@@ -15,8 +14,6 @@ namespace Framework
 	void TextureManager::AddTexture(Texture *pTexture)
 	{
 		assert(pTexture);
-		// if TextureManager initialized = true
-		
 		for(TextureVectorIterator iter = m_textureVector.begin(); iter != m_textureVector.end(); iter++)
 		{
 			Texture* pCurrent = *iter;
@@ -142,8 +139,10 @@ namespace Framework
 			if(FAILED(_result))
 				return;
 
+			std::string texture_name = Utils::getNameOfFile(filename);
+
 			// Create new texture and add to list
-			Texture* texture = new Texture(filename, _texture, _info);
+			Texture* texture = new Texture(texture_name, _texture, _info);
 			this->AddTexture(texture);
 		}
 		catch(...)

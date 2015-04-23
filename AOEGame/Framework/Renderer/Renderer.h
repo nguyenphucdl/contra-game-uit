@@ -5,9 +5,9 @@
 #include <d3dx9.h>
 
 #include "../Platform/Window.h"
-#include "Renderable.h"
 #include "../Application/Context.h"
 #include "../Renderer/Texture/TextureManager.h"
+#include "Renderable.h"
 #include "Camera.h"
 #include "Drawable.h"
 
