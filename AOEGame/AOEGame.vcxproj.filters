@@ -238,6 +238,9 @@
     <ClInclude Include="Framework\Utilities\Utils.h">
       <Filter>Framework\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="GamePlay1.h" />
+    <ClInclude Include="Framework\Utilities\Property.h" />
+    <ClInclude Include="Framework\Utilities\FrameInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -363,25 +366,19 @@
     <ClCompile Include="Framework\GameObjects\Components\CollisionComponent.cpp">
       <Filter>Framework\GameObjects\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="GamePlay1.cpp" />
+    <ClCompile Include="Framework\Utilities\Property.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="mariobigbullet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="mariobig.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="mariobigbigbullet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\Desktop\debug-texture.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="panel.tga">
+    <Image Include="Resources\Texture\texture.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\Desktop\Megaman\Package\TestTexturePacker.plist" />
+    <None Include="Resources\Texture\texture.plist" />
   </ItemGroup>
 </Project>

@@ -33,7 +33,6 @@ namespace Framework
 		m_height = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 		m_fullScreen = GameConfig::GetSingletonPtr()->GetBool(ConfigKey::FULLSCREEN);
 
-
 		//initialize Direct3D
 		m_direct3d = Direct3DCreate9(D3D_SDK_VERSION);
 		if(m_direct3d == NULL)
@@ -257,10 +256,35 @@ namespace Framework
 
 			TextureRegion *texture = pRenderable->GetTextureRegion();
 			RECT srcRect = texture->GetRect();
-
+			int wTest = abs(srcRect.right - srcRect.left);
+			int hTest = abs(srcRect.top - srcRect.bottom);
 			if (pRenderable->IsVisible())
 			{
-				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
+				//TEST
+				float scaleX = 1;
+				float scaleY = 1;
+				//float scalingRotation = 0.0f;
+				D3DXVECTOR2 scaleVector(scaleX, scaleY);
+				if (pRenderable->GetTag() == "player")
+				{
+					//scaleVector.x *= -1;
+					
+				}
+				
+				D3DXVECTOR2 centerVector((float)(wTest * scaleX) / 2, (float)(hTest * scaleY) / 2);
+				D3DXVECTOR2 trans((float)posInScreenCoord.x, (float)posInScreenCoord.y);
+				D3DXMATRIX  viewMatrix;
+				D3DXMatrixIdentity(&viewMatrix);
+				D3DXMatrixTransformation2D(&viewMatrix, &centerVector, 0, &scaleVector, &centerVector, 0, &trans);
+
+				m_spriteHandler->SetTransform(&viewMatrix);
+
+				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+				//origin
+				//m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &srcRect, NULL, &D3DXVECTOR3(posInScreenCoord.x, posInScreenCoord.y, posInScreenCoord.z), D3DCOLOR_XRGB(255, 255, 255));
+
+				//TEST
+				m_spriteHandler->SetTransform(&m_worldViewMatrix);
 			}
 
 			if (pRenderable->IsDebug())

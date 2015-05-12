@@ -39,6 +39,7 @@ namespace Framework
 		int							m_width;
 		int							m_height;
 		COLOR_ARGB					m_backColor;
+
 		
 		/*Render states*/
 		typedef std::vector<Renderable*>		RenderableVector;

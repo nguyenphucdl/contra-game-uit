@@ -24,7 +24,15 @@ public:
 		else
 			return filePath.substr(found + 1);
 	}
-	 
+	static std::string getNameWithoutExt(std::string filePath)
+	{
+		std::string nameOffile = getNameOfFile(filePath);
+		unsigned found = nameOffile.find_first_of(".");
+		if (found == std::string::npos)
+			return nameOffile;
+		else
+			return nameOffile.substr(0, found);
+	}
 	static bool isPath(std::string filePath)
 	{
 		unsigned found = filePath.find_first_of("/\\");

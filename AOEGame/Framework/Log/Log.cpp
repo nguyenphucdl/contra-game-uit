@@ -28,6 +28,25 @@ namespace Framework
 		vsprintf_s ( buffer, 256, pMessage, lVarArgs );
 		fputs(buffer, stdout);
 		va_end(lVarArgs);
+
+		string __trace_file = LogConfig::outPath;
+
+		FILE *f = stderr;
+		if (fopen_s(&f, __trace_file.c_str(), "a") != 0)
+		{
+			fprintf(stderr, "WARNING: Failed to open trace file '%s' for writing!\n", __trace_file);
+			return;
+		}
+
+		if (Log::isDebug())
+		{
+			fprintf_s(f, "<Error>");
+			fprintf_s(f, buffer);
+			fprintf_s(f, "</Error>\n");
+		}
+
+		if (__trace_file.c_str() != NULL)
+			fclose(f);
 	}
 
 	void Log::info(int level, Log_Str pMessage, ...)

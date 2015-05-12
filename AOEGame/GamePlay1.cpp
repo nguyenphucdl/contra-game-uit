@@ -1,57 +1,36 @@
-#include "Chapter6Task.h"
+#include "GamePlay1.h"
 #include "Framework\Utilities\TmxLoader.h"
 #include "Framework\GameObjects\Components\SpriteComponent.h"
 #include "Framework\Utilities\Console.h"
 #include "Framework\Utilities\Property.h"
 
-Chapter6Task::Chapter6Task(const unsigned int priority)
-	: Task(priority, "Chapter6Task")
+GamePlay1::GamePlay1(const unsigned int priority)
+	: Task(priority, "GamePlay1Task")
 {
-	
+
 }
 
-Chapter6Task::~Chapter6Task()
+GamePlay1::~GamePlay1()
 {
 }
 
-void Chapter6Task::HandleEvent(Event* pEvent)
+void GamePlay1::HandleEvent(Event* pEvent)
 {
-	
-	
+
+
 }
 
-bool Chapter6Task::Start()
+bool GamePlay1::Start()
 {
-	/*Font *font = new Font();
-	font->setCharSize(14, 16);
-	font->setColumns(16);
-	font->Print(100, 100, "HELLO WORLD!");*/
-
-	Console* console = new Console();
-	console->init();
-	console->print("Hello World!");
-	console->print("Nguyen Hong Phuc!", 3);
-	
-	
-	//Test
-	std::ostringstream os;
-	os.str("");
-	os << "TIMER " << (float)Timer::GetSingletonPtr()->GetTimeSim() << "!";
-	console->print(os.str());
-
-	Property* propLoader = new Property("Resources\\TestTexturePacker.plist");
+	Property* propLoader = new Property("Resources\\Texture\\texture.plist");
 	propLoader->Load();
 
-	// Test
+	//SceneManager
 	TmxLoader *tmxLoader = new TmxLoader("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
-	//TmxLoader *tmxLoader = new TmxLoader("Contra-stage-1-mapfinal.tmx");
 	tmxLoader->Load();
-	
+
 	TileMap* tileMap = tmxLoader->GetTileMap();
 	tileMap->Init();
-
-
-	Log::info(Log::LOG_LEVEL_MIN, "[Chapter6Task] Start... !\n");
 
 	RegisterTexture("ContraSpriteFull.png");
 
@@ -70,8 +49,8 @@ bool Chapter6Task::Start()
 		pTileMapComponent->SetRenderTransform(false);
 		pTileMapComponent->Initialize();
 	}
-	
-	
+
+
 
 	//PLAYER OBJECT
 	m_playerObject.AddComponent<SpriteComponent>();
@@ -89,7 +68,7 @@ bool Chapter6Task::Start()
 		Animation* stationaryRight = Animation::CreateAnimation("stationayRight", 33.0f, sheet, 10, 10, 1, 23);
 		Animation* stationaryLeft = Animation::CreateAnimation("stationaryLeft", 33.0f, sheet, 10, 10, 1, 22);
 
-		Vector3 position = Vector3(0, 100, 0);
+		Vector3 position = Vector3(100, 100, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 
@@ -106,14 +85,14 @@ bool Chapter6Task::Start()
 		pSpriteComponent->SetDefaultDirection(SpriteDirections::RIGHT);
 		pSpriteComponent->Initialize();
 	}
-	
+
 
 	m_playerObject.AddComponent<PlayerMovementComponent>();
 	PlayerMovementComponent* pPlayerTransformComponent = component_cast<PlayerMovementComponent>(m_playerObject);
 	if (pPlayerTransformComponent)
 	{
 		pPlayerTransformComponent->AttachRenderableTransform(pSpriteComponent);
-		Vector3 translation = Vector3(100, 0, 0);
+		Vector3 translation = Vector3(0, 0, 0);
 		pPlayerTransformComponent->SetTranslation(&translation);
 		pPlayerTransformComponent->Initialize();
 	}
@@ -126,9 +105,9 @@ bool Chapter6Task::Start()
 	MovementComponent* pPlayerMovementComponent = component_cast<MovementComponent>(m_playerObject);
 	if (pPlayerMovementComponent)
 	{
-		Vector3 velocity = Vector3(50.0f, 50.0f, 0);
-		pPlayerMovementComponent->SetVelocity(velocity);
-		pPlayerMovementComponent->Initialize();
+	Vector3 velocity = Vector3(50.0f, 50.0f, 0);
+	pPlayerMovementComponent->SetVelocity(velocity);
+	pPlayerMovementComponent->Initialize();
 	}*/
 
 	// CAMERA OBJECT
@@ -142,28 +121,28 @@ bool Chapter6Task::Start()
 		pCameraComponent->Initialize();
 	}
 
-	
+
 	Log::printComponentIDs();
 	Log::printMapEvents();
 
 	return true;
 }
 
-void Chapter6Task::OnSuspend()
+void GamePlay1::OnSuspend()
 {
 }
 
-void Chapter6Task::Update()
+void GamePlay1::Update()
 {
 	Framework::SendEvent(Events::UPDATE_EVENT); // need refactor
 	Framework::SendEvent(Events::POST_UPDATE_EVENT);
 	Framework::SendEvent(Events::RENDER_EVENT);
 }
 
-void Chapter6Task::OnResume()
+void GamePlay1::OnResume()
 {
 }
 
-void Chapter6Task::Stop()
+void GamePlay1::Stop()
 {
 }

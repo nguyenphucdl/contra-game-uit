@@ -71,6 +71,7 @@ namespace Framework
 	void SpriteComponent::Initialize()
 	{
 		RenderableComponent::Initialize();
+		m_renderable.SetTag("player");//Test
 		m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Current());		
 	}
 

@@ -3,6 +3,7 @@
 
 #include "Framework\Application\Game.h"
 #include "Chapter6Task.h"
+#include "GamePlay1.h"
 
 using namespace Framework;
 
@@ -10,7 +11,8 @@ class Chapter6App
 	: public Game
 {
 private:
-	Chapter6Task	m_testGameTask;
+	//Chapter6Task	m_testGameTask;
+	GamePlay1 m_testGameTask;
 
 public:
 	explicit Chapter6App();
