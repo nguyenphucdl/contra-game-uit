@@ -23,6 +23,7 @@ namespace Framework
 		vector<int>*			m_mapData; 		
 		vector<TileSet*>*		m_tileSets;
 		vector<GameObject*>*	m_objects;
+		RECT					m_bound;
 
 		//RENDER TO SURFACE
 		LPDIRECT3DSURFACE9		m_tileMapSurface;
@@ -33,6 +34,7 @@ namespace Framework
 	public:
 		int		GetTileWidth() { return m_tileWidth; }
 		int		GetTileHeight() { return m_tileHeight; }
+		RECT	GetBound() { return m_bound; }
 		int		GetWidth() { return m_width; }
 		int		GetHeight() { return m_height; }
 		void    SetMapData(vector<int>* data);

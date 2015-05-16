@@ -5,6 +5,7 @@
 #include "Framework\GameObjects\GameObject.h"
 #include "Framework\GameObjects\Components\TransformComponent.h"
 #include "Framework\EventManager\EventHandler.h"
+#include "Framework\Collision\CollisionListener.h"
 #include "Framework\EventManager\EventManager.h"
 
 using namespace Framework;
@@ -12,6 +13,7 @@ using namespace Framework;
 	class PlayerMovementComponent
 		: public TransformComponent
 		, public EventHandler
+		, public CollisionListener
 	{
 	private:
 		//static const unsigned int s_id = ComponentIDs::PlayerMovementComponentId;
@@ -36,6 +38,8 @@ using namespace Framework;
 		virtual void Initialize();
 
 		virtual void HandleEvent(Event* pEvent);
+		virtual void HandleCollision(CollisionEventData* pData);
+
 	private:
 		void _ProcessKeydownEvent(Event* pEvent);
 		void _ProcessKeyupEvent(Event* pEvent);

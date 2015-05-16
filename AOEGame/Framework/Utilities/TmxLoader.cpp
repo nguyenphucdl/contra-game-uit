@@ -111,7 +111,7 @@ namespace Framework
 		if (objectLayer != NULL)
 		{
 			xml_node<> *objectNode;
-			vector<GameObject*> gameObjects;
+			vector<GameObject*>* gameObjects = new vector<GameObject*>();
 			objectNode = objectLayer->first_node("object");
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
 			{
@@ -162,9 +162,9 @@ namespace Framework
 
 					pStaticComponent->Initialize();
 				}
-				gameObjects.push_back(gameObj);
+				gameObjects->push_back(gameObj);
 			}
-			m_tileMap->SetObjects(&gameObjects);
+			m_tileMap->SetObjects(gameObjects);
 		}
 		
 		return true;

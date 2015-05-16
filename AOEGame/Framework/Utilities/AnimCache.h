@@ -1,5 +1,5 @@
-#ifndef __PROPERTY_H__
-#define __PROPERTY_H__
+#ifndef __ANIM_CACHE_H__
+#define __ANIM_CACHE_H__
 
 #include <string>
 #include <stdio.h>
@@ -16,22 +16,29 @@ using namespace std;
 
 namespace Framework
 {
-	class Property
+	class AnimCache
 	{
 	public:
-		Property(std::string file);
-		~Property();
+		AnimCache(std::string file);
+		~AnimCache();
 
 		bool Load();
 
 	private:
 		std::string			m_file;
 		std::string			m_basePath;
-		xml_document<>		m_doc;
-		xml_node<>*			m_rootNode;
+		std::string			m_sheetName;
+		//xml_document<>		m_doc;
+		//xml_node<>*			m_rootNode;
 
 		
 		map<string, FrameInfo*> m_propList;
+		map<string, FrameInfo*>::iterator m_it;
+
+	public:
+		FrameInfo* getFrameInfo(std::string state);
+
+		std::string getSheetName() { return m_sheetName; }
 	};
 }
 #endif//__GAMEPLAY1_H__

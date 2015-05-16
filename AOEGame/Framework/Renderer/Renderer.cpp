@@ -84,6 +84,7 @@ namespace Framework
 		/*REGISTER EVENT*/
 		RegisterEvent(Events::PRE_RENDER_EVENT);
 		RegisterEvent(Events::RENDER_EVENT);
+		RegisterEvent(Events::POST_RENDER_EVENT);
 	}
 	//=============================================================================
 	// Initialize D3D presentation parameters
@@ -226,7 +227,7 @@ namespace Framework
 	//=============================================================================
 	// Draw renderable
 	//=============================================================================
-	void Renderer::Draw(Renderable* pRenderable)
+	void Renderer::Draw2(Renderable* pRenderable)
 	{
 		assert(pRenderable);
 		if(pRenderable)
@@ -267,7 +268,7 @@ namespace Framework
 				D3DXVECTOR2 scaleVector(scaleX, scaleY);
 				if (pRenderable->GetTag() == "player")
 				{
-					//scaleVector.x *= -1;
+					scaleVector.x *= -1;
 					
 				}
 				
@@ -306,11 +307,126 @@ namespace Framework
 
 				m_spriteHandler->Draw(m_debugTexture->GetTexture(), NULL, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 				//restore matrix
-				m_spriteHandler->SetTransform(&m_worldViewMatrix);
+				//m_spriteHandler->SetTransform(&m_worldViewMatrix);
 			}
 		}
 	}
+	void Renderer::Draw3(Renderable* pRenderable)
+	{
+		assert(pRenderable);
+		D3DXVECTOR3 origin_pos = pRenderable->GetPosition().GetD3DVector();
+		D3DXVECTOR3 invese_coord_pos = Transform::GetVector3FromWorldView(origin_pos, m_transformCoordinateMatrix);
 
+		D3DXVECTOR4 inverse_pos_view(invese_coord_pos.x, invese_coord_pos.y, invese_coord_pos.z, 1);
+		if (pRenderable->GetRenderTransform())
+		{
+			D3DXVec3Transform(&inverse_pos_view, &invese_coord_pos, &m_viewMatrix);
+		}
+
+		TextureRegion *texture = pRenderable->GetTextureRegion();
+		RECT textureRect = texture->GetRect();
+		// Transform
+		float scaleX = 1.0f, scaleY = 1.0f;
+		if (pRenderable->GetWidth() != 0 & false)
+		{
+			//scaleX = (float)(pRenderable->GetWidth()) / texture->GetTextureWidth();
+			//scaleY = (float)(pRenderable->GetHeight()) / texture->GetTextureHeight();
+			scaleX = 2.0f;
+			scaleY = 2.0f;
+		}
+		D3DXVECTOR2 scaleVector(scaleX, scaleY);
+		D3DXVECTOR2 centerVector((float)(texture->GetTextureWidth()) / 2, (float)(texture->GetTextureHeight()) / 2);
+		D3DXVECTOR2 transformVector(inverse_pos_view.x, inverse_pos_view.y);
+		if (texture->GetFlipX())
+		{
+			scaleVector.x *= -1;//flipX
+		}
+		D3DXMATRIX finalWorldViewMatrix;
+		D3DXMatrixIdentity(&finalWorldViewMatrix);
+		D3DXMatrixTransformation2D(&finalWorldViewMatrix, &centerVector, 0, &scaleVector, &centerVector, 0, &transformVector);
+		if (pRenderable->IsVisible())
+		{
+			m_spriteHandler->SetTransform(&finalWorldViewMatrix);
+			D3DXVECTOR3 centerDraw(centerVector.x, centerVector.y, 1.0f);
+			m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &textureRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+			//m_spriteHandler->SetTransform(&m_worldViewMatrix);
+		}
+		if (pRenderable->IsDebug())
+		{
+			float scaleX = texture->GetTextureWidth() / 200.0f;
+			float scaleY = texture->GetTextureHeight() / 200.0f;
+			if (pRenderable->GetWidth() != 0)
+			{
+				//scaleX = pRenderable->GetWidth() / 200.0f;
+				//scaleY = pRenderable->GetHeight() / 200.0f;
+			}
+			D3DXVECTOR2 scaleVectorDebug(scaleX, scaleY);
+			D3DXVECTOR2 centerVectorDebug((float)(200) / 2, (float)(200) / 2);
+			D3DXMatrixIdentity(&finalWorldViewMatrix);
+			D3DXMatrixTransformation2D(&finalWorldViewMatrix, NULL, 0, &scaleVectorDebug, &centerVectorDebug, 0, &transformVector);
+			
+			m_spriteHandler->SetTransform(&finalWorldViewMatrix);
+			m_spriteHandler->Draw(m_debugTexture->GetTexture(), NULL, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+
+		}
+		//m_spriteHandler->SetTransform(&m_worldViewMatrix);
+	}
+	void Renderer::Draw(Renderable* pRenderable)
+	{
+		assert(pRenderable);
+		D3DXVECTOR3 origin_pos = pRenderable->GetPosition().GetD3DVector();
+		D3DXVECTOR3 invese_coord_pos = Transform::GetVector3FromWorldView(origin_pos, m_transformCoordinateMatrix);
+
+		D3DXVECTOR4 inverse_pos_view(invese_coord_pos.x, invese_coord_pos.y, invese_coord_pos.z, 1);
+		if (pRenderable->GetRenderTransform())
+		{
+			D3DXVec3Transform(&inverse_pos_view, &invese_coord_pos, &m_viewMatrix);
+		}
+
+		TextureRegion *texture = pRenderable->GetTextureRegion();
+		RECT textureRect = texture->GetRect();
+		// Transform
+		float scaleX = 1.0f, scaleY = 1.0f;
+		D3DXVECTOR2 scaleVector(scaleX, scaleY);
+		D3DXVECTOR2 centerVector((float)(texture->GetTextureWidth() * scaleVector.x) / 2, (float)(texture->GetTextureHeight() * scaleVector.y) / 2);
+		D3DXVECTOR2 transformVector(inverse_pos_view.x, inverse_pos_view.y);
+		if (texture->GetFlipX())
+		{
+			scaleVector.x *= -1;//flipX
+		}
+		D3DXMATRIX finalWorldViewMatrix;
+		D3DXMatrixIdentity(&finalWorldViewMatrix);
+		D3DXMatrixTransformation2D(&finalWorldViewMatrix, &centerVector, 0, &scaleVector, &centerVector, 0, NULL);
+
+		if (pRenderable->IsVisible())
+		{
+			m_spriteHandler->SetTransform(&finalWorldViewMatrix);
+			D3DXVECTOR3 centerDraw(centerVector.x, centerVector.y, 1.0f);
+			if (pRenderable->GetTag() == "player")
+			{
+				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &textureRect, &centerDraw, &D3DXVECTOR3(inverse_pos_view.x + 22, inverse_pos_view.y + centerVector.y, 1.0f), D3DCOLOR_XRGB(255, 255, 255));
+			}
+			else
+				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &textureRect, &centerDraw, &D3DXVECTOR3(inverse_pos_view.x + centerVector.x, inverse_pos_view.y + centerVector.y, 1.0f), D3DCOLOR_XRGB(255, 255, 255));
+		}
+		if (pRenderable->IsDebug())
+		{
+			float scaleXDebug = (float)texture->GetTextureWidth() / 200;
+			float scaleYDebug = (float)texture->GetTextureHeight() / 200;
+
+			D3DXVECTOR2 scaleVector(scaleXDebug, scaleYDebug);
+			D3DXVECTOR2 trans((float)inverse_pos_view.x, (float)inverse_pos_view.y);
+			D3DXMATRIX  debugMatrix;
+			D3DXMatrixIdentity(&debugMatrix);
+			D3DXMatrixTransformation2D(&debugMatrix, NULL, 0, &scaleVector, NULL, 0, &trans);
+
+			m_spriteHandler->SetTransform(&debugMatrix);
+
+			m_spriteHandler->Draw(m_debugTexture->GetTexture(), NULL, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+			//restore matrix
+			m_spriteHandler->SetTransform(&m_worldViewMatrix);
+		}
+	}
 
 	//=============================================================================
 	// Test for lost device
@@ -356,7 +472,7 @@ namespace Framework
 		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer][Start] Starting...\n");
 
 		Init();
-		InitWorldViewMatrix();
+		InitTransformCoordinateMatrix();
 		
 		RegisterTexture("Resources\\debug-texture.png");
 		m_debugTexture = GetTexture("debug-texture.png");
@@ -406,12 +522,14 @@ namespace Framework
 
 			// stop rendering
 			this->endScene();
+
+			Framework::SendEvent(Events::POST_RENDER_EVENT);
 		}
 		this->handleLostGraphicsDevice();
 		this->showBackBuffer();
 	}
 
-	void Renderer::InitWorldViewMatrix()
+	void Renderer::InitTransformCoordinateMatrix()
 	{
 		// flip coordinate system
 		D3DXMATRIX flipYMatrix, translateMatrix;

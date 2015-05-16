@@ -23,6 +23,8 @@ namespace Framework
 		float			m_simDt;
 		float			m_simMultiplier;
 
+		float			m_anim;
+
 	public:
 		Timer(const unsigned int priority);
 		~Timer();
@@ -30,6 +32,7 @@ namespace Framework
 		float			GetTimeFrame() const;
 		float			GetTimeSim() const;
 		float			GetTimeTotal() const;
+		float			GetAnim() const;
 		void			Reset();
 		void			SetSimMultiplier(const float simMultiplier);
 
@@ -48,6 +51,10 @@ namespace Framework
 	inline float Timer::GetTimeSim() const
 	{
 		return m_simDt;
+	}
+	inline float Timer::GetAnim() const
+	{
+		return m_anim;
 	}
 	inline float Timer::GetTimeTotal() const
 	{

@@ -21,7 +21,7 @@ namespace Framework
 	{
 	public:
 		FrameInfo();
-		FrameInfo(const char* key, int x, int y, int w, int h, int col) { m_keyName = key; m_frameX = x; m_frameY = y; m_frameWidth = w; m_frameHeight = h; m_frameColum = col; };
+		FrameInfo(const char* key, int x, int y, int w, int h, int col, int row) { m_keyName = key; m_frameX = x; m_frameY = y; m_frameWidth = w; m_frameHeight = h; m_frameColum = col; m_frameRow = row; };
 		~FrameInfo();
 
 	private:
@@ -31,6 +31,7 @@ namespace Framework
 		int				m_frameWidth;
 		int				m_frameHeight;
 		int				m_frameColum;
+		int				m_frameRow;
 	public:
 
 		const char*		getKeyName() { return m_keyName; }
@@ -45,6 +46,8 @@ namespace Framework
 		void			setFrameHeight(int height) { m_frameHeight = height; }
 		int				getFrameColumn() { return m_frameColum; }
 		void			setFrameColumn(int column) { m_frameColum = column; }
+		int				getFrameRow() { return m_frameRow; }
+		void			setFrameRow(int row) { m_frameRow = row; }
 	};
 }
 #endif//__FRAMEINFO_H__

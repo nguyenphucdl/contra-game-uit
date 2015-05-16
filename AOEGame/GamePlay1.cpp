@@ -2,12 +2,16 @@
 #include "Framework\Utilities\TmxLoader.h"
 #include "Framework\GameObjects\Components\SpriteComponent.h"
 #include "Framework\Utilities\Console.h"
-#include "Framework\Utilities\Property.h"
+#include "Framework\Utilities\AnimCache.h"
+#include "GameResources.h"
+#include "Framework\GameObjects\Components\CollisionComponent.h"
+#include "Framework\GameObjects\Components\StaticComponent.h"
+#include "Framework\Collision\CollisionManager.h"
 
 GamePlay1::GamePlay1(const unsigned int priority)
 	: Task(priority, "GamePlay1Task")
 {
-
+	
 }
 
 GamePlay1::~GamePlay1()
@@ -16,13 +20,22 @@ GamePlay1::~GamePlay1()
 
 void GamePlay1::HandleEvent(Event* pEvent)
 {
+	if (pEvent->GetID() == Events::POST_UPDATE_EVENT)
+	{
+		Vector3 boundMin = m_pPlayerCollisionComponent->GetMin();
+		Vector3 boundMax = m_pPlayerCollisionComponent->GetMax();
+		Console::GetSingletonPtr()->print("GamePlay1 Player bound min(%f, %f) max(%f,%f)", boundMin.m_x, boundMin.m_y, boundMax.m_x, boundMax.m_y);
 
+		CollisionManager::GetSingleton().TestAgainstBin(0, m_pPlayerCollisionComponent);
+	}
 
 }
 
 bool GamePlay1::Start()
 {
-	Property* propLoader = new Property("Resources\\Texture\\texture.plist");
+	Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
+
+	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
 	propLoader->Load();
 
 	//SceneManager
@@ -32,11 +45,33 @@ bool GamePlay1::Start()
 	TileMap* tileMap = tmxLoader->GetTileMap();
 	tileMap->Init();
 
-	RegisterTexture("ContraSpriteFull.png");
 
+	
+	m_objects = tileMap->GetOjects();
+	CollisionManager::GetSingletonPtr()->AddCollisionBin();
+	for (m_objIt = m_objects->begin(); m_objIt != m_objects->end(); m_objIt++)
+	{
+		GameObject* t = (GameObject*)(*m_objIt);
 
+		StaticComponent* pThisStaticComponent = component_cast<StaticComponent>(t);
+		
+		RECT thisBound;
+		if (pThisStaticComponent)
+		{
+			thisBound = pThisStaticComponent->GetBound();
+		}
+		t->AddComponent<CollisionComponent>();
+		CollisionComponent* pThisCollisionComponent = component_cast<CollisionComponent>(t);
+		if (pThisCollisionComponent)
+		{
+			pThisCollisionComponent->SetMin(Vector3(thisBound.left, thisBound.top, 1.0f));
+			pThisCollisionComponent->SetMax(Vector3(thisBound.right, thisBound.bottom, 1.0f));
+			Framework::AttachEvent(Events::COLLISION_EVENT, *pThisCollisionComponent);
+			CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pThisCollisionComponent);
+		}
+	}
 
-
+	
 	// TILEMAP OBJECT
 	m_tileMapObject.AddComponent<TileMapComponent>();
 	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(m_tileMapObject);
@@ -46,7 +81,7 @@ bool GamePlay1::Start()
 		pTileMapComponent->SetOrigin(0, 480, 1);
 		pTileMapComponent->SetTag("TileMap");
 		pTileMapComponent->SetDebug(false);
-		pTileMapComponent->SetRenderTransform(false);
+		//pTileMapComponent->SetRenderTransform(true);
 		pTileMapComponent->Initialize();
 	}
 
@@ -57,35 +92,44 @@ bool GamePlay1::Start()
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
 	if (pSpriteComponent)
 	{
-		Texture* sheet = GetTexture("ContraSpriteFull.png");
-		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 333.0f, sheet, 10, 10, 3, 20);
-		moveLeftAnim->Reverse();
-		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 333.0f, sheet, 10, 10, 3, 23);
-		Animation* jumpRightAnim = Animation::CreateAnimation("jumpRightAnim", 333.0f, sheet, 10, 10, 4, 50);
-		Animation* jumpLeftAnim = Animation::CreateAnimation("jumpLeftAnim", 333.0f, sheet, 10, 10, 4, 54);
-		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 333.0f, sheet, 10, 10, 1, 8);
-		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 33.0f, sheet, 10, 10, 1, 9);
-		Animation* stationaryRight = Animation::CreateAnimation("stationayRight", 33.0f, sheet, 10, 10, 1, 23);
-		Animation* stationaryLeft = Animation::CreateAnimation("stationaryLeft", 33.0f, sheet, 10, 10, 1, 22);
+		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 222.0f, 0, 3);
+		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 222.0f, 3, 3);
+		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 222.0f, 0, 1);
+		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 222.0f, 3, 1);
+		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 222.0f, 1, 3);
+		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 222.0f, 5, 3);
+		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 222.0f, 0, 1);
+		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 222.0f, 7, 1);
+		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 222.0f, 0, 1);
+		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 222.0f, 5, 1);
+		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 222.0f, 1, 1);
+		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 222.0f, 4, 1);
 
-		Vector3 position = Vector3(100, 100, 0);
-		pSpriteComponent->SetRenderTransform(false);
+		Vector3 position = Vector3(300, 130, 0);
+		pSpriteComponent->SetRenderTransform(true);
 		pSpriteComponent->SetOrigin(position);
 
 		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryLeft);
 		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationaryRight);
+		pSpriteComponent->RegisterState(SpriteStates::STATIONARY_FIRING, SpriteDirections::RIGHT, stationRightFiring);
+		pSpriteComponent->RegisterState(SpriteStates::STATIONARY_FIRING, SpriteDirections::LEFT, stationLeftFiring);
 		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::LEFT, moveLeftAnim);
 		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::RIGHT, moveRightAnim);
+		pSpriteComponent->RegisterState(SpriteStates::MOVE_FIRING, SpriteDirections::RIGHT, moveRightFiring);
+		pSpriteComponent->RegisterState(SpriteStates::MOVE_FIRING, SpriteDirections::LEFT, moveLeftFiring);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, jumpRightAnim);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpLeftAnim);
-		pSpriteComponent->RegisterState(SpriteStates::SIT, SpriteDirections::RIGHT, sitRightAnim);
-		pSpriteComponent->RegisterState(SpriteStates::SIT, SpriteDirections::LEFT, sitLeftAnim);
+		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::RIGHT, jumpRightFiring);
+		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::LEFT, jumpLeftFiring);
 
+		pSpriteComponent->SetUseBounds(true);
+		pSpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+		pSpriteComponent->SetBoundMax(Vector3(45.0f, 45.0f, 1.0f));
 		pSpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
-		pSpriteComponent->SetDefaultDirection(SpriteDirections::RIGHT);
+		pSpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
 		pSpriteComponent->Initialize();
 	}
-
+	
 
 	m_playerObject.AddComponent<PlayerMovementComponent>();
 	PlayerMovementComponent* pPlayerTransformComponent = component_cast<PlayerMovementComponent>(m_playerObject);
@@ -96,6 +140,27 @@ bool GamePlay1::Start()
 		pPlayerTransformComponent->SetTranslation(&translation);
 		pPlayerTransformComponent->Initialize();
 	}
+	m_playerObject.AddComponent<CollisionComponent>();
+	CollisionComponent* pCollisionComponent = component_cast<CollisionComponent>(m_playerObject);
+	if (pCollisionComponent)
+	{
+		pCollisionComponent->AttachRenderable(&pSpriteComponent->GetRenderable());
+		pCollisionComponent->Initialize();
+		m_pPlayerCollisionComponent = pCollisionComponent;
+		Framework::AttachEvent(Events::COLLISION_EVENT, *m_pPlayerCollisionComponent);
+		m_pPlayerCollisionComponent->AddEventListener(pPlayerTransformComponent);
+	}
+	/*m_playerObject.AddComponent<CollisionComponent>();
+	CollisionComponent* pPlayerCollisionComponent = component_cast<CollisionComponent>(m_playerObject);
+	if (pPlayerCollisionComponent)
+	{
+		TransformComponent* testTransformComponent = component_cast<TransformComponent>(m_playerObject);
+		if (testTransformComponent)
+		{
+			int k = 3;
+		}
+
+	}*/
 
 	TransformComponent* testTransformComponent = component_cast<TransformComponent>(m_playerObject);
 
@@ -116,8 +181,9 @@ bool GamePlay1::Start()
 	if (pCameraComponent)
 	{
 		pCameraComponent->AttachObject(&m_playerObject);
-		pCameraComponent->SetViewportOrigin(0, 0);
-		pCameraComponent->SetViewportTranslate(0, 0);
+		pCameraComponent->SetBound(tileMap->GetBound());
+		//pCameraComponent->SetViewportOrigin(0, 0);
+		//pCameraComponent->SetViewportTranslate(0, 0);
 		pCameraComponent->Initialize();
 	}
 

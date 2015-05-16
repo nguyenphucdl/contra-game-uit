@@ -91,15 +91,6 @@
     <ClInclude Include="Framework\Renderer\Renderable.h">
       <Filter>Framework\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\StaticComponent.h">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\SpriteComponent.h">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h">
-      <Filter>Framework\GameObjects\CommonComponents</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Math\Vector4.h">
       <Filter>Framework\Math</Filter>
     </ClInclude>
@@ -127,14 +118,8 @@
     <ClInclude Include="Framework\TileMap\TileMap.h">
       <Filter>Framework\TileMap</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClInclude>
     <ClInclude Include="MovementComponent.h">
       <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h">
-      <Filter>Framework\GameObjects\CommonComponents</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Utilities\Hash.h">
       <Filter>Framework\Math</Filter>
@@ -199,9 +184,6 @@
     <ClInclude Include="Chapter6App.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\TileMapComponent.h">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\Enums.h">
       <Filter>Framework\Utilities</Filter>
     </ClInclude>
@@ -232,15 +214,34 @@
     <ClInclude Include="Framework\Collision\CollisionManager.h">
       <Filter>Framework\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\GameObjects\Components\CollisionComponent.h">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\Utils.h">
       <Filter>Framework\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="GamePlay1.h" />
-    <ClInclude Include="Framework\Utilities\Property.h" />
     <ClInclude Include="Framework\Utilities\FrameInfo.h" />
+    <ClInclude Include="Framework\Utilities\AnimCache.h" />
+    <ClInclude Include="GameResources.h" />
+    <ClInclude Include="Framework\GameObjects\Components\CameraComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\CollisionComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\RenderableComponent.h">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\SpriteComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\StaticComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\TileMapComponent.h">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -248,12 +249,6 @@
     </ClCompile>
     <ClCompile Include="Chapter6Task.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp">
-      <Filter>Framework\GameObjects\CommonComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp">
-      <Filter>Framework\GameObjects\CommonComponents</Filter>
     </ClCompile>
     <ClCompile Include="Framework\EventManager\Event.cpp">
       <Filter>Framework\EventManager</Filter>
@@ -282,19 +277,7 @@
     <ClCompile Include="Framework\TileMap\TileMap.cpp">
       <Filter>Framework\TileMap</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\TileMapComponent.cpp">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\StaticComponent.cpp">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\SpriteComponent.cpp">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp">
       <Filter>Framework\GameObjects\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Platform\Window.cpp">
@@ -363,11 +346,29 @@
     <ClCompile Include="Framework\Collision\CollisionManager.cpp">
       <Filter>Framework\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="GamePlay1.cpp" />
+    <ClCompile Include="Framework\Utilities\AnimCache.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
     <ClCompile Include="Framework\GameObjects\Components\CollisionComponent.cpp">
       <Filter>Framework\GameObjects\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GamePlay1.cpp" />
-    <ClCompile Include="Framework\Utilities\Property.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\RenderableComponent.cpp">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\SpriteComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\StaticComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\TileMapComponent.cpp">
+      <Filter>Framework\GameObjects\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp">
+      <Filter>Framework\GameObjects\CommonComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">
@@ -376,9 +377,12 @@
     <Image Include="Resources\Texture\texture.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Texture\Rockman\rockman.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\Desktop\Megaman\Package\TestTexturePacker.plist" />
     <None Include="Resources\Texture\texture.plist" />
+    <None Include="Resources\Texture\Rockman\rockman.plist" />
   </ItemGroup>
 </Project>

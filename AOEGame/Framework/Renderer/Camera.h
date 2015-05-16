@@ -27,6 +27,8 @@ namespace Framework
 		void			ResetViewport();
 
 		RECT&			GetViewPort();
+		int				GetViewPortWidth()		{ return m_viewWidth; }
+		int				GetViewPortHeight()		{ return m_viewHeight; }
 		Vector3			GetViewOrigin()			{ return m_viewOrigin; }
 		Vector3			GetViewTranslate()		{ return m_viewTranslate; }
 

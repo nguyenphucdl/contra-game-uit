@@ -2,7 +2,7 @@
 #include "Framework\Utilities\TmxLoader.h"
 #include "Framework\GameObjects\Components\SpriteComponent.h"
 #include "Framework\Utilities\Console.h"
-#include "Framework\Utilities\Property.h"
+#include "Framework\Utilities\AnimCache.h"
 
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
@@ -29,18 +29,18 @@ bool Chapter6Task::Start()
 
 	Console* console = new Console();
 	console->init();
-	console->print("Hello World!");
-	console->print("Nguyen Hong Phuc!", 3);
+	//console->print("Hello World!");
+	//console->print("Nguyen Hong Phuc!", 3);
 	
 	
 	//Test
-	std::ostringstream os;
-	os.str("");
-	os << "TIMER " << (float)Timer::GetSingletonPtr()->GetTimeSim() << "!";
-	console->print(os.str());
+	//std::ostringstream os;
+	//os.str("");
+	//os << "TIMER " << (float)Timer::GetSingletonPtr()->GetTimeSim() << "!";
+	//console->print(os.str());
 
-	Property* propLoader = new Property("Resources\\TestTexturePacker.plist");
-	propLoader->Load();
+	//Property* propLoader = new Property("Resources\\TestTexturePacker.plist");
+	//propLoader->Load();
 
 	// Test
 	TmxLoader *tmxLoader = new TmxLoader("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
@@ -79,28 +79,28 @@ bool Chapter6Task::Start()
 	if (pSpriteComponent)
 	{
 		Texture* sheet = GetTexture("ContraSpriteFull.png");
-		Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 333.0f, sheet, 10, 10, 3, 20);
-		moveLeftAnim->Reverse();
-		Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 333.0f, sheet, 10, 10, 3, 23);
-		Animation* jumpRightAnim = Animation::CreateAnimation("jumpRightAnim", 333.0f, sheet, 10, 10, 4, 50);
-		Animation* jumpLeftAnim = Animation::CreateAnimation("jumpLeftAnim", 333.0f, sheet, 10, 10, 4, 54);
-		Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 333.0f, sheet, 10, 10, 1, 8);
-		Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 33.0f, sheet, 10, 10, 1, 9);
-		Animation* stationaryRight = Animation::CreateAnimation("stationayRight", 33.0f, sheet, 10, 10, 1, 23);
-		Animation* stationaryLeft = Animation::CreateAnimation("stationaryLeft", 33.0f, sheet, 10, 10, 1, 22);
+		//Animation* moveLeftAnim = Animation::CreateAnimation("moveLeftAnim", 333.0f, sheet, 10, 10, 3, 20);
+		//moveLeftAnim->Reverse();
+		//Animation* moveRightAnim = Animation::CreateAnimation("moveRightAnim", 333.0f, sheet, 10, 10, 3, 23);
+		//Animation* jumpRightAnim = Animation::CreateAnimation("jumpRightAnim", 333.0f, sheet, 10, 10, 4, 50);
+		//Animation* jumpLeftAnim = Animation::CreateAnimation("jumpLeftAnim", 333.0f, sheet, 10, 10, 4, 54);
+		//Animation* sitLeftAnim = Animation::CreateAnimation("sitLeft", 333.0f, sheet, 10, 10, 1, 8);
+		//Animation* sitRightAnim = Animation::CreateAnimation("sitRight", 33.0f, sheet, 10, 10, 1, 9);
+		//Animation* stationaryRight = Animation::CreateAnimation("stationayRight", 33.0f, sheet, 10, 10, 1, 23);
+		//Animation* stationaryLeft = Animation::CreateAnimation("stationaryLeft", 33.0f, sheet, 10, 10, 1, 22);
 
 		Vector3 position = Vector3(0, 100, 0);
 		pSpriteComponent->SetRenderTransform(false);
 		pSpriteComponent->SetOrigin(position);
 
-		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryLeft);
+		/*pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryLeft);
 		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationaryRight);
 		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::LEFT, moveLeftAnim);
 		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::RIGHT, moveRightAnim);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, jumpRightAnim);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpLeftAnim);
 		pSpriteComponent->RegisterState(SpriteStates::SIT, SpriteDirections::RIGHT, sitRightAnim);
-		pSpriteComponent->RegisterState(SpriteStates::SIT, SpriteDirections::LEFT, sitLeftAnim);
+		pSpriteComponent->RegisterState(SpriteStates::SIT, SpriteDirections::LEFT, sitLeftAnim);*/
 
 		pSpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
 		pSpriteComponent->SetDefaultDirection(SpriteDirections::RIGHT);

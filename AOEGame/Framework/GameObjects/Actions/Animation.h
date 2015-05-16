@@ -3,6 +3,7 @@
 
 #include "../../Application/Context.h"
 #include "../../Renderer/Texture/TextureRegion.h"
+#include "../../Utilities/AnimCache.h"
 
 namespace Framework
 {
@@ -32,9 +33,11 @@ namespace Framework
 		void	Reset()						{ m_curIdx = 0; }
 
 	public:
-		static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset = 0);
+		//static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool flipX = false);
 		/*static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts);*/
-		static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool reverse);
+		//static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool reverse);
+		static Animation* CreateAnimation(std::string key, AnimCache* propertyList, float delay, int offset, int framecounts, bool flipx = false);
+		static Animation* CreateAnimation(std::string key, AnimCache* propertyList, float delay, int offset, int framecounts, bool flipx, bool reverse);
 	};
 }
 

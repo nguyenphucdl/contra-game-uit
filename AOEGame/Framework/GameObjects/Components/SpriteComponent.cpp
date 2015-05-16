@@ -1,6 +1,7 @@
 #include "SpriteComponent.h"
 #include "TransformComponent.h"
 #include "../../Utilities/Timer.h"
+#include "../../Utilities/Console.h"
 namespace Framework
 {
 	SpriteComponent::SpriteComponent(GameObject* pOwner)
@@ -72,7 +73,7 @@ namespace Framework
 	{
 		RenderableComponent::Initialize();
 		m_renderable.SetTag("player");//Test
-		m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Current());		
+		//m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Current());		
 	}
 
 	void SpriteComponent::HandleEvent(Event* pEvent)
@@ -83,6 +84,10 @@ namespace Framework
 		case Events::POST_UPDATE_EVENT:
 		default:
 			m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Next());
+
+			Vector3 boundMin = GetBoundMin();
+			Vector3 boundMax = GetBoundMax();
+			Console::GetSingletonPtr()->print("Player bound min(%f, %f) max(%f,%f)", boundMin.m_x, boundMin.m_y, boundMax.m_x, boundMax.m_y);
 			break;
 		}
 	}

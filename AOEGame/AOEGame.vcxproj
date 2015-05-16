@@ -129,11 +129,12 @@
     <ClInclude Include="Framework\Utilities\GameConfig.h" />
     <ClInclude Include="Framework\Utilities\GameError.h" />
     <ClInclude Include="Framework\Utilities\Hash.h" />
-    <ClInclude Include="Framework\Utilities\Property.h" />
+    <ClInclude Include="Framework\Utilities\AnimCache.h" />
     <ClInclude Include="Framework\Utilities\Singleton.h" />
     <ClInclude Include="Framework\Utilities\Timer.h" />
     <ClInclude Include="Framework\Utilities\TmxLoader.h" />
     <ClInclude Include="GamePlay1.h" />
+    <ClInclude Include="GameResources.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PlayerMovementComponent.h" />
     <ClInclude Include="Framework\Utilities\Utils.h" />
@@ -175,7 +176,7 @@
     <ClCompile Include="Framework\TileMap\TileSet.cpp" />
     <ClCompile Include="Framework\Utilities\Console.cpp" />
     <ClCompile Include="Framework\Utilities\GameConfig.cpp" />
-    <ClCompile Include="Framework\Utilities\Property.cpp" />
+    <ClCompile Include="Framework\Utilities\AnimCache.cpp" />
     <ClCompile Include="Framework\Utilities\Timer.cpp" />
     <ClCompile Include="Framework\Utilities\TmxLoader.cpp" />
     <ClCompile Include="GamePlay1.cpp" />
@@ -185,10 +186,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga" />
+    <Image Include="Resources\Texture\Rockman\rockman.png" />
     <Image Include="Resources\Texture\texture.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\Desktop\Megaman\Package\TestTexturePacker.plist" />
+    <None Include="Resources\Texture\Rockman\rockman.plist" />
     <None Include="Resources\Texture\texture.plist" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

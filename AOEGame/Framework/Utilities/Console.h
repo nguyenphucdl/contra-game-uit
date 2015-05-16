@@ -11,7 +11,8 @@
 namespace Framework
 {
 	class Console 
-		: public Drawable
+		: public Singleton<Console>
+		, public Drawable
 		, public EventHandler
 
 	{
@@ -33,7 +34,8 @@ namespace Framework
 		Console();
 		virtual ~Console() {};
 		bool init();
-		void print(std::string text, int line = -1);
+		/*void print(std::string text, int line = -1);*/
+		void print(const char* pMessage, ...);
 		bool isShowing() { return this->m_showing; }
 		void show()		 { this->m_showing = true; }
 		void hide()		 { this->m_showing = false; }

@@ -35,6 +35,16 @@ namespace Framework
 		std::string GetTag()							{ return m_renderable.GetTag(); }
 		void SetDebug(bool debug)						{ m_renderable.SetDebug(debug); }
 		bool IsDebug()									{ return m_renderable.IsDebug(); }
+		void SetSize(int width, int height)				{ m_renderable.SetSize(width, height); }
+		int	 GetWidth()									{ return m_renderable.GetWidth(); }
+		int	 GetHeight()								{ return m_renderable.GetHeight(); }
+		void SetUseBounds(bool enabled)					{ m_renderable.SetUseBounds(enabled); }
+		bool GetUseBounds()								{ return m_renderable.GetUseBounds(); }
+		void SetBoundMin(const Vector3& min)			{ m_renderable.SetBoundMin(min); }
+		Vector3&	GetBoundMin() 						{ return m_renderable.GetBoundMin(); }
+		void SetBoundMax(const Vector3& max)			{ m_renderable.SetBoundMax(max); }
+		Vector3&	GetBoundMax() 						{ return m_renderable.GetBoundMax(); }
+
 	};
 }
 #endif//__RENDERABLECOMPONENT_H__

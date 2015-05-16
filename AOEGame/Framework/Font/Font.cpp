@@ -1,5 +1,6 @@
 #include "Font.h"
 #include "../Renderer/Texture/TextureManager.h"
+#include "../EventManager/EventManager.h"
 
 namespace Framework
 {
@@ -10,6 +11,8 @@ namespace Framework
 		m_fontTexture = GetTexture("system12.tga");
 
 		loadWidthData("Resources\\Font\\system12.dat");
+		
+		Framework::AttachEvent(Events::POST_RENDER_EVENT, *this);
 	}
 
 	void Font::Draw(LPD3DXSPRITE spriteHandler)
@@ -72,5 +75,10 @@ namespace Framework
 		}
 
 		return true;
+	}
+
+	void Font::HandleEvent(Event* pEvent)
+	{
+		m_textDraws.clear();
 	}
 }

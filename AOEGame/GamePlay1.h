@@ -10,6 +10,7 @@
 #include "Framework\GameObjects\Components\CameraComponent.h"
 #include "Framework\GameObjects\Components\TileMapComponent.h"
 #include "Framework\GameObjects\Actions\Animation.h"
+#include "Framework\GameObjects\Components\CollisionComponent.h"
 #include "MovementComponent.h"
 #include "PlayerMovementComponent.h"
 
@@ -25,6 +26,12 @@ private:
 	Framework::GameObject	m_cameraObject;
 	Framework::GameObject	m_contraObject;
 	Framework::GameObject	m_contraFinalObject;
+
+	vector<GameObject*>*	m_objects;
+	vector<GameObject*>::iterator m_objIt;
+
+	Framework::CollisionComponent*		m_pPlayerCollisionComponent;
+
 public:
 	GamePlay1(const unsigned int priority);
 	virtual ~GamePlay1();

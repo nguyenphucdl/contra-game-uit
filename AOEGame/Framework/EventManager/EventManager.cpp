@@ -11,8 +11,9 @@ namespace Framework
 		RegisterEvent(Events::UPDATE_EVENT);
 		RegisterEvent(Events::POST_UPDATE_EVENT);
 		RegisterEvent(Events::RENDER_EVENT);
+		RegisterEvent(Events::COLLISION_EVENT);
 		//Actor event
-		RegisterEvent(GameEvents::PLAYER_JUMP_EVENT);
+		RegisterEvent(Events::PLAYER_JUMP_EVENT);
 		
 	}
 

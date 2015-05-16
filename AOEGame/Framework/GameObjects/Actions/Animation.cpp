@@ -1,5 +1,6 @@
 #include "Animation.h"
 #include "../../Utilities/Timer.h"
+#include "../../Renderer/Texture/TextureManager.h"
 
 namespace Framework
 {
@@ -38,6 +39,7 @@ namespace Framework
 
 	TextureRegion* Animation::Next()
 	{
+		assert(Timer::GetSingletonPtr());
 		m_elapse += Timer::GetSingletonPtr()->GetTimeTotal();
 		//Log::info(Log::LOG_LEVEL_MEDIUM, "Animation elapse: %f\n", m_elapse);
 		if (m_elapse > m_delay)
@@ -57,14 +59,64 @@ namespace Framework
 		std::reverse(m_frames.begin(), m_frames.end());
 	}
 
-	Animation* Animation::CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool reverse)
+	/*Animation* Animation::CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool reverse)
 	{
 		Animation* result = Animation::CreateAnimation(name, delay, sheet, dimensionx, dimensiony, framecounts, offset);
 		result->Reverse();
 		return result;
+	}*/
+	Animation* Animation::CreateAnimation(std::string key, AnimCache* propertyList, float delay, int offset, int framecounts, bool flipx, bool reverse)
+	{
+		Animation* result = Animation::CreateAnimation(key, propertyList, delay, offset, framecounts, flipx);
+		result->Reverse();
+		return result;
 	}
 
-	Animation* Animation::CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset)
+
+	Animation* Animation::CreateAnimation(std::string key, AnimCache* propertyList, float delay, int offset, int framecounts, bool flipx)
+	{
+		FrameInfo* frameInfo = propertyList->getFrameInfo(key);
+		Texture* sheet = GetTexture(propertyList->getSheetName());
+		if (frameInfo == NULL || sheet == NULL)
+		{
+			Log::error("[Animation] CreateAnimation try to get property key %s", key);
+		}
+		int dimensionx = frameInfo->getFrameColumn();
+		int dimensiony = frameInfo->getFrameRow();
+		int frwidth = frameInfo->getFrameWidth() / dimensionx;
+		int frheight = frameInfo->getFrameHeight() / dimensiony;
+		RECT frRect;
+		
+		Animation *anim = new Animation(key, delay);
+		int add = 0, count = 0;
+
+		for (int j = 0; j < dimensiony; j++)
+		{
+			for (int i = 0; i < dimensionx; i++)
+			{
+				count++;
+				if (count > offset && add < framecounts)
+				{
+					frRect.left = i * frwidth + frameInfo->getFrameX();
+					frRect.right = frRect.left + frwidth;
+					frRect.top = j * frheight + frameInfo->getFrameY();
+					frRect.bottom = frRect.top + frheight;
+
+					TextureRegion* region = new TextureRegion(sheet, frRect);
+					if (flipx)
+					{
+						region->SetFlipX(true);
+					}
+					anim->AddFrame(region);
+					add++;
+				}
+			}
+		}
+		anim->SetFrameIndex(0);
+		return anim;
+	}
+
+	/*Animation* Animation::CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool flipX)
 	{
 		Animation *anim = new Animation(name, delay);
 
@@ -88,6 +140,10 @@ namespace Framework
 					frRect.bottom = frRect.top + frheight;
 
 					TextureRegion* region = new TextureRegion(sheet, frRect);
+					if (flipX)
+					{
+						region->SetFlipX(true);
+					}
 					anim->AddFrame(region);
 					add++;
 				}
@@ -95,5 +151,5 @@ namespace Framework
 		}
 		anim->SetFrameIndex(0);
 		return anim;
-	}
+	}*/
 }

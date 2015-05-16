@@ -14,7 +14,7 @@ namespace Framework
 		, m_move(false)
 		, m_gravity(0.0f)
 	{
-		Framework::AttachEvent(GameEvents::PLAYER_JUMP_EVENT, *this);
+		Framework::AttachEvent(Events::PLAYER_JUMP_EVENT, *this);
 		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
 		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
 		Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
@@ -31,7 +31,7 @@ namespace Framework
 
 	void MovementComponent::HandleEvent(Event* pEvent)
 	{
-		if(pEvent->GetID() == GameEvents::PLAYER_JUMP_EVENT)
+		if (pEvent->GetID() == Events::PLAYER_JUMP_EVENT)
 		{
 			int i = 3;
 		}

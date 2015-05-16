@@ -114,12 +114,12 @@ namespace Framework
 
 	void Input::Update()
 	{
-		LARGE_INTEGER timeStart;
+		/*LARGE_INTEGER timeStart;
 		LARGE_INTEGER timeEnd;
 		LARGE_INTEGER timeFreq;
 		if (QueryPerformanceFrequency(&timeFreq) == false)
 			throw(GameError(GameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
-		QueryPerformanceCounter(&timeStart);
+		QueryPerformanceCounter(&timeStart);*/
 
 
 		// Collect all key states first
@@ -150,17 +150,15 @@ namespace Framework
 				if ((keystate & 0x80) > 0)
 				{
 					//Sent KEYDOWN_EVENT with keycode parameters
-					//Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYDOWN_EVENT !\n");
 					SendEvent(Events::KEY_DOWN_EVENT, (void *)keyCode);
 					if (keyCode == DIK_SPACE)
 					{
-						SendEvent(GameEvents::PLAYER_JUMP_EVENT);
+						SendEvent(Events::PLAYER_JUMP_EVENT);
 					}
 				}
 				else
 				{
 					//Sent KEYDUP_EVENT with keycode parameters
-					//Log::info(Log::LOG_LEVEL_ROOT, "[Input] Send KEYUP_EVENT !\n");
 					SendEvent(Events::KEY_UP_EVENT, (void*)keyCode);
 				}
 			}
@@ -169,7 +167,7 @@ namespace Framework
 		else
 		{
 			// Switch to another application, cannot retrieve input device
-			Log::info(Log::LOG_LEVEL_HIGHT, "Cannot get device data!\n");
+			// Log::info(Log::LOG_LEVEL_HIGHT, "Cannot get device data!\n");
 			Sleep(100);
 			m_result = m_keyboard->Acquire();
 			if (SUCCEEDED(m_result))
@@ -178,10 +176,10 @@ namespace Framework
 			}
 		}
 
-		QueryPerformanceCounter(&timeEnd);
+		//QueryPerformanceCounter(&timeEnd);
 		//LARGE_INTEGER numCounts = timeEnd.QuadPart – timeStart.QuadPart;
-		float frameDt = (float)((timeEnd.QuadPart - timeStart.QuadPart)) / (float)(timeFreq.QuadPart);
-		int k = 123;
+		//float frameDt = (float)((timeEnd.QuadPart - timeStart.QuadPart)) / (float)(timeFreq.QuadPart);
+		//int k = 123;
 	}
 
 	void Input::OnResume()

@@ -29,7 +29,8 @@ namespace Framework
 		ret = m_kernel.AddTask(Renderer::GetSingletonPtr());
 		ret = m_kernel.AddTask(Input::GetSingletonPtr());
 		
-		
+		//Timer::GetSingletonPtr()->Start();
+		Console::GetSingletonPtr()->init();
 		return ret;
 	}
 
@@ -41,14 +42,11 @@ namespace Framework
 
 	void Game::Run()
 	{	
-		if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.0333f) // NEED REFACTOR
+		Timer::GetSingletonPtr()->Update();
+		if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.03333333f) // NEED REFACTOR
 		{
 			m_kernel.Execute();
 			Timer::GetSingletonPtr()->Reset();
-		}
-		else
-		{
-			Timer::GetSingletonPtr()->Update();
 		}
 	}
 
@@ -64,8 +62,9 @@ namespace Framework
 		new Timer(Task::TIMER_PRIORITY);
 		new Renderer(Task::RENDER_PRIORITY);
 		new TextureManager(Task::FILE_PRIORITY);
-		
 		new Input(Window::GetSingletonPtr()->GetWindowHandle(), Task::PLATFORM_PRIORITY);
+		new CollisionManager();
+		new Console();
 	}
 
 	void Game::DestroySingletons()

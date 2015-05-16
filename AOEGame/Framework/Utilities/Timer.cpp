@@ -1,4 +1,5 @@
 #include "Timer.h"
+#include "Console.h"
 
 namespace Framework
 {
@@ -52,19 +53,27 @@ namespace Framework
 
 	void Timer::Update()
 	{
+		QueryPerformanceFrequency(&m_timeFreq);
+
 		QueryPerformanceCounter(&m_timeStart);
+
+		m_anim = ((float)m_timeStart.QuadPart - (float)m_timeLastFrame.QuadPart) / m_timeFreq.QuadPart;
+		
+
 		LONGLONG llTimeDiff = m_timeStart.QuadPart - m_timeLastFrame.QuadPart;
 
-		m_frameDt = (float)((llTimeDiff) / (m_timeFreq.QuadPart));//seconds
+		m_frameDt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart / 1000.0f);//mili seconds
 
-		double m_dt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart / 1000.0f);
+		//double m_dt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart / 1000.0f);
 
 		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeDt %f !\n", m_dt);
-		m_simDt = m_dt * m_simMultiplier;
+		m_simDt = m_frameDt * m_simMultiplier;
 
-		m_timeTotal += m_dt; //Test
+		m_timeTotal += m_frameDt; //
 		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeTotal());
 		m_timeLastFrame = m_timeStart;
+
+		
 		int k = 124;
 	}
 

@@ -14,8 +14,7 @@ namespace Framework
 		static const unsigned int	s_id = ComponentIDs::StaticComponentId;
 
 		Renderable		m_renderable; // Debug only
-
-		RECT m_bound;
+		RECT			m_bound;
 	public:
 		static unsigned int GetId() { return s_id; }
 

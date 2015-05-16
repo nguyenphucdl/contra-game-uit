@@ -25,6 +25,8 @@ namespace Framework
 		bool					m_visible;
 		std::string				m_tag;
 		bool					m_debug;
+		int						m_width;
+		int						m_height;
 
 		// Fulture use only
 		Vector3					m_min;
@@ -44,10 +46,10 @@ namespace Framework
 		void				SetTransform(Transform &pTransform)	{ m_transform = pTransform; }
 
 		void				SetBoundMin(const Vector3& min)	{ m_min = min; }
-		const Vector3&		GetBoundMin() const					{ return m_min; }
+		Vector3&			GetBoundMin();
 
 		void				SetBoundMax(const Vector3&	max)	{ m_max = max; }
-		const Vector3&		GetBoundMax() const					{ return m_max; }
+		Vector3&			GetBoundMax();
 
 		void				SetUseBounds(bool enabled)			{ m_useBounds = enabled; }
 		bool				GetUseBounds() const				{ return m_useBounds; }
@@ -72,7 +74,11 @@ namespace Framework
 		void				SetZIndex(int idx)					{ m_zIndex = idx; }
 		int					GetZIndex()							{ return m_zIndex; }
 
-		Vector3			GetPosition();
+		Vector3				GetPosition();
+		void				SetSize(int width, int height)		{ m_width = width; m_height = height; }
+		int					GetWidth()							{ return m_width;  }
+		int					GetHeight()							{ return m_height; }
+
 		//bool				IsInitialized() const { return m_pGeometry; }
 	};
 
@@ -85,6 +91,8 @@ namespace Framework
 		, m_visible(true)
 		, m_tag("")
 		, m_debug(true)
+		, m_width(0)
+		, m_height(0)
 	{
 	}
 	inline Renderable::~Renderable()
@@ -106,6 +114,22 @@ namespace Framework
 			Transform::Vector3Transform(&m_origin, &position, &m_transform);
 		}
 		return position;
+	}
+	inline Vector3& Renderable::GetBoundMin()
+	{
+		Vector3 boundmin = m_origin;
+		Transform::Vector3Transform(&m_origin, &boundmin, &m_transform);
+		boundmin.Add(m_min);
+		return boundmin;
+	}
+	inline Vector3& Renderable::GetBoundMax()
+	{
+		Vector3 boundmin = m_origin;
+		Transform::Vector3Transform(&m_origin, &boundmin, &m_transform);
+		boundmin.Add(m_min);
+		Vector3 boundmax = boundmin;
+		boundmax.Add(m_max);
+		return boundmax;
 	}
 
 }

@@ -1,4 +1,4 @@
-#include "Property.h"
+#include "AnimCache.h"
 #include <set>
 #include "Utils.h"
 #include "../Renderer/Texture/TextureManager.h"
@@ -6,19 +6,19 @@
 
 namespace Framework
 {
-	Property::Property(std::string file)
+	AnimCache::AnimCache(std::string file)
 		: m_file(file)
 	{
 		m_propList = map<string, FrameInfo*>();
 		m_basePath = Utils::getPathOfFile(file);
 	}
 
-	Property::~Property()
+	AnimCache::~AnimCache()
 	{
 		
 	}
 
-	bool Property::Load()
+	bool AnimCache::Load()
 	{
 		//check file valid
 
@@ -33,8 +33,9 @@ namespace Framework
 		vector<char> buffer((istreambuf_iterator<char>(theFile)), istreambuf_iterator<char>());
 		buffer.push_back('\0');
 		// Parse the buffer using the xml file parsing library into doc 
+		xml_document<> m_doc;
 		m_doc.parse<0>(&buffer[0]);
-		m_rootNode = m_doc.first_node("plist");
+		xml_node<>* m_rootNode = m_doc.first_node("plist");
 		if (m_rootNode == NULL)
 			return false;
 
@@ -53,7 +54,7 @@ namespace Framework
 			else//node dict
 			{
 				char* subKeyName;
-				int f_x, f_y, f_width, f_height, f_column = 0;
+				int f_x, f_y, f_width, f_height, f_column = 0, f_row = 0;
 				for (xml_node<>* sub_node = node->first_node(); sub_node; sub_node = sub_node->next_sibling())
 				{
 					char* subNodeName = sub_node->name();
@@ -93,22 +94,38 @@ namespace Framework
 						else if (strcmp(subKeyName, "column") == 0){
 							f_column = stoi(sub_node->value());
 						}
+						else if (strcmp(subKeyName, "row") == 0) {
+							f_row = stoi(sub_node->value());
+						}
 						else if (strcmp(subKeyName, "rotated") == 0){
 
 						}//...
 					}
 				}//end node value of dict
-				FrameInfo *fr = new FrameInfo(keyName, f_x, f_y, f_width, f_height, f_column);
+				FrameInfo *fr = new FrameInfo(keyName, f_x, f_y, f_width, f_height, f_column, f_row);
 				m_propList[keyName] = fr;
 			}
 		}//end for traverse node
 		
 		//Register texture
-		std::string textureFile = m_basePath + "\\" + Utils::getNameWithoutExt(m_file) + ".png";
+		m_sheetName = Utils::getNameWithoutExt(m_file) + ".png";
+		std::string textureFile = m_basePath + "\\" + m_sheetName;
 		RegisterTexture(textureFile);
+		//Texture* sheet = GetTexture("texture.png");
+		//int i = 3;
+		//m_it = m_propList.find("Rockman-Running.png");
+		//std::string key = m_it->first;
+		//FrameInfo* val = m_it->second;
 
+	}
 
-		Texture* sheet = GetTexture("texture.png");
-		int i = 3;
+	FrameInfo* AnimCache::getFrameInfo(std::string state)
+	{
+		m_it = m_propList.find(state);
+		if (m_it != m_propList.end())
+		{
+			return m_it->second;
+		}
+		return NULL;
 	}
 }

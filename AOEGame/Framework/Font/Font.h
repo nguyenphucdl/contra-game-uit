@@ -4,11 +4,13 @@
 #include "../Renderer/Drawable.h"
 #include "../Renderer/Texture/Texture.h"
 #include "TextDraw.h"
+#include "../EventManager/EventHandler.h"
 
 namespace Framework
 {
 	class Font
 		: public Drawable
+		, public EventHandler
 	{
 	private:
 		typedef std::vector<TextDraw*>		TextDrawVector;
@@ -43,6 +45,8 @@ namespace Framework
 		}
 
 		bool loadWidthData(std::string filename);
+
+		void HandleEvent(Event* pEvent);
 	};
 }
 

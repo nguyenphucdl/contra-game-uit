@@ -8,14 +8,7 @@ namespace Framework
 		, m_currentLine(1)
 		, m_lineHeight(16)
 	{
-		m_lineWidthLimit = Renderer::GetSingletonPtr()->GetWidth() / 2;
-
-		m_scaleX = Renderer::GetSingletonPtr()->GetWidth() / 100.0f;
-		m_scaleY = Renderer::GetSingletonPtr()->GetHeight() / (2 * 100.0f);
-
 		Renderer::GetSingletonPtr()->AddDrawable(this);
-
-		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
 	}
 
 	bool Console::init()
@@ -25,16 +18,36 @@ namespace Framework
 		m_font->setColumns(16);
 		RegisterTexture("Resources\\Font\\panel.png");
 		m_panel = GetTexture("panel.png");
+
+		m_lineWidthLimit = Renderer::GetSingletonPtr()->GetWidth() / 2;
+
+		m_scaleX = Renderer::GetSingletonPtr()->GetWidth() / 100.0f;
+		m_scaleY = Renderer::GetSingletonPtr()->GetHeight() / (2 * 100.0f);
+
+		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
+		Framework::AttachEvent(Events::POST_RENDER_EVENT, *this);
 		return true;
 	}
 
-	void Console::print(std::string text, int line)
+	/*void Console::print(std::string text, int line)
 	{
 		int yLine = (line != -1)? ((line-1) * m_lineHeight):(m_lineHeight * (m_currentLine-1));
 		m_font->Print(0, yLine, text);
 		m_currentLine++;
+	}*/
+	void Console::print(const char* pMessage, ...)
+	{
+		char buffer[256];
+		va_list lVarArgs;
+		va_start(lVarArgs, pMessage);
+		vsprintf_s(buffer, 256, pMessage, lVarArgs);
+		va_end(lVarArgs);
+		std::string text(buffer);
+		
+		int yLine = m_lineHeight * (m_currentLine);
+		m_font->Print(0, yLine, text);
+		m_currentLine++;
 	}
-
 	void Console::Draw(LPD3DXSPRITE spriteHandler)
 	{
 		if (m_showing == false)
@@ -64,6 +77,11 @@ namespace Framework
 			break;
 		default:
 			break;
+		}
+
+		if (pEvent->GetID() == Events::POST_RENDER_EVENT)
+		{
+			m_currentLine = 0;
 		}
 	}
 }

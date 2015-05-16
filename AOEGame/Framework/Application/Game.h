@@ -10,7 +10,9 @@
 #include "../Utilities/GameConfig.h"
 #include "../Renderer/Texture/TextureManager.h"
 #include "../EventManager/EventManager.h"
+#include "../Collision/CollisionManager.h"
 #include "../Input/Input.h"
+#include "../Utilities/Console.h"
 
 namespace Framework
 {

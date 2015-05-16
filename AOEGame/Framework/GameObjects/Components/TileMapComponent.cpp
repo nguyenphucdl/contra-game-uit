@@ -3,6 +3,7 @@
 #include "../../EventManager/EventManager.h"
 #include "../../Renderer/Texture/TextureManager.h"
 #include "../../Utilities/Timer.h"
+#include "../../Utilities/Console.h"
 #include "TransformComponent.h"
 namespace Framework
 {
@@ -51,7 +52,7 @@ namespace Framework
 		int delta = y - m_mapViewport->top;
 		m_mapViewport->top += delta;
 		m_mapViewport->bottom += delta;
-		Log::info(Log::LOG_LEVEL_HIGHT, "[UpdateVerticalScrollView] mapViewport top %d\n", m_mapViewport->top);
+		Console::GetSingletonPtr()->print("ScrollView top %d left %d", m_mapViewport->top, m_mapViewport->left);
 	}
 
 
@@ -62,8 +63,6 @@ namespace Framework
 		case Events::PRE_RENDER_EVENT:
 			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().left);
 			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().top);
-			
-			Log::info(Log::LOG_LEVEL_HIGHT, "Viewport top %d, Viewport left %d\n", Renderer::GetSingletonPtr()->GetCamera().GetViewPort().top, Renderer::GetSingletonPtr()->GetCamera().GetViewPort().left);
 			break;
 		default:
 			break;

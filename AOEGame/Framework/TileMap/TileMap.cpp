@@ -76,7 +76,6 @@ namespace Framework
 				srcDest.top = m * m_tileHeight;
 				srcDest.bottom = srcDest.top + m_tileHeight;
 
-				Log::info(Log::LOG_LEVEL_HIGHT, "Inside i = %d\n", i++);
 
 				device3D = Renderer::GetSingletonPtr()->getD3device();
 				device3D->StretchRect(source, &srcSource, m_tileMapSurface, &srcDest, D3DTEXTUREFILTERTYPE::D3DTEXF_NONE);
@@ -99,6 +98,10 @@ namespace Framework
 
 		int viewportSurfaceWidth = mapOriginWidth * scaleRatio;
 		int viewportSurfaceHeight = mapOriginHeight * scaleRatio;
+		m_bound.left = 0;
+		m_bound.right = viewportSurfaceWidth;
+		m_bound.top = 0;
+		m_bound.bottom = viewportSurfaceHeight;
 
 		device3D->CreateRenderTarget(viewportSurfaceWidth, viewportSurfaceHeight, desc.Format,
 			desc.MultiSampleType, desc.MultiSampleQuality, false, &pViewportSurface, NULL);

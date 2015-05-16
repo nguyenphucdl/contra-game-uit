@@ -139,7 +139,7 @@ namespace Framework
 			return;
 		}
 
-		string eventName[10] = { };
+		string eventName[20] = { };
 		eventName[Events::KEY_DOWN_EVENT] = "KEY_DOWN_EVENT";
 		eventName[Events::KEY_UP_EVENT] = "KEY_UP_EVENT";
 		eventName[Events::POST_RENDER_EVENT] = "POST_RENDER_EVENT";
@@ -148,7 +148,8 @@ namespace Framework
 		eventName[Events::PRE_UPDATE_EVENT] = "PRE_UPDATE_EVENT";
 		eventName[Events::RENDER_EVENT] = "RENDER_EVENT";
 		eventName[Events::UPDATE_EVENT] = "UPDATE_EVENT";
-		eventName[GameEvents::PLAYER_JUMP_EVENT] = "PLAYER_JUMP_EVENT";
+		eventName[Events::PLAYER_JUMP_EVENT] = "PLAYER_JUMP_EVENT";
+		eventName[Events::COLLISION_EVENT] = "COLLISION_EVENT";
 
 
 		if (Log::isDebug())
@@ -160,6 +161,7 @@ namespace Framework
 			for (EventManager::EventMapIterator iter = eventMap->begin(); iter != eventMap->end(); ++iter)
 			{
 				Event* pEvent = iter->second;
+				
 				fprintf_s(f, "	<Event id=%d name=%s reference=%d />\n", pEvent->GetID(), eventName[pEvent->GetID()].c_str(), pEvent->m_listeners.size());
 				
 			}

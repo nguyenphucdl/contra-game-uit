@@ -5,6 +5,7 @@ namespace Framework
 	TextureRegion::TextureRegion(Texture* texture, RECT rect)
 		: m_texture(texture)
 		, m_rect(rect)
+		, m_flipX(false)
 	{
 	}
 

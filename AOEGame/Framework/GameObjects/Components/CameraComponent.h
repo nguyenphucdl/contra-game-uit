@@ -21,6 +21,9 @@ namespace Framework
 
 		GameObject*		m_attachObject;
 		Vector3			m_transOrigin;
+		RECT			m_bound;
+		int				m_viewPortWidth;
+		int				m_viewPortHeight;
 
 		bool			m_pressed;
 	public:
@@ -30,6 +33,9 @@ namespace Framework
 		virtual ~CameraComponent();
 
 		virtual void Initialize();
+
+		void	SetBound(RECT bound);
+
 
 		void	SetViewportOrigin(int x, int y);
 		void	SetViewportTranslate(int mx, int my);
