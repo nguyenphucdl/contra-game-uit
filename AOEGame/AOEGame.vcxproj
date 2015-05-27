@@ -79,12 +79,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\GameObjects\Components\BulletComponent.h" />
     <ClInclude Include="Framework\Collision\CollisionBin.h" />
     <ClInclude Include="Framework\Collision\CollisionListener.h" />
     <ClInclude Include="Framework\Collision\CollisionManager.h" />
     <ClInclude Include="Framework\Font\Font.h" />
     <ClInclude Include="Framework\Font\TextDraw.h" />
     <ClInclude Include="Framework\GameObjects\Components\CollisionComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\LifeTimeComponent.h" />
     <ClInclude Include="Framework\Renderer\Camera.h" />
     <ClInclude Include="Chapter6App.h" />
     <ClInclude Include="Chapter6Task.h" />
@@ -143,7 +145,9 @@
     <ClCompile Include="Framework\Collision\CollisionBin.cpp" />
     <ClCompile Include="Framework\Collision\CollisionManager.cpp" />
     <ClCompile Include="Framework\Font\Font.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\BulletComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\CollisionComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\LifeTimeComponent.cpp" />
     <ClCompile Include="Framework\Renderer\Camera.cpp" />
     <ClCompile Include="Chapter6App.cpp" />
     <ClCompile Include="Chapter6Task.cpp" />
@@ -186,10 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga" />
+    <Image Include="Resources\Texture\Map1\npc.png" />
     <Image Include="Resources\Texture\Rockman\rockman.png" />
     <Image Include="Resources\Texture\texture.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Texture\Map1\npc.plist" />
     <None Include="Resources\Texture\Rockman\rockman.plist" />
     <None Include="Resources\Texture\texture.plist" />
   </ItemGroup>

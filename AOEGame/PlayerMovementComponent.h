@@ -8,45 +8,47 @@
 #include "Framework\Collision\CollisionListener.h"
 #include "Framework\EventManager\EventManager.h"
 
-using namespace Framework;
 
-	class PlayerMovementComponent
-		: public TransformComponent
-		, public EventHandler
-		, public CollisionListener
-	{
-	private:
-		//static const unsigned int s_id = ComponentIDs::PlayerMovementComponentId;
-		bool				m_pressed;
-		bool				m_animate;
-		SpriteStates		m_currentState;
-		SpriteDirections	m_currentDirection;
+class PlayerMovementComponent
+	: public Framework::TransformComponent
+	, public Framework::EventHandler
+	, public Framework::CollisionListener
+{
+private:
+	//static const unsigned int s_id = Framework::ComponentIDs::PlayerMovementComponentId;
+	Framework::SpriteStates		m_currentState;
+	Framework::SpriteDirections	m_currentDirection;
 
 
-		Vector3				m_velocity;
-		Vector3				m_acceleration;
+	Framework::Vector3				m_velocity;
+	Framework::Vector3				m_acceleration;
 
-		float				m_floor;
-		bool				m_isSupported;
+	float				m_floor;
+	bool				m_onFloor;
+	bool				m_isSupported;
+	//bool				m_jumping;
 
-	public:
-		//static unsigned int GetId() { return s_id; }
+	float				m_offset[4];
+	Framework::Vector3				m_vectorOffset;
 
-		explicit PlayerMovementComponent(GameObject* pOwner);
-		virtual ~PlayerMovementComponent();
+public:
+	//static unsigned int GetId() { return s_id; }
 
-		virtual void Initialize();
+	explicit PlayerMovementComponent(Framework::GameObject* pOwner);
+	virtual ~PlayerMovementComponent();
 
-		virtual void HandleEvent(Event* pEvent);
-		virtual void HandleCollision(CollisionEventData* pData);
+	virtual void Initialize();
 
-	private:
-		void _ProcessKeydownEvent(Event* pEvent);
-		void _ProcessKeyupEvent(Event* pEvent);
-		void _ProcessPollInput();
+	virtual void HandleEvent(Framework::Event* pEvent);
+	virtual void HandleCollision(Framework::CollisionEventData* pData);
 
-		void SetIsSupported(bool isSupported, float floor = 0.0f) { m_isSupported = isSupported; m_floor = floor; }
-	};
+private:
+	void _ProcessKeydownEvent(Framework::Event* pEvent);
+	void _ProcessKeyupEvent(Framework::Event* pEvent);
+	void _ProcessPollInput();
+
+	void SetIsSupported(bool isSupported, float floor = 0.0f) { m_isSupported = isSupported; m_floor = floor; }
+};
 
 
 #endif

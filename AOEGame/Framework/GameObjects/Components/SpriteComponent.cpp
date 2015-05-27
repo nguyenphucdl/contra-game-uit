@@ -18,7 +18,7 @@ namespace Framework
 	{
 	}
 
-	void SpriteComponent::RegisterState(SpriteStates state, SpriteDirections direction, Animation* anim)
+	void SpriteComponent::RegisterState(int state, SpriteDirections direction, Animation* anim)
 	{
 		int stateCode = state + direction;
 
@@ -28,7 +28,7 @@ namespace Framework
 		}
 	}
 
-	void SpriteComponent::RemoveState(SpriteStates state, SpriteDirections direction)
+	void SpriteComponent::RemoveState(int state, SpriteDirections direction)
 	{
 		int stateCode = state + direction;
 
@@ -46,7 +46,7 @@ namespace Framework
 			m_animationList.erase(m_animIt);
 	}
 
-	void SpriteComponent::RemoveStates(SpriteStates state)
+	void SpriteComponent::RemoveStates(int state)
 	{
 		for (m_animIt = m_animationList.begin(); m_animIt != m_animationList.end(); m_animIt++)
 		{
@@ -59,7 +59,7 @@ namespace Framework
 		}
 	}
 
-	void SpriteComponent::SetCurrentState(SpriteStates state)
+	void SpriteComponent::SetCurrentState(int state)
 	{
 		m_curState = state;
 	}
@@ -72,7 +72,6 @@ namespace Framework
 	void SpriteComponent::Initialize()
 	{
 		RenderableComponent::Initialize();
-		m_renderable.SetTag("player");//Test
 		//m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Current());		
 	}
 
@@ -87,7 +86,7 @@ namespace Framework
 
 			Vector3 boundMin = GetBoundMin();
 			Vector3 boundMax = GetBoundMax();
-			Console::GetSingletonPtr()->print("Player bound min(%f, %f) max(%f,%f)", boundMin.m_x, boundMin.m_y, boundMax.m_x, boundMax.m_y);
+			//Console::GetSingletonPtr()->print("Player bound min(%f, %f) max(%f,%f)", boundMin.m_x, boundMin.m_y, boundMax.m_x, boundMax.m_y);
 			break;
 		}
 	}

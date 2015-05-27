@@ -2,6 +2,7 @@
 #include "Framework\Utilities\Timer.h"
 #include "Framework\GameObjects\Components\SpriteComponent.h"
 #include "Framework\GameObjects\Components\StaticComponent.h"
+#include "Framework\GameObjects\Components\CollisionComponent.h"
 #include "Framework\Input\Input.h"
 #include "Framework\Utilities\Console.h"
 using namespace Framework;
@@ -9,14 +10,13 @@ using namespace Framework;
 
 PlayerMovementComponent::PlayerMovementComponent(GameObject* pOwner)
 	: TransformComponent(pOwner)
-	, m_pressed(false)
-	, m_animate(true)
 	, m_currentState(SpriteStates::STATIONARY)
 	, m_currentDirection(SpriteDirections::RIGHT)
 	, m_floor(100.0f)
 	, m_velocity(0.0f, 0.0f, 0.0f)
 	, m_acceleration(0.0f, 0.0f, 0.0f)
 	, m_isSupported(true)
+	, m_vectorOffset(0.0f, 0.0f, 0.0f)
 {
 	
 }
@@ -30,7 +30,6 @@ void PlayerMovementComponent::Initialize()
 	Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
 	Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
 	Framework::AttachEvent(Events::UPDATE_EVENT, *this);
-	Framework::AttachEvent(Events::PLAYER_JUMP_EVENT, *this);
 }
 
 void PlayerMovementComponent::HandleEvent(Event* pEvent)
@@ -40,96 +39,100 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 	case Events::UPDATE_EVENT:
 	{
 		_ProcessPollInput();
-
 		
-			//Update direction
+		//Update direction
 		if (m_currentState == SpriteStates::MOVE)
 		{
-			if (m_currentDirection == SpriteDirections::RIGHT)
-				m_velocity.m_x = 50.0f;
-			else if (m_currentDirection == SpriteDirections::LEFT)
-				m_velocity.m_x = -50.0f;
+			if (m_isSupported)
+			{
+				if (m_currentDirection == SpriteDirections::RIGHT)
+					m_velocity.m_x = 120.0f;
+				else if (m_currentDirection == SpriteDirections::LEFT)
+					m_velocity.m_x = -120.0f;
+			}
 		}
 		else if (m_currentState == SpriteStates::STATIONARY)
 		{
 			m_velocity.m_x = 0.0f;
 		}
 
-		//Vector3& position = m_transform->GetTranslation();
-		//position.m_y += 10.0f * Timer::GetSingletonPtr()->GetTimeSim();
-		/*if (IS_KEYDOWN(DIK_UP))
+		TransformComponent* pOwnerTransformComponent = component_cast<TransformComponent>(GetOwner());
+		assert(pOwnerTransformComponent);
+		//CollisionComponent* pOwnerCollisionComponent = component_cast<CollisionComponent>(GetOwner());
+		//assert(pOwnerCollisionComponent);
+		
+		if (pOwnerTransformComponent)
 		{
-			position.m_y += 90.0f * Timer::GetSingletonPtr()->GetTimeSim();
+			const Vector3& position = pOwnerTransformComponent->GetTransform()->GetTranslation();
+
+			static const float ACCELERATION_MINIMUM = -20.0f;
+			bool falling = m_acceleration.m_y < ACCELERATION_MINIMUM;//EPT_SILON
+
+
+
+			Vector3 translation = m_velocity;
+			translation.Multiply(Timer::GetSingleton().GetTimeSim());
+			translation.Add(position);
+
+			
+			
+			
+			//float offset = pOwnerCollisionComponent->GetAABBMin().m_y - m_floor;
+			if (m_isSupported && falling && m_vectorOffset.m_y > -25.0f)
+			{
+				translation.m_y -= m_vectorOffset.m_y;
+				m_onFloor = true;
+			}
+			else
+			{
+				m_floor = false;
+			}
+			
+
+
+			pOwnerTransformComponent->GetTransform()->SetTranslation(translation);
+
+			
+			
+
+			Timer& timer = Timer::GetSingleton();
+			Vector3 accel = m_acceleration;
+			accel.Multiply(timer.GetTimeSim());
+			m_velocity.Add(accel);
+			static const float GRAVITY_MULTIPLIER = 50.0f;
+			static const float GRAVITY_CONSTANT = -9.8f;
+			float dekta = GRAVITY_MULTIPLIER * GRAVITY_CONSTANT * timer.GetTimeSim();
+			m_acceleration.m_y += dekta;
+			if (falling && m_isSupported)
+			{
+				m_acceleration.m_y = 0.0f;
+				m_velocity.m_y = 0.0f;
+			}
+
+			Console::GetSingletonPtr()->print("Offset Vector m_x(%f) m_y(%f) m_z(%f)", m_vectorOffset.m_x, m_vectorOffset.m_y, m_vectorOffset.m_z);
+			//Console::GetSingletonPtr()->print("Falling falling (%d) && On Floor(%d)", falling, m_onFloor);
+
+			//Console::GetSingletonPtr()->print("Player bound min m_y (%f)", pOwnerCollisionComponent->GetAABBMin().m_y);
+			//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
+			Console::GetSingletonPtr()->print("FPS (%f)", 1.0f / Timer::GetSingletonPtr()->GetTimeSim());
+			Console::GetSingletonPtr()->print("Time sim (%f)", Timer::GetSingletonPtr()->GetTimeSim());
+			//Console::GetSingletonPtr()->print("Anim (%f)", Timer::GetSingletonPtr()->GetAnim());
+			//Console::GetSingletonPtr()->print("Timer total %f", Timer::GetSingletonPtr()->GetTimeTotal());
+			Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[3], m_offset[1], m_offset[0], m_offset[2]);
+
+			Console::GetSingletonPtr()->print("Accel m_x(%f) m_y(%f)", m_acceleration.m_x ,m_acceleration.m_y);
+			Console::GetSingletonPtr()->print("Vel m_x(%f) m_y(%f)", m_velocity.m_x , m_velocity.m_y);
+			Log::info(Log::LOG_LEVEL_HIGHT,"JUMP ACCELL Y %f\n", m_acceleration.m_y);
 		}
-		else if (IS_KEYDOWN(DIK_DOWN))
-		{
-			position.m_y -= 90.0f * Timer::GetSingletonPtr()->GetTimeSim();
-		}*/
-		
-
-		Vector3& position = m_transform->GetTranslation();
-		bool onFloor = false;
-		if (position.m_y < 0)
-		{
-			onFloor = true;
-		}
-
-		//Test
-		//std::ostringstream os;
-		//os.str("");
-		//os << "Player position (" << position.m_x << "," << position.m_y << ")";
-		//Console::GetSingletonPtr()->print(os.str(), 5);
-		Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
-		Console::GetSingletonPtr()->print("FPS (%f)", 1.0f / Timer::GetSingletonPtr()->GetTimeSim());
-		Console::GetSingletonPtr()->print("Time sim (%f)", Timer::GetSingletonPtr()->GetTimeSim());
-		Console::GetSingletonPtr()->print("Anim (%f)", Timer::GetSingletonPtr()->GetAnim());
-		Console::GetSingletonPtr()->print("Timer total %f", Timer::GetSingletonPtr()->GetTimeTotal());
-
-		bool falling = m_acceleration.m_y < 0.0f;
-		Vector3 translation = m_velocity;
-		translation.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
-		translation.Add(position);
-		SetTranslation(&translation);
-		if (falling && translation.m_y < 0)
-		{
-			translation.m_y = 0;
-		}
-
-
-		//Log::info(Log::LOG_LEVEL_HIGHT, "[PlayerMovementComponent] Update translate %f\n", position.m_y);
-		
-		//m_transform->SetTranslation(translation);
-
-		Vector3 accel = m_acceleration;
-		accel.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
-		m_velocity.Add(accel);
-
-
-		static const float GRAVITY_MULTIPLIER = 25.0f;
-		static const float GRAVITY_CONSTANT = -9.8f;
-		m_acceleration.m_y += GRAVITY_MULTIPLIER * GRAVITY_CONSTANT * Timer::GetSingletonPtr()->GetTimeSim();
-		if (falling && onFloor)
-		{
-			m_acceleration.m_y = 0.0f;
-			m_velocity.m_y = 0.0f;
-		}
 		
 		
-		
+
+
 		SpriteComponent* pSprite = component_cast<SpriteComponent>(GetOwner());
 		pSprite->SetCurrentState(m_currentState);
 		pSprite->SetCurrentDirection(m_currentDirection);
 	}
-		break;
-	case Events::PLAYER_JUMP_EVENT:
-	{
-		if (m_isSupported)
-		{
-			static const float JUMP_ACCELERATION = 80.0f;
-			m_acceleration.m_y = JUMP_ACCELERATION;
-			m_velocity.m_y = 130.0f;
-		}
-	}
+		SetIsSupported(false);
 		break;
 	default:
 		break;
@@ -138,20 +141,6 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 
 void PlayerMovementComponent::_ProcessPollInput()
 {
-	/*if (IS_KEYDOWN(DIK_RIGHT))
-	{
-		m_currentState = SpriteStates::MOVE;
-		m_currentDirection = SpriteDirections::RIGHT;
-		int i = 3;
-	}
-	else if (IS_KEYDOWN(DIK_LEFT))
-	{
-		m_currentState = SpriteStates::MOVE;
-		m_currentDirection = SpriteDirections::LEFT;
-	}*/
-	//bool isAnimate = true;
-	//m_pressed = true;
-
 	if (IS_KEYDOWN(DIK_LEFT))
 	{
 		m_currentDirection = SpriteDirections::LEFT;
@@ -164,16 +153,21 @@ void PlayerMovementComponent::_ProcessPollInput()
 	} 
 	else
 	{
-		//m_pressed = false;
-		//Restore states
-		//isAnimate = false;
+		// Restore state
 		m_currentState = SpriteStates::STATIONARY;
 	}
 
 	if (IS_KEYDOWN(DIK_SPACE))
 	{
 		m_currentState = SpriteStates::JUMP;
+		if (m_isSupported)
+		{
+			static const float JUMP_ACCELERATION = 80.0f;
+			m_acceleration.m_y = JUMP_ACCELERATION;
+			m_velocity.m_y = 200.0f;
+		}
 	}
+	
 
 	if (IS_KEYDOWN(DIK_F))
 	{
@@ -185,11 +179,6 @@ void PlayerMovementComponent::_ProcessPollInput()
 			m_currentState = SpriteStates::JUMP_FIRING;
 		
 	}
-
-	/*if (isAnimate)
-		m_animate = true;
-	else
-		m_animate = false;*/
 }
 
 void PlayerMovementComponent::_ProcessKeydownEvent(Event* pEvent)
@@ -200,7 +189,7 @@ void PlayerMovementComponent::_ProcessKeydownEvent(Event* pEvent)
 void PlayerMovementComponent::_ProcessKeyupEvent(Event* pEvent)
 {
 
-}
+} 
 
 void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 {
@@ -208,9 +197,63 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 	if (pStaticComponent)
 	{
 		// We're colliding with an static object
-		TransformComponent* pObjectTransformComponent = component_cast<TransformComponent>(GetOwner());
-		assert(pObjectTransformComponent);
-		
+		CollisionComponent* pColliderCollisionComponent = component_cast<CollisionComponent>(pData->m_pCollider);
+		assert(pColliderCollisionComponent);
+		CollisionComponent* pObjectCollisionComponent = component_cast<CollisionComponent>(GetOwner());
+		assert(pObjectCollisionComponent);
 
+
+		Vector3 minAABBObject = pObjectCollisionComponent->GetAABBMin();
+		Vector3 maxAABBObject = pObjectCollisionComponent->GetAABBMax();
+		Vector3 minAABBCollider = pColliderCollisionComponent->GetAABBMin();
+		Vector3 maxAABBCollider = pColliderCollisionComponent->GetAABBMax();
+
+		m_offset[0] = pObjectCollisionComponent->GetAABBMin().m_y - pColliderCollisionComponent->GetAABBMax().m_y;
+		m_offset[1] = pObjectCollisionComponent->GetAABBMin().m_x - pColliderCollisionComponent->GetAABBMax().m_x;
+		m_offset[2] = pColliderCollisionComponent->GetAABBMin().m_y - pObjectCollisionComponent->GetAABBMax().m_y;
+		m_offset[3] = pColliderCollisionComponent->GetAABBMin().m_x - pObjectCollisionComponent->GetAABBMax().m_x;
+
+		if ((m_offset[0] > -5.0f && m_offset[1] > -5.0f) 
+			|| (m_offset[0] > -5.0f && m_offset[3] > -5.0f))
+		{
+			return;
+		}
+
+		int smallest = INT_MIN, idx = -1;
+		for (int i = 0; i < 4; i++) {
+			if (m_offset[i] > smallest) {
+				smallest = m_offset[i];
+				idx = i;
+			}
+		}
+
+		if (idx == 0 && m_acceleration.m_y < -25.0f)//TOP
+		{
+			m_vectorOffset.m_y = m_offset[0];
+			SetIsSupported(true, pColliderCollisionComponent->GetAABBMax().m_y);
+			Console::GetSingletonPtr()->print("Set is supported y(%f)", pColliderCollisionComponent->GetAABBMax().m_y);
+		}
+		else if (idx == 3)//LEFT
+		{
+			m_vectorOffset.m_x = -m_offset[3];
+			m_transform->GetTranslation().m_x -= m_vectorOffset.m_x;
+		}
+		else if (idx == 1)//RIGHT
+		{
+			m_vectorOffset.m_x = m_offset[1];
+			m_transform->GetTranslation().m_x -= m_vectorOffset.m_x;
+		}
+		else if (idx == 2)//BOTTOM
+		{
+			m_vectorOffset.m_y = m_offset[2];
+			m_transform->GetTranslation().m_y += m_vectorOffset.m_y;
+			m_velocity.m_y = 0;
+		}
+	}
+
+	SpriteComponent* pBulletComponent = component_cast<SpriteComponent>(pData->m_pCollider);
+	if (pBulletComponent)
+	{
+   		int k = 3;
 	}
 }

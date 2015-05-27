@@ -27,9 +27,9 @@ namespace Framework
 
 		Renderable&	GetRenderable()						{ return m_renderable; }
 
+		void SetTransform(Transform& trans)				{ m_renderable.SetTransform(trans); }
+		void SetTranslation(Vector3& translate)			{ m_renderable.SetTranslation(translate); }
 
-		void SetOrigin(Vector3& origin)					{ m_renderable.SetOrigin(origin);	}
-		void SetOrigin(int x, int y, int z)				{ m_renderable.SetOrigin(x, y, z);	}
 		void SetRenderTransform(bool renderTrans)		{ m_renderable.SetRenderTransform(renderTrans); }
 		void SetTag(std::string tagName)				{ m_renderable.SetTag(tagName); }
 		std::string GetTag()							{ return m_renderable.GetTag(); }
@@ -39,11 +39,19 @@ namespace Framework
 		int	 GetWidth()									{ return m_renderable.GetWidth(); }
 		int	 GetHeight()								{ return m_renderable.GetHeight(); }
 		void SetUseBounds(bool enabled)					{ m_renderable.SetUseBounds(enabled); }
+		void Show(bool visible)							{ m_renderable.Show(visible); }
+		void Hide()										{ m_renderable.Hide(); }
 		bool GetUseBounds()								{ return m_renderable.GetUseBounds(); }
 		void SetBoundMin(const Vector3& min)			{ m_renderable.SetBoundMin(min); }
 		Vector3&	GetBoundMin() 						{ return m_renderable.GetBoundMin(); }
 		void SetBoundMax(const Vector3& max)			{ m_renderable.SetBoundMax(max); }
 		Vector3&	GetBoundMax() 						{ return m_renderable.GetBoundMax(); }
+		bool		IsDrawCenter()						{ return m_renderable.IsDrawCenter(); }
+		void		SetDrawCenter(bool val)				{ m_renderable.SetDrawCenter(val); }
+		const Vector3&		GetCenter()					{ return m_renderable.GetCenter(); }
+		void		SetCenter(float x, float y)			{ m_renderable.SetCenter(x, y); }
+		void		SetZIndex(int idx)					{ m_renderable.SetZIndex(idx); }
+		int			GetZIndex()							{ return m_renderable.GetZIndex(); }
 
 	};
 }

@@ -20,8 +20,6 @@ namespace Framework
 
 		Renderable*	m_renderable;
 
-		Vector3		m_min;
-		Vector3		m_max;
 		bool		m_isAttached;
 
 		typedef std::vector<CollisionListener*>		CollisionListenerVector;
@@ -37,12 +35,11 @@ namespace Framework
 
 		virtual void Initialize();
 
-		void SetMin(const Vector3& point) { m_min = point; }
-		void SetMax(const Vector3& point) { m_max = point; }
-
-		const Vector3& GetMin();
-		const Vector3& GetMax();
-
+		const Vector3 GetAABBMin();
+		const Vector3 GetAABBMax();
+		const Vector3& GetBoundMax() const { return m_renderable->GetBoundMax(); }
+		const Vector3& GetBoundMin() const { return m_renderable->GetBoundMin(); }
+ 
 		bool Intersects(CollisionComponent& target);
 
 		virtual void HandleEvent(Event* pEvent);

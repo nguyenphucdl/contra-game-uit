@@ -35,6 +35,8 @@ namespace Framework
 		CollisionComponentId,
 
 		//Player Components
+		BulletComponentId,
+		LifeTimeComponentId,
 		PlayerMovementComponentId
 	};
 
@@ -54,8 +56,13 @@ namespace Framework
 		MOVE_FIRING = 250,
 		SIT = 300,
 		JUMP = 400,
-		JUMP_FIRING= 450
+		JUMP_FIRING= 450,
 	};
 
+	enum BulletStates
+	{
+		FIRE = 100,
+		EXPLODE = 200
+	};
 }
 #endif

@@ -10,7 +10,6 @@
 #include "Framework\GameObjects\Components\CameraComponent.h"
 #include "Framework\GameObjects\Components\TileMapComponent.h"
 #include "Framework\GameObjects\Actions\Animation.h"
-#include "MovementComponent.h"
 #include "PlayerMovementComponent.h"
 
 using namespace Framework;

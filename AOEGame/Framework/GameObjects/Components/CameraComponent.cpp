@@ -8,9 +8,21 @@ namespace Framework
 	CameraComponent::CameraComponent(GameObject* pOwner)
 		: Component(pOwner)
 		, m_attachObject(NULL)
+		, m_viewOrigin(0.0f, 0.0f, 0.0f)
 		, m_transOrigin(0.0f, 0.0f, 0.0f)
+		, m_isAttached(false)
 	{
 		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
+	}
+
+	void CameraComponent::AttachObject(GameObject* gameObj)
+	{
+		m_attachObject = gameObj;
+		m_isAttached = true;
+		TransformComponent* pAttachedComponent = component_cast<TransformComponent>(gameObj);
+		assert(pAttachedComponent);
+		Vector3 attachedTrans = pAttachedComponent->GetTranslatiton();
+		m_transOrigin.Set(attachedTrans);
 	}
 
 	void CameraComponent::SetBound(RECT bound)
@@ -23,16 +35,9 @@ namespace Framework
 
 	void CameraComponent::SetViewportOrigin(int x, int y)
 	{
-		//Renderer::GetSingletonPtr()->GetCamera().SetViewPortOrigin(x, y);
-		//Renderer::GetSingletonPtr()->GetCamera().ResetViewport();
+		m_viewOrigin.m_x = x;
+		m_viewOrigin.m_y = y;
 	}
-
-	void CameraComponent::SetViewportTranslate(int mx, int my)
-	{
-		//m_transOrigin = Vector3(mx, my, 0);
-		//Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&m_transOrigin);
-	}
-
 
 	CameraComponent::~CameraComponent()
 	{
@@ -40,6 +45,7 @@ namespace Framework
 
 	void CameraComponent::Initialize()
 	{
+		m_transOrigin.Subtract(m_viewOrigin);//Set real trans origin
 		m_viewPortWidth = Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
 		m_viewPortHeight = Renderer::GetSingletonPtr()->GetCamera().GetViewPortHeight();
 	}
@@ -57,21 +63,24 @@ namespace Framework
 				Transform* transform = pObjTransformComponent->GetTransform();
 				Vector3& translation = transform->GetTranslation().GetInverseY();
 				
-				translation.m_y = 0;//phụ thuộc vào map orientation
-				
-				translation.Add(m_transOrigin);
+				Vector3 cameraTrans = translation;
+				cameraTrans.Subtract(m_transOrigin);
 
-				if (translation.m_x < m_bound.left)
-					translation.m_x = 0;
-				else if (translation.m_x > m_bound.right - m_viewPortWidth)
-					translation.m_x = m_bound.right - m_viewPortWidth;
-				if (translation.m_y < m_bound.top)
-					translation.m_y = m_bound.top;
-				else if (translation.m_y > m_bound.bottom - m_viewPortHeight)
-					translation.m_y = m_bound.bottom - m_viewPortHeight;
+				cameraTrans.m_y = 0;//phụ thuộc vào map orientation
+				
+				//translation.Add(m_transOrigin);
+
+				if (cameraTrans.m_x < m_bound.left)
+					cameraTrans.m_x = 0;
+				else if (cameraTrans.m_x > m_bound.right - m_viewPortWidth)
+					cameraTrans.m_x = m_bound.right - m_viewPortWidth;
+				if (cameraTrans.m_y < m_bound.top)
+					cameraTrans.m_y = m_bound.top;
+				else if (cameraTrans.m_y > m_bound.bottom - m_viewPortHeight)
+					cameraTrans.m_y = m_bound.bottom - m_viewPortHeight;
 					
 
-				Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&translation);
+				Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&cameraTrans);
 			}
 		}
 			break;

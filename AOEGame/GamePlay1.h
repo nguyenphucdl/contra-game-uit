@@ -11,32 +11,31 @@
 #include "Framework\GameObjects\Components\TileMapComponent.h"
 #include "Framework\GameObjects\Actions\Animation.h"
 #include "Framework\GameObjects\Components\CollisionComponent.h"
-#include "MovementComponent.h"
-#include "PlayerMovementComponent.h"
 
-using namespace Framework;
 
 class GamePlay1
-	: public Task
-	, public EventHandler
+	: public Framework::Task
+	, public Framework::EventHandler
 {
 private:
 	Framework::GameObject	m_playerObject;
+	Framework::GameObject	m_npc1;
+
 	Framework::GameObject	m_tileMapObject;
 	Framework::GameObject	m_cameraObject;
 	Framework::GameObject	m_contraObject;
 	Framework::GameObject	m_contraFinalObject;
 
-	vector<GameObject*>*	m_objects;
-	vector<GameObject*>::iterator m_objIt;
+	vector<Framework::GameObject*>*	m_objects;
+	vector<Framework::GameObject*>::iterator m_objIt;
 
 	Framework::CollisionComponent*		m_pPlayerCollisionComponent;
-
+	Framework::CollisionComponent*		m_npc1CollisionComponent;
 public:
 	GamePlay1(const unsigned int priority);
 	virtual ~GamePlay1();
 
-	virtual void HandleEvent(Event* pEvent);
+	virtual void HandleEvent(Framework::Event* pEvent);
 
 	// From Task
 	virtual bool	Start();

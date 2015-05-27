@@ -2,6 +2,9 @@
 
 #include "../Renderer/Texture/TextureManager.h"
 #include "../GameObjects/Components/StaticComponent.h"
+#include "../GameObjects/Components/CollisionComponent.h"
+#include "../EventManager/EventManager.h"
+#include "../Collision/CollisionManager.h"
 #include "../Utilities/Utils.h"
 
 namespace Framework
@@ -117,8 +120,10 @@ namespace Framework
 			{
 				GameObject* gameObj = new GameObject();
 				gameObj->AddComponent<StaticComponent>();
+				gameObj->AddComponent<CollisionComponent>();
 				StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
-				if (pStaticComponent)
+				CollisionComponent* pStaticCollisionComponent = component_cast<CollisionComponent>(gameObj);
+				if (pStaticComponent && pStaticCollisionComponent)
 				{
 					int x = atoi(objectNode->first_attribute("x")->value());
 					int y = atoi(objectNode->first_attribute("y")->value());
@@ -158,9 +163,18 @@ namespace Framework
 					bound.right = resultTrans.x + width * scaleRatio;
 					bound.top = resultTrans.y;
 					bound.bottom = resultTrans.y + height * scaleRatio;
-					pStaticComponent->SetBound(bound);
+					
 
+					Vector3 translation(resultTrans.x, resultTrans.y, 1.0f);
+					pStaticComponent->SetTranslation(translation);
+					pStaticComponent->SetSize(width * scaleRatio, height * scaleRatio);
 					pStaticComponent->Initialize();
+
+					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
+					pStaticCollisionComponent->Initialize();
+					Framework::AttachEvent(Events::COLLISION_EVENT, *pStaticCollisionComponent);
+					CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pStaticCollisionComponent);
+
 				}
 				gameObjects->push_back(gameObj);
 			}

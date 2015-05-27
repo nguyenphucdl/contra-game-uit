@@ -19,6 +19,7 @@ namespace Framework
 		typedef ComponentUnorderedMap::iterator						ComponentUnorderedMapIterator;
 
 		ComponentUnorderedMap			m_components;
+		bool							m_feature;
 
 		template<class T>
 		T* GetComponent()	{ return static_cast<T*>(GetComponent(T::GetId())); }
@@ -31,6 +32,8 @@ namespace Framework
 
 		template <class T>
 		bool AddComponent();
+		void SetFeature(bool val) { m_feature = val; }
+		bool IsFeature() { return m_feature; }
 	};
 
 	template <class T>

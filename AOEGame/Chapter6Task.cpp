@@ -64,7 +64,11 @@ bool Chapter6Task::Start()
 	if (pTileMapComponent)
 	{
 		pTileMapComponent->SetTileMap(tileMap);
-		pTileMapComponent->SetOrigin(0, 480, 1);
+		//pTileMapComponent->SetOrigin(0, 480, 1);
+		Transform trans = Transform();
+		trans.SetTranslation(Vector3(0, 480, 1));
+		pTileMapComponent->SetTransform(trans);
+
 		pTileMapComponent->SetTag("TileMap");
 		pTileMapComponent->SetDebug(false);
 		pTileMapComponent->SetRenderTransform(false);
@@ -91,7 +95,7 @@ bool Chapter6Task::Start()
 
 		Vector3 position = Vector3(0, 100, 0);
 		pSpriteComponent->SetRenderTransform(false);
-		pSpriteComponent->SetOrigin(position);
+		//pSpriteComponent->SetOrigin(position);
 
 		/*pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryLeft);
 		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationaryRight);
@@ -138,7 +142,7 @@ bool Chapter6Task::Start()
 	{
 		pCameraComponent->AttachObject(&m_playerObject);
 		pCameraComponent->SetViewportOrigin(0, 0);
-		pCameraComponent->SetViewportTranslate(0, 0);
+		//pCameraComponent->SetViewportTranslate(0, 0);
 		pCameraComponent->Initialize();
 	}
 

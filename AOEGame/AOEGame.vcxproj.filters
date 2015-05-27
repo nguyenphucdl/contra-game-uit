@@ -118,9 +118,6 @@
     <ClInclude Include="Framework\TileMap\TileMap.h">
       <Filter>Framework\TileMap</Filter>
     </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utilities\Hash.h">
       <Filter>Framework\Math</Filter>
     </ClInclude>
@@ -242,6 +239,9 @@
     <ClInclude Include="Framework\GameObjects\Components\TransformComponent.h">
       <Filter>Framework\GameObjects\CommonComponents</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\GameObjects\Components\BulletComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\LifeTimeComponent.h" />
+    <ClInclude Include="MovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -276,9 +276,6 @@
     </ClCompile>
     <ClCompile Include="Framework\TileMap\TileMap.cpp">
       <Filter>Framework\TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Framework\GameObjects\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Platform\Window.cpp">
       <Filter>Framework\Platform</Filter>
@@ -369,6 +366,9 @@
     <ClCompile Include="Framework\GameObjects\Components\TransformComponent.cpp">
       <Filter>Framework\GameObjects\CommonComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\GameObjects\Components\BulletComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\LifeTimeComponent.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">
@@ -380,9 +380,13 @@
     <Image Include="Resources\Texture\Rockman\rockman.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Texture\Map1\npc.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Texture\texture.plist" />
     <None Include="Resources\Texture\Rockman\rockman.plist" />
+    <None Include="Resources\Texture\Map1\npc.plist" />
   </ItemGroup>
 </Project>
