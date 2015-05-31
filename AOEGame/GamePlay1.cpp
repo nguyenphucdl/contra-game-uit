@@ -10,7 +10,9 @@
 #include "Framework\GameObjects\Components\LifeTimeComponent.h"
 #include "Framework\Collision\CollisionManager.h"
 #include "PlayerMovementComponent.h"
+#include "Framework\Utilities\Utils.h"
 #include "MovementComponent.h"
+#include "Framework\Quadtree\QuadtreeLoader.h"
 
 
 using namespace Framework;
@@ -40,15 +42,25 @@ void GamePlay1::HandleEvent(Event* pEvent)
 
 bool GamePlay1::Start()
 {
+	RECT rect1;
+
+	rect1.left = 100;
+	rect1.right = 200;
+	rect1.top = 100;
+	rect1.bottom = 200;
+
+	RECT rect2;
+	rect2.left = 150;
+	rect2.right = 250;
+	rect2.top = 150;
+	rect2.bottom = 250;
+
+
+	RECT clip = Utils::RectClip(rect1, rect2);
+
 	Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
 
 	CollisionManager::GetSingletonPtr()->AddCollisionBin();
-
-	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
-	propLoader->Load();
-
-	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc.plist");
-	npcPropLoader->Load();
 
 	//SceneManager
 	TmxLoader *tmxLoader = new TmxLoader("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
@@ -56,6 +68,30 @@ bool GamePlay1::Start()
 
 	TileMap* tileMap = tmxLoader->GetTileMap();
 	tileMap->Init();
+
+	float mapScale = tmxLoader->GetScaleRatio();
+
+	QuadtreeLoader* quadtreeLoader = new QuadtreeLoader("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
+	quadtreeLoader->SetScaleRatio(mapScale);
+	quadtreeLoader->Load();
+
+	Quadtree* quadtree = quadtreeLoader->GetQuadTree();
+
+	Rect viewporttest = Rect(0, 0, 640, 480);
+
+	std::vector<int>* updateObjIdList = new std::vector<int>();
+	quadtree->QueryRange(viewporttest, updateObjIdList);
+	std::sort(updateObjIdList->begin(), updateObjIdList->end());
+	std::vector<int>::iterator it = std::unique(updateObjIdList->begin(), updateObjIdList->end());
+	updateObjIdList->resize(std::distance(updateObjIdList->begin(), it));
+
+	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
+	propLoader->Load();
+
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc.plist");
+	npcPropLoader->Load();
+
+	
 
 
 	

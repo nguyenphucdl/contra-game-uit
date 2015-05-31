@@ -4,6 +4,7 @@ namespace Framework
 {
 	GameObject::GameObject()
 		: m_feature(false)
+		, m_type(-1)
 	{
 	}
 

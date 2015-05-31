@@ -21,5 +21,6 @@
 #include "../Log/Log.h"
 #include "../Math/Vector3.h"
 #include "../Math/Matrix4.h"
+#include "../Utilities/Rect.h"
 
 #endif //__CONTEXT_H__

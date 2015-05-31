@@ -1576,44 +1576,169 @@
     </data>
   </layer>
   <objectgroup name="objectgroup">
-    <object name="" x="0" y="40" width="383" height="37" />
-    <object name="" x="384" y="136" width="65" height="135" />
-    <object name="" x="320" y="104" width="64" height="31" />
-    <object name="" x="256" y="72" width="127" height="16" />
-    <object name="" x="448" y="104" width="32" height="17" />
-    <object name="" x="449" y="72" width="62" height="31" />
-    <object name="" x="448" y="41" width="128" height="38" />
-    <object name="" x="576" y="41" width="64" height="39" />
-    <object name="" x="640" y="40" width="158" height="38" />
-    <object name="" x="800" y="104" width="32" height="103" />
-    <object name="" x="768" y="72" width="32" height="33" />
-    <object name="" x="928" y="104" width="31" height="102" />
-    <object name="" x="896" y="72" width="31" height="15" />
-    <object name="" x="864" y="40" width="63" height="32" />
-    <object name="" x="1056" y="104" width="32" height="103" />
-    <object name="" x="1024" y="71" width="32" height="32" />
-    <object name="" x="992" y="39" width="63" height="14" />
-    <object name="" x="1184" y="104" width="32" height="103" />
-    <object name="" x="1152" y="71" width="31" height="14" />
-    <object name="" x="1120" y="40" width="64" height="32" />
-    <object name="" x="1344" y="104" width="31" height="103" />
-    <object name="" x="1311" y="73" width="35" height="17" />
-    <object name="" x="1248" y="40" width="96" height="16" />
-    <object name="" x="1248" y="8" width="97" height="6" />
-    <object name="" x="1488" y="40" width="32" height="38" />
-    <object name="" x="1375" y="40" width="112" height="39" />
-    <object name="" x="1519" y="40" width="225" height="39" />
-    <object name="" x="1424" y="104" width="63" height="15" />
-    <object name="" x="1487" y="121" width="32" height="32" />
-    <object name="" x="1567" y="153" width="32" height="16" />
-    <object name="" x="1631" y="121" width="17" height="16" />
-    <object name="" x="1616" y="72" width="15" height="17" />
-    <object name="" x="1744" y="169" width="47" height="168" />
-    <object name="" x="1648" y="169" width="97" height="16" />
-    <object name="" x="1696" y="137" width="45" height="14" />
-    <object name="" x="1712" y="122" width="32" height="18" />
-    <object name="" x="1712" y="56" width="29" height="15" />
-    <object name="" x="1776" y="224" width="15" height="55" />
-    <object name="" x="1760" y="223" width="17" height="53" />
+    <object id="1" name="" type="0" x="0" y="40" width="383" height="37" />
+    <object id="2" name="" type="0" x="384" y="136" width="65" height="135" />
+    <object id="3" name="" type="0" x="320" y="104" width="64" height="31" />
+    <object id="4" name="" type="0" x="256" y="72" width="127" height="16" />
+    <object id="5" name="" type="0" x="448" y="104" width="32" height="17" />
+    <object id="6" name="" type="0" x="449" y="72" width="62" height="31" />
+    <object id="7" name="" type="0" x="448" y="41" width="128" height="38" />
+    <object id="8" name="" type="0" x="576" y="41" width="64" height="39" />
+    <object id="9" name="" type="0" x="640" y="40" width="158" height="38" />
+    <object id="10" name="" type="0" x="800" y="104" width="32" height="103" />
+    <object id="11" name="" type="0" x="768" y="72" width="32" height="33" />
+    <object id="12" name="" type="0" x="928" y="104" width="31" height="102" />
+    <object id="13" name="" type="0" x="896" y="72" width="31" height="15" />
+    <object id="14" name="" type="0" x="864" y="40" width="63" height="32" />
+    <object id="15" name="" type="0" x="1056" y="104" width="32" height="103" />
+    <object id="16" name="" type="0" x="1024" y="71" width="32" height="32" />
+    <object id="17" name="" type="0" x="992" y="39" width="63" height="14" />
+    <object id="18" name="" type="0" x="1184" y="104" width="32" height="103" />
+    <object id="19" name="" type="0" x="1152" y="71" width="31" height="14" />
+    <object id="20" name="" type="0" x="1120" y="40" width="64" height="32" />
+    <object id="21" name="" type="0" x="1344" y="104" width="31" height="103" />
+    <object id="22" name="" type="0" x="1311" y="73" width="35" height="17" />
+    <object id="23" name="" type="0" x="1248" y="40" width="96" height="16" />
+    <object id="24" name="" type="0" x="1248" y="8" width="97" height="6" />
+    <object id="25" name="" type="0" x="1488" y="40" width="32" height="38" />
+    <object id="26" name="" type="0" x="1375" y="40" width="112" height="39" />
+    <object id="27" name="" type="0" x="1519" y="40" width="225" height="39" />
+    <object id="28" name="" type="0" x="1424" y="104" width="63" height="15" />
+    <object id="29" name="" type="0" x="1487" y="121" width="32" height="32" />
+    <object id="30" name="" type="0" x="1567" y="153" width="32" height="16" />
+    <object id="31" name="" type="0" x="1631" y="121" width="17" height="16" />
+    <object id="32" name="" type="0" x="1616" y="72" width="15" height="17" />
+    <object id="33" name="" type="0" x="1744" y="169" width="47" height="168" />
+    <object id="34" name="" type="0" x="1648" y="169" width="97" height="16" />
+    <object id="35" name="" type="0" x="1696" y="137" width="45" height="14" />
+    <object id="36" name="" type="0" x="1712" y="122" width="32" height="18" />
+    <object id="37" name="" type="0" x="1712" y="56" width="29" height="15" />
+    <object id="38" name="" type="0" x="1776" y="224" width="15" height="55" />
+    <object id="39" name="" type="0" x="1760" y="223" width="17" height="53" />
   </objectgroup>
+  <quadtree width="1792" height="1792" x="0" y="0">
+    <data>
+      <node id="0" parent="-1" level="0" />
+      <node id="1" parent="0" level="1" />
+      <node id="5" parent="1" level="2" />
+      <node id="9" parent="5" level="3">
+        <objects data="1" />
+      </node>
+      <node id="10" parent="5" level="3" />
+      <node id="13" parent="10" level="4" />
+      <node id="14" parent="10" level="4">
+        <objects data="2" />
+      </node>
+      <node id="15" parent="10" level="4">
+        <objects data="1,3,4" />
+      </node>
+      <node id="16" parent="10" level="4" />
+      <node id="17" parent="16" level="5">
+        <objects data="2,3,4" />
+      </node>
+      <node id="18" parent="16" level="5">
+        <objects data="2,5" />
+      </node>
+      <node id="19" parent="16" level="5">
+        <objects data="1,2,4" />
+      </node>
+      <node id="20" parent="16" level="5">
+        <objects data="2,7" />
+      </node>
+      <node id="11" parent="5" level="3" />
+      <node id="12" parent="5" level="3" />
+      <node id="6" parent="1" level="2" />
+      <node id="21" parent="6" level="3" />
+      <node id="25" parent="21" level="4">
+        <objects data="2" />
+      </node>
+      <node id="26" parent="21" level="4" />
+      <node id="27" parent="21" level="4">
+        <objects data="2,5,6,7" />
+      </node>
+      <node id="28" parent="21" level="4">
+        <objects data="7,8,9" />
+      </node>
+      <node id="22" parent="6" level="3">
+        <objects data="9,10,11,13,14" />
+      </node>
+      <node id="23" parent="6" level="3" />
+      <node id="24" parent="6" level="3" />
+      <node id="7" parent="1" level="2" />
+      <node id="8" parent="1" level="2" />
+      <node id="2" parent="0" level="1" />
+      <node id="29" parent="2" level="2" />
+      <node id="33" parent="29" level="3" />
+      <node id="37" parent="33" level="4" />
+      <node id="38" parent="33" level="4" />
+      <node id="39" parent="33" level="4">
+        <objects data="12,13,14,17" />
+      </node>
+      <node id="40" parent="33" level="4">
+        <objects data="15,16,17,20" />
+      </node>
+      <node id="34" parent="29" level="3" />
+      <node id="41" parent="34" level="4" />
+      <node id="42" parent="34" level="4" />
+      <node id="43" parent="34" level="4">
+        <objects data="18,19,20" />
+      </node>
+      <node id="44" parent="34" level="4">
+        <objects data="21,22,23,24" />
+      </node>
+      <node id="35" parent="29" level="3" />
+      <node id="36" parent="29" level="3" />
+      <node id="30" parent="2" level="2" />
+      <node id="45" parent="30" level="3" />
+      <node id="49" parent="45" level="4" />
+      <node id="50" parent="45" level="4">
+        <objects data="29,30" />
+      </node>
+      <node id="51" parent="45" level="4" />
+      <node id="53" parent="51" level="5">
+        <objects data="21,22" />
+      </node>
+      <node id="54" parent="51" level="5">
+        <objects data="28" />
+      </node>
+      <node id="55" parent="51" level="5">
+        <objects data="21,22,23,24,26" />
+      </node>
+      <node id="56" parent="51" level="5">
+        <objects data="26" />
+      </node>
+      <node id="52" parent="45" level="4">
+        <objects data="25,26,27,28,29" />
+      </node>
+      <node id="46" parent="30" level="3" />
+      <node id="57" parent="46" level="4">
+        <objects data="30,31,34" />
+      </node>
+      <node id="58" parent="46" level="4" />
+      <node id="61" parent="58" level="5">
+        <objects data="34" />
+      </node>
+      <node id="62" parent="58" level="5">
+        <objects data="33,34,38,39" />
+      </node>
+      <node id="63" parent="58" level="5">
+        <objects data="34,35,36" />
+      </node>
+      <node id="64" parent="58" level="5">
+        <objects data="33,34,35,36" />
+      </node>
+      <node id="59" parent="46" level="4">
+        <objects data="27,31,32" />
+      </node>
+      <node id="60" parent="46" level="4">
+        <objects data="27,33,36,37" />
+      </node>
+      <node id="47" parent="30" level="3" />
+      <node id="48" parent="30" level="3" />
+      <node id="31" parent="2" level="2" />
+      <node id="32" parent="2" level="2" />
+      <node id="3" parent="0" level="1" />
+      <node id="4" parent="0" level="1" />
+    </data>
+  </quadtree>
 </map>

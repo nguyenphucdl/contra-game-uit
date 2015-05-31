@@ -20,6 +20,7 @@ namespace Framework
 
 		ComponentUnorderedMap			m_components;
 		bool							m_feature;
+		int								m_type;
 
 		template<class T>
 		T* GetComponent()	{ return static_cast<T*>(GetComponent(T::GetId())); }
@@ -34,6 +35,8 @@ namespace Framework
 		bool AddComponent();
 		void SetFeature(bool val) { m_feature = val; }
 		bool IsFeature() { return m_feature; }
+		void SetType(int type) { m_type = type; }
+		int	 GetType()		   { return m_type; }
 	};
 
 	template <class T>

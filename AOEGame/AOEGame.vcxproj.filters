@@ -242,6 +242,9 @@
     <ClInclude Include="Framework\GameObjects\Components\BulletComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\LifeTimeComponent.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="Framework\Quadtree\Quadtree.h" />
+    <ClInclude Include="Framework\Utilities\Rect.h" />
+    <ClInclude Include="Framework\Quadtree\QuadtreeLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -369,6 +372,9 @@
     <ClCompile Include="Framework\GameObjects\Components\BulletComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\LifeTimeComponent.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="Framework\Quadtree\Quadtree.cpp" />
+    <ClCompile Include="Framework\Utilities\Rect.cpp" />
+    <ClCompile Include="Framework\Quadtree\QuadtreeLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">

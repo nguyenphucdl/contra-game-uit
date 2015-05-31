@@ -1,4 +1,4 @@
-#include<string>
+#include <string>
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -21,6 +21,7 @@ namespace Framework
 
 		bool Load();
 		TileMap* GetTileMap();
+		float	 GetScaleRatio();
 
 	private:
 		bool _checkValid();
@@ -31,6 +32,7 @@ namespace Framework
 	private:
 		std::string			m_file;
 		std::string			m_basePath;
+		float				m_scaleRatio;
 		TileMap *			m_tileMap;
 		vector<TileSet*>*	m_tileSets;
 		xml_document<>		m_doc;

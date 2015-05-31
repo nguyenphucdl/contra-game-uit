@@ -11,6 +11,7 @@ namespace Framework
 {
 	TmxLoader::TmxLoader(std::string file)
 		: m_file(file)
+		, m_scaleRatio(1.0f)
 	{		
 		m_tileSets = new vector<TileSet*>();
 		m_basePath = Utils::getPathOfFile(file);
@@ -33,6 +34,11 @@ namespace Framework
 	TileMap* TmxLoader::GetTileMap()
 	{
 		return m_tileMap;
+	}
+
+	float TmxLoader::GetScaleRatio()
+	{
+		return m_scaleRatio;
 	}
 
 	bool TmxLoader::Load()
@@ -115,12 +121,19 @@ namespace Framework
 		{
 			xml_node<> *objectNode;
 			vector<GameObject*>* gameObjects = new vector<GameObject*>();
+
+			unordered_map<int, GameObject*> ObjectHashTable;
+
 			objectNode = objectLayer->first_node("object");
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
 			{
 				GameObject* gameObj = new GameObject();
+				int id = atoi(objectNode->first_attribute("id")->value());
+				int type = atoi(objectNode->first_attribute("type")->value());
+				gameObj->SetType(type);
 				gameObj->AddComponent<StaticComponent>();
 				gameObj->AddComponent<CollisionComponent>();
+
 				StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
 				CollisionComponent* pStaticCollisionComponent = component_cast<CollisionComponent>(gameObj);
 				if (pStaticComponent && pStaticCollisionComponent)
@@ -137,20 +150,20 @@ namespace Framework
 					int screenWidth = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
 					int screenHeight = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
 
-					float scaleRatio = 1.0f;
+					//float scaleRatio = 1.0f;
 					bool isHorizDirection = (mapWidth > mapHeight) ? true : false;
 					if (isHorizDirection)
 					{
-						scaleRatio = (float)screenHeight / (float)mapHeight;
+						m_scaleRatio = (float)screenHeight / (float)mapHeight;
 					}
 					else
 					{
-						scaleRatio = (float)screenWidth / (float)mapWidth;
+						m_scaleRatio = (float)screenWidth / (float)mapWidth;
 					}
 
 					//float scaleRatio = (float)screenHeight / (float)mapHeight;
 					D3DXMATRIX transform_scale;
-					D3DXMatrixAffineTransformation2D(&transform_scale, scaleRatio, NULL, NULL, NULL);
+					D3DXMatrixAffineTransformation2D(&transform_scale, m_scaleRatio, NULL, NULL, NULL);
 
 					D3DXVECTOR4 pointOrigin, resultTrans;
 					pointOrigin.x = x;
@@ -160,14 +173,14 @@ namespace Framework
 
 					RECT bound;
 					bound.left = resultTrans.x;
-					bound.right = resultTrans.x + width * scaleRatio;
+					bound.right = resultTrans.x + width * m_scaleRatio;
 					bound.top = resultTrans.y;
-					bound.bottom = resultTrans.y + height * scaleRatio;
+					bound.bottom = resultTrans.y + height * m_scaleRatio;
 					
 
 					Vector3 translation(resultTrans.x, resultTrans.y, 1.0f);
 					pStaticComponent->SetTranslation(translation);
-					pStaticComponent->SetSize(width * scaleRatio, height * scaleRatio);
+					pStaticComponent->SetSize(width * m_scaleRatio, height * m_scaleRatio);
 					pStaticComponent->Initialize();
 
 					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
@@ -177,8 +190,10 @@ namespace Framework
 
 				}
 				gameObjects->push_back(gameObj);
+				ObjectHashTable.insert(make_pair(id, gameObj));
 			}
 			m_tileMap->SetObjects(gameObjects);
+
 		}
 		
 		return true;
