@@ -26,7 +26,7 @@ namespace Framework
 
 	void BulletComponent::Initialize()
 	{
-		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
 
 		for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
 		{
@@ -147,7 +147,7 @@ namespace Framework
 	{
 		switch (pEvent->GetID())
 		{
-		case Events::UPDATE_EVENT:
+		case Events::SCE_UPDATE_EVENT:
 		{
 			m_elapse += Timer::GetSingletonPtr()->GetTimeSim();
 

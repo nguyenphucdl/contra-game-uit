@@ -18,6 +18,7 @@
 using namespace Framework;
 GamePlay1::GamePlay1(const unsigned int priority)
 	: Task(priority, "GamePlay1Task")
+	, EventExecutorAware(ExecutorIDs::GamePlayId)
 {
 	
 }
@@ -28,7 +29,7 @@ GamePlay1::~GamePlay1()
 
 void GamePlay1::HandleEvent(Event* pEvent)
 {
-	if (pEvent->GetID() == Events::POST_UPDATE_EVENT)
+	if (pEvent->GetID() == Events::SCE_POST_UPDATE_EVENT)
 	{
 		Vector3 boundMin = m_pPlayerCollisionComponent->GetAABBMin();
 		Vector3 boundMax = m_pPlayerCollisionComponent->GetAABBMax();
@@ -42,6 +43,16 @@ void GamePlay1::HandleEvent(Event* pEvent)
 
 bool GamePlay1::Start()
 {
+	Framework::SetExecutor(this);
+	//Framework::RegisterEvent(Events::SCE_UPDATE_EVENT);
+	//Framework::RegisterEvent(Events::SCE_POST_UPDATE_EVENT);
+	//Framework::RegisterEvent(Events::SCE_PRE_RENDER_EVENT);
+	//Framework::RegisterEvent(Events::SCE_RENDER_EVENT);
+	//Framework::RegisterEvent(Events::SCE_COLLISION_EVENT);
+	//Framework::RegisterEvent(Events::SCE_KEY_DOWN_EVENT);
+	//Framework::RegisterEvent(Events::SCE_KEY_UP_EVENT);
+	Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
+
 	RECT rect1;
 
 	rect1.left = 100;
@@ -58,7 +69,7 @@ bool GamePlay1::Start()
 
 	RECT clip = Utils::RectClip(rect1, rect2);
 
-	Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
+	
 
 	CollisionManager::GetSingletonPtr()->AddCollisionBin();
 
@@ -174,7 +185,7 @@ bool GamePlay1::Start()
 	{
 		pNpcCollisionComponent->AttachRenderable(&pNpc1SpriteComponent->GetRenderable());
 		pNpcCollisionComponent->Initialize();		
-		Framework::AttachEvent(Events::COLLISION_EVENT, *pNpcCollisionComponent);
+		Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *pNpcCollisionComponent);
 		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
 		CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pNpcCollisionComponent);
 		m_npc1CollisionComponent = pNpcCollisionComponent;
@@ -193,10 +204,10 @@ bool GamePlay1::Start()
 		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 100.0f, 5, 3);
 		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 100.0f, 0, 1);
 		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 100.0f, 7, 1);
-		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 0, 1);
-		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 5, 1);
-		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 1, 1);
-		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 4, 1);
+		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 100.0f, 0, 1);
+		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 100.0f, 5, 1);
+		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 100.0f, 1, 1);
+		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 100.0f, 4, 1);
 
 		//Vector3 position = Vector3(300, 130, 0);
 		pSpriteComponent->SetRenderTransform(true);
@@ -247,7 +258,7 @@ bool GamePlay1::Start()
 		pCollisionComponent->AttachRenderable(&pSpriteComponent->GetRenderable());
 		pCollisionComponent->Initialize();
 		m_pPlayerCollisionComponent = pCollisionComponent;
-		Framework::AttachEvent(Events::COLLISION_EVENT, *m_pPlayerCollisionComponent);
+		Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *m_pPlayerCollisionComponent);
 		m_pPlayerCollisionComponent->AddEventListener(pPlayerTransformComponent);
 	}
 	m_playerObject.AddComponent<BulletComponent>();
@@ -296,7 +307,7 @@ bool GamePlay1::Start()
 				pBulletCollisionComponent->AttachRenderable(&pRockmanBulletComponent->GetRenderable());
 				pBulletCollisionComponent->Initialize();
 
-				Framework::AttachEvent(Events::COLLISION_EVENT, *pBulletCollisionComponent);
+				Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *pBulletCollisionComponent);
 				CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pBulletCollisionComponent);
 			}
 			
@@ -370,9 +381,12 @@ void GamePlay1::OnSuspend()
 
 void GamePlay1::Update()
 {
-	Framework::SendEvent(Events::UPDATE_EVENT); // need refactor
-	Framework::SendEvent(Events::POST_UPDATE_EVENT);
-	Framework::SendEvent(Events::RENDER_EVENT);
+	//!IMPORTANT REQUIRE
+	Framework::SetExecutor(this);
+	Framework::SendEvent(Events::SCE_UPDATE_EVENT); // need refactor
+	Framework::SendEvent(Events::SCE_POST_UPDATE_EVENT);
+	Framework::SendEvent(Events::SCE_PRE_RENDER_EVENT);
+	Framework::SendEvent(Events::SCE_RENDER_EVENT);
 }
 
 void GamePlay1::OnResume()

@@ -6,6 +6,7 @@
 
 Chapter6Task::Chapter6Task(const unsigned int priority)
 	: Task(priority, "Chapter6Task")
+	, EventExecutorAware(ExecutorIDs::Chapter6TaskId)
 {
 	
 }
@@ -22,6 +23,12 @@ void Chapter6Task::HandleEvent(Event* pEvent)
 
 bool Chapter6Task::Start()
 {
+	Framework::SetExecutor(this);//Refactor to set this
+	//Framework::RegisterEvent(Events::SCE_UPDATE_EVENT);
+	//Framework::RegisterEvent(Events::SCE_POST_UPDATE_EVENT);
+	//Framework::RegisterEvent(Events::SCE_RENDER_EVENT);
+
+
 	/*Font *font = new Font();
 	font->setCharSize(14, 16);
 	font->setColumns(16);
@@ -159,9 +166,12 @@ void Chapter6Task::OnSuspend()
 
 void Chapter6Task::Update()
 {
-	Framework::SendEvent(Events::UPDATE_EVENT); // need refactor
-	Framework::SendEvent(Events::POST_UPDATE_EVENT);
-	Framework::SendEvent(Events::RENDER_EVENT);
+	//!IMPORTANT REQUIRE
+	Framework::SetExecutor(this);//Refactor to set this
+
+	Framework::SendEvent(Events::SCE_UPDATE_EVENT); // need refactor
+	Framework::SendEvent(Events::SCE_POST_UPDATE_EVENT);
+	Framework::SendEvent(Events::SCE_RENDER_EVENT);
 }
 
 void Chapter6Task::OnResume()

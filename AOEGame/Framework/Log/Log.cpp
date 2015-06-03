@@ -130,7 +130,7 @@ namespace Framework
 
 	void Log::printMapEvents()
 	{
-		string __trace_file = LogConfig::outPath;
+		/*string __trace_file = LogConfig::outPath;
 
 		FILE *f = stderr;
 		if (fopen_s(&f, __trace_file.c_str(), "a") != 0)
@@ -156,21 +156,21 @@ namespace Framework
 		{
 			
 
-			fprintf_s(f, "<EventMap>\n");
-			EventManager::EventMap* eventMap = &EventManager::GetSingletonPtr()->m_eventMap;
-			for (EventManager::EventMapIterator iter = eventMap->begin(); iter != eventMap->end(); ++iter)
-			{
-				Event* pEvent = iter->second;
+			//fprintf_s(f, "<EventMap>\n");
+			//EventManager::EventMap* eventMap = &EventManager::GetSingletonPtr()->m_eventMap;
+			//for (EventManager::EventMapIterator iter = eventMap->begin(); iter != eventMap->end(); ++iter)
+			//{
+				//Event* pEvent = iter->second;
 				
-				fprintf_s(f, "	<Event id=%d name=%s reference=%d />\n", pEvent->GetID(), eventName[pEvent->GetID()].c_str(), pEvent->m_listeners.size());
+				//fprintf_s(f, "	<Event id=%d name=%s reference=%d />\n", pEvent->GetID(), eventName[pEvent->GetID()].c_str(), pEvent->m_listeners.size());
 				
-			}
-			fprintf_s(f, "<EventMap>\n");
+			//}
+			//fprintf_s(f, "<EventMap>\n");
 			
 		}
 
 		if (__trace_file.c_str() != NULL)
-			fclose(f);
+			fclose(f);*/
 	}
 
 	bool Log::isDebug()

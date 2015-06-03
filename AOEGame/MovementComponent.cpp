@@ -29,7 +29,7 @@ MovementComponent::~MovementComponent()
 
 void MovementComponent::Initialize()
 {
-	Framework::AttachEvent(Events::UPDATE_EVENT, *this);
+	Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
 }
 
 bool MovementComponent::AttachRenderableTransform(RenderableComponent *pRenderableComponent)
@@ -43,7 +43,7 @@ void MovementComponent::HandleEvent(Event* pEvent)
 {
 	switch (pEvent->GetID())
 	{
-	case Events::UPDATE_EVENT:
+	case Events::SCE_UPDATE_EVENT:
 	{
 		UpdateGame();
 		SpriteComponent* pSprite = component_cast<SpriteComponent>(GetOwner());

@@ -19,14 +19,14 @@ namespace Framework
 
 	void LifeTimeComponent::Initialize()
 	{
-		Framework::AttachEvent(Events::UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
 	}
 
 	void LifeTimeComponent::HandleEvent(Event* pEvent)
 	{
 		switch (pEvent->GetID())
 		{
-		case Events::UPDATE_EVENT:
+		case Events::SCE_UPDATE_EVENT:
 		{
 			if (m_start)
 			{

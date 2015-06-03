@@ -5,19 +5,24 @@ namespace Framework
 {
 	enum Events
 	{
-		//Main events
-		PRE_UPDATE_EVENT = 3,	// UNUSED
-		UPDATE_EVENT,		// UNUSED
-		POST_UPDATE_EVENT,	// UNUSED
-		PRE_RENDER_EVENT,
-		RENDER_EVENT,		// UNUSED
-		POST_RENDER_EVENT,	// UNUSED
-		COLLISION_EVENT,
+		//System events
+		SYS_PRE_RENDER_EVENT,
+		SYS_RENDER_EVENT,
+		SYS_POST_RENDER_EVENT,
+		SYS_KEY_UP_EVENT,
+		SYS_KEY_DOWN_EVENT,
 
-		//Input events
-		KEY_DOWN_EVENT,		// Fire from Input task
-		KEY_UP_EVENT,		// Fire form Input task
-		PLAYER_JUMP_EVENT
+		//Scene Events
+		SCE_PRE_RENDER_EVENT,
+		SCE_RENDER_EVENT,
+		SCE_POST_RENDER_EVENT,
+		SCE_PRE_UPDATE_EVENT,
+		SCE_UPDATE_EVENT,
+		SCE_POST_UPDATE_EVENT,
+		SCE_KEY_UP_EVENT,
+		SCE_KEY_DOWN_EVENT,
+		
+		SCE_COLLISION_EVENT,
 	};
 
 	enum ComponentIDs
@@ -63,6 +68,17 @@ namespace Framework
 	{
 		FIRE = 100,
 		EXPLODE = 200
+	};
+
+	enum ExecutorIDs
+	{
+		SysRender,
+		SysInput,
+		GamePlayId,
+
+
+		Chapter6TaskId,//Test
+		GamePlay1Id
 	};
 }
 #endif

@@ -13,7 +13,7 @@ namespace Framework
 		, m_tileMap(NULL)
 		, m_mapViewport(NULL)
 	{
-		Framework::AttachEvent(Events::PRE_RENDER_EVENT, *this);		
+		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);	
 	}
 
 	TileMapComponent::~TileMapComponent()
@@ -60,7 +60,7 @@ namespace Framework
 	{
 		switch (pEvent->GetID())
 		{
-		case Events::PRE_RENDER_EVENT:
+		case Events::SCE_PRE_RENDER_EVENT:
 			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().left);
 			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().top);
 			break;

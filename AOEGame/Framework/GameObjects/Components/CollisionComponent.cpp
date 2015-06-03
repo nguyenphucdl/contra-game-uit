@@ -90,7 +90,7 @@ namespace Framework
 
 	void CollisionComponent::HandleEvent(Event* pEvent)
 	{
-		if (pEvent->GetID() == Events::COLLISION_EVENT)
+		if (pEvent->GetID() == Events::SCE_COLLISION_EVENT)
 		{
 			CollisionEventData* pCollisionData = static_cast<CollisionEventData*>(pEvent->GetData());
 			if (pCollisionData && pCollisionData->m_pCollider)

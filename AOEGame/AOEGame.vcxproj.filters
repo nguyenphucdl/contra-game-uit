@@ -245,6 +245,12 @@
     <ClInclude Include="Framework\Quadtree\Quadtree.h" />
     <ClInclude Include="Framework\Utilities\Rect.h" />
     <ClInclude Include="Framework\Quadtree\QuadtreeLoader.h" />
+    <ClInclude Include="Framework\EventManager\EventExecutor.h" />
+    <ClInclude Include="Framework\GamePlay\SceneBase.h" />
+    <ClInclude Include="Framework\GamePlay\GamePlay.h" />
+    <ClInclude Include="Framework\GameState\GameStateManager.h" />
+    <ClInclude Include="Framework\GameState\GameState.h" />
+    <ClInclude Include="Framework\EventManager\EventExecutorAware.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -375,6 +381,11 @@
     <ClCompile Include="Framework\Quadtree\Quadtree.cpp" />
     <ClCompile Include="Framework\Utilities\Rect.cpp" />
     <ClCompile Include="Framework\Quadtree\QuadtreeLoader.cpp" />
+    <ClCompile Include="Framework\EventManager\EventExecutor.cpp" />
+    <ClCompile Include="Framework\GamePlay\SceneBase.cpp" />
+    <ClCompile Include="Framework\GamePlay\GamePlay.cpp" />
+    <ClCompile Include="Framework\GameState\GameSateManager.cpp" />
+    <ClCompile Include="Framework\GameState\GameState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">

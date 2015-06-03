@@ -27,16 +27,16 @@ PlayerMovementComponent::~PlayerMovementComponent()
 
 void PlayerMovementComponent::Initialize()
 {
-	Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
-	Framework::AttachEvent(Events::KEY_UP_EVENT, *this);
-	Framework::AttachEvent(Events::UPDATE_EVENT, *this);
+	Framework::AttachEvent(Events::SCE_KEY_DOWN_EVENT, *this);
+	Framework::AttachEvent(Events::SCE_KEY_UP_EVENT, *this);
+	Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
 }
 
 void PlayerMovementComponent::HandleEvent(Event* pEvent)
 {
 	switch (pEvent->GetID())
 	{
-	case Events::UPDATE_EVENT:
+	case Events::SCE_UPDATE_EVENT:
 	{
 		_ProcessPollInput();
 		

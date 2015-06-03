@@ -92,8 +92,7 @@ namespace Framework
 
 	private:
 		void	Draw(Renderable* pRenderable);
-		void	Draw2(Renderable* pRenderable);
-		void	Draw3(Renderable* pRenderable);
+		
 		void	InitTransformCoordinateMatrix();
 		void	PrepareViewMatrix();
 

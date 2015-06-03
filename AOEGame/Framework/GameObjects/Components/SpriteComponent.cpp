@@ -11,7 +11,6 @@ namespace Framework
 		, m_curState(SpriteStates::STATIONARY)
 		, m_curDirection(SpriteDirections::RIGHT)
 	{
-		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
 	}
 
 	SpriteComponent::~SpriteComponent()
@@ -73,6 +72,8 @@ namespace Framework
 	{
 		RenderableComponent::Initialize();
 		//m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Current());		
+
+		Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
 	}
 
 	void SpriteComponent::HandleEvent(Event* pEvent)
@@ -80,7 +81,7 @@ namespace Framework
 
 		switch (pEvent->GetID())
 		{
-		case Events::POST_UPDATE_EVENT:
+		case Events::SCE_POST_UPDATE_EVENT:
 		default:
 			m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Next());
 

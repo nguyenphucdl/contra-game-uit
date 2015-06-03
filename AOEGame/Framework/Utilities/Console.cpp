@@ -24,17 +24,11 @@ namespace Framework
 		m_scaleX = Renderer::GetSingletonPtr()->GetWidth() / 100.0f;
 		m_scaleY = Renderer::GetSingletonPtr()->GetHeight() / (2 * 100.0f);
 
-		Framework::AttachEvent(Events::KEY_DOWN_EVENT, *this);
-		Framework::AttachEvent(Events::POST_RENDER_EVENT, *this);
+		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_KEY_DOWN_EVENT, *this);
+		Framework::AttachEvent(ExecutorIDs::SysRender, Events::SYS_POST_RENDER_EVENT, *this);
 		return true;
 	}
 
-	/*void Console::print(std::string text, int line)
-	{
-		int yLine = (line != -1)? ((line-1) * m_lineHeight):(m_lineHeight * (m_currentLine-1));
-		m_font->Print(0, yLine, text);
-		m_currentLine++;
-	}*/
 	void Console::print(const char* pMessage, ...)
 	{
 		char buffer[256];
@@ -79,7 +73,7 @@ namespace Framework
 			break;
 		}
 
-		if (pEvent->GetID() == Events::POST_RENDER_EVENT)
+		if (pEvent->GetID() == Events::SYS_POST_RENDER_EVENT)
 		{
 			m_currentLine = 0;
 		}

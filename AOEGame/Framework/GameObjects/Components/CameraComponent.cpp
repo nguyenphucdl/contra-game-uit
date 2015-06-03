@@ -12,7 +12,7 @@ namespace Framework
 		, m_transOrigin(0.0f, 0.0f, 0.0f)
 		, m_isAttached(false)
 	{
-		Framework::AttachEvent(Events::POST_UPDATE_EVENT, *this);
+		
 	}
 
 	void CameraComponent::AttachObject(GameObject* gameObj)
@@ -45,6 +45,8 @@ namespace Framework
 
 	void CameraComponent::Initialize()
 	{
+		Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
+
 		m_transOrigin.Subtract(m_viewOrigin);//Set real trans origin
 		m_viewPortWidth = Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
 		m_viewPortHeight = Renderer::GetSingletonPtr()->GetCamera().GetViewPortHeight();
@@ -55,7 +57,7 @@ namespace Framework
 		assert(pEvent);
 		switch (pEvent->GetID())
 		{
-		case Events::POST_UPDATE_EVENT:
+		case Events::SCE_POST_UPDATE_EVENT:
 		{
 			TransformComponent* pObjTransformComponent = component_cast<TransformComponent>(m_attachObject);
 			if (pObjTransformComponent)

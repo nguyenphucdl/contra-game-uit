@@ -79,6 +79,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\EventManager\EventExecutor.h" />
+    <ClInclude Include="Framework\EventManager\EventExecutorAware.h" />
     <ClInclude Include="Framework\GameObjects\Components\BulletComponent.h" />
     <ClInclude Include="Framework\Collision\CollisionBin.h" />
     <ClInclude Include="Framework\Collision\CollisionListener.h" />
@@ -87,12 +89,16 @@
     <ClInclude Include="Framework\Font\TextDraw.h" />
     <ClInclude Include="Framework\GameObjects\Components\CollisionComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\LifeTimeComponent.h" />
+    <ClInclude Include="Framework\GamePlay\GamePlay.h" />
+    <ClInclude Include="Framework\GameState\GameState.h" />
+    <ClInclude Include="Framework\GameState\GameStateManager.h" />
     <ClInclude Include="Framework\Quadtree\Quadtree.h" />
     <ClInclude Include="Framework\Quadtree\QuadtreeLoader.h" />
     <ClInclude Include="Framework\Renderer\Camera.h" />
     <ClInclude Include="Chapter6App.h" />
     <ClInclude Include="Chapter6Task.h" />
     <ClInclude Include="Framework\Renderer\Drawable.h" />
+    <ClInclude Include="Framework\GamePlay\SceneBase.h" />
     <ClInclude Include="Framework\Utilities\Console.h" />
     <ClInclude Include="Framework\Utilities\Enums.h" />
     <ClInclude Include="Framework\Application\Context.h" />
@@ -147,10 +153,15 @@
   <ItemGroup>
     <ClCompile Include="Framework\Collision\CollisionBin.cpp" />
     <ClCompile Include="Framework\Collision\CollisionManager.cpp" />
+    <ClCompile Include="Framework\EventManager\EventExecutor.cpp" />
     <ClCompile Include="Framework\Font\Font.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\BulletComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\CollisionComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\LifeTimeComponent.cpp" />
+    <ClCompile Include="Framework\GamePlay\GamePlay.cpp" />
+    <ClCompile Include="Framework\GamePlay\SceneBase.cpp" />
+    <ClCompile Include="Framework\GameState\GameSateManager.cpp" />
+    <ClCompile Include="Framework\GameState\GameState.cpp" />
     <ClCompile Include="Framework\Quadtree\Quadtree.cpp" />
     <ClCompile Include="Framework\Quadtree\QuadtreeLoader.cpp" />
     <ClCompile Include="Framework\Renderer\Camera.cpp" />

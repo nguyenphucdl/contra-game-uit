@@ -12,7 +12,7 @@ namespace Framework
 
 		loadWidthData("Resources\\Font\\system12.dat");
 		
-		Framework::AttachEvent(Events::POST_RENDER_EVENT, *this);
+		Framework::AttachEvent(ExecutorIDs::SysRender, Events::SYS_POST_RENDER_EVENT, *this);
 	}
 
 	void Font::Draw(LPD3DXSPRITE spriteHandler)

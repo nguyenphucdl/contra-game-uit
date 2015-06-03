@@ -1,4 +1,3 @@
-// Application.h v1.0
 #ifndef __APPLICATION_H__                 // prevent multiple definitions if this 
 #define __APPLICATION_H__                 // ..file is included in more than one place
 #define WIN32_LEAN_AND_MEAN

@@ -150,16 +150,16 @@ namespace Framework
 				if ((keystate & 0x80) > 0)
 				{
 					//Sent KEYDOWN_EVENT with keycode parameters
-					SendEvent(Events::KEY_DOWN_EVENT, (void *)keyCode);
+					SendEvent(ExecutorIDs::SysInput, Events::SYS_KEY_DOWN_EVENT, (void *)keyCode);
 					if (keyCode == DIK_SPACE)
 					{
-						SendEvent(Events::PLAYER_JUMP_EVENT);
+						//SendEvent(Events::PLAYER_JUMP_EVENT);
 					}
 				}
 				else
 				{
 					//Sent KEYDUP_EVENT with keycode parameters
-					SendEvent(Events::KEY_UP_EVENT, (void*)keyCode);
+					SendEvent(ExecutorIDs::SysInput, Events::SYS_KEY_UP_EVENT, (void*)keyCode);
 				}
 			}
 

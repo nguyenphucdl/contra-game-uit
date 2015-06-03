@@ -15,6 +15,7 @@
 
 class GamePlay1
 	: public Framework::Task
+	, public Framework::EventExecutorAware
 	, public Framework::EventHandler
 {
 private:
@@ -23,8 +24,6 @@ private:
 
 	Framework::GameObject	m_tileMapObject;
 	Framework::GameObject	m_cameraObject;
-	Framework::GameObject	m_contraObject;
-	Framework::GameObject	m_contraFinalObject;
 
 	vector<Framework::GameObject*>*	m_objects;
 	vector<Framework::GameObject*>::iterator m_objIt;

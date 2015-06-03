@@ -16,6 +16,7 @@ using namespace Framework;
 
 class Chapter6Task
 	: public Task
+	, public EventExecutorAware
 	, public EventHandler
 {
 private:

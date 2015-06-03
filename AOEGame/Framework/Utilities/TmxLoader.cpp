@@ -36,6 +36,11 @@ namespace Framework
 		return m_tileMap;
 	}
 
+	std::unordered_map<int, GameObject*>* TmxLoader::GetObjectHashTable()
+	{
+		return m_objectHashTable;
+	}
+
 	float TmxLoader::GetScaleRatio()
 	{
 		return m_scaleRatio;
@@ -121,8 +126,7 @@ namespace Framework
 		{
 			xml_node<> *objectNode;
 			vector<GameObject*>* gameObjects = new vector<GameObject*>();
-
-			unordered_map<int, GameObject*> ObjectHashTable;
+			m_objectHashTable = new unordered_map<int, GameObject*>();
 
 			objectNode = objectLayer->first_node("object");
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
@@ -131,6 +135,11 @@ namespace Framework
 				int id = atoi(objectNode->first_attribute("id")->value());
 				int type = atoi(objectNode->first_attribute("type")->value());
 				gameObj->SetType(type);
+
+				if (type)//Switch Type
+				{
+
+				}
 				gameObj->AddComponent<StaticComponent>();
 				gameObj->AddComponent<CollisionComponent>();
 
@@ -185,12 +194,12 @@ namespace Framework
 
 					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
 					pStaticCollisionComponent->Initialize();
-					Framework::AttachEvent(Events::COLLISION_EVENT, *pStaticCollisionComponent);
+					Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *pStaticCollisionComponent);
 					CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pStaticCollisionComponent);
 
 				}
 				gameObjects->push_back(gameObj);
-				ObjectHashTable.insert(make_pair(id, gameObj));
+				m_objectHashTable->insert(make_pair(id, gameObj));
 			}
 			m_tileMap->SetObjects(gameObjects);
 

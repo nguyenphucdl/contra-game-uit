@@ -24,13 +24,19 @@ namespace Framework
 		CreateSingletons();
 
 		ret = m_kernel.AddTask(&m_windowsTask);
-		//ret = m_kernel.AddTask(EventManager::GetSingletonPtr());
 		ret = m_kernel.AddTask(Timer::GetSingletonPtr());
 		ret = m_kernel.AddTask(Renderer::GetSingletonPtr());
 		ret = m_kernel.AddTask(Input::GetSingletonPtr());
 		
-		//Timer::GetSingletonPtr()->Start();
 		Console::GetSingletonPtr()->init();
+
+		/*REGISTER EVENT*/
+		
+		//RegisterEvent(ExecutorIDs::SysRender, Events::SYS_PRE_RENDER_EVENT);
+		//RegisterEvent(ExecutorIDs::SysRender, Events::SYS_RENDER_EVENT);
+		//RegisterEvent(ExecutorIDs::SysRender, Events::SYS_POST_RENDER_EVENT);
+		
+		
 		return ret;
 	}
 
