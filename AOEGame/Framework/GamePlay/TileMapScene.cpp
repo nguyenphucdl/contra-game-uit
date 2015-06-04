@@ -40,6 +40,8 @@ namespace Framework
 		Framework::SetExecutor(this);
 		Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
 
+		
+
 		m_npcObject = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
 		m_npcObject->InitializeComponents();
 

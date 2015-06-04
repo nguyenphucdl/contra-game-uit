@@ -2,7 +2,7 @@
 
 Chapter6App::Chapter6App()
 	: Framework::Game()
-	, m_testGameTask(Task::GAME_PRIORITY)
+	//, m_testGameTask(Task::GAME_PRIORITY)
 	, m_gameStateManager(Task::GAME_PRIORITY)
 {
 }

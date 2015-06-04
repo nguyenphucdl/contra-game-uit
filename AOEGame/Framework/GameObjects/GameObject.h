@@ -6,6 +6,7 @@
 
 namespace Framework
 {
+	typedef unsigned int ObjectId;
 	class GameObject
 	{
 		template<class T>
@@ -21,6 +22,7 @@ namespace Framework
 		ComponentUnorderedMap			m_components;
 		bool							m_feature;
 		int								m_type;
+		ObjectId						m_id;
 
 		template<class T>
 		T* GetComponent()	{ return static_cast<T*>(GetComponent(T::GetId())); }
@@ -28,7 +30,7 @@ namespace Framework
 		Component* GetComponent(unsigned int id);
 
 	public:
-		GameObject();
+		GameObject(ObjectId id);
 		~GameObject();
 
 		template <class T>
@@ -37,7 +39,7 @@ namespace Framework
 		bool IsFeature() { return m_feature; }
 		void SetType(int type) { m_type = type; }
 		int	 GetType()		   { return m_type; }
-
+		ObjectId GetId() { return m_id; }
 		void InitializeComponents();
 	};
 

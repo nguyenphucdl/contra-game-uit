@@ -20,6 +20,27 @@ namespace Framework
 		}
 
 		m_eventMap.clear();
+
+		for (ObjectMapIterator iter = m_eventObjectMap.begin(); iter != m_eventObjectMap.end(); ++iter)
+		{
+			EventMap* pEventMap = iter->second;
+			if (pEventMap)
+			{
+				for (EventMapIterator iiter = pEventMap->begin(); iiter != pEventMap->end(); ++iiter)
+				{
+					Event* pEvent = iiter->second;
+					if (pEvent)
+					{
+						delete pEvent;
+						iiter->second = NULL;
+					}
+				}
+				pEventMap->clear();
+				delete pEventMap;
+				iter->second = NULL;
+			}
+		}
+		m_eventObjectMap.clear();
 	}
 
 	void EventExecutor::SendEvent(EventID eventId, void* pData)
@@ -46,6 +67,119 @@ namespace Framework
 				result->second->SendToHandler(eventHandler, pData);
 			}
 		}
+	}
+
+	void EventExecutor::SendEventToHandler(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
+	{
+		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
+		assert(objIt != m_eventObjectMap.end());
+		if (objIt != m_eventObjectMap.end())
+		{
+			assert(objIt->second);
+			EventMap* eventMap = objIt->second;
+			EventMapIterator eventMapIt = eventMap->find(eventId);
+			assert(eventMapIt != eventMap->end());
+			if (eventMapIt != eventMap->end())
+			{
+				assert(eventMapIt->second);
+				eventMapIt->second->SendToHandler(eventHandler, pData);
+			}
+		}
+	}
+
+	//NEW
+	void EventExecutor::SendEvent(EventID eventId, ObjectId objId, void* pData)
+	{
+		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
+		assert(objIt != m_eventObjectMap.end());
+		if (objIt != m_eventObjectMap.end())
+		{
+			assert(objIt->second);
+			EventMap* eventMap = objIt->second;
+			EventMapIterator eventMapIt = eventMap->find(eventId);
+			assert(eventMapIt != eventMap->end());
+			if (eventMapIt != eventMap->end())
+			{
+				assert(eventMapIt->second);
+				eventMapIt->second->Send(pData);
+			}
+		}
+	}
+	//NEW
+	void EventExecutor::DetachEvent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	{
+		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
+		assert(objIt != m_eventObjectMap.end());
+		if (objIt != m_eventObjectMap.end())
+		{
+			assert(objIt->second);
+			EventMap* eventMap = objIt->second;
+			EventMapIterator eventMapIt = eventMap->find(eventId);
+			assert(eventMapIt != eventMap->end());
+			if (eventMapIt != eventMap->end())
+			{
+				assert(eventMapIt->second);
+				eventMapIt->second->DetachListener(eventHandler);
+			}
+		}
+	}
+
+	//NEW
+	void EventExecutor::AttachEvent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	{
+		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
+		assert(objIt != m_eventObjectMap.end());
+		if (objIt != m_eventObjectMap.end())
+		{
+			assert(objIt->second);
+			EventMap* eventMap = objIt->second;
+			EventMapIterator eventMapIt = eventMap->find(eventId);
+			assert(eventMapIt != eventMap->end());
+			if (eventMapIt != eventMap->end())
+			{
+				assert(eventMapIt->second);
+				eventMapIt->second->AttachListener(eventHandler);
+			}
+		}
+	}
+
+	//NEW
+	bool EventExecutor::RegisterEvent(EventID evenId, ObjectId objId)
+	{
+		bool added = false;
+
+		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
+		if (objIt == m_eventObjectMap.end())
+		{
+			EventMap* pNewEventMap = new EventMap();
+			Event* pNewEvent = new Event(evenId);
+			if (pNewEventMap && pNewEvent)
+			{
+				std::pair<EventID, Event*> newEvent(evenId, pNewEvent);
+				std::pair<EventMapIterator, bool> addedIter = pNewEventMap->insert(newEvent);
+				added = addedIter.second;
+
+				if (added)
+				{
+					std::pair<ObjectId, EventMap*> newEventMap(objId, pNewEventMap);
+					std::pair<ObjectMapIterator, bool> addedMapIter = m_eventObjectMap.insert(newEventMap);
+					added = addedMapIter.second;
+				}
+			}
+		}
+		else
+		{
+			EventMap* pEventMap = objIt->second;
+			EventMapIterator eventMapIt = pEventMap->find(evenId);
+			if (eventMapIt == pEventMap->end())
+			{
+				Event* pNewEvent = new Event(evenId);
+				std::pair<EventID, Event*> newEvent(evenId, pNewEvent);
+				std::pair<EventMapIterator, bool> addedIter = pEventMap->insert(newEvent);
+				added = addedIter.second;
+			}
+		}
+		return added;
 	}
 
 	bool EventExecutor::RegisterEvent(EventID eventId)

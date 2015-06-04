@@ -12,7 +12,7 @@ class Chapter6App
 {
 private:
 
-	GamePlay1 m_testGameTask;
+	//GamePlay1 m_testGameTask;
 	GameStateManager m_gameStateManager;
 
 public:

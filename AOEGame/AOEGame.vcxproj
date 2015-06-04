@@ -203,6 +203,7 @@
     <ClCompile Include="Framework\Utilities\Rect.cpp" />
     <ClCompile Include="Framework\Utilities\Timer.cpp" />
     <ClCompile Include="Framework\Utilities\TmxLoader.cpp" />
+    <ClCompile Include="Framework\Utilities\Utils.cpp" />
     <ClCompile Include="GamePlay1.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PlayerMovementComponent.cpp" />

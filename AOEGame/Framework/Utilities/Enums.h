@@ -25,6 +25,13 @@ namespace Framework
 		SCE_COLLISION_EVENT,
 	};
 
+	enum ObjectIds
+	{
+		PlayerId = 5000,
+		CameraId = 5001,
+		TileMapId = 5002
+	};
+
 	enum ComponentIDs
 	{
 		//Common Components

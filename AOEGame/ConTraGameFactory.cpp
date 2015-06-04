@@ -8,6 +8,7 @@
 #include "Framework\GameObjects\Components\TileMapComponent.h"
 #include "Framework\GameObjects\Components\CameraComponent.h"
 #include "Framework\GameObjects\Actions\Animation.h"
+#include "Framework\Utilities\Utils.h"
 #include "PlayerMovementComponent.h"
 #include "MovementComponent.h"
 
@@ -18,7 +19,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
 	propLoader->Load();
 
-	GameObject* m_playerObject = new GameObject();
+	GameObject* m_playerObject = new GameObject(ObjectIds::PlayerId);
 	
 	m_playerObject->AddComponent<SpriteComponent>();
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
@@ -93,7 +94,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 		int rockman_bullet_counts = 10;
 		for (int i = 0; i < rockman_bullet_counts; i++)
 		{
-			GameObject* rockmanBullet = new GameObject();
+			GameObject* rockmanBullet = new GameObject(Utils::getNextId());
 			rockmanBullet->AddComponent<SpriteComponent>();
 			SpriteComponent* pRockmanBulletComponent = component_cast<SpriteComponent>(rockmanBullet);
 			if (pRockmanBulletComponent)
@@ -150,7 +151,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 
 Framework::GameObject* ContraGameFactory::GetTileMapObject(TileMap* tileMap)
 {
-	GameObject* tileMapObject = new GameObject();
+	GameObject* tileMapObject = new GameObject(ObjectIds::TileMapId);
 	tileMapObject->AddComponent<TileMapComponent>();
 	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(tileMapObject);
 	if (pTileMapComponent)
@@ -173,7 +174,7 @@ Framework::GameObject* ContraGameFactory::GetNpcTestObject()
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc.plist");
 	npcPropLoader->Load();
 
-	GameObject* m_npc1 = new GameObject();
+	GameObject* m_npc1 = new GameObject(Utils::getNextId());
 	m_npc1->AddComponent<SpriteComponent>();
 	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(m_npc1);
 	if (pNpc1SpriteComponent)
@@ -220,7 +221,7 @@ Framework::GameObject* ContraGameFactory::GetNpcTestObject()
 
 Framework::GameObject* ContraGameFactory::GetCameraObject(GameObject* attachObj)
 {
-	GameObject* m_cameraObject = new GameObject();
+	GameObject* m_cameraObject = new GameObject(ObjectIds::CameraId);
 	m_cameraObject->AddComponent<CameraComponent>();
 	CameraComponent *pCameraComponent = component_cast<CameraComponent>(m_cameraObject);
 	if (pCameraComponent)

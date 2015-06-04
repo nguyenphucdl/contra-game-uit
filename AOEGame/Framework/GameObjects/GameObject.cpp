@@ -2,8 +2,9 @@
 
 namespace Framework
 {
-	GameObject::GameObject()
+	GameObject::GameObject(ObjectId id)
 		: m_feature(false)
+		, m_id(id)
 		, m_type(-1)
 	{
 	}

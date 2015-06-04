@@ -19,6 +19,10 @@ using namespace Framework;
 GamePlay1::GamePlay1(const unsigned int priority)
 	: Task(priority, "GamePlay1Task")
 	, EventExecutorAware(ExecutorIDs::GamePlayId)
+	, m_playerObject(ObjectIds::PlayerId)
+	, m_npc1(Utils::getNextId())
+	, m_cameraObject(ObjectIds::CameraId)
+	, m_tileMapObject(ObjectIds::TileMapId)
 {
 	
 }
@@ -147,7 +151,7 @@ bool GamePlay1::Start()
 		pTileMapComponent->Initialize();
 	}
 
-	m_npc1 =  GameObject();
+	m_npc1 =  GameObject(Utils::getNextId());
 	m_npc1.AddComponent<SpriteComponent>();
 	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(m_npc1);
 	if (pNpc1SpriteComponent)
@@ -272,7 +276,7 @@ bool GamePlay1::Start()
 		int rockman_bullet_counts = 10;
 		for (int i = 0; i < rockman_bullet_counts; i++)
 		{
-			GameObject* rockmanBullet = new GameObject();
+			GameObject* rockmanBullet = new GameObject(Utils::getNextId());
 			rockmanBullet->AddComponent<SpriteComponent>();
 			SpriteComponent* pRockmanBulletComponent = component_cast<SpriteComponent>(rockmanBullet);
 			if (pRockmanBulletComponent)

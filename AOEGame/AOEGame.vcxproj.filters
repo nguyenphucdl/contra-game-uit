@@ -385,6 +385,7 @@
     <ClCompile Include="Framework\GameState\GameState.cpp" />
     <ClCompile Include="Framework\GamePlay\TileMapScene.cpp" />
     <ClCompile Include="ConTraGameFactory.cpp" />
+    <ClCompile Include="Framework\Utilities\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Texture\texture.png">

@@ -127,9 +127,10 @@ namespace Framework
 			objectNode = objectLayer->first_node("object");
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
 			{
-				GameObject* gameObj = new GameObject();
+				
 				int id = atoi(objectNode->first_attribute("id")->value());
 				int type = atoi(objectNode->first_attribute("type")->value());
+				GameObject* gameObj = new GameObject(id);
 				gameObj->SetType(type);
 
 				if (type)//Switch Type
