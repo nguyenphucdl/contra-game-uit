@@ -13,7 +13,7 @@ namespace Framework
 		, m_tileMap(NULL)
 		, m_mapViewport(NULL)
 	{
-		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);	
+			
 	}
 
 	TileMapComponent::~TileMapComponent()
@@ -23,6 +23,8 @@ namespace Framework
 	void TileMapComponent::Initialize()
 	{
 		RenderableComponent::Initialize();
+
+		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
 
 		Log::info(Log::LOG_LEVEL_ROOT, "[TileMapComponent] Initialize...\n");
 		if(m_tileMap == NULL)

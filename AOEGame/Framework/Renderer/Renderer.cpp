@@ -339,6 +339,7 @@ namespace Framework
 	}
 	void Renderer::Update()
 	{	
+		
 		if(SUCCEEDED(this->beginScene()))
 		{
 			// Begin sprite handler

@@ -175,9 +175,6 @@
     <ClInclude Include="Framework\GameObjects\Actions\Animation.h">
       <Filter>Framework\GameObjects\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Chapter6Task.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Chapter6App.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -251,13 +248,13 @@
     <ClInclude Include="Framework\GameState\GameStateManager.h" />
     <ClInclude Include="Framework\GameState\GameState.h" />
     <ClInclude Include="Framework\EventManager\EventExecutorAware.h" />
+    <ClInclude Include="Framework\GamePlay\TileMapScene.h" />
+    <ClInclude Include="Framework\GamePlay\ContraFactory.h" />
+    <ClInclude Include="ContraGameFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
       <Filter>Framework\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Chapter6Task.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Framework\EventManager\Event.cpp">
       <Filter>Framework\EventManager</Filter>
@@ -386,11 +383,10 @@
     <ClCompile Include="Framework\GamePlay\GamePlay.cpp" />
     <ClCompile Include="Framework\GameState\GameSateManager.cpp" />
     <ClCompile Include="Framework\GameState\GameState.cpp" />
+    <ClCompile Include="Framework\GamePlay\TileMapScene.cpp" />
+    <ClCompile Include="ConTraGameFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\Texture\texture.png">
       <Filter>Resource Files</Filter>
     </Image>

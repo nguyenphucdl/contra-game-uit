@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ContraGameFactory.h" />
     <ClInclude Include="Framework\EventManager\EventExecutor.h" />
     <ClInclude Include="Framework\EventManager\EventExecutorAware.h" />
     <ClInclude Include="Framework\GameObjects\Components\BulletComponent.h" />
@@ -89,14 +90,15 @@
     <ClInclude Include="Framework\Font\TextDraw.h" />
     <ClInclude Include="Framework\GameObjects\Components\CollisionComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\LifeTimeComponent.h" />
+    <ClInclude Include="Framework\GamePlay\ContraFactory.h" />
     <ClInclude Include="Framework\GamePlay\GamePlay.h" />
+    <ClInclude Include="Framework\GamePlay\TileMapScene.h" />
     <ClInclude Include="Framework\GameState\GameState.h" />
     <ClInclude Include="Framework\GameState\GameStateManager.h" />
     <ClInclude Include="Framework\Quadtree\Quadtree.h" />
     <ClInclude Include="Framework\Quadtree\QuadtreeLoader.h" />
     <ClInclude Include="Framework\Renderer\Camera.h" />
     <ClInclude Include="Chapter6App.h" />
-    <ClInclude Include="Chapter6Task.h" />
     <ClInclude Include="Framework\Renderer\Drawable.h" />
     <ClInclude Include="Framework\GamePlay\SceneBase.h" />
     <ClInclude Include="Framework\Utilities\Console.h" />
@@ -151,6 +153,7 @@
     <ClInclude Include="Framework\Utilities\Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConTraGameFactory.cpp" />
     <ClCompile Include="Framework\Collision\CollisionBin.cpp" />
     <ClCompile Include="Framework\Collision\CollisionManager.cpp" />
     <ClCompile Include="Framework\EventManager\EventExecutor.cpp" />
@@ -160,13 +163,13 @@
     <ClCompile Include="Framework\GameObjects\Components\LifeTimeComponent.cpp" />
     <ClCompile Include="Framework\GamePlay\GamePlay.cpp" />
     <ClCompile Include="Framework\GamePlay\SceneBase.cpp" />
+    <ClCompile Include="Framework\GamePlay\TileMapScene.cpp" />
     <ClCompile Include="Framework\GameState\GameSateManager.cpp" />
     <ClCompile Include="Framework\GameState\GameState.cpp" />
     <ClCompile Include="Framework\Quadtree\Quadtree.cpp" />
     <ClCompile Include="Framework\Quadtree\QuadtreeLoader.cpp" />
     <ClCompile Include="Framework\Renderer\Camera.cpp" />
     <ClCompile Include="Chapter6App.cpp" />
-    <ClCompile Include="Chapter6Task.cpp" />
     <ClCompile Include="Framework\Application\Game.cpp" />
     <ClCompile Include="Framework\Debug\DebugConsole.cpp" />
     <ClCompile Include="Framework\EventManager\Event.cpp" />
@@ -206,7 +209,6 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="F:\DATA COLLECTIONS 2014\1.GAME DEVELOPMENT\C++\old\Advance 2D\advanced 2d game programming\Advanced 2D Game Development\sources\ch08\FontDemo\bin\asteroid.tga" />
     <Image Include="Resources\Texture\Map1\npc.png" />
     <Image Include="Resources\Texture\Rockman\rockman.png" />
     <Image Include="Resources\Texture\texture.png" />

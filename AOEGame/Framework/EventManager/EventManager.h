@@ -7,6 +7,7 @@
 #include "Event.h"
 #include "EventExecutor.h"
 #include "EventExecutorAware.h"
+#include "../GameObjects/Component.h"
 
 namespace Framework
 {
@@ -20,6 +21,7 @@ namespace Framework
 		friend bool RegisterEvent(EventID eventId);
 		friend bool RegisterEvent(ExecutorID execId, EventID eventId);
 		friend void AttachEvent(EventID eventId, EventHandler& eventHandler);
+		//friend void AttachEventAdvanced(EventID eventId, GameObject& obj);
 		friend void AttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler);
 		friend void DetachEvent(EventID eventId, EventHandler& eventHandler);
 		friend void DetachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler);

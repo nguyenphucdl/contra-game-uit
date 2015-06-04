@@ -4,24 +4,33 @@
 #include "../Application/Context.h"
 #include "../EventManager/EventExecutor.h"
 #include "../GameState/GameState.h"
+#include "../GameObjects/GameObject.h"
 #include "SceneBase.h"
+#include "TileMapScene.h"
 
 namespace Framework
 {
 	class GamePlay
 		: public GameState
 	{
+	private:
+		std::stack<SceneBase*>  m_scenes;
+
+		GameObject*	m_pPlayerObject;
+		GameObject* m_pCameraObject;
+
+		TileMapScene* m_tileMapScene;//Test
 	public:
 		GamePlay();
 		~GamePlay();
 
-	private:
-		std::stack<SceneBase*>  m_scenes;
+		void Load();
+		void Initialize();
 
-		virtual void Entered();
-		virtual void Leaving();
-		virtual void Obscuring();
-		virtual void Revealed();
+		void Entered();
+		void Leaving();
+		void Obscuring();
+		void Revealed();
 	};
 }
 #endif 

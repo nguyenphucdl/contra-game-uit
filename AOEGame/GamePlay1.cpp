@@ -106,7 +106,7 @@ bool GamePlay1::Start()
 
 
 	
-	m_objects = tileMap->GetOjects();
+	/*m_objects = tileMap->GetOjects();
 	
 	for (m_objIt = m_objects->begin(); m_objIt != m_objects->end(); m_objIt++)
 	{
@@ -114,12 +114,12 @@ bool GamePlay1::Start()
 
 		StaticComponent* pThisStaticComponent = component_cast<StaticComponent>(t);
 		
-		/*RECT thisBound;
+		RECT thisBound;
 		if (pThisStaticComponent)
 		{
 			thisBound = pThisStaticComponent->GetBound();
-		}*/
-		/*t->AddComponent<CollisionComponent>();
+		}
+		t->AddComponent<CollisionComponent>();
 		CollisionComponent* pThisCollisionComponent = component_cast<CollisionComponent>(t);
 		if (pThisCollisionComponent)
 		{
@@ -127,8 +127,8 @@ bool GamePlay1::Start()
 			pThisCollisionComponent->SetMax(Vector3(thisBound.right, thisBound.top, 1.0f));
 			Framework::AttachEvent(Events::COLLISION_EVENT, *pThisCollisionComponent);
 			CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pThisCollisionComponent);
-		}*/
-	}
+		}
+	}*/
 
 	
 	// TILEMAP OBJECT

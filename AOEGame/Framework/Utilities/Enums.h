@@ -75,7 +75,7 @@ namespace Framework
 		SysRender,
 		SysInput,
 		GamePlayId,
-
+		SceTileMap,
 
 		Chapter6TaskId,//Test
 		GamePlay1Id

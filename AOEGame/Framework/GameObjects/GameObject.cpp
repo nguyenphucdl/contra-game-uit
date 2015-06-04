@@ -27,4 +27,12 @@ namespace Framework
 		return result == m_components.end() ? NULL : result->second;
 	}
 
+	void GameObject::InitializeComponents()
+	{
+		for (ComponentUnorderedMapIterator iter = m_components.begin(); iter != m_components.end(); iter++)
+		{
+			Component* component = iter->second;
+			component->Initialize();
+		}
+	}
 }

@@ -1,5 +1,6 @@
 #include "CollisionComponent.h"
 #include "TransformComponent.h"
+#include "../../EventManager/EventManager.h"
 #include "../GameObject.h"
 
 namespace Framework
@@ -17,7 +18,7 @@ namespace Framework
 
 	void CollisionComponent::Initialize()
 	{
-
+		Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *this);
 	}
 
 	const Vector3 CollisionComponent::GetAABBMin()

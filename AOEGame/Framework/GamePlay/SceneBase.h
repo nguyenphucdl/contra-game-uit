@@ -9,21 +9,11 @@ namespace Framework
 {
 	class SceneBase
 	{
-	public:
-		typedef std::unordered_map<int, GameObject*> ObjectHashTable;
-		typedef ObjectHashTable::iterator			 ObjectHashTableIterator;
+	private:
 
+	public:
 		SceneBase();
 		~SceneBase();
-
-	private:
-		ObjectHashTable*	m_objectTable;
-		Quadtree*			m_quadtree;
-		TileMap*			m_tileMap;
-
-		
-	public:
-		bool LoadSceneFromFile(std::string file);
 
 		virtual void Init() = 0;
 		virtual void Update() = 0;

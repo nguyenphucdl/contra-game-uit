@@ -2,8 +2,8 @@
 
 namespace Framework
 {
-	GameStateManager::GameStateManager()
-		: Task(Task::GAME_PRIORITY, "GamePlay1Task")
+	GameStateManager::GameStateManager(const unsigned int priority)
+		: Task(priority, "GamePlay1Task")
 	{
 	}
 
@@ -33,6 +33,9 @@ namespace Framework
 
 	bool GameStateManager::Start()
 	{
+		m_currentGamePlay = new GamePlay();
+		m_currentGamePlay->Load();
+		m_currentGamePlay->Initialize();
 		return true;
 	}
 
@@ -43,7 +46,10 @@ namespace Framework
 
 	void GameStateManager::Update()
 	{
-
+		//check state
+		m_currentGamePlay->Entered();
+		//if pass level
+		//m_currentGamePlay->Leaving();
 	}
 
 	void GameStateManager::OnResume()

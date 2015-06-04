@@ -22,7 +22,6 @@ namespace Framework
 
 		bool Load();
 		TileMap* GetTileMap();
-		std::unordered_map<int, GameObject*>* GetObjectHashTable();
 		float	 GetScaleRatio();
 
 	private:
@@ -39,7 +38,7 @@ namespace Framework
 		vector<TileSet*>*	m_tileSets;
 		xml_document<>		m_doc;
 		xml_node<> *		m_rootNode;
-		std::unordered_map<int, GameObject*>* m_objectHashTable;
-		SceneBase*			m_sceneHandler;
+		
+		
 	};
 }

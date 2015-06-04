@@ -31,11 +31,13 @@ namespace Framework
 		for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
 		{
 			GameObject* bullet = *m_bulletIterator;
+			bullet->InitializeComponents();
 
 			SpriteComponent* pBulletSpriteComponent = component_cast<SpriteComponent>(bullet);
 			assert(pBulletSpriteComponent);
 			if (pBulletSpriteComponent)
 			{
+				//pBulletSpriteComponent->Initialize();
 				pBulletSpriteComponent->Hide();
 			}
 		}

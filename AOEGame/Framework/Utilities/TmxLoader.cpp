@@ -6,6 +6,7 @@
 #include "../EventManager/EventManager.h"
 #include "../Collision/CollisionManager.h"
 #include "../Utilities/Utils.h"
+#include "../Quadtree/QuadtreeLoader.h"
 
 namespace Framework
 {
@@ -34,11 +35,6 @@ namespace Framework
 	TileMap* TmxLoader::GetTileMap()
 	{
 		return m_tileMap;
-	}
-
-	std::unordered_map<int, GameObject*>* TmxLoader::GetObjectHashTable()
-	{
-		return m_objectHashTable;
 	}
 
 	float TmxLoader::GetScaleRatio()
@@ -126,7 +122,7 @@ namespace Framework
 		{
 			xml_node<> *objectNode;
 			vector<GameObject*>* gameObjects = new vector<GameObject*>();
-			m_objectHashTable = new unordered_map<int, GameObject*>();
+			unordered_map<int, GameObject*>* m_objectHashTable = new unordered_map<int, GameObject*>();
 
 			objectNode = objectLayer->first_node("object");
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
@@ -193,18 +189,27 @@ namespace Framework
 					pStaticComponent->Initialize();
 
 					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
-					pStaticCollisionComponent->Initialize();
-					Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *pStaticCollisionComponent);
+					//pStaticCollisionComponent->Initialize(); Delay initilize 
+					
 					CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pStaticCollisionComponent);
 
 				}
 				gameObjects->push_back(gameObj);
 				m_objectHashTable->insert(make_pair(id, gameObj));
 			}
-			m_tileMap->SetObjects(gameObjects);
+			m_tileMap->SetObjects(m_objectHashTable);
 
 		}
 		
+		QuadtreeLoader* quadtreeLoader = new QuadtreeLoader(m_file);
+		quadtreeLoader->SetScaleRatio(m_scaleRatio);
+		bool res = quadtreeLoader->Load();
+		if (!res)
+		{
+			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot load Quadtree!");
+		}
+		m_tileMap->SetQuadTree(quadtreeLoader->GetQuadTree());
+
 		return true;
 	}
 }

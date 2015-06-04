@@ -3,7 +3,7 @@
 
 #include "../Application/Context.h"
 #include "../Kernel/Task.h"
-#include "GameState.h"
+#include "../GamePlay/GamePlay.h"
 
 
 namespace Framework
@@ -12,11 +12,12 @@ namespace Framework
 		: public Task
 	{
 	private:
+		GamePlay*	m_currentGamePlay;
 		//std::stack<GameState*>	m_currentStates;
 		//std::vector<Drawable*>	m_activeDrawables;
 		//std::vector<Updateable*> m_activeUpdateables;
 	public:
-		GameStateManager();
+		GameStateManager(const unsigned int priority);
 		~GameStateManager();
 
 		

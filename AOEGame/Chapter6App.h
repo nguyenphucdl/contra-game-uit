@@ -2,7 +2,7 @@
 #define __CHAPTER6APP_H__
 
 #include "Framework\Application\Game.h"
-#include "Chapter6Task.h"
+#include "Framework\GameState\GameStateManager.h"
 #include "GamePlay1.h"
 
 using namespace Framework;
@@ -11,8 +11,9 @@ class Chapter6App
 	: public Game
 {
 private:
-	//Chapter6Task	m_testGameTask;
+
 	GamePlay1 m_testGameTask;
+	GameStateManager m_gameStateManager;
 
 public:
 	explicit Chapter6App();

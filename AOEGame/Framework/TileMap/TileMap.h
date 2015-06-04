@@ -3,6 +3,7 @@
 #include "../Application/Context.h"
 #include "TileSet.h"
 #include "../GameObjects/GameObject.h"
+#include "../Quadtree/Quadtree.h"
 using  namespace std;
 
 namespace Framework
@@ -22,7 +23,8 @@ namespace Framework
 		int						m_height;
 		vector<int>*			m_mapData; 		
 		vector<TileSet*>*		m_tileSets;
-		vector<GameObject*>*	m_objects;
+		unordered_map<int, GameObject*>* m_objectHashTable;
+		Quadtree*				m_quadtree;
 		RECT					m_bound;
 
 		//RENDER TO SURFACE
@@ -58,14 +60,25 @@ namespace Framework
 		{
 			return m_tileSets;
 		}
-		void	SetObjects(vector<GameObject*>* gameObjects)
+		void SetObjects(unordered_map<int, GameObject*>* objHashTable)
 		{
-			m_objects = gameObjects;
+			m_objectHashTable = objHashTable;
 		}
 
-		vector<GameObject*>* GetOjects()
+
+		unordered_map<int, GameObject*>* GetOjectHashTable()
 		{
-			return m_objects;
+			return m_objectHashTable;
+		}
+
+		void SetQuadTree(Quadtree* quadtree)
+		{
+			m_quadtree = quadtree;
+		}
+
+		Quadtree* GetQuadTree()
+		{
+			return m_quadtree;
 		}
 		bool	Init();
 	};

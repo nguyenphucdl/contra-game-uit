@@ -37,6 +37,8 @@ namespace Framework
 		bool IsFeature() { return m_feature; }
 		void SetType(int type) { m_type = type; }
 		int	 GetType()		   { return m_type; }
+
+		void InitializeComponents();
 	};
 
 	template <class T>
@@ -66,8 +68,6 @@ namespace Framework
 		if(result == m_components.end())
 		{
 			T* pNewComponent = new T(this);
-
-			//pNewComponent->Initialize();//test
 
 			if(pNewComponent)
 			{
