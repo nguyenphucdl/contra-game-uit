@@ -23,7 +23,7 @@ namespace Framework
 		int						m_height;
 		vector<int>*			m_mapData; 		
 		vector<TileSet*>*		m_tileSets;
-		unordered_map<int, GameObject*>* m_objectHashTable;
+		unordered_map<ObjectId, GameObject*>* m_objectHashTable;
 		Quadtree*				m_quadtree;
 		RECT					m_bound;
 
@@ -60,13 +60,13 @@ namespace Framework
 		{
 			return m_tileSets;
 		}
-		void SetObjects(unordered_map<int, GameObject*>* objHashTable)
+		void SetObjects(unordered_map<ObjectId, GameObject*>* objHashTable)
 		{
 			m_objectHashTable = objHashTable;
 		}
 
 
-		unordered_map<int, GameObject*>* GetOjectHashTable()
+		unordered_map<ObjectId, GameObject*>* GetOjectHashTable()
 		{
 			return m_objectHashTable;
 		}

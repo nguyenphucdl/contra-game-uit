@@ -46,9 +46,9 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			if (m_isSupported)
 			{
 				if (m_currentDirection == SpriteDirections::RIGHT)
-					m_velocity.m_x = 120.0f;
+					m_velocity.m_x = 200.0f;
 				else if (m_currentDirection == SpriteDirections::LEFT)
-					m_velocity.m_x = -120.0f;
+					m_velocity.m_x = -200.0f;
 			}
 		}
 		else if (m_currentState == SpriteStates::STATIONARY)
@@ -99,7 +99,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			Vector3 accel = m_acceleration;
 			accel.Multiply(timer.GetTimeSim());
 			m_velocity.Add(accel);
-			static const float GRAVITY_MULTIPLIER = 50.0f;
+			static const float GRAVITY_MULTIPLIER = 250.0f;
 			static const float GRAVITY_CONSTANT = -9.8f;
 			float dekta = GRAVITY_MULTIPLIER * GRAVITY_CONSTANT * timer.GetTimeSim();
 			m_acceleration.m_y += dekta;
@@ -162,9 +162,9 @@ void PlayerMovementComponent::_ProcessPollInput()
 		m_currentState = SpriteStates::JUMP;
 		if (m_isSupported)
 		{
-			static const float JUMP_ACCELERATION = 80.0f;
+			static const float JUMP_ACCELERATION = 180.0f;
 			m_acceleration.m_y = JUMP_ACCELERATION;
-			m_velocity.m_y = 200.0f;
+			m_velocity.m_y = 350.0f;
 		}
 	}
 	

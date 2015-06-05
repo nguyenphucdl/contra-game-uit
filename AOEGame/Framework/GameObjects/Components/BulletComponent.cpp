@@ -26,7 +26,9 @@ namespace Framework
 
 	void BulletComponent::Initialize()
 	{
-		Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
+		//Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
+		Framework::AttachEventComponent(Events::COM_UPDATE_EVENT, this->GetOwner(), *this);
+		Framework::AttachEventComponent(Events::COM_POST_UPDATE_EVENT, this->GetOwner(), *this);
 
 		for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
 		{
@@ -149,27 +151,46 @@ namespace Framework
 	{
 		switch (pEvent->GetID())
 		{
-		case Events::SCE_UPDATE_EVENT:
-		{
-			m_elapse += Timer::GetSingletonPtr()->GetTimeSim();
-
-			SpriteComponent* pOwnerSpriteComponent = component_cast<SpriteComponent>(GetOwner());
-			assert(pOwnerSpriteComponent);
-			if (pOwnerSpriteComponent)
+			case Events::COM_UPDATE_EVENT:
 			{
-				if (pOwnerSpriteComponent->GetCurrentState() % 100 == 50)
+				//Update sprite bullet object child
+				for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
 				{
-					if (m_elapse > m_delay)
-					{
-						Fire();
-						m_elapse = 0;
-					}
+					GameObject* bullet = *m_bulletIterator;
+					assert(bullet);
+					Framework::SendEventComponent(Events::COM_UPDATE_EVENT, bullet->GetId(), NULL);
 				}
 
-			}
+				m_elapse += Timer::GetSingletonPtr()->GetTimeSim();
 
-			UpdateBullets();
-		}
+				SpriteComponent* pOwnerSpriteComponent = component_cast<SpriteComponent>(GetOwner());
+				assert(pOwnerSpriteComponent);
+				if (pOwnerSpriteComponent)
+				{
+					if (pOwnerSpriteComponent->GetCurrentState() % 100 == 50)
+					{
+						if (m_elapse > m_delay)
+						{
+							Fire();
+							m_elapse = 0;
+						}
+					}
+
+				}
+
+				UpdateBullets();
+			}
+			break;
+			case Events::COM_POST_UPDATE_EVENT:
+			{
+				//Update sprite bullet object child
+				for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
+				{
+					GameObject* bullet = *m_bulletIterator;
+					assert(bullet);
+					Framework::SendEventComponent(Events::COM_POST_UPDATE_EVENT, bullet->GetId(), NULL);
+				}
+			}
 			break;
 		}
 	}

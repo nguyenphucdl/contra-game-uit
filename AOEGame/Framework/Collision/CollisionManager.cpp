@@ -34,7 +34,8 @@ namespace Framework
 			{
 				CollisionEventData collisionData;
 				collisionData.m_pCollider = pBinObject->GetOwner();
-				SendEventToHandler(Events::SCE_COLLISION_EVENT, *static_cast<EventHandler*>(pObject), &collisionData);
+				//SendEventToHandler(Events::SCE_COLLISION_EVENT, *static_cast<EventHandler*>(pObject), &collisionData);
+				SendEventToHandlerComponent(Events::COM_COLLISION_EVENT, pObject->GetOwner()->GetId(), *static_cast<EventHandler*>(pObject), &collisionData);
 			}
 			pBinObject = bin.GetNext();
 		}

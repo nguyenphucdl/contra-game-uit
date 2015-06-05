@@ -16,24 +16,24 @@ namespace Framework
 	{
 		friend void SendEvent(EventID eventId, void* pData);
 		friend void SendEvent(ExecutorID execId, EventID eventId, void* pData);
-		friend void SendEventAdvanced(EventID eventId, ObjectId objId, void* pData);
-		friend void SendEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, void* pData);
+		friend void SendEventComponent(EventID eventId, ObjectId objId, void* pData);
+		friend void SendEventComponent(ExecutorID execId, EventID eventId, ObjectId objId, void* pData);
 		friend void SendEventToHandler(EventID eventId, EventHandler& eventHandler, void *pData);
 		friend void SendEventToHandler(ExecutorID execId, EventID eventId, EventHandler& eventHandler, void *pData);
-		friend void SendEventToHandlerAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData);
-		friend void SendEventToHandlerAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData);
+		friend void SendEventToHandlerComponent(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData);
+		friend void SendEventToHandlerComponent(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData);
 		friend bool RegisterEvent(EventID eventId);
 		friend bool RegisterEvent(ExecutorID execId, EventID eventId);
-		friend bool RegisterEventAdvanced(EventID eventId, ObjectId objId);
-		friend bool RegisterEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId);
+		friend bool RegisterEventComponent(EventID eventId, ObjectId objId);
+		friend bool RegisterEventComponent(ExecutorID execId, EventID eventId, ObjectId objId);
 		friend void AttachEvent(EventID eventId, EventHandler& eventHandler);
 		friend void AttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler);
-		friend void AttachEventAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler);
-		friend void AttachEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler);
+		friend void AttachEventComponent(EventID eventId, GameObject* obj, EventHandler& eventHandler);
+		friend void AttachEventComponent(ExecutorID execId, EventID eventId, GameObject* obj, EventHandler& eventHandler);
 		friend void DetachEvent(EventID eventId, EventHandler& eventHandler);
 		friend void DetachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler);
-		friend void DetachEventAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler);
-		friend void DetachEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler);
+		friend void DetachEventComponent(EventID eventId, ObjectId objId, EventHandler& eventHandler);
+		friend void DetachEventComponent(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler);
 		friend void SetExecutorId(ExecutorID execId);
 		friend void SetExecutor(EventExecutorAware* exec);
 		friend class Log;
@@ -91,12 +91,12 @@ namespace Framework
 		SendEvent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, pData);
 	}
 
-	inline void SendEventAdvanced(EventID eventId, ObjectId objId, void* pData)
+	inline void SendEventComponent(EventID eventId, ObjectId objId, void* pData)
 	{
-		SendEventAdvanced(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, pData);
+		SendEventComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, pData);
 	}
 
-	inline void SendEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, void* pData)
+	inline void SendEventComponent(ExecutorID execId, EventID eventId, ObjectId objId, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
 		assert(pEventManager);
@@ -121,12 +121,12 @@ namespace Framework
 		SendEventToHandler(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, eventHandler, pData);
 	}
 
-	inline void SendEventToHandlerAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
+	inline void SendEventToHandlerComponent(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
-		SendEventToHandlerAdvanced(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, eventHandler, pData);
+		SendEventToHandlerComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, eventHandler, pData);
 	}
 
-	inline void SendEventToHandlerAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
+	inline void SendEventToHandlerComponent(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
 		assert(pEventManager);
@@ -152,12 +152,12 @@ namespace Framework
 		return RegisterEvent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId);
 	}
 
-	inline bool RegisterEventAdvanced(EventID eventId, ObjectId objId)
+	inline bool RegisterEventComponent(EventID eventId, ObjectId objId)
 	{
-		return RegisterEventAdvanced(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId);
+		return RegisterEventComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId);
 	}
 
-	inline bool RegisterEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId)
+	inline bool RegisterEventComponent(ExecutorID execId, EventID eventId, ObjectId objId)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
 		assert(pEventManager);
@@ -184,19 +184,19 @@ namespace Framework
 		AttachEvent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, eventHandler);
 	}
 
-	inline void AttachEventAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	inline void AttachEventComponent(EventID eventId, GameObject* obj, EventHandler& eventHandler)
 	{
-		AttachEventAdvanced(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, eventHandler);
+		AttachEventComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, obj, eventHandler);
 	}
 
-	inline void AttachEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	inline void AttachEventComponent(ExecutorID execId, EventID eventId, GameObject* obj, EventHandler& eventHandler)
 	{
-		RegisterEventAdvanced(execId, eventId, objId);
+		RegisterEventComponent(execId, eventId, obj->GetId());
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
 		assert(pEventManager);
 		if (pEventManager)
 		{
-			pEventManager->AttachEventAdvanced(execId, eventId, objId, eventHandler);
+			pEventManager->AttachEventAdvanced(execId, eventId, obj->GetId(), eventHandler);
 		}
 	}
 
@@ -215,12 +215,12 @@ namespace Framework
 		DetachEvent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, eventHandler);
 	}
 
-	inline void DetachEventAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	inline void DetachEventComponent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
 	{
-		DetachEventAdvanced(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, eventHandler);
+		DetachEventComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, eventHandler);
 	}
 
-	inline void DetachEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	inline void DetachEventComponent(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
 		assert(pEventManager);

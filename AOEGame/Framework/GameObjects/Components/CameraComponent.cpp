@@ -46,6 +46,7 @@ namespace Framework
 	void CameraComponent::Initialize()
 	{
 		Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
+		//Framework::AttachEventComponent(Events::SCE_POST_UPDATE_EVENT, this->GetOwner(), *this);
 
 		m_transOrigin.Subtract(m_viewOrigin);//Set real trans origin
 		m_viewPortWidth = Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();

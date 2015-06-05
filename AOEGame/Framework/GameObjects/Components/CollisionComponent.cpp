@@ -18,7 +18,8 @@ namespace Framework
 
 	void CollisionComponent::Initialize()
 	{
-		Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *this);
+		//Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *this);
+		Framework::AttachEventComponent(Events::COM_COLLISION_EVENT, this->GetOwner(), *this);
 	}
 
 	const Vector3 CollisionComponent::GetAABBMin()
@@ -91,7 +92,7 @@ namespace Framework
 
 	void CollisionComponent::HandleEvent(Event* pEvent)
 	{
-		if (pEvent->GetID() == Events::SCE_COLLISION_EVENT)
+		if (pEvent->GetID() == Events::COM_COLLISION_EVENT)
 		{
 			CollisionEventData* pCollisionData = static_cast<CollisionEventData*>(pEvent->GetData());
 			if (pCollisionData && pCollisionData->m_pCollider)

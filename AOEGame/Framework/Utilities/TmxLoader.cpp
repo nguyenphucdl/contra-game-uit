@@ -122,7 +122,7 @@ namespace Framework
 		{
 			xml_node<> *objectNode;
 			vector<GameObject*>* gameObjects = new vector<GameObject*>();
-			unordered_map<int, GameObject*>* m_objectHashTable = new unordered_map<int, GameObject*>();
+			unordered_map<ObjectId, GameObject*>* m_objectHashTable = new unordered_map<ObjectId, GameObject*>();
 
 			objectNode = objectLayer->first_node("object");
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
@@ -187,7 +187,7 @@ namespace Framework
 					Vector3 translation(resultTrans.x, resultTrans.y, 1.0f);
 					pStaticComponent->SetTranslation(translation);
 					pStaticComponent->SetSize(width * m_scaleRatio, height * m_scaleRatio);
-					pStaticComponent->Initialize();
+					//pStaticComponent->Initialize();
 
 					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
 					//pStaticCollisionComponent->Initialize(); Delay initilize 

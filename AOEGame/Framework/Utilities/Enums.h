@@ -23,6 +23,11 @@ namespace Framework
 		SCE_KEY_DOWN_EVENT,
 		
 		SCE_COLLISION_EVENT,
+
+		//Components
+		COM_UPDATE_EVENT,
+		COM_POST_UPDATE_EVENT,
+		COM_COLLISION_EVENT
 	};
 
 	enum ObjectIds

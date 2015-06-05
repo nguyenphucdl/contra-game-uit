@@ -16,6 +16,7 @@ namespace Framework
 		m_renderable.SetZIndex(1000);
 		m_renderable.SetDebug(true);
 		m_renderable.Show(false);
+		m_renderable.SetTag("Static object");
 
 		RECT bound;
 		bound.left = m_renderable.GetTransform().GetTranslation().m_x;

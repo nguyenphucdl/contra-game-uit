@@ -16,7 +16,7 @@ namespace Framework
 		,	public EventExecutorAware
 	{
 	public:
-		typedef std::unordered_map<int, GameObject*> ObjectHashTable;
+		typedef std::unordered_map<ObjectId, GameObject*> ObjectHashTable;
 		typedef ObjectHashTable::iterator			 ObjectHashTableIterator;
 
 		TileMapScene();

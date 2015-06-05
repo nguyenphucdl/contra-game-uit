@@ -91,13 +91,11 @@ namespace Framework
 	void EventExecutor::SendEvent(EventID eventId, ObjectId objId, void* pData)
 	{
 		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
-		assert(objIt != m_eventObjectMap.end());
 		if (objIt != m_eventObjectMap.end())
 		{
 			assert(objIt->second);
 			EventMap* eventMap = objIt->second;
 			EventMapIterator eventMapIt = eventMap->find(eventId);
-			assert(eventMapIt != eventMap->end());
 			if (eventMapIt != eventMap->end())
 			{
 				assert(eventMapIt->second);

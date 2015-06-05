@@ -38,7 +38,11 @@ namespace Framework
 	{
 		//!IMPORTANT REQUIRE
 		Framework::SetExecutor(this);
+		Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
 		Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_RENDER_EVENT, *this);
+		
 
 		
 
@@ -63,12 +67,25 @@ namespace Framework
 			GameObject* gameObj = it->second;
 			gameObj->InitializeComponents();
 		}
+		//make_pair(id, gameObj)
+		//std::make_pair<ObjectId, GameObject* > mypair(m_playerObject->GetId(), m_playerObject);
+
+		m_objectTable->insert(std::make_pair(m_playerObject->GetId(), m_playerObject));
+		m_objectTable->insert(std::make_pair(m_npcObject->GetId(), m_npcObject));
 	}
 
 	void TileMapScene::HandleEvent(Event* pEvent)
 	{
 		if (pEvent->GetID() == Events::SCE_POST_UPDATE_EVENT)
 		{
+			for (ObjectHashTableIterator it = m_objectTable->begin(); it != m_objectTable->end(); it++)
+			{
+				GameObject* obj = it->second;
+				assert(obj);
+				Framework::SendEventComponent(Events::COM_POST_UPDATE_EVENT, obj->GetId(), NULL);
+			}
+
+
 			CollisionComponent* m_pPlayerCollisionComponent = component_cast<CollisionComponent>(m_playerObject);
 			CollisionComponent* m_pNpcCollisionComponent = component_cast<CollisionComponent>(m_npcObject);
 			assert(m_pPlayerCollisionComponent); assert(m_pNpcCollisionComponent);
@@ -78,6 +95,24 @@ namespace Framework
 			CollisionManager::GetSingleton().TestAgainstBin(0, m_pNpcCollisionComponent);
 			CollisionManager::GetSingleton().TestAgainstBin(0, m_pPlayerCollisionComponent);
 		}
+		else if (pEvent->GetID() == Events::SCE_UPDATE_EVENT)
+		{
+			for (ObjectHashTableIterator it = m_objectTable->begin(); it != m_objectTable->end(); it++)
+			{
+				GameObject* obj = it->second;
+				assert(obj);
+				Framework::SendEventComponent(Events::COM_UPDATE_EVENT, obj->GetId(), NULL);
+			}
+		}
+		else if (pEvent->GetID() == Events::SCE_PRE_RENDER_EVENT)
+		{
+
+		}
+		else if (pEvent->GetID() == Events::SCE_RENDER_EVENT)
+		{
+			
+		}
+
 	}
 
 	void TileMapScene::Update()
