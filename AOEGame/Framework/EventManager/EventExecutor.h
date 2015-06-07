@@ -2,7 +2,6 @@
 #define __EVENTEXECUTOR_H__
 
 #include "../Application/Context.h"
-#include <unordered_map>
 #include "../Kernel/Task.h"
 #include "../GameObjects/GameObject.h"
 #include "EventId.h"

@@ -79,6 +79,7 @@ namespace Framework
 
 	void SpriteComponent::HandleEvent(Event* pEvent)
 	{
+		RenderableComponent::HandleEvent(pEvent);
 
 		switch (pEvent->GetID())
 		{

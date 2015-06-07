@@ -373,6 +373,8 @@ namespace Framework
 				}
 			}
 			
+			//Clear renderables
+			m_renerables.clear();
 
 			// end sprite handler
 			m_spriteHandler->End();

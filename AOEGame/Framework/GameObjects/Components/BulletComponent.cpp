@@ -29,6 +29,7 @@ namespace Framework
 		//Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
 		Framework::AttachEventComponent(Events::COM_UPDATE_EVENT, this->GetOwner(), *this);
 		Framework::AttachEventComponent(Events::COM_POST_UPDATE_EVENT, this->GetOwner(), *this);
+		Framework::AttachEventComponent(Events::COM_RENDER_EVENT, this->GetOwner(), *this);
 
 		for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
 		{
@@ -39,12 +40,11 @@ namespace Framework
 			assert(pBulletSpriteComponent);
 			if (pBulletSpriteComponent)
 			{
-				//pBulletSpriteComponent->Initialize();
 				pBulletSpriteComponent->Hide();
 			}
 		}
 
-		m_delay = 0.25f;
+		m_delay = 0.05f;
 	}
 
 	void BulletComponent::AddBullet(GameObject* bullet)
@@ -192,6 +192,10 @@ namespace Framework
 				}
 			}
 			break;
+			case Events::COM_RENDER_EVENT :
+			{
+				Framework::BroadcastEventComponent(Events::COM_RENDER_EVENT, &m_bullets, NULL);
+			}
 		}
 	}
 }

@@ -16,7 +16,6 @@ namespace Framework
 {
 	class TileMapComponent
 		: public RenderableComponent
-		, public EventHandler
 	{
 	private:
 		static const unsigned int s_id = ComponentIDs::TileMapComponentId;

@@ -25,18 +25,18 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
 	if (pSpriteComponent)
 	{
-		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 70.0f, 0, 3);
-		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 70.0f, 3, 3);
-		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 70.0f, 0, 1);
-		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 70.0f, 3, 1);
-		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 70.0f, 1, 3);
-		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 70.0f, 5, 3);
-		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 70.0f, 0, 1);
-		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 70.0f, 7, 1);
-		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 70.0f, 0, 1);
-		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 70.0f, 5, 1);
-		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 70.0f, 1, 1);
-		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 70.0f, 4, 1);
+		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 180.0f, 0, 3);
+		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 180.0f, 3, 3);
+		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 180.0f, 0, 1);
+		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 180.0f, 3, 1);
+		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 1, 3);
+		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 5, 3);
+		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 0, 1);
+		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 7, 1);
+		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 0, 1);
+		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 5, 1);
+		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 1, 1);
+		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 4, 1);
 
 		pSpriteComponent->SetRenderTransform(true);
 		pSpriteComponent->SetDrawCenter(true);
@@ -88,7 +88,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 
 	if (pPlayerBulletComponent)
 	{
-		pPlayerBulletComponent->SetVelocity(600.0f, 0.0f);
+		pPlayerBulletComponent->SetVelocity(2000.0f, 0.0f);
 		pPlayerBulletComponent->SetSpawnOffset(30.0f, 8.0f);
 
 		int rockman_bullet_counts = 10;
@@ -136,7 +136,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(rockmanBullet);
 			if (pLifeTimeComponent)
 			{
-				pLifeTimeComponent->SetLifeTime(3.0f);
+				pLifeTimeComponent->SetLifeTime(1.0f);
 				//pLifeTimeComponent->Initialize();
 			}
 

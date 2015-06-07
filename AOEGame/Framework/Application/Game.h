@@ -36,7 +36,4 @@ namespace Framework
 		virtual bool CreateMainWindow(HINSTANCE hInstance, int nCmdShow);
 	};
 }
-
-
-
 #endif //__APPLICATION_H__

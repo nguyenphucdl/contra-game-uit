@@ -1,8 +1,9 @@
 #include "GamePlay.h"
 #include "TileMapScene.h"
-#include "../../ContraGameFactory.h"
 #include "../Collision/CollisionManager.h"
 #include "../Renderer/Texture/TextureManager.h"
+#include "../../ContraGameFactory.h"
+
 
 namespace Framework
 {

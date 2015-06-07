@@ -17,6 +17,7 @@ namespace Framework
 		friend void SendEvent(EventID eventId, void* pData);
 		friend void SendEvent(ExecutorID execId, EventID eventId, void* pData);
 		friend void SendEventComponent(EventID eventId, ObjectId objId, void* pData);
+		friend void BroadcastEventComponent(EventID eventId, std::vector<GameObject*>* objects, void* pData);
 		friend void SendEventComponent(ExecutorID execId, EventID eventId, ObjectId objId, void* pData);
 		friend void SendEventToHandler(EventID eventId, EventHandler& eventHandler, void *pData);
 		friend void SendEventToHandler(ExecutorID execId, EventID eventId, EventHandler& eventHandler, void *pData);
@@ -94,6 +95,15 @@ namespace Framework
 	inline void SendEventComponent(EventID eventId, ObjectId objId, void* pData)
 	{
 		SendEventComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, pData);
+	}
+
+	inline void BroadcastEventComponent(EventID eventId, std::vector<GameObject*>* objects, void* pData)
+	{
+		std::vector<GameObject*>::iterator it;
+		for (it = objects->begin(); it != objects->end(); it++)
+		{
+			SendEventComponent(eventId, (*it)->GetId(), pData);
+		}
 	}
 
 	inline void SendEventComponent(ExecutorID execId, EventID eventId, ObjectId objId, void* pData)

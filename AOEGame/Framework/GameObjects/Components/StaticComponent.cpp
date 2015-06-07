@@ -13,6 +13,8 @@ namespace Framework
 
 	void StaticComponent::Initialize()
 	{
+		RenderableComponent::Initialize();
+
 		m_renderable.SetZIndex(1000);
 		m_renderable.SetDebug(true);
 		m_renderable.Show(false);
@@ -33,7 +35,7 @@ namespace Framework
 		
 		m_renderable.SetRenderTransform(true);
 
-		assert(Renderer::GetSingletonPtr());
-		Renderer::GetSingleton().AddRenderable(&m_renderable);
+		//assert(Renderer::GetSingletonPtr());
+		//Renderer::GetSingleton().AddRenderable(&m_renderable);
 	}
 }

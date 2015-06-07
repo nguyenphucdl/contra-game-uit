@@ -27,6 +27,7 @@ namespace Framework
 		//Components
 		COM_UPDATE_EVENT,
 		COM_POST_UPDATE_EVENT,
+		COM_RENDER_EVENT,
 		COM_COLLISION_EVENT
 	};
 

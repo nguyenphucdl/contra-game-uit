@@ -11,11 +11,14 @@ namespace Framework
 {
 	class RenderableComponent
 		: public Component
+		, public EventHandler
 	{
 	protected:
 		static const unsigned int s_id = ComponentIDs::RenderableComponentId;
 
 		Renderable		m_renderable;
+
+		void HandleEvent(Event* pEvent);
 
 	public:
 		static unsigned int GetId()						{ return s_id; }

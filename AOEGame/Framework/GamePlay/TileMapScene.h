@@ -33,6 +33,9 @@ namespace Framework
 		GameObject*			m_npcObject;
 
 		virtual void HandleEvent(Event* pEvent);
+
+		bool LoadObjects();
+		void AddObject(ObjectId id, GameObject* obj);
 	public:
 		bool LoadSceneFromFile(std::string file);
 		void SetPlayerObject(GameObject* pPlayerObject) { m_playerObject = pPlayerObject; };

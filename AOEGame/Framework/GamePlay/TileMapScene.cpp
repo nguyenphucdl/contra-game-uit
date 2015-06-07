@@ -34,6 +34,21 @@ namespace Framework
 		return true;
 	}
 
+	void TileMapScene::AddObject(ObjectId id, GameObject* obj)
+	{
+		m_objectTable->insert(std::make_pair(id, obj));
+	}
+
+	bool TileMapScene::LoadObjects()
+	{
+		m_npcObject = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
+		
+		// Temp
+		AddObject(m_playerObject->GetId(), m_playerObject);
+		AddObject(m_npcObject->GetId(), m_npcObject);
+		return true;
+	}
+
 	void TileMapScene::Init()
 	{
 		//!IMPORTANT REQUIRE
@@ -43,17 +58,15 @@ namespace Framework
 		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
 		Framework::AttachEvent(Events::SCE_RENDER_EVENT, *this);
 		
+		if (!LoadObjects())
+		{
+			throw new GameError(GameErrorNS::FATAL_ERROR, "[TileMapScene] Cannot load objects!");
+		}
 
-		
-
-		m_npcObject = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
-		m_npcObject->InitializeComponents();
-
+		//TileMap
 		m_tileMapObject = ContraGameFactory::GetSingletonPtr()->GetTileMapObject(m_tileMap);
 		m_tileMapObject->InitializeComponents();
 
-		
-		m_playerObject->InitializeComponents();
 		CameraComponent* pCameraComponent = component_cast<CameraComponent>(m_cameraObject);
 		assert(pCameraComponent);
 		if (pCameraComponent)
@@ -61,17 +74,14 @@ namespace Framework
 			pCameraComponent->SetBound(m_tileMap->GetBound());
 		}
 		m_cameraObject->InitializeComponents();
+
+		// Initialize all object 
 		for (ObjectHashTableIterator it = m_objectTable->begin(); it != m_objectTable->end(); it++)
 		{
 			assert(it->second);
 			GameObject* gameObj = it->second;
 			gameObj->InitializeComponents();
 		}
-		//make_pair(id, gameObj)
-		//std::make_pair<ObjectId, GameObject* > mypair(m_playerObject->GetId(), m_playerObject);
-
-		m_objectTable->insert(std::make_pair(m_playerObject->GetId(), m_playerObject));
-		m_objectTable->insert(std::make_pair(m_npcObject->GetId(), m_npcObject));
 	}
 
 	void TileMapScene::HandleEvent(Event* pEvent)
@@ -110,7 +120,12 @@ namespace Framework
 		}
 		else if (pEvent->GetID() == Events::SCE_RENDER_EVENT)
 		{
-			
+			for (ObjectHashTableIterator it = m_objectTable->begin(); it != m_objectTable->end(); it++)
+			{
+				GameObject* obj = it->second;
+				assert(obj);
+				Framework::SendEventComponent(Events::COM_RENDER_EVENT, obj->GetId(), NULL);
+			}
 		}
 
 	}

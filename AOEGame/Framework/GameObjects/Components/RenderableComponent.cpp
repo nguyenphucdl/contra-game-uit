@@ -18,8 +18,16 @@ namespace Framework
 
 	void RenderableComponent::Initialize()
 	{
-		assert(Renderer::GetSingletonPtr());
-		Renderer::GetSingleton().AddRenderable(&m_renderable);		//[FULTURE: Add to scene grapth]
+		Framework::AttachEventComponent(Events::COM_RENDER_EVENT, GetOwner(), *this);
+	}
+
+	void RenderableComponent::HandleEvent(Event* pEvent)
+	{
+		if (pEvent->GetID() == Events::COM_RENDER_EVENT)
+		{
+			assert(Renderer::GetSingletonPtr());
+			Renderer::GetSingleton().AddRenderable(&m_renderable);
+		}
 	}
 }
 	

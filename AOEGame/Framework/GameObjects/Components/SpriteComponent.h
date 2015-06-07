@@ -11,7 +11,6 @@ namespace Framework
 	
 	class SpriteComponent
 		: public RenderableComponent
-		, public EventHandler
 	{
 	private:
 		static const unsigned int s_id = ComponentIDs::SpriteComponentId;

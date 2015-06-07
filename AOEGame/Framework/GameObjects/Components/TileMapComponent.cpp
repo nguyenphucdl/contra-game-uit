@@ -61,16 +61,22 @@ namespace Framework
 
 	void TileMapComponent::HandleEvent(Event* pEvent)
 	{
+		RenderableComponent::HandleEvent(pEvent);
+
+		if (pEvent->GetID() == Events::COM_RENDER_EVENT)
+		{
+			int k = 3;
+		}
+
 		switch (pEvent->GetID())
 		{
 		case Events::SCE_PRE_RENDER_EVENT:
+			Renderer::GetSingletonPtr()->AddRenderable(&m_renderable);
 			UpdateHorizontalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().left);
 			UpdateVerticalScrollView(Renderer::GetSingletonPtr()->GetCamera().GetViewPort().top);
 			break;
 		default:
 			break;
 		}
-
-
 	}
 }

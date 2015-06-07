@@ -2,8 +2,6 @@
 #define __SCENE_BASE_H__
 
 #include "../Application/Context.h"
-#include "../Quadtree/Quadtree.h"
-#include "../TileMap/TileMap.h"
 
 namespace Framework
 {
