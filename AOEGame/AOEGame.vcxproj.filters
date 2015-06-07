@@ -211,7 +211,6 @@
     <ClInclude Include="Framework\Utilities\Utils.h">
       <Filter>Framework\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="GamePlay1.h" />
     <ClInclude Include="Framework\Utilities\FrameInfo.h" />
     <ClInclude Include="Framework\Utilities\AnimCache.h" />
     <ClInclude Include="GameResources.h" />
@@ -251,6 +250,7 @@
     <ClInclude Include="Framework\GamePlay\TileMapScene.h" />
     <ClInclude Include="Framework\GamePlay\ContraFactory.h" />
     <ClInclude Include="ContraGameFactory.h" />
+    <ClInclude Include="Framework\Utilities\FPSCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -349,7 +349,6 @@
     <ClCompile Include="Framework\Collision\CollisionManager.cpp">
       <Filter>Framework\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="GamePlay1.cpp" />
     <ClCompile Include="Framework\Utilities\AnimCache.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\CameraComponent.cpp">
       <Filter>Framework\GameObjects\GameComponents</Filter>

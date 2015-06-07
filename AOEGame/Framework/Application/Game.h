@@ -21,6 +21,7 @@ namespace Framework
 		Kernel		m_kernel;
 		Window		m_windowsTask;
 
+
 		virtual void CreateSingletons();
 		virtual void DestroySingletons();
 		

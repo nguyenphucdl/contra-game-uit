@@ -18,7 +18,7 @@ namespace Framework
 
 	void GamePlay::Load()
 	{
-		CollisionManager::GetSingletonPtr()->AddCollisionBin();
+		//CollisionManager::GetSingletonPtr()->AddCollisionBin();
 
 		m_pPlayerObject = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
 		m_pCameraObject = ContraGameFactory::GetSingletonPtr()->GetCameraObject(m_pPlayerObject);

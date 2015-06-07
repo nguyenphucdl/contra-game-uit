@@ -44,7 +44,7 @@ namespace Framework
 			}
 		}
 
-		m_delay = 0.05f;
+		m_delay = 0.02f;
 	}
 
 	void BulletComponent::AddBullet(GameObject* bullet)
@@ -158,7 +158,7 @@ namespace Framework
 				{
 					GameObject* bullet = *m_bulletIterator;
 					assert(bullet);
-					Framework::SendEventComponent(Events::COM_UPDATE_EVENT, bullet->GetId(), NULL);
+					Framework::SendEventComponent(Events::COM_UPDATE_EVENT, bullet, NULL);
 				}
 
 				m_elapse += Timer::GetSingletonPtr()->GetTimeSim();
@@ -188,7 +188,7 @@ namespace Framework
 				{
 					GameObject* bullet = *m_bulletIterator;
 					assert(bullet);
-					Framework::SendEventComponent(Events::COM_POST_UPDATE_EVENT, bullet->GetId(), NULL);
+					Framework::SendEventComponent(Events::COM_POST_UPDATE_EVENT, bullet, NULL);
 				}
 			}
 			break;

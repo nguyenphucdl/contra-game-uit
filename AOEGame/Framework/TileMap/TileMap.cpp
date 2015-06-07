@@ -1,6 +1,7 @@
 #include "TileMap.h"
 #include "../Renderer/Renderer.h"
 #include "../Renderer/Texture/TextureManager.h"
+#include "../Collision/CollisionBin.h"
 namespace Framework
 {
 	TileMap::TileMap(int tileWidth, int tileHeight, int width, int height)
@@ -26,8 +27,19 @@ namespace Framework
 
 	bool TileMap::Init()
 	{
-		_renderToSurface();
+		// Initialize all object 
+		for (ObjectHashTableIterator it = m_objectHashTable->begin(); it != m_objectHashTable->end(); it++)
+		{
+			assert(it->second);
+			GameObject* gameObj = it->second;
+			gameObj->InitializeComponents();
+		}
 		return true;
+	}
+
+	void TileMap::Prepare()
+	{
+		_renderToSurface();
 	}
 
 	void TileMap::_renderToSurface()

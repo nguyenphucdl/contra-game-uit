@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "../Log/Log.h"
-
-
+#include "../Utilities/FPSCounter.h"
 namespace Framework
 {
 	Game::Game()
@@ -48,12 +47,38 @@ namespace Framework
 
 	void Game::Run()
 	{	
-		Timer::GetSingletonPtr()->Update();
-		if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.03333333f) // NEED REFACTOR
-		{
+		DWORD tick_per_frame = 100 / 60;
+		__int64 frame_start = GetTickCount64();
+
+
+		FPSCounter::GetSingletonPtr()->StartCounter();
+		
+		
+		__int64 now = GetTickCount64();
+		__int64 delta = now - frame_start;
+
+		//if (delta >= tick_per_frame)
+		//{
+			//Console::GetSingletonPtr()->print("Update time (%i)", delta);
+			//frame_start = now;
 			m_kernel.Execute();
-			Timer::GetSingletonPtr()->Reset();
-		}
+			Console::GetSingletonPtr()->print("Update time (%lf)", FPSCounter::GetSingletonPtr()->GetLastCounter());
+			Console::GetSingletonPtr()->print("FPS (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetLastCounter());
+			Console::GetSingletonPtr()->print("Max time (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetMinCounter());
+			Console::GetSingletonPtr()->print("Min time (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetMaxCounter());
+		//}
+		//Timer::GetSingletonPtr()->Update();
+		//if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.03333333f) // NEED REFACTOR
+		//{
+			//m_kernel.Execute();
+			//Timer::GetSingletonPtr()->Reset();
+		//}
+		
+		FPSCounter::GetSingletonPtr()->GetCounter();
+		
+		//Console::GetSingletonPtr()->print("Update time (%i)", counter);
+		
+		
 	}
 
 	void Game::DestroyAll()
@@ -71,6 +96,7 @@ namespace Framework
 		new Input(Window::GetSingletonPtr()->GetWindowHandle(), Task::PLATFORM_PRIORITY);
 		new CollisionManager();
 		new Console();
+		new FPSCounter();
 	}
 
 	void Game::DestroySingletons()

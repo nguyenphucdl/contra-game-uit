@@ -23,7 +23,7 @@ namespace Framework
 		int						m_height;
 		vector<int>*			m_mapData; 		
 		vector<TileSet*>*		m_tileSets;
-		unordered_map<ObjectId, GameObject*>* m_objectHashTable;
+		std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable;
 		Quadtree*				m_quadtree;
 		RECT					m_bound;
 
@@ -60,13 +60,13 @@ namespace Framework
 		{
 			return m_tileSets;
 		}
-		void SetObjects(unordered_map<ObjectId, GameObject*>* objHashTable)
+		void SetObjects(std::tr1::unordered_map<ObjectId, GameObject*>* objHashTable)
 		{
 			m_objectHashTable = objHashTable;
 		}
 
 
-		unordered_map<ObjectId, GameObject*>* GetOjectHashTable()
+		std::tr1::unordered_map<ObjectId, GameObject*>* GetOjectHashTable()
 		{
 			return m_objectHashTable;
 		}
@@ -81,6 +81,7 @@ namespace Framework
 			return m_quadtree;
 		}
 		bool	Init();
+		void	Prepare();
 	};
 }
 #endif

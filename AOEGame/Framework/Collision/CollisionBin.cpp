@@ -2,36 +2,46 @@
 
 namespace Framework
 {
-	CollisionBin::CollisionBin()
+	CollisionBin::CollisionBin(ExecutorID execId, CollisionComponentQuadtree* qt, ObjectHashTable* obj)
+		: m_execId(execId)
+		, m_collisionObjects(qt)
+		, m_objectHashTable(obj)
+		, m_currentViewport(-1, -1, -1, -1)
 	{
-
+		m_currentObjects = new std::vector<GameObject*>();
 	}
 
 	CollisionBin::~CollisionBin()
 	{
-		m_collisionObjects.clear();
+		
 	}
 
-	void CollisionBin::AddObject(CollisionComponent* pCollisionComponent)
+	void CollisionBin::QueryRange(Rect& range)
 	{
-		m_collisionObjects.push_back(pCollisionComponent);
-	}
+		std::vector<int>* matchObjId = new std::vector<int>();
+		assert(m_collisionObjects);
 
-	CollisionComponent* CollisionBin::GetFirst()
-	{
-		m_currentObject = m_collisionObjects.begin();
-		return m_currentObject != m_collisionObjects.end() ? *m_currentObject : NULL;
-	}
+		m_collisionObjects->QueryRangeUniqueResult(range, matchObjId);
 
-	CollisionComponent* CollisionBin::GetNext()
-	{
-		CollisionComponent* pRet = NULL;
-
-		if (m_currentObject != m_collisionObjects.end())
+		m_currentObjects->clear();
+		std::vector<int>::iterator it;
+		int objId;
+		for (it = matchObjId->begin(); it != matchObjId->end(); it++)
 		{
-			++m_currentObject;
-			pRet = m_currentObject != m_collisionObjects.end() ? *m_currentObject : NULL;
+			objId = *it;
+			ObjectHashTableIterator findIt =  m_objectHashTable->find(objId);
+			if (findIt != m_objectHashTable->end())
+			{
+				GameObject* obj = findIt->second;
+				m_currentObjects->push_back(obj);
+			}
 		}
-		return pRet;
+		m_currentViewport = range;
+	}
+	
+	void CollisionBin::QueryRange(Rect& range, std::vector<GameObject*>* returnObjIdList)
+	{
+		QueryRange(range);
+		returnObjIdList = m_currentObjects;
 	}
 }

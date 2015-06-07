@@ -39,8 +39,8 @@ void GamePlay1::HandleEvent(Event* pEvent)
 		Vector3 boundMax = m_pPlayerCollisionComponent->GetAABBMax();
 		Console::GetSingletonPtr()->print("GamePlay1 Player bound min(%f, %f) max(%f,%f)", boundMin.m_x, boundMin.m_y, boundMax.m_x, boundMax.m_y);
 
-		CollisionManager::GetSingleton().TestAgainstBin(0, m_pPlayerCollisionComponent);
-		CollisionManager::GetSingleton().TestAgainstBin(0, m_npc1CollisionComponent);
+		//CollisionManager::GetSingleton().TestAgainstBin(0, m_pPlayerCollisionComponent);
+		//CollisionManager::GetSingleton().TestAgainstBin(0, m_npc1CollisionComponent);
 	}
 
 }
@@ -75,7 +75,7 @@ bool GamePlay1::Start()
 
 	
 
-	CollisionManager::GetSingletonPtr()->AddCollisionBin();
+	//CollisionManager::GetSingletonPtr()->AddCollisionBin();
 
 	//SceneManager
 	TmxLoader *tmxLoader = new TmxLoader("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
@@ -191,7 +191,7 @@ bool GamePlay1::Start()
 		pNpcCollisionComponent->Initialize();		
 		Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *pNpcCollisionComponent);
 		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
-		CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pNpcCollisionComponent);
+		//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pNpcCollisionComponent);
 		m_npc1CollisionComponent = pNpcCollisionComponent;
 	}
 
@@ -312,7 +312,7 @@ bool GamePlay1::Start()
 				pBulletCollisionComponent->Initialize();
 
 				Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *pBulletCollisionComponent);
-				CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pBulletCollisionComponent);
+				//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pBulletCollisionComponent);
 			}
 			
 			rockmanBullet->AddComponent<LifeTimeComponent>();

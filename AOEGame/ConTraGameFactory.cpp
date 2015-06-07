@@ -88,7 +88,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 
 	if (pPlayerBulletComponent)
 	{
-		pPlayerBulletComponent->SetVelocity(2000.0f, 0.0f);
+		pPlayerBulletComponent->SetVelocity(5000.0f, 0.0f);
 		pPlayerBulletComponent->SetSpawnOffset(30.0f, 8.0f);
 
 		int rockman_bullet_counts = 10;
@@ -129,14 +129,14 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 				pBulletCollisionComponent->AttachRenderable(&pRockmanBulletComponent->GetRenderable());
 				//pBulletCollisionComponent->Initialize();
 
-				CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pBulletCollisionComponent);
+				//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pBulletCollisionComponent);
 			}
 
 			rockmanBullet->AddComponent<LifeTimeComponent>();
 			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(rockmanBullet);
 			if (pLifeTimeComponent)
 			{
-				pLifeTimeComponent->SetLifeTime(1.0f);
+				pLifeTimeComponent->SetLifeTime(0.15f);
 				//pLifeTimeComponent->Initialize();
 			}
 
@@ -214,7 +214,7 @@ Framework::GameObject* ContraGameFactory::GetNpcTestObject()
 		//pNpcCollisionComponent->Initialize();
 		
 		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
-		CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pNpcCollisionComponent);		
+		//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pNpcCollisionComponent);		
 	}
 	return m_npc1;
 }

@@ -14,7 +14,7 @@ namespace Framework
 		friend class Log;
 
 	private:
-		typedef std::tr1::unordered_map<EventID, Event*>			EventMap;
+		typedef std::tr1::unordered_map<EventID, Event*>							EventMap;
 		typedef EventMap::iterator									EventMapIterator;
 		typedef std::tr1::unordered_map<ObjectId, EventMap*>		ObjectMap;
 		typedef ObjectMap::iterator									ObjectMapIterator;

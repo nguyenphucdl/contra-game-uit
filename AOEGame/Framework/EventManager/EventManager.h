@@ -16,7 +16,7 @@ namespace Framework
 	{
 		friend void SendEvent(EventID eventId, void* pData);
 		friend void SendEvent(ExecutorID execId, EventID eventId, void* pData);
-		friend void SendEventComponent(EventID eventId, ObjectId objId, void* pData);
+		friend void SendEventComponent(EventID eventId, GameObject* obj, void* pData);
 		friend void BroadcastEventComponent(EventID eventId, std::vector<GameObject*>* objects, void* pData);
 		friend void SendEventComponent(ExecutorID execId, EventID eventId, ObjectId objId, void* pData);
 		friend void SendEventToHandler(EventID eventId, EventHandler& eventHandler, void *pData);
@@ -40,7 +40,7 @@ namespace Framework
 		friend class Log;
 
 	private:
-		typedef std::tr1::unordered_map<ExecutorID, EventExecutor*>			EventExecutorMap;
+		typedef std::tr1::unordered_map<ExecutorID, EventExecutor*>						EventExecutorMap;
 		typedef EventExecutorMap::iterator									EventExecutorMapIterator;
 
 		EventExecutorMap						m_eventExecutorMap;
@@ -92,9 +92,9 @@ namespace Framework
 		SendEvent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, pData);
 	}
 
-	inline void SendEventComponent(EventID eventId, ObjectId objId, void* pData)
+	inline void SendEventComponent(EventID eventId, GameObject* obj, void* pData)
 	{
-		SendEventComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, objId, pData);
+		SendEventComponent(EventManager::GetSingletonPtr()->GetActiveExecutor(), eventId, obj->GetId(), pData);
 	}
 
 	inline void BroadcastEventComponent(EventID eventId, std::vector<GameObject*>* objects, void* pData)
@@ -102,7 +102,7 @@ namespace Framework
 		std::vector<GameObject*>::iterator it;
 		for (it = objects->begin(); it != objects->end(); it++)
 		{
-			SendEventComponent(eventId, (*it)->GetId(), pData);
+			SendEventComponent(eventId, (*it), pData);
 		}
 	}
 

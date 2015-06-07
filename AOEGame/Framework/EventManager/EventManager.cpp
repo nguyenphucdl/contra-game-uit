@@ -28,7 +28,8 @@ namespace Framework
 	}
 
 	void EventManager::SendEvent(ExecutorID execId, EventID eventId, void* pData)
-	{
+	{		
+
 		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
 		if (result != m_eventExecutorMap.end())
 		{

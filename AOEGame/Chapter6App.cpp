@@ -19,9 +19,9 @@ bool Chapter6App::Initialize()
 
 	if(success)
 	{
-		//m_kernel.AddTask(&m_testGameTask);
 		m_kernel.AddTask(&m_gameStateManager);
 	}
+	
 
 	return success;
 }

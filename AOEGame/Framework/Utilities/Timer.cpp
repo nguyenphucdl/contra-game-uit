@@ -53,7 +53,7 @@ namespace Framework
 
 	void Timer::Update()
 	{
-		QueryPerformanceFrequency(&m_timeFreq);
+		//QueryPerformanceFrequency(&m_timeFreq);
 
 		QueryPerformanceCounter(&m_timeStart);
 

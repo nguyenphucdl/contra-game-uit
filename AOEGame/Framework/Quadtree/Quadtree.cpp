@@ -1,5 +1,7 @@
 #include "Quadtree.h"
 #include "../Log/Log.h"
+#include "../Utilities/Console.h"
+#include "../Utilities/FPSCounter.h"
 
 namespace Framework
 {
@@ -154,6 +156,20 @@ namespace Framework
 		if (SW->m_id == -1)
 			return SW;
 		return NULL;
+	}
+
+	void Quadtree::QueryRangeUniqueResult(Rect& rect, std::vector<int>* returnObjIdList)
+	{
+		FPSCounter::GetSingletonPtr()->StartCounterTest1();
+		if (true)
+		{
+			QueryRange(rect, returnObjIdList);
+			std::sort(returnObjIdList->begin(), returnObjIdList->end());
+			std::vector<int>::iterator it = std::unique(returnObjIdList->begin(), returnObjIdList->end());
+			returnObjIdList->resize(std::distance(returnObjIdList->begin(), it));
+		}
+
+		Console::GetSingletonPtr()->print("Query Range Time (%lf)", FPSCounter::GetSingletonPtr()->GetCounterTest1());
 	}
 
 	void Quadtree::QueryRange(Rect& range, std::vector<int>* returnObjIdList)

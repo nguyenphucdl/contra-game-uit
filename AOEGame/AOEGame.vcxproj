@@ -137,6 +137,7 @@
     <ClInclude Include="Framework\TileMap\TileMap.h" />
     <ClInclude Include="Framework\TileMap\TileSet.h" />
     <ClInclude Include="Framework\Utilities\Constants.h" />
+    <ClInclude Include="Framework\Utilities\FPSCounter.h" />
     <ClInclude Include="Framework\Utilities\FrameInfo.h" />
     <ClInclude Include="Framework\Utilities\GameConfig.h" />
     <ClInclude Include="Framework\Utilities\GameError.h" />
@@ -146,7 +147,6 @@
     <ClInclude Include="Framework\Utilities\Singleton.h" />
     <ClInclude Include="Framework\Utilities\Timer.h" />
     <ClInclude Include="Framework\Utilities\TmxLoader.h" />
-    <ClInclude Include="GamePlay1.h" />
     <ClInclude Include="GameResources.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PlayerMovementComponent.h" />
@@ -204,7 +204,6 @@
     <ClCompile Include="Framework\Utilities\Timer.cpp" />
     <ClCompile Include="Framework\Utilities\TmxLoader.cpp" />
     <ClCompile Include="Framework\Utilities\Utils.cpp" />
-    <ClCompile Include="GamePlay1.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PlayerMovementComponent.cpp" />
     <ClCompile Include="WinMain.cpp" />

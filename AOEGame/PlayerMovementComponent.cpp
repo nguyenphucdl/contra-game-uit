@@ -5,6 +5,7 @@
 #include "Framework\GameObjects\Components\CollisionComponent.h"
 #include "Framework\Input\Input.h"
 #include "Framework\Utilities\Console.h"
+#include "Framework\Utilities\FPSCounter.h"
 using namespace Framework;
 
 
@@ -46,9 +47,9 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			if (m_isSupported)
 			{
 				if (m_currentDirection == SpriteDirections::RIGHT)
-					m_velocity.m_x = 600.0f;
+					m_velocity.m_x = 300.0f;
 				else if (m_currentDirection == SpriteDirections::LEFT)
-					m_velocity.m_x = -600.0f;
+					m_velocity.m_x = -300.0f;
 			}
 		}
 		else if (m_currentState == SpriteStates::STATIONARY)
@@ -99,10 +100,10 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			Vector3 accel = m_acceleration;
 			accel.Multiply(timer.GetTimeSim());
 			m_velocity.Add(accel);
-			static const float GRAVITY_MULTIPLIER = 2500.0f;
+			static const float GRAVITY_MULTIPLIER = 1000.0f;
 			static const float GRAVITY_CONSTANT = -9.8f;
 			float dekta = GRAVITY_MULTIPLIER * GRAVITY_CONSTANT * timer.GetTimeSim();
-			m_acceleration.m_y += dekta;
+			//m_acceleration.m_y += dekta;
 			if (falling && m_isSupported)
 			{
 				m_acceleration.m_y = 0.0f;
@@ -115,6 +116,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			//Console::GetSingletonPtr()->print("Player bound min m_y (%f)", pOwnerCollisionComponent->GetAABBMin().m_y);
 			//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
 			Console::GetSingletonPtr()->print("FPS (%f)", 1.0f / Timer::GetSingletonPtr()->GetTimeSim());
+			
 			Console::GetSingletonPtr()->print("Time sim (%f)", Timer::GetSingletonPtr()->GetTimeSim());
 			//Console::GetSingletonPtr()->print("Anim (%f)", Timer::GetSingletonPtr()->GetAnim());
 			//Console::GetSingletonPtr()->print("Timer total %f", Timer::GetSingletonPtr()->GetTimeTotal());

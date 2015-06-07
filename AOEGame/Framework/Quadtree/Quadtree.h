@@ -29,7 +29,7 @@ namespace Framework
 		Quadtree(int level, Rect& bound);
 		~Quadtree();
 
-		void	Clear();
+	private:
 		bool	IsExternal();
 		void	Quadrant();
 		void	InsertData(int objId);
@@ -44,6 +44,11 @@ namespace Framework
 		
 	public:
 		void QueryRange(Rect& range, std::vector<int>* returnObjIdList);
+		void QueryRangeUniqueResult(Rect& rect, std::vector<int>* returnObjIdList);
+		void	Clear();
+
+
+		friend class QuadtreeLoader;
 	};
 }
 

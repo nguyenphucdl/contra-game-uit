@@ -122,7 +122,7 @@ namespace Framework
 		{
 			xml_node<> *objectNode;
 			vector<GameObject*>* gameObjects = new vector<GameObject*>();
-			unordered_map<ObjectId, GameObject*>* m_objectHashTable = new unordered_map<ObjectId, GameObject*>();
+			std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable = new std::tr1::unordered_map<ObjectId, GameObject*>();
 
 			objectNode = objectLayer->first_node("object");
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
@@ -192,7 +192,7 @@ namespace Framework
 					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
 					//pStaticCollisionComponent->Initialize(); Delay initilize 
 					
-					CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pStaticCollisionComponent);
+					//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pStaticCollisionComponent);
 
 				}
 				gameObjects->push_back(gameObj);
