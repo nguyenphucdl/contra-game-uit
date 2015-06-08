@@ -1,7 +1,7 @@
 #ifndef __GAMEOBJECT_H__
 #define	__GAMEOBJECT_H__
 
-#include <unordered_map>
+#include <vector>
 #include "Component.h"
 
 namespace Framework
@@ -16,10 +16,10 @@ namespace Framework
 		friend T* component_cast(GameObject* object);
 		
 	private:
-		typedef std::tr1::unordered_map<unsigned int, Component*>	ComponentUnorderedMap;
-		typedef ComponentUnorderedMap::iterator						ComponentUnorderedMapIterator;
+		typedef std::vector<Component*>								ComponentVector;
+		typedef ComponentVector::iterator							ComponentVectorIterator;
 
-		ComponentUnorderedMap			m_components;
+		ComponentVector					m_components;
 		bool							m_feature;
 		int								m_type;
 		ObjectId						m_id;
@@ -66,17 +66,12 @@ namespace Framework
 	{
 		bool added = false;
 
-		ComponentUnorderedMapIterator result = m_components.find(T::GetId());
-		if(result == m_components.end())
+		Component* pNewComponent = m_components[T::GetId()];
+		if (pNewComponent == NULL)
 		{
-			T* pNewComponent = new T(this);
-
-			if(pNewComponent)
-			{
-				std::pair<unsigned int, Component*> newComponent(T::GetId(), pNewComponent);
-				std::pair<ComponentUnorderedMapIterator, bool> addedIter = m_components.insert(newComponent);
-				added = addedIter.second;
-			}
+			pNewComponent = new T(this);
+			m_components[T::GetId()] = pNewComponent;
+			added = true;
 		}
 		return added;
 	}

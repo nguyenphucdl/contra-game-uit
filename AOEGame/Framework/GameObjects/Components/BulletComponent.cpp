@@ -27,9 +27,9 @@ namespace Framework
 	void BulletComponent::Initialize()
 	{
 		//Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
-		Framework::AttachEventComponent(Events::COM_UPDATE_EVENT, this->GetOwner(), *this);
-		Framework::AttachEventComponent(Events::COM_POST_UPDATE_EVENT, this->GetOwner(), *this);
-		Framework::AttachEventComponent(Events::COM_RENDER_EVENT, this->GetOwner(), *this);
+		Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, GetOwner(), *this);
+		Framework::AttachComponentEvent(Events::COM_POST_UPDATE_EVENT, GetOwner(), *this);
+		Framework::AttachComponentEvent(Events::COM_RENDER_EVENT, GetOwner(), *this);
 
 		for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
 		{
@@ -44,7 +44,7 @@ namespace Framework
 			}
 		}
 
-		m_delay = 0.02f;
+		m_delay = 0.25f;
 	}
 
 	void BulletComponent::AddBullet(GameObject* bullet)
@@ -154,12 +154,7 @@ namespace Framework
 			case Events::COM_UPDATE_EVENT:
 			{
 				//Update sprite bullet object child
-				for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
-				{
-					GameObject* bullet = *m_bulletIterator;
-					assert(bullet);
-					Framework::SendEventComponent(Events::COM_UPDATE_EVENT, bullet, NULL);
-				}
+				Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, &m_bullets, NULL);
 
 				m_elapse += Timer::GetSingletonPtr()->GetTimeSim();
 
@@ -183,18 +178,12 @@ namespace Framework
 			break;
 			case Events::COM_POST_UPDATE_EVENT:
 			{
-				//Update sprite bullet object child
-				for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
-				{
-					GameObject* bullet = *m_bulletIterator;
-					assert(bullet);
-					Framework::SendEventComponent(Events::COM_POST_UPDATE_EVENT, bullet, NULL);
-				}
+				Framework::BroadcastComponentEvent(Events::COM_POST_UPDATE_EVENT, &m_bullets, NULL);
 			}
 			break;
 			case Events::COM_RENDER_EVENT :
 			{
-				Framework::BroadcastEventComponent(Events::COM_RENDER_EVENT, &m_bullets, NULL);
+				Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, &m_bullets, NULL);
 			}
 		}
 	}

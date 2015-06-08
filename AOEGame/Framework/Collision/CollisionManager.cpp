@@ -69,7 +69,8 @@ namespace Framework
 					CollisionEventData collisionObjectData;
 					collisionObjectData.m_pCollider = pObjDest;
 
-					SendEventToHandlerComponent(Events::COM_COLLISION_EVENT, pObject->GetId(), *static_cast<EventHandler*>(pObjectCollisionComponent), &collisionObjectData);
+					SendComponentEventToHandler(Events::COM_COLLISION_EVENT, pObject, *static_cast<EventHandler*>(pObjectCollisionComponent), &collisionObjectData);
+
 				}
 			}
 			
@@ -83,11 +84,16 @@ namespace Framework
 
 	std::vector<GameObject*>* CollisionManager::GetCurrentObjectList()
 	{
+		
+
 		std::vector<GameObject*>* objectListResult = NULL;
 		CollisionBinMapIterator result = m_collisionBins.find(GetActiveExecutor());
 		if (result != m_collisionBins.end())
 		{
 			CollisionBin* collisionBin = result->second;
+
+
+
 
 			RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
 			Rect range = Rect(viewport.left, viewport.top, viewport.right - viewport.left, viewport.bottom - viewport.top);

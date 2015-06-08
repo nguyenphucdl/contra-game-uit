@@ -5,11 +5,13 @@
 #include "../Collision/CollisionManager.h"
 #include "../EventManager/EventManager.h"
 #include "../../ContraGameFactory.h"
+#include "../Utilities/Console.h"
+#include "../Utilities/FPSCounter.h"
 
 namespace Framework
 {
 	TileMapScene::TileMapScene()
-		: EventExecutorAware(ExecutorIDs::SceTileMap)
+		: EventExecutorAware()
 		, m_currentObjects(new std::vector<GameObject*>())
 	{
 	}
@@ -34,6 +36,7 @@ namespace Framework
 
 		m_playerObject = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
 		m_cameraObject = ContraGameFactory::GetSingletonPtr()->GetCameraObject(m_playerObject);
+		m_npcObject = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
 
 		CollisionManager::GetSingletonPtr()->AddCollisionBinFromTileMap(m_tileMap, this);
 		return true;
@@ -42,15 +45,16 @@ namespace Framework
 	void TileMapScene::Init()
 	{
 		//!IMPORTANT REQUIRE
-		Framework::SetExecutor(this);
-		//Framework::AttachEvent(Events::SCE_PRE_UPDATE_EVENT, *this);
-		//Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
-		//Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
-		//Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
-		//Framework::AttachEvent(Events::SCE_RENDER_EVENT, *this);
+		Framework::SetActiveExecutor(this);
+		Framework::AttachEvent(Events::SCE_PRE_UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_RENDER_EVENT, *this);
 
 		m_playerObject->InitializeComponents();
 		m_cameraObject->InitializeComponents();
+		m_npcObject->InitializeComponents();
 
 		m_tileMap->Init();
 
@@ -65,8 +69,6 @@ namespace Framework
 		{
 			pCameraComponent->SetBound(m_tileMap->GetBound());
 		}
-		m_cameraObject->InitializeComponents();
-
 		
 	}
 
@@ -74,16 +76,20 @@ namespace Framework
 	{
 		if (pEvent->GetID() == Events::SCE_PRE_UPDATE_EVENT)
 		{
+			FPSCounter::GetSingletonPtr()->StartCounterTest1();
+			
 			CollisionManager::GetSingletonPtr()->SetExecutor(this);
-			//std::vector<GameObject*>*	tempObjectList = CollisionManager::GetSingletonPtr()->GetCurrentObjectList();
-			//m_currentObjects->insert(m_currentObjects->begin(),tempObjectList->begin(), tempObjectList->end());
-			//tempObjectList = NULL;
-
+			std::vector<GameObject*>*	tempObjectList = CollisionManager::GetSingletonPtr()->GetCurrentObjectList();
+			m_currentObjects->swap(*tempObjectList);
+			
+			Console::GetSingletonPtr()->print("Object count (%d)", m_currentObjects->size());
+			Console::GetSingletonPtr()->print("Query Range Time (%lf)", FPSCounter::GetSingletonPtr()->GetCounterTest1());
 		}
 		else if (pEvent->GetID() == Events::SCE_POST_UPDATE_EVENT)
 		{
-			//Framework::BroadcastEventComponent(Events::COM_POST_UPDATE_EVENT, m_currentObjects, NULL);
-			//Framework::SendEventComponent(Events::COM_POST_UPDATE_EVENT, m_playerObject, NULL);
+			Framework::BroadcastComponentEvent(Events::COM_POST_UPDATE_EVENT, m_currentObjects, NULL);
+			Framework::SendComponentEvent(Events::COM_POST_UPDATE_EVENT, m_playerObject, NULL);
+			Framework::SendComponentEvent(Events::COM_POST_UPDATE_EVENT, m_npcObject, NULL);
 
 
 			/*********************************************************************************************************************/
@@ -92,12 +98,14 @@ namespace Framework
 			/*********************************************************************************************************************/
 			//CollisionManager::GetSingleton().TestAgainstBin(0, m_pNpcCollisionComponent);
 			//CollisionManager::GetSingleton().TestAgainstBin(0, m_pPlayerCollisionComponent);
-			//CollisionManager::GetSingletonPtr()->TestAgainstBin(m_playerObject);
+			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_playerObject);
+			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_npcObject);
 		}
 		else if (pEvent->GetID() == Events::SCE_UPDATE_EVENT)
 		{
-			//Framework::BroadcastEventComponent(Events::COM_UPDATE_EVENT, m_currentObjects, NULL);
-			//Framework::SendEventComponent(Events::COM_UPDATE_EVENT, m_playerObject, NULL);
+			Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_currentObjects, NULL);
+			Framework::SendComponentEvent(Events::COM_UPDATE_EVENT, m_playerObject, NULL);
+			Framework::SendComponentEvent(Events::COM_UPDATE_EVENT, m_npcObject, NULL);
 		}
 		else if (pEvent->GetID() == Events::SCE_PRE_RENDER_EVENT)
 		{
@@ -105,8 +113,9 @@ namespace Framework
 		}
 		else if (pEvent->GetID() == Events::SCE_RENDER_EVENT)
 		{
-			//Framework::BroadcastEventComponent(Events::COM_RENDER_EVENT, m_currentObjects, NULL);
-			//Framework::SendEventComponent(Events::COM_RENDER_EVENT, m_playerObject, NULL);
+			Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_currentObjects, NULL);
+			Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_playerObject, NULL);
+			Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_npcObject, NULL);
 		}
 
 	}
@@ -114,7 +123,7 @@ namespace Framework
 	void TileMapScene::Update()
 	{
 		//!IMPORTANT REQUIRE
-		Framework::SetExecutor(this);
+		Framework::SetActiveExecutor(this);
 		Framework::SendEvent(Events::SCE_PRE_UPDATE_EVENT);
 		Framework::SendEvent(Events::SCE_UPDATE_EVENT); 
 		Framework::SendEvent(Events::SCE_POST_UPDATE_EVENT);

@@ -71,10 +71,9 @@ namespace Framework
 	void SpriteComponent::Initialize()
 	{
 		RenderableComponent::Initialize();
-		//m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Current());		
-
-		//Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
-		Framework::AttachEventComponent(Events::COM_POST_UPDATE_EVENT, this->GetOwner(), *this);
+		
+		Framework::AttachComponentEvent(Events::COM_POST_UPDATE_EVENT, this->GetOwner(), *this);
+		Framework::AttachComponentEvent(Events::COM_RENDER_EVENT, this->GetOwner(), *this);
 	}
 
 	void SpriteComponent::HandleEvent(Event* pEvent)
@@ -83,6 +82,10 @@ namespace Framework
 
 		switch (pEvent->GetID())
 		{
+		case Events::COM_RENDER_EVENT:
+			Renderer::GetSingletonPtr()->AddRenderable(&m_renderable);
+			break;
+
 		case Events::COM_POST_UPDATE_EVENT:
 		default:
 			m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Next());

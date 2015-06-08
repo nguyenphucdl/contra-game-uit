@@ -19,24 +19,24 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
 	propLoader->Load();
 
-	GameObject* m_playerObject = new GameObject(ObjectIds::PlayerId);
+	GameObject* m_playerObject = new GameObject(Utils::getNextId());
 	
 	m_playerObject->AddComponent<SpriteComponent>();
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
 	if (pSpriteComponent)
 	{
-		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 180.0f, 0, 3);
-		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 180.0f, 3, 3);
-		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 180.0f, 0, 1);
-		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 180.0f, 3, 1);
-		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 1, 3);
-		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 5, 3);
-		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 0, 1);
-		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 180.0f, 7, 1);
-		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 0, 1);
-		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 5, 1);
-		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 1, 1);
-		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 180.0f, 4, 1);
+		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 400.0f, 0, 3);
+		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 400.0f, 3, 3);
+		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 400.0f, 0, 1);
+		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 400.0f, 3, 1);
+		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 400.0f, 1, 3);
+		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 400.0f, 5, 3);
+		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 400.0f, 0, 1);
+		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 400.0f, 7, 1);
+		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 400.0f, 0, 1);
+		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 400.0f, 5, 1);
+		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 400.0f, 1, 1);
+		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 400.0f, 4, 1);
 
 		pSpriteComponent->SetRenderTransform(true);
 		pSpriteComponent->SetDrawCenter(true);
@@ -61,7 +61,6 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 		pSpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
 		pSpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
 		pSpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
-		//pSpriteComponent->Initialize(); Delay Initialize in Scene
 	}
 
 
@@ -72,15 +71,12 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 		pPlayerTransformComponent->AttachRenderableTransform(pSpriteComponent);
 		Vector3 position = Vector3(300, 200, 0);
 		pPlayerTransformComponent->SetTranslation(&position);
-		//pPlayerTransformComponent->Initialize(); Delay Initialize in Scene
 	}
 	m_playerObject->AddComponent<CollisionComponent>();
 	CollisionComponent* pCollisionComponent = component_cast<CollisionComponent>(m_playerObject);
 	if (pCollisionComponent)
 	{
 		pCollisionComponent->AttachRenderable(&pSpriteComponent->GetRenderable());
-		//pCollisionComponent->Initialize();
-		//Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *pCollisionComponent);
 		pCollisionComponent->AddEventListener(pPlayerTransformComponent);
 	}
 	m_playerObject->AddComponent<BulletComponent>();
@@ -88,7 +84,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 
 	if (pPlayerBulletComponent)
 	{
-		pPlayerBulletComponent->SetVelocity(5000.0f, 0.0f);
+		pPlayerBulletComponent->SetVelocity(400.0f, 0.0f);
 		pPlayerBulletComponent->SetSpawnOffset(30.0f, 8.0f);
 
 		int rockman_bullet_counts = 10;
@@ -111,7 +107,6 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 				pRockmanBulletComponent->SetBoundMax(Vector3(16.0f, 12.0f, 1.0f));
 				pRockmanBulletComponent->SetDefaultState(BulletStates::FIRE);
 				pRockmanBulletComponent->SetDefaultDirection(SpriteDirections::LEFT);
-				//pRockmanBulletComponent->Initialize();
 			}
 			rockmanBullet->AddComponent<TransformComponent>();
 			TransformComponent *pRockmanBulletTransformComponent = component_cast<TransformComponent>(rockmanBullet);
@@ -120,24 +115,19 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 				pRockmanBulletTransformComponent->AttachRenderableTransform(pRockmanBulletComponent);
 				Vector3 position = Vector3(300 + i * 50, 200, 0);
 				pRockmanBulletTransformComponent->SetTranslation(&position);
-				//pRockmanBulletTransformComponent->Initialize();
 			}
 			rockmanBullet->AddComponent<CollisionComponent>();
 			CollisionComponent* pBulletCollisionComponent = component_cast<CollisionComponent>(rockmanBullet);
 			if (pBulletCollisionComponent)
 			{
 				pBulletCollisionComponent->AttachRenderable(&pRockmanBulletComponent->GetRenderable());
-				//pBulletCollisionComponent->Initialize();
-
-				//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pBulletCollisionComponent);
 			}
 
 			rockmanBullet->AddComponent<LifeTimeComponent>();
 			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(rockmanBullet);
 			if (pLifeTimeComponent)
 			{
-				pLifeTimeComponent->SetLifeTime(0.15f);
-				//pLifeTimeComponent->Initialize();
+				pLifeTimeComponent->SetLifeTime(3.0f);
 			}
 
 			pPlayerBulletComponent->AddBullet(rockmanBullet);
@@ -151,7 +141,7 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 
 Framework::GameObject* ContraGameFactory::GetTileMapObject(TileMap* tileMap)
 {
-	GameObject* tileMapObject = new GameObject(ObjectIds::TileMapId);
+	GameObject* tileMapObject = new GameObject(Utils::getNextId());
 	tileMapObject->AddComponent<TileMapComponent>();
 	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(tileMapObject);
 	if (pTileMapComponent)
@@ -194,7 +184,7 @@ Framework::GameObject* ContraGameFactory::GetNpcTestObject()
 		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
 		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
 		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
-		pNpc1SpriteComponent->Initialize();
+		////pNpc1SpriteComponent->Initialize();
 	}
 	m_npc1->AddComponent<MovementComponent>();
 	MovementComponent* pNpcMovementComponent = component_cast<MovementComponent>(m_npc1);
@@ -204,7 +194,7 @@ Framework::GameObject* ContraGameFactory::GetNpcTestObject()
 		Vector3 position = Vector3(350, 140, 0);
 		//Vector3 translation = Vector3(0, 0, 0);
 		pNpcMovementComponent->SetTranslation(&position);
-		pNpcMovementComponent->Initialize();
+		////pNpcMovementComponent->Initialize();
 	}
 	m_npc1->AddComponent<CollisionComponent>();
 	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(m_npc1);
@@ -221,7 +211,7 @@ Framework::GameObject* ContraGameFactory::GetNpcTestObject()
 
 Framework::GameObject* ContraGameFactory::GetCameraObject(GameObject* attachObj)
 {
-	GameObject* m_cameraObject = new GameObject(ObjectIds::CameraId);
+	GameObject* m_cameraObject = new GameObject(Utils::getNextId());
 	m_cameraObject->AddComponent<CameraComponent>();
 	CameraComponent *pCameraComponent = component_cast<CameraComponent>(m_cameraObject);
 	if (pCameraComponent)

@@ -3,9 +3,7 @@
 
 #include "../Component.h"
 #include "../../Renderer/Renderable.h"
-#include "../../EventManager/Event.h"
-#include "../../EventManager/EventHandler.h"
-#include "../../EventManager/EventId.h"
+#include "../../EventManager/EventManager.h"
 
 namespace Framework
 {

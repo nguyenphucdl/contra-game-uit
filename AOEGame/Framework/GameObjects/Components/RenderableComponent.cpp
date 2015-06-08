@@ -5,6 +5,7 @@
 
 namespace Framework
 {
+	
 	RenderableComponent::RenderableComponent(GameObject* pOwner)
 		:	Component(pOwner)
 	{
@@ -18,15 +19,15 @@ namespace Framework
 
 	void RenderableComponent::Initialize()
 	{
-		Framework::AttachEventComponent(Events::COM_RENDER_EVENT, GetOwner(), *this);
+		//Framework::AttachComponentEvent(Events::COM_RENDER_EVENT, GetOwner(), *this);
 	}
 
 	void RenderableComponent::HandleEvent(Event* pEvent)
 	{
 		if (pEvent->GetID() == Events::COM_RENDER_EVENT)
 		{
-			assert(Renderer::GetSingletonPtr());
-			Renderer::GetSingleton().AddRenderable(&m_renderable);
+			//assert(Renderer::GetSingletonPtr());
+			//Renderer::GetSingleton().AddRenderable(&m_renderable);
 		}
 	}
 }

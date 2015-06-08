@@ -6,6 +6,7 @@ namespace Framework
 	Event::Event(EventID eventId)
 		:	m_id(eventId)
 		,	m_pData(NULL)
+		, m_listeners()
 	{
 	}
 
@@ -42,6 +43,13 @@ namespace Framework
 
 	void Event::AttachListener(EventHandler& eventHandler)
 	{
+		for (EventHandlerListIterator iter = m_listeners.begin(); iter != m_listeners.end(); ++iter)
+		{
+			if (&eventHandler == *iter)
+			{
+				return;
+			}
+		}
 		m_listeners.push_back(&eventHandler);
 	}
 

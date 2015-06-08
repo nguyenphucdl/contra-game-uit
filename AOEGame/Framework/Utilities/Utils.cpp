@@ -2,5 +2,6 @@
 
 namespace Framework
 {
-	unsigned int Utils::nextId = 10000;
+	unsigned int Utils::nextId = 100;
+	unsigned int Utils::nextExecId = 0;
 }

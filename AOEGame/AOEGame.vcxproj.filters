@@ -76,9 +76,6 @@
     <ClInclude Include="Framework\EventManager\EventManager.h">
       <Filter>Framework\EventManager</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\EventManager\EventId.h">
-      <Filter>Framework\EventManager</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\EventManager\EventHandler.h">
       <Filter>Framework\EventManager</Filter>
     </ClInclude>

@@ -18,8 +18,7 @@ namespace Framework
 
 	void CollisionComponent::Initialize()
 	{
-		//Framework::AttachEvent(Events::SCE_COLLISION_EVENT, *this);
-		Framework::AttachEventComponent(Events::COM_COLLISION_EVENT, this->GetOwner(), *this);
+		Framework::AttachComponentEvent(Events::COM_COLLISION_EVENT, GetOwner(), *this);
 	}
 
 	const Vector3 CollisionComponent::GetAABBMin()

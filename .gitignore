@@ -2,3 +2,7 @@
 *.opensdf
 *.sdf
 *.v11.suo
+*.tlog
+*.pdb
+*.obj
+*.exe

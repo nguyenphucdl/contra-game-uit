@@ -15,6 +15,8 @@ namespace Framework
 	{
 		RenderableComponent::Initialize();
 
+		Framework::AttachComponentEvent(Events::COM_RENDER_EVENT, GetOwner(), *this);
+
 		m_renderable.SetZIndex(1000);
 		m_renderable.SetDebug(true);
 		m_renderable.Show(false);
@@ -34,8 +36,13 @@ namespace Framework
 		m_renderable.SetBoundMax(Vector3(m_renderable.GetWidth(), m_renderable.GetHeight(), 1.0f));
 		
 		m_renderable.SetRenderTransform(true);
+	}
 
-		//assert(Renderer::GetSingletonPtr());
-		//Renderer::GetSingleton().AddRenderable(&m_renderable);
+	void StaticComponent::HandleEvent(Event* pEvent)
+	{
+		if (pEvent->GetID() == Events::COM_RENDER_EVENT)
+		{
+			Renderer::GetSingleton().AddRenderable(&m_renderable);
+		}
 	}
 }

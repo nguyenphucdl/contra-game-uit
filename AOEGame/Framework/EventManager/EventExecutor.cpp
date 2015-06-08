@@ -3,225 +3,183 @@
 namespace Framework
 {
 	EventExecutor::EventExecutor()
+		: m_eventMap(30)
+		, m_eventObjectMap(200)
 	{
-		
+
 	}
 
 	EventExecutor::~EventExecutor()
 	{
-		for (EventMapIterator iter = m_eventMap.begin(); iter != m_eventMap.end(); ++iter)
-		{
-			Event* pEvent = iter->second;
-			if (pEvent)
-			{
-				delete pEvent;
-				iter->second = NULL;
-			}
-		}
 
-		m_eventMap.clear();
+	}
 
-		for (ObjectMapIterator iter = m_eventObjectMap.begin(); iter != m_eventObjectMap.end(); ++iter)
-		{
-			EventMap* pEventMap = iter->second;
-			if (pEventMap)
-			{
-				for (EventMapIterator iiter = pEventMap->begin(); iiter != pEventMap->end(); ++iiter)
-				{
-					Event* pEvent = iiter->second;
-					if (pEvent)
-					{
-						delete pEvent;
-						iiter->second = NULL;
-					}
-				}
-				pEventMap->clear();
-				delete pEventMap;
-				iter->second = NULL;
-			}
+	Event*	EventExecutor::_getEvent(EventVector &eventMap, EventID eventId)
+	{
+		Event* event = NULL;
+		try {
+			event = eventMap.at(eventId);
 		}
-		m_eventObjectMap.clear();
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to get event with event id out of range (%d) reson (%s)", eventId, oor.what());
+			throw new GameError(GameErrorNS::FATAL_ERROR, oor.what());
+		}
+		return event;
+	}
+
+	EventVector*	EventExecutor::_getEventVector(ObjectEventVector &eventObjectMap, ObjectId objId)
+	{
+		EventVector* eventVector = NULL;
+		try {
+			eventVector = eventObjectMap.at(objId);
+		}
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to get event object with object id out of range (%d) reson (%s)", objId, oor.what());
+			throw new GameError(GameErrorNS::FATAL_ERROR, oor.what());
+		}
+		return eventVector;
+	}
+
+	Event*	EventExecutor::_getEvent(EventID eventId)
+	{
+		return _getEvent(m_eventMap, eventId);
+	}
+
+	Event*	EventExecutor::_getExistEvent(EventID eventId)
+	{
+		Event* event = _getEvent(eventId);
+		if (event == NULL)
+		{
+			Log::error("Try to get event with id not found (%d)", eventId);
+			throw new GameError(GameErrorNS::FATAL_ERROR, "Try to get event with id not found");
+		}
+		return event;
+	}
+
+	EventVector*	EventExecutor::_getEventVector(ObjectId objId)
+	{
+		return _getEventVector(m_eventObjectMap, objId);
+	}
+
+	EventVector*	EventExecutor::_getExistEventVector(ObjectId objId)
+	{
+		EventVector* eventVector = _getEventVector(objId);
+		if (eventVector == NULL)
+		{
+			Log::error("Try to get event object with id not found (%d)", objId);
+			throw new GameError(GameErrorNS::FATAL_ERROR, "Try to get event object with id not found");
+		}
+		return eventVector;
+	}
+
+	bool EventExecutor::RegisterEvent(EventID eventId)
+	{
+		Event* event = _getEvent(eventId);
+		if (event == NULL)
+		{
+			event = new Event(eventId);
+			m_eventMap[eventId] = event;
+			return true;
+		}
+		return false;
+	}
+
+	void EventExecutor::AttachEvent(EventID eventId, EventHandler& eventHandler)
+	{
+		RegisterEvent(eventId);
+		Event* event = m_eventMap[eventId];
+		event->AttachListener(eventHandler);
+	}
+
+	void EventExecutor::DetachEvent(EventID eventId, EventHandler& eventHandler)
+	{
+		Event* event = _getExistEvent(eventId);
+		event->DetachListener(eventHandler);
 	}
 
 	void EventExecutor::SendEvent(EventID eventId, void* pData)
 	{
-		EventMapIterator result = m_eventMap.find(eventId);
-		if (result != m_eventMap.end())
+		Event* event = _getEvent(eventId);
+		if (event != NULL)
 		{
-			assert(result->second);
-			if (result->second)
-			{
-				result->second->Send(pData);
-			}
+			event->Send(pData);
 		}
 	}
 
 	void EventExecutor::SendEventToHandler(EventID eventId, EventHandler& eventHandler, void* pData)
 	{
-		EventMapIterator result = m_eventMap.find(eventId);
-		if (result != m_eventMap.end())
-		{
-			assert(result->second);
-			if (result->second)
-			{
-				result->second->SendToHandler(eventHandler, pData);
-			}
-		}
+		Event* event = _getExistEvent(eventId);
+		event->SendToHandler(eventHandler, pData);
 	}
 
-	void EventExecutor::SendEventToHandler(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
+	bool EventExecutor::RegisterComponentEvent(EventID eventId, ObjectId objId)
 	{
-		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
-		assert(objIt != m_eventObjectMap.end());
-		if (objIt != m_eventObjectMap.end())
+		EventVector* eventObject = _getEventVector(objId);
+		if (eventObject == NULL)
 		{
-			assert(objIt->second);
-			EventMap* eventMap = objIt->second;
-			EventMapIterator eventMapIt = eventMap->find(eventId);
-			assert(eventMapIt != eventMap->end());
-			if (eventMapIt != eventMap->end())
+			eventObject = new EventVector(100);
+			Event* eventOfObject = _getEvent(*eventObject, eventId);
+			if (eventOfObject == NULL)
 			{
-				assert(eventMapIt->second);
-				eventMapIt->second->SendToHandler(eventHandler, pData);
+				eventOfObject = new Event(eventId);
+				(*eventObject)[eventId] = eventOfObject;
 			}
-		}
-	}
-
-	//NEW
-	void EventExecutor::SendEvent(EventID eventId, ObjectId objId, void* pData)
-	{
-
-
-		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
-		if (objIt != m_eventObjectMap.end())
-		{
-			assert(objIt->second);
-			EventMap* eventMap = objIt->second;
-			EventMapIterator eventMapIt = eventMap->find(eventId);
-			if (eventMapIt != eventMap->end())
-			{
-				assert(eventMapIt->second);
-				eventMapIt->second->Send(pData);
-			}
-		}
-	}
-	//NEW
-	void EventExecutor::DetachEvent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
-	{
-		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
-		assert(objIt != m_eventObjectMap.end());
-		if (objIt != m_eventObjectMap.end())
-		{
-			assert(objIt->second);
-			EventMap* eventMap = objIt->second;
-			EventMapIterator eventMapIt = eventMap->find(eventId);
-			assert(eventMapIt != eventMap->end());
-			if (eventMapIt != eventMap->end())
-			{
-				assert(eventMapIt->second);
-				eventMapIt->second->DetachListener(eventHandler);
-			}
-		}
-	}
-
-	//NEW
-	void EventExecutor::AttachEvent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
-	{
-		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
-		assert(objIt != m_eventObjectMap.end());
-		if (objIt != m_eventObjectMap.end())
-		{
-			assert(objIt->second);
-			EventMap* eventMap = objIt->second;
-			EventMapIterator eventMapIt = eventMap->find(eventId);
-			assert(eventMapIt != eventMap->end());
-			if (eventMapIt != eventMap->end())
-			{
-				assert(eventMapIt->second);
-				eventMapIt->second->AttachListener(eventHandler);
-			}
-		}
-	}
-
-	//NEW
-	bool EventExecutor::RegisterEvent(EventID evenId, ObjectId objId)
-	{
-		bool added = false;
-
-		ObjectMapIterator objIt = m_eventObjectMap.find(objId);
-		if (objIt == m_eventObjectMap.end())
-		{
-			EventMap* pNewEventMap = new EventMap();
-			Event* pNewEvent = new Event(evenId);
-			if (pNewEventMap && pNewEvent)
-			{
-				std::pair<EventID, Event*> newEvent(evenId, pNewEvent);
-				std::pair<EventMapIterator, bool> addedIter = pNewEventMap->insert(newEvent);
-				added = addedIter.second;
-
-				if (added)
-				{
-					std::pair<ObjectId, EventMap*> newEventMap(objId, pNewEventMap);
-					std::pair<ObjectMapIterator, bool> addedMapIter = m_eventObjectMap.insert(newEventMap);
-					added = addedMapIter.second;
-				}
-			}
+			m_eventObjectMap[objId] = eventObject;
+			return true;
 		}
 		else
 		{
-			EventMap* pEventMap = objIt->second;
-			EventMapIterator eventMapIt = pEventMap->find(evenId);
-			if (eventMapIt == pEventMap->end())
+			Event* eventOfObject = _getEvent(*eventObject, eventId);
+			if (eventOfObject == NULL)
 			{
-				Event* pNewEvent = new Event(evenId);
-				std::pair<EventID, Event*> newEvent(evenId, pNewEvent);
-				std::pair<EventMapIterator, bool> addedIter = pEventMap->insert(newEvent);
-				added = addedIter.second;
+				eventOfObject = new Event(eventId);
+				(*eventObject)[eventId] = eventOfObject;
+			}
+			m_eventObjectMap[objId] = eventObject;
+			return true;
+		}
+		return false;
+	}
+
+	void EventExecutor::AttachComponentEvent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	{
+		RegisterComponentEvent(eventId, objId);
+		EventVector* eventObj = m_eventObjectMap[objId];
+		Event* event = (*eventObj)[eventId];
+		event->AttachListener(eventHandler);
+	}
+
+	void EventExecutor::DetachComponentEvent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	{
+		EventVector* eventObj = _getExistEventVector(objId);
+		Event* event = (*eventObj)[objId];
+		event->DetachListener(eventHandler);
+
+	}
+
+	void EventExecutor::SendComponentEvent(EventID eventId, ObjectId objId, void* pData)
+	{
+		EventVector* eventObj = _getEventVector(objId);
+		if (eventObj != NULL)
+		{
+			Event* event = (*eventObj)[eventId];
+			if (event != NULL)
+			{
+				event->Send(pData);
 			}
 		}
-		return added;
 	}
 
-	bool EventExecutor::RegisterEvent(EventID eventId)
+	void EventExecutor::SendComponenEventToHandler(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
-		bool added = false;
-
-		EventMapIterator result = m_eventMap.find(eventId);
-		if (result == m_eventMap.end())
+		EventVector* eventObj = _getEventVector(objId);
+		if (eventObj != NULL)
 		{
-			Event* pNewEvent = new Event(eventId);
-
-			if (pNewEvent)
+			Event* event = (*eventObj)[eventId];
+			if (event != NULL)
 			{
-				std::pair<EventID, Event*> newEvent(eventId, pNewEvent);
-				std::pair<EventMapIterator, bool> addedIter = m_eventMap.insert(newEvent);
-				added = addedIter.second;
+				event->SendToHandler(eventHandler, pData);
 			}
-		}
-
-		//assert(added);
-		return added;
-	}
-
-	void EventExecutor::AttachEvent(EventID eventId, EventHandler& eventHandler)
-	{
-		EventMapIterator result = m_eventMap.find(eventId);
-		assert(result != m_eventMap.end());
-		if (result != m_eventMap.end())
-		{
-			assert(result->second);
-			result->second->AttachListener(eventHandler);
-		}
-	}
-
-	void EventExecutor::DetachEvent(EventID eventId, EventHandler& eventHandler)
-	{
-		EventMapIterator result = m_eventMap.find(eventId);
-		assert(result != m_eventMap.end());
-		if (result != m_eventMap.end())
-		{
-			assert(result->second);
-			result->second->DetachListener(eventHandler);
 		}
 	}
 }

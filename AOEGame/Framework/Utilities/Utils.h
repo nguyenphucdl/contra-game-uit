@@ -9,10 +9,16 @@ namespace Framework
 	{
 	private:
 		static unsigned int nextId;
+		static unsigned int nextExecId;
 	public:
 		static unsigned int getNextId()
 		{
 			return nextId++;
+		}
+
+		static unsigned int getNextExecId()
+		{
+			return nextExecId++;
 		}
 
 		static std::string getPathOfFile(std::string filePath)

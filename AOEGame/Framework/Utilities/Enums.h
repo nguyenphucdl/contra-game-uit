@@ -33,9 +33,9 @@ namespace Framework
 
 	enum ObjectIds
 	{
-		PlayerId = 5000,
-		CameraId = 5001,
-		TileMapId = 5002
+		//PlayerId = 5000,
+		//CameraId = 5001,
+		//TileMapId = 5002
 	};
 
 	enum ComponentIDs

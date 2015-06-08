@@ -25,7 +25,6 @@ namespace Framework
 		RenderableComponent::Initialize();
 
 		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
-		//Framework::AttachEventComponent(Events::SCE_PRE_RENDER_EVENT, this->GetOwner(), *this);
 
 		Log::info(Log::LOG_LEVEL_ROOT, "[TileMapComponent] Initialize...\n");
 		if(m_tileMap == NULL)
@@ -62,11 +61,6 @@ namespace Framework
 	void TileMapComponent::HandleEvent(Event* pEvent)
 	{
 		RenderableComponent::HandleEvent(pEvent);
-
-		if (pEvent->GetID() == Events::COM_RENDER_EVENT)
-		{
-			int k = 3;
-		}
 
 		switch (pEvent->GetID())
 		{

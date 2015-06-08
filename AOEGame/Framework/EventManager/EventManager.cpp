@@ -3,217 +3,120 @@
 namespace Framework
 {
 	EventManager::EventManager()
+		: m_activeExecutorId(-1)
+		, m_eventExecutorVector(30)
 	{
 		
 	}
 
 	EventManager::~EventManager()
 	{
-		for (EventExecutorMapIterator iter = m_eventExecutorMap.begin(); iter != m_eventExecutorMap.end(); ++iter)
+		for (EventExecutorVectorIterator it = m_eventExecutorVector.begin(); it != m_eventExecutorVector.end(); it++)
 		{
-			EventExecutor* pExec = iter->second;
-			if (pExec)
-			{
-				delete pExec;
-				iter->second = NULL;
-			}
+			EventExecutor* eventExecutor = *it;
+			delete eventExecutor;
 		}
-
-		m_eventExecutorMap.clear();
+		m_eventExecutorVector.clear();
 	}
 
-	ExecutorID EventManager::GetActiveExecutor()
+	EventExecutor*	EventManager::_getEventExecutor(ExecutorID execId)
 	{
-		return m_activeExecutorId;
+		EventExecutor* eventExecutor = NULL;
+		try {
+			eventExecutor = m_eventExecutorVector.at(execId);
+		}
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to register event with id out of range (%d) reson (%s)", execId, oor.what());
+			throw new GameError(GameErrorNS::FATAL_ERROR, oor.what());
+		}
+		return eventExecutor;
 	}
 
-	void EventManager::SendEvent(ExecutorID execId, EventID eventId, void* pData)
-	{		
-
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
+	void	EventManager::AttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler)
+	{
+		EventExecutor* eventExecutor = _getEventExecutor(execId);
+		if (eventExecutor == NULL)
 		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
+			eventExecutor = new EventExecutor();
+			m_eventExecutorVector[execId] = eventExecutor;
+		}
+		eventExecutor->AttachEvent(eventId, eventHandler);
+	}
+
+	void	EventManager::AttachEvent(EventID eventId, EventHandler& eventHandler)
+	{
+		AttachEvent(m_activeExecutorId, eventId, eventHandler);
+	}
+	
+	void	EventManager::SendEvent(ExecutorID execId, EventID eventId, void* pData)
+	{
+		EventExecutor* executor = _getEventExecutor(execId);
+		if (executor != NULL)
+		{
 			executor->SendEvent(eventId, pData);
 		}
 	}
 
-	void EventManager::SendEvent(EventID eventId, void* pData)
+	void	EventManager::SendEvent(EventID eventId, void* pData)
 	{
-		SendEvent(GetActiveExecutor(), eventId, pData);
+		SendEvent(m_activeExecutorId, eventId, pData);
 	}
 
-	void EventManager::SendEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, void* pData)
+	void	EventManager::SendEventToHandler(ExecutorID execId, EventID eventId, EventHandler& eventHandler, void* pData)
 	{
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
+		EventExecutor* executor = _getEventExecutor(execId);
+		if (executor != NULL)
 		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			executor->SendEvent(eventId, objId, pData);
-		}
-	}
-
-	void EventManager::SendEventAdvanced(EventID eventId, ObjectId objId, void* pData)
-	{
-		SendEventAdvanced(GetActiveExecutor(), eventId, objId, pData);
-	}
-
-	void EventManager::SendEventToHandler(ExecutorID execId, EventID eventId, EventHandler& eventHandler, void* pData)
-	{
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
-		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
 			executor->SendEventToHandler(eventId, eventHandler, pData);
 		}
 	}
 
-	void EventManager::SendEventToHandler(EventID eventId, EventHandler& eventHandler, void* pData)
+	void	EventManager::SendEventToHandler(EventID eventId, EventHandler& eventHandler, void* pData)
 	{
-		SendEventToHandler(GetActiveExecutor(), eventId, eventHandler, pData);
+		SendEventToHandler(m_activeExecutorId, eventId, eventHandler, pData);
 	}
 
-	void EventManager::SendEventToHandlerAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
+	void	EventManager::AttachComponentEvent(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler)
 	{
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
+		EventExecutor* eventExecutor = _getEventExecutor(execId);
+		if (eventExecutor == NULL)
 		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			executor->SendEventToHandler(eventId, objId, eventHandler, pData);
+			eventExecutor = new EventExecutor();
+			m_eventExecutorVector[execId] = eventExecutor;
+		}
+		eventExecutor->AttachComponentEvent(eventId, objId, eventHandler);
+	}
+
+	void	EventManager::AttachComponentEvent(EventID eventId, ObjectId objId, EventHandler& eventHandler)
+	{
+		AttachComponentEvent(m_activeExecutorId, eventId, objId, eventHandler);
+	}
+
+	void	EventManager::SendComponentEvent(ExecutorID execId, EventID eventId, ObjectId objId, void* pData)
+	{
+		EventExecutor* executor = _getEventExecutor(execId);
+		if (executor != NULL)
+		{
+			executor->SendComponentEvent(eventId, objId, pData);
 		}
 	}
 
-	void EventManager::SendEventToHandlerAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
+	void	EventManager::SendComponentEvent(EventID eventId, ObjectId objId, void* pData)
 	{
-		SendEventToHandlerAdvanced(GetActiveExecutor(), eventId, objId, eventHandler, pData);
+		SendComponentEvent(m_activeExecutorId, eventId, objId, pData);
 	}
 
-	bool EventManager::RegisterEvent(ExecutorID execId, EventID eventId)
+	void	EventManager::SendComponentEventToHandler(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
-		bool added = false;
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result == m_eventExecutorMap.end())
+		EventExecutor* executor = _getEventExecutor(execId);
+		if (executor != NULL)
 		{
-			EventExecutor* pNewExecutor = new EventExecutor();
-			pNewExecutor->RegisterEvent(eventId);
-
-			if (pNewExecutor)
-			{
-				std::pair<ExecutorID, EventExecutor*> newExec(execId, pNewExecutor);
-				std::pair<EventExecutorMapIterator, bool> addedIter = m_eventExecutorMap.insert(newExec);
-				added = addedIter.second;
-			}
-		}
-		else
-		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			return executor->RegisterEvent(eventId);
-		}
-		return added;
-	}
-
-	bool EventManager::RegisterEvent(EventID eventId)
-	{
-		return RegisterEvent(GetActiveExecutor(), eventId);
-	}
-
-	bool EventManager::RegisterEventAdvanced(EventID eventId, ObjectId objId)
-	{
-		return RegisterEventAdvanced(GetActiveExecutor(), eventId, objId);
-	}
-
-	bool EventManager::RegisterEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId)
-	{
-		bool added = false;
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result == m_eventExecutorMap.end())
-		{
-			EventExecutor* pNewExecutor = new EventExecutor();
-			pNewExecutor->RegisterEvent(eventId, objId);
-
-			if (pNewExecutor)
-			{
-				std::pair<ExecutorID, EventExecutor*> newExec(execId, pNewExecutor);
-				std::pair<EventExecutorMapIterator, bool> addedIter = m_eventExecutorMap.insert(newExec);
-				added = addedIter.second;
-			}
-		}
-		else
-		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			return executor->RegisterEvent(eventId, objId);
-		}
-		return added;
-	}
-
-	void EventManager::AttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler)
-	{
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
-		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			executor->AttachEvent(eventId, eventHandler);
+			executor->SendComponenEventToHandler(eventId, objId, eventHandler, pData);
 		}
 	}
 
-	void EventManager::AttachEvent(EventID eventId, EventHandler& eventHandler)
+	void	EventManager::SendComponentEventToHandler(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
-		AttachEvent(GetActiveExecutor(), eventId, eventHandler);
+		SendComponentEventToHandler(m_activeExecutorId, eventId, objId, eventHandler, pData);
 	}
-
-	void EventManager::AttachEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler)
-	{
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
-		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			executor->AttachEvent(eventId, objId, eventHandler);
-		}
-	}
-
-	void EventManager::AttachEventAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler)
-	{
-		AttachEventAdvanced(GetActiveExecutor(), eventId, objId, eventHandler);
-	}
-
-	void EventManager::DetachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler)
-	{
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
-		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			executor->DetachEvent(eventId, eventHandler);
-		}
-	}
-
-	void EventManager::DetachEvent(EventID eventId, EventHandler& eventHandler)
-	{
-		DetachEvent(GetActiveExecutor(), eventId, eventHandler);
-	}
-
-	void EventManager::DetachEventAdvanced(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler)
-	{
-		EventExecutorMapIterator result = m_eventExecutorMap.find(execId);
-		if (result != m_eventExecutorMap.end())
-		{
-			assert(result->second);
-			EventExecutor* executor = result->second;
-			executor->DetachEvent(eventId, objId, eventHandler);
-		}
-	}
-
-	void EventManager::DetachEventAdvanced(EventID eventId, ObjectId objId, EventHandler& eventHandler)
-	{
-		DetachEventAdvanced(GetActiveExecutor(), eventId, objId, eventHandler);
-	}
-	
 }

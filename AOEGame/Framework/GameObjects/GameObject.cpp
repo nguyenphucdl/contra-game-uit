@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include"../Log/Log.h"
 
 namespace Framework
 {
@@ -6,15 +7,16 @@ namespace Framework
 		: m_feature(false)
 		, m_id(id)
 		, m_type(-1)
+		, m_components(10)
 	{
 	}
 
 	GameObject::~GameObject()
 	{
-		for(ComponentUnorderedMapIterator iter = m_components.begin(); iter != m_components.end(); ++iter)
+		for (ComponentVectorIterator iter = m_components.begin(); iter != m_components.end(); iter++)
 		{
-			Component* pComponent = iter->second;
-			if(pComponent)
+			Component*pComponent = *iter;
+			if (pComponent)
 			{
 				delete pComponent;
 				pComponent = NULL;
@@ -24,16 +26,25 @@ namespace Framework
 
 	Component* GameObject::GetComponent(unsigned int id)
 	{
-		ComponentUnorderedMapIterator result = m_components.find(id);
-		return result == m_components.end() ? NULL : result->second;
+		Component* pComponent = NULL;
+		try {
+			pComponent = m_components.at(id);
+		}
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to get component with id out of range (%d) reson (%s)", id, oor.what());
+		}
+		return pComponent;
 	}
 
 	void GameObject::InitializeComponents()
 	{
-		for (ComponentUnorderedMapIterator iter = m_components.begin(); iter != m_components.end(); iter++)
+		for (ComponentVectorIterator iter = m_components.begin(); iter != m_components.end(); iter++)
 		{
-			Component* component = iter->second;
-			component->Initialize();
+			Component*pComponent = *iter;
+			if (pComponent)
+			{
+				pComponent->Initialize();
+			}
 		}
 	}
 }

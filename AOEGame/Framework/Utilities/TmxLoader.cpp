@@ -121,7 +121,7 @@ namespace Framework
 		if (objectLayer != NULL)
 		{
 			xml_node<> *objectNode;
-			vector<GameObject*>* gameObjects = new vector<GameObject*>();
+			vector<GameObject*>* gameObjects = new vector<GameObject*>(100);
 			std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable = new std::tr1::unordered_map<ObjectId, GameObject*>();
 
 			objectNode = objectLayer->first_node("object");
@@ -195,7 +195,8 @@ namespace Framework
 					//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pStaticCollisionComponent);
 
 				}
-				gameObjects->push_back(gameObj);
+				(*gameObjects)[id] = gameObj;
+				//gameObjects->push_back(gameObj);
 				m_objectHashTable->insert(make_pair(id, gameObj));
 			}
 			m_tileMap->SetObjects(m_objectHashTable);

@@ -19,8 +19,7 @@ namespace Framework
 
 	void LifeTimeComponent::Initialize()
 	{
-		//Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
-		Framework::AttachEventComponent(Events::COM_UPDATE_EVENT, this->GetOwner(), *this);
+		Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, GetOwner(), *this);
 	}
 
 	void LifeTimeComponent::HandleEvent(Event* pEvent)

@@ -18,7 +18,21 @@ namespace Framework
 
 	void CollisionBin::QueryRange(Rect& range)
 	{
-		std::vector<int>* matchObjId = new std::vector<int>();
+		if (m_currentViewport.GetX() == range.GetX())
+			return;
+		std::vector<int>* matchObjId = new std::vector<int>(20);
+
+		////test
+		//int i = 0;
+		//for (ObjectHashTableIterator it = m_objectHashTable->begin(); it != m_objectHashTable->end(); it++)
+		//{
+		//	i++;
+		//	if (i > 20)
+		//		break;
+		//	m_currentObjects->push_back(it->second);
+		//}
+		//return;
+
 		assert(m_collisionObjects);
 
 		m_collisionObjects->QueryRangeUniqueResult(range, matchObjId);

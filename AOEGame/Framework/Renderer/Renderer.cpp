@@ -10,6 +10,7 @@ namespace Framework
 		, m_device3d(NULL)
 		, m_fullScreen(false)
 	{
+		m_renerables.reserve(50);
 		m_width = GameConfig::GetSingletonPtr()->GetInt("GAME_WIDTH");
 		m_height = GameConfig::GetSingletonPtr()->GetInt("GAME_HEIGHT");
 		m_backColor = SETCOLOR_ARGB(255,0,0,128); // dark blue
@@ -249,14 +250,9 @@ namespace Framework
 		D3DXMatrixIdentity(&finalWorldViewMatrix);
 		D3DXMatrixTransformation2D(&finalWorldViewMatrix, &centerVector, 0, &scaleVector, &centerVector, 0, NULL);
 
-		if (pRenderable->GetTag() == "npc")
-		{
-			int k = 3;
-		}
-
 		if (pRenderable->IsVisible())
 		{
-			m_spriteHandler->SetTransform(&finalWorldViewMatrix);
+			//m_spriteHandler->SetTransform(&finalWorldViewMatrix);
 			D3DXVECTOR3 centerDraw(centerVector.x, centerVector.y, 1.0f);
 			if (pRenderable->IsDrawCenter())
 			{
@@ -265,7 +261,7 @@ namespace Framework
 			else
 				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &textureRect, &centerDraw, &D3DXVECTOR3(inverse_pos_view.x + centerVector.x, inverse_pos_view.y + centerVector.y, 1.0f), D3DCOLOR_XRGB(255, 255, 255));
 		}
-		if (pRenderable->IsDebug() && false)
+		if (pRenderable->IsDebug() && true)
 		{
 			float scaleXDebug = (float)texture->GetTextureWidth() / 200;
 			float scaleYDebug = (float)texture->GetTextureHeight() / 200;

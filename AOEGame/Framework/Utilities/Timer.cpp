@@ -62,7 +62,7 @@ namespace Framework
 
 		LONGLONG llTimeDiff = m_timeStart.QuadPart - m_timeLastFrame.QuadPart;
 
-		m_frameDt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart / 1000.0f);//mili seconds
+		m_frameDt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart);// seconds
 
 		//double m_dt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart / 1000.0f);
 

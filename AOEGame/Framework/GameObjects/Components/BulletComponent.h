@@ -7,8 +7,8 @@
 #include "../Component.h"
 #include "../../EventManager/Event.h"
 #include "../../EventManager/EventHandler.h"
-#include "../../EventManager/EventId.h"
 #include "../../Math/Vector3.h"
+#include "../../Utilities/Enums.h"
 
 namespace Framework
 {

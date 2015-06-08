@@ -28,29 +28,29 @@ PlayerMovementComponent::~PlayerMovementComponent()
 
 void PlayerMovementComponent::Initialize()
 {
-	Framework::AttachEvent(Events::SCE_KEY_DOWN_EVENT, *this);
-	Framework::AttachEvent(Events::SCE_KEY_UP_EVENT, *this);
-	Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
+	//Framework::AttachEvent(Events::SCE_KEY_DOWN_EVENT, *this);
+	//Framework::AttachEvent(Events::SCE_KEY_UP_EVENT, *this);
+	Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, GetOwner(), *this);
 }
 
 void PlayerMovementComponent::HandleEvent(Event* pEvent)
 {
 	switch (pEvent->GetID())
 	{
-	case Events::SCE_UPDATE_EVENT:
+	case Events::COM_UPDATE_EVENT:
 	{
 		_ProcessPollInput();
 		
 		//Update direction
 		if (m_currentState == SpriteStates::MOVE)
 		{
-			if (m_isSupported)
-			{
+			//if (m_isSupported)
+			//{
 				if (m_currentDirection == SpriteDirections::RIGHT)
-					m_velocity.m_x = 300.0f;
+					m_velocity.m_x = 280.0f;
 				else if (m_currentDirection == SpriteDirections::LEFT)
-					m_velocity.m_x = -300.0f;
-			}
+					m_velocity.m_x = -280.0f;
+			//}
 		}
 		else if (m_currentState == SpriteStates::STATIONARY)
 		{
@@ -100,10 +100,10 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			Vector3 accel = m_acceleration;
 			accel.Multiply(timer.GetTimeSim());
 			m_velocity.Add(accel);
-			static const float GRAVITY_MULTIPLIER = 1000.0f;
+			static const float GRAVITY_MULTIPLIER = 100.0f;
 			static const float GRAVITY_CONSTANT = -9.8f;
 			float dekta = GRAVITY_MULTIPLIER * GRAVITY_CONSTANT * timer.GetTimeSim();
-			//m_acceleration.m_y += dekta;
+			m_acceleration.m_y += dekta;
 			if (falling && m_isSupported)
 			{
 				m_acceleration.m_y = 0.0f;
@@ -115,9 +115,8 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 
 			//Console::GetSingletonPtr()->print("Player bound min m_y (%f)", pOwnerCollisionComponent->GetAABBMin().m_y);
 			//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
-			Console::GetSingletonPtr()->print("FPS (%f)", 1.0f / Timer::GetSingletonPtr()->GetTimeSim());
 			
-			Console::GetSingletonPtr()->print("Time sim (%f)", Timer::GetSingletonPtr()->GetTimeSim());
+			
 			//Console::GetSingletonPtr()->print("Anim (%f)", Timer::GetSingletonPtr()->GetAnim());
 			//Console::GetSingletonPtr()->print("Timer total %f", Timer::GetSingletonPtr()->GetTimeTotal());
 			Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[3], m_offset[1], m_offset[0], m_offset[2]);
@@ -166,7 +165,7 @@ void PlayerMovementComponent::_ProcessPollInput()
 		{
 			static const float JUMP_ACCELERATION = 100.0f;
 			m_acceleration.m_y = JUMP_ACCELERATION;
-			m_velocity.m_y = 800.0f;
+			m_velocity.m_y = 200.0f;
 		}
 	}
 	
