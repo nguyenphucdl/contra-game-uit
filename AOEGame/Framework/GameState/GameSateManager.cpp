@@ -1,9 +1,11 @@
 #include "GameStateManager.h"
+#include "../EventManager/EventManager.h"
 
 namespace Framework
 {
 	GameStateManager::GameStateManager(const unsigned int priority)
 		: Task(priority, "GamePlay1Task")
+		, m_paused(false)
 	{
 	}
 
@@ -33,9 +35,10 @@ namespace Framework
 
 	bool GameStateManager::Start()
 	{
+		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_RESUME_EVENT, *this);
+
 		m_currentGamePlay = new GamePlay();
-		m_currentGamePlay->Load();
-		m_currentGamePlay->Initialize();
+		m_currentGamePlay->Init();
 		return true;
 	}
 
@@ -46,10 +49,11 @@ namespace Framework
 
 	void GameStateManager::Update()
 	{
-		//check state
-		m_currentGamePlay->Entered();
-		//if pass level
-		//m_currentGamePlay->Leaving();
+		if (!m_paused)
+		{
+			m_currentGamePlay->Update();
+		}
+		m_currentGamePlay->Draw();
 	}
 
 	void GameStateManager::OnResume()
@@ -60,5 +64,17 @@ namespace Framework
 	void GameStateManager::Stop()
 	{
 
+	}
+
+	void GameStateManager::HandleEvent(Event* pEvent)
+	{
+		switch (pEvent->GetID())
+		{
+		case Events::SYS_PAUSE_RESUME_EVENT:
+			m_paused = (bool)pEvent->GetData();
+			break;
+		default:
+			break;
+		}
 	}
 }

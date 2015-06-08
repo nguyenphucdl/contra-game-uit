@@ -24,8 +24,11 @@ namespace Framework
 		GamePlay();
 		~GamePlay();
 
-		void Load();
-		void Initialize();
+		void Init();
+		void Update();
+		void Draw();
+		void Pause();
+		void Resume();
 
 		void Entered();
 		void Leaving();

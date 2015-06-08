@@ -52,6 +52,7 @@ namespace Framework
 	
 		Camera								m_camera;
 
+
 		D3DXMATRIX							m_worldViewMatrix;
 		D3DXMATRIX							m_transformCoordinateMatrix; // flip & translate coordinate
 		D3DXMATRIX							m_viewMatrix;

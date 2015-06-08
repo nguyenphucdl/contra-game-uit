@@ -11,6 +11,8 @@ namespace Framework
 		SYS_POST_RENDER_EVENT,
 		SYS_KEY_UP_EVENT,
 		SYS_KEY_DOWN_EVENT,
+		SYS_PAUSE_RESUME_EVENT,
+
 
 		//Scene Events
 		SCE_PRE_RENDER_EVENT,

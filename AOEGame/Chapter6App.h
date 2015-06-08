@@ -3,7 +3,7 @@
 
 #include "Framework\Application\Game.h"
 #include "Framework\GameState\GameStateManager.h"
-#include "GamePlay1.h"
+
 
 using namespace Framework;
 

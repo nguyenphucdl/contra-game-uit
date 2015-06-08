@@ -5,6 +5,7 @@ namespace Framework
 	Input::Input(HWND hwnd, const unsigned int priority)
 		: Task(priority, "Input Task")
 		, m_hwnd(hwnd)
+		, m_paused(false)
 	{
 	}
 
@@ -101,7 +102,6 @@ namespace Framework
 		return (m_keyState[keycode] & 0x80) > 0;
 	}
 
-	// Task
 	bool Input::Start()
 	{
 		_InitInputDevice();
@@ -119,7 +119,7 @@ namespace Framework
 
 		if(IsKeyDown(DIK_ESCAPE))
 		{
-			PostMessage(m_hwnd, WM_QUIT, 0, 0);
+			//PostMessage(m_hwnd, WM_QUIT, 0, 0);
 		}
 
 		// Collect all buffered events
@@ -147,6 +147,13 @@ namespace Framework
 					{
 						//SendEvent(Events::PLAYER_JUMP_EVENT);
 					}
+					if (keyCode == DIK_ESCAPE)
+					{
+						m_paused = m_paused ? false : true;
+						
+						Framework::SendEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_RESUME_EVENT, (void *)m_paused);
+						
+					}
 				}
 				else
 				{
@@ -159,7 +166,6 @@ namespace Framework
 		else
 		{
 			// Switch to another application, cannot retrieve input device
-			// Log::info(Log::LOG_LEVEL_HIGHT, "Cannot get device data!\n");
 			Sleep(100);
 			m_result = m_keyboard->Acquire();
 			if (SUCCEEDED(m_result))
@@ -167,11 +173,6 @@ namespace Framework
 				Log::info(Log::LOG_LEVEL_HIGHT, "Accquire input device successfully!\n");
 			}
 		}
-
-		//QueryPerformanceCounter(&timeEnd);
-		//LARGE_INTEGER numCounts = timeEnd.QuadPart – timeStart.QuadPart;
-		//float frameDt = (float)((timeEnd.QuadPart - timeStart.QuadPart)) / (float)(timeFreq.QuadPart);
-		//int k = 123;
 	}
 
 	void Input::OnResume()

@@ -335,7 +335,7 @@ namespace Framework
 	}
 	void Renderer::Update()
 	{	
-		
+
 		if(SUCCEEDED(this->beginScene()))
 		{
 			// Begin sprite handler
@@ -370,6 +370,7 @@ namespace Framework
 			}
 			
 			//Clear renderables
+
 			m_renerables.clear();
 
 			// end sprite handler
@@ -410,5 +411,6 @@ namespace Framework
 	}
 	void Renderer::Stop()
 	{
+
 	}	
 }

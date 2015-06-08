@@ -13,6 +13,7 @@ namespace Framework
 	TileMapScene::TileMapScene()
 		: EventExecutorAware()
 		, m_currentObjects(new std::vector<GameObject*>())
+		, m_paused(false)
 	{
 	}
 
@@ -117,7 +118,6 @@ namespace Framework
 			Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_playerObject, NULL);
 			Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_npcObject, NULL);
 		}
-
 	}
 
 	void TileMapScene::Update()
@@ -127,13 +127,12 @@ namespace Framework
 		Framework::SendEvent(Events::SCE_PRE_UPDATE_EVENT);
 		Framework::SendEvent(Events::SCE_UPDATE_EVENT); 
 		Framework::SendEvent(Events::SCE_POST_UPDATE_EVENT);
-		Framework::SendEvent(Events::SCE_PRE_RENDER_EVENT);
-		Framework::SendEvent(Events::SCE_RENDER_EVENT);
 	}
 
 	void TileMapScene::Draw()
 	{
-
+		Framework::SendEvent(Events::SCE_PRE_RENDER_EVENT);
+		Framework::SendEvent(Events::SCE_RENDER_EVENT);
 	}
 
 	void TileMapScene::Pause()
@@ -142,6 +141,26 @@ namespace Framework
 	}
 
 	void TileMapScene::Resume()
+	{
+
+	}
+
+	void TileMapScene::Entered()
+	{
+
+	}
+
+	void TileMapScene::Leaving()
+	{
+
+	}
+
+	void TileMapScene::Obscuring()
+	{
+
+	}
+
+	void TileMapScene::Revealed()
 	{
 
 	}

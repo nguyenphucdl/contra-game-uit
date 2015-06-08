@@ -31,6 +31,8 @@ namespace Framework
 		GameObject*					m_tileMapObject;
 		GameObject*					m_npcObject;
 
+		bool						m_paused;
+
 		virtual void HandleEvent(Event* pEvent);
 
 	public:
@@ -44,6 +46,11 @@ namespace Framework
 		void Draw();
 		void Pause();
 		void Resume();
+
+		void Entered();
+		void Leaving();
+		void Obscuring();
+		void Revealed();
 	};
 }
 

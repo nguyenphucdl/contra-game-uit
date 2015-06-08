@@ -22,7 +22,7 @@ namespace Framework
 		IDirectInputDevice8*	m_keyboard;
 		char					m_keyState[256];					// DirectInput keyboard state buffer 
 		DIDEVICEOBJECTDATA		m_keyEvents[KEYBOARD_BUFFER_SIZE];	// Buffered keyboard data
-
+		bool					m_paused;
 
 		// Mouse
 		IDirectInputDevice8*	m_mouse;
