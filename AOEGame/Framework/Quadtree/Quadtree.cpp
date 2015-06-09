@@ -19,6 +19,14 @@ namespace Framework
 
 	Quadtree::~Quadtree()
 	{
+		SAFE_DELETE(m_parent);
+		m_listObjectId->clear();
+		m_listObjectId->shrink_to_fit();
+		delete m_listObjectId;
+		SAFE_DELETE(NE);
+		SAFE_DELETE(NW);
+		SAFE_DELETE(SE);
+		SAFE_DELETE(SW);
 	}
 
 	void Quadtree::Clear()

@@ -24,6 +24,7 @@ namespace Framework
 		SAFE_DELETE(m_tileMapObject);
 		SAFE_DELETE(m_cameraObject);
 		SAFE_DELETE(m_npcObject);
+		//Remove object hashtable
 	}
 
 	bool TileMapScene::LoadSceneFromFile(std::string file)
@@ -43,6 +44,8 @@ namespace Framework
 		m_npcObject = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
 
 		CollisionManager::GetSingletonPtr()->AddCollisionBinFromTileMap(m_tileMap, this);
+
+		delete tmxLoader;
 		return true;
 	}
 
@@ -100,8 +103,6 @@ namespace Framework
 			/*										Check collision																 */
 			/*																													 */
 			/*********************************************************************************************************************/
-			//CollisionManager::GetSingleton().TestAgainstBin(0, m_pNpcCollisionComponent);
-			//CollisionManager::GetSingleton().TestAgainstBin(0, m_pPlayerCollisionComponent);
 			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_playerObject);
 			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_npcObject);
 		}

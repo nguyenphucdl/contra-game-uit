@@ -1,9 +1,11 @@
 #include "GamePlay.h"
 #include "TileMapScene.h"
+#include "../Renderer/Renderer.h"
 #include "../Collision/CollisionManager.h"
 #include "../Renderer/Texture/TextureManager.h"
 #include "../../ContraGameFactory.h"
-
+#include "../Utilities/FPSCounter.h"
+#include "../Utilities/Console.h"
 
 namespace Framework
 {
@@ -39,7 +41,13 @@ namespace Framework
 
 	void GamePlay::Draw()
 	{
+		/*IMPORTANT*/
+		Renderer::GetSingletonPtr()->ClearRenderables();
+		
+		
 		m_tileMapScene->Draw();
+
+		
 	}
 
 	void GamePlay::Pause()

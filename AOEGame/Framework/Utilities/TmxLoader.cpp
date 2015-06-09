@@ -10,7 +10,7 @@
 
 namespace Framework
 {
-	TmxLoader::TmxLoader(std::string file)
+	TmxLoader::TmxLoader(std::string& file)
 		: m_file(file)
 		, m_scaleRatio(1.0f)
 	{		
@@ -20,6 +20,18 @@ namespace Framework
 
 	TmxLoader::~TmxLoader()
 	{
+		m_tileMap = NULL;
+		m_rootNode = NULL;
+		//SAFE_DELETE(m_tileMap);
+		//SAFE_DELETE(m_rootNode);
+		for (vector<TileSet*>::iterator it = m_tileSets->begin(); it != m_tileSets->end(); it++)
+		{
+			delete *it;
+			*it = NULL;
+		}
+		
+		m_tileSets->clear();
+		m_tileSets->shrink_to_fit();
 	}
 
 	bool TmxLoader::_checkValid()
@@ -121,7 +133,6 @@ namespace Framework
 		if (objectLayer != NULL)
 		{
 			xml_node<> *objectNode;
-			vector<GameObject*>* gameObjects = new vector<GameObject*>(100);
 			std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable = new std::tr1::unordered_map<ObjectId, GameObject*>();
 
 			objectNode = objectLayer->first_node("object");
@@ -190,13 +201,8 @@ namespace Framework
 					//pStaticComponent->Initialize();
 
 					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
-					//pStaticCollisionComponent->Initialize(); Delay initilize 
-					
-					//CollisionManager::GetSingletonPtr()->AddObjectToBin(0, pStaticCollisionComponent);
 
 				}
-				(*gameObjects)[id] = gameObj;
-				//gameObjects->push_back(gameObj);
 				m_objectHashTable->insert(make_pair(id, gameObj));
 			}
 			m_tileMap->SetObjects(m_objectHashTable);
@@ -212,6 +218,9 @@ namespace Framework
 		}
 		m_tileMap->SetQuadTree(quadtreeLoader->GetQuadTree());
 
+		delete quadtreeLoader;
+
+		int k = 3;
 		return true;
 	}
 }

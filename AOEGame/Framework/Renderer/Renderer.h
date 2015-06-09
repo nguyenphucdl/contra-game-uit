@@ -70,7 +70,7 @@ namespace Framework
 		void RemoveRenderable(Renderable* pRenderable);	
 		void AddDrawable(Drawable* pDrawable);
 		void RemoveDrawble(Drawable* pDrawable);
-
+		void ClearRenderables()						{ m_renerables.clear(); }
 		// From Task
 		virtual	bool	Start();
 		virtual	void	OnSuspend();
@@ -78,7 +78,7 @@ namespace Framework
 		virtual void	OnResume();
 		virtual void	Stop();
 
-		bool IsInitialized()	{ return m_initialized; }
+		bool IsInitialized()						{ return m_initialized; }
 		// Handle lost graphics device
 		virtual void handleLostGraphicsDevice();
 		// Return handle to device context (window)

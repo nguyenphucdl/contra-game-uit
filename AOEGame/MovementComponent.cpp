@@ -132,7 +132,7 @@ void MovementComponent::HandleCollision(CollisionEventData* pData)
 		{
 			m_vectorOffset.m_y = m_offset[0];
 			SetIsSupported(true, pColliderCollisionComponent->GetAABBMax().m_y);
-			Console::GetSingletonPtr()->print("Set is supported y(%f)", pColliderCollisionComponent->GetAABBMax().m_y);
+			//Console::GetSingletonPtr()->print("Set is supported y(%f)", pColliderCollisionComponent->GetAABBMax().m_y);
 		}
 		else if (idx == 3)//LEFT
 		{

@@ -10,31 +10,13 @@ namespace Framework
 			, m_frameDt(0.0f)
 			, m_simDt(0.0f)
 			, m_simMultiplier(1.0f)
-			, m_timeTotal(0.0f)
+			, m_timesEslapsed(5)
 	{
-		
-		
-
-		int game_width = GameConfig::GetSingletonPtr()->GetInt(std::string(ConfigKey::GAME_WIDTH));
-		float game_width2 = GameConfig::GetSingletonPtr()->GetInt("TestFloat1");
-		float game_width3 = GameConfig::GetSingletonPtr()->GetFloat("TestFloat2");
-		float game_width4 = GameConfig::GetSingletonPtr()->GetFloat("TestFloat22");
-		float game_width5 = GameConfig::GetSingletonPtr()->GetFloat("TestFloat25");
-		bool gameFullScreen = GameConfig::GetSingletonPtr()->GetBool("FULLSCREEN");
-		//test
-		m_timeTotal = 0;
-		Log::info(Log::LOG_LEVEL_ROOT, "[Timer] Constructor Get Config %d, %f, %f, %f !\n", game_width, game_width2, game_width3, game_width4);
+		std::fill(m_timesEslapsed.begin(), m_timesEslapsed.end(), 0.0f);
 	}
 
 	Timer::~Timer()
 	{
-	}
-
-	Timer::TimeUints Timer::nanoTime()
-	{
-		TimeUints timeNow;
-		QueryPerformanceCounter(&timeNow);
-		return timeNow;
 	}
 
 	bool Timer::Start()
@@ -53,33 +35,23 @@ namespace Framework
 
 	void Timer::Update()
 	{
-		//QueryPerformanceFrequency(&m_timeFreq);
-
 		QueryPerformanceCounter(&m_timeStart);
 
-		m_anim = ((float)m_timeStart.QuadPart - (float)m_timeLastFrame.QuadPart) / m_timeFreq.QuadPart;
+		m_frameDt = ((double)(m_timeStart.QuadPart - m_timeLastFrame.QuadPart)) / m_timeFreq.QuadPart;
 		
+		m_simDt = m_frameDt * m_simMultiplier;		
 
-		LONGLONG llTimeDiff = m_timeStart.QuadPart - m_timeLastFrame.QuadPart;
-
-		m_frameDt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart);// seconds
-
-		//double m_dt = (m_timeStart.QuadPart - m_timeLastFrame.QuadPart) / (double)(m_timeFreq.QuadPart / 1000.0f);
-
-		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeDt %f !\n", m_dt);
-		m_simDt = m_frameDt * m_simMultiplier;
-
-		m_timeTotal += m_frameDt; //
-		//Log::info(Log::LOG_LEVEL_ROOT, "[Timer][Update] TimeTotal %f !\n", Timer::GetTimeTotal());
+		for (TimerEslapsedVectorIterator it = m_timesEslapsed.begin(); it != m_timesEslapsed.end(); it++)
+		{
+			*it += m_simDt;
+		}
+		
 		m_timeLastFrame = m_timeStart;
-
-		
-		int k = 124;
 	}
 
 	void Timer::OnResume()
 	{
-		m_timeLastFrame = nanoTime();
+		
 	}
 
 	void Timer::Stop()

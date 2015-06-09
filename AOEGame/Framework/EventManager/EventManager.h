@@ -39,8 +39,6 @@ namespace Framework
 		EventExecutorVector							m_eventExecutorVector;
 		ExecutorID									m_activeExecutorId;
 
-
-
 		EventExecutor*		_getEventExecutor(ExecutorID execId);
 	public:
 		EventManager();

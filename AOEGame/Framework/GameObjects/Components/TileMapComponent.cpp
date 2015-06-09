@@ -54,7 +54,7 @@ namespace Framework
 		int delta = y - m_mapViewport->top;
 		m_mapViewport->top += delta;
 		m_mapViewport->bottom += delta;
-		Console::GetSingletonPtr()->print("ScrollView top %d left %d", m_mapViewport->top, m_mapViewport->left);
+		//Console::GetSingletonPtr()->print("ScrollView top %d left %d", m_mapViewport->top, m_mapViewport->left);
 	}
 
 

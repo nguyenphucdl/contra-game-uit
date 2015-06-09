@@ -39,26 +39,12 @@ namespace Framework
 	void Game::Run()
 	{	
 		FPSCounter::GetSingletonPtr()->StartCounter();
-		
 
 		m_kernel.Execute();
 
-
-		Console::GetSingletonPtr()->print("Update time (%lf)", FPSCounter::GetSingletonPtr()->GetLastCounter());
-		Console::GetSingletonPtr()->print("FPS (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetLastCounter());
-		Console::GetSingletonPtr()->print("Max time (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetMinCounter());
-		Console::GetSingletonPtr()->print("Min time (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetMaxCounter());
-		Console::GetSingletonPtr()->print("FPS Timer (%f)", 1.0f / Timer::GetSingletonPtr()->GetTimeSim());
-		Console::GetSingletonPtr()->print("Timeer sim (%f)", Timer::GetSingletonPtr()->GetTimeSim());
-		//}
-		//Timer::GetSingletonPtr()->Update();
-		//if (Timer::GetSingletonPtr()->GetTimeTotal() > 0.03333333f) // NEED REFACTOR
-		//{
-			//m_kernel.Execute();
-			//Timer::GetSingletonPtr()->Reset();
-		//}
-		
-		FPSCounter::GetSingletonPtr()->GetCounter();
+		Console::GetSingletonPtr()->print("Render time (%lf)", Timer::GetSingletonPtr()->GetTimeEslapsed(TimerTypes::RenderCount));
+		Console::GetSingletonPtr()->print("Update time (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetCounter());
+		Console::GetSingletonPtr()->print("Timer sim (%f)", Timer::GetSingletonPtr()->GetTimeSim());
 	}
 
 	void Game::DestroyAll()

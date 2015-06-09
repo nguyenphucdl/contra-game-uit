@@ -18,6 +18,7 @@ namespace Framework
 	private:
 		GamePlay*	m_currentGamePlay;
 		bool		m_paused;
+		double		m_eslapsed;
 		//std::stack<GameState*>	m_currentStates;
 		//std::vector<Drawable*>	m_activeDrawables;
 		//std::vector<Updateable*> m_activeUpdateables;

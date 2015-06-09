@@ -5,7 +5,7 @@
 namespace Framework
 {
 	Font::Font()
-		: m_width(0), m_height(0), m_columns(0)
+		: m_width(0), m_height(0), m_columns(0), m_textDraws(10)
 	{
 		RegisterTexture("Resources\\Font\\system12.tga");
 		m_fontTexture = GetTexture("system12.tga");
@@ -13,6 +13,18 @@ namespace Framework
 		loadWidthData("Resources\\Font\\system12.dat");
 		
 		Framework::AttachEvent(ExecutorIDs::SysRender, Events::SYS_POST_RENDER_EVENT, *this);
+	}
+
+	Font::~Font()
+	{
+		for (TextDrawVectorIterator it = m_textDraws.begin(); it != m_textDraws.end(); it++)
+		{
+			delete *it;
+			*it = NULL;
+		}
+		m_textDraws.clear();
+		m_textDraws.shrink_to_fit();
+		SAFE_DELETE(m_fontTexture);
 	}
 
 	void Font::Draw(LPD3DXSPRITE spriteHandler)
@@ -79,6 +91,12 @@ namespace Framework
 
 	void Font::HandleEvent(Event* pEvent)
 	{
+		for (TextDrawVectorIterator it = m_textDraws.begin(); it != m_textDraws.end(); it++)
+		{
+			delete *it;
+			*it = NULL;
+		}
 		m_textDraws.clear();
-	}
+		m_textDraws.shrink_to_fit();
+	}	
 }

@@ -11,6 +11,12 @@ namespace Framework
 		Renderer::GetSingletonPtr()->AddDrawable(this);
 	}
 
+	Console::~Console()
+	{
+		SAFE_DELETE(m_panel);
+		SAFE_DELETE(m_font);
+	}
+
 	bool Console::init()
 	{
 		m_font = new Font();

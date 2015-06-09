@@ -3,7 +3,7 @@
 namespace Framework
 {
 	TileSet::TileSet(int firstGid, int tileWidth,
-			int tileHeight, std::string imageName,int dimensionX, int dimensionY, std::string name)
+			int tileHeight, std::string& imageName,int dimensionX, int dimensionY, std::string& name)
 			: m_firstGid(firstGid)
 			, m_tileWidth(tileWidth)
 			, m_tileHeight(tileHeight)
@@ -16,5 +16,6 @@ namespace Framework
 
 	TileSet::~TileSet()
 	{
+		
 	}
 }

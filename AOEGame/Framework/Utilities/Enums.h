@@ -33,11 +33,10 @@ namespace Framework
 		COM_COLLISION_EVENT
 	};
 
-	enum ObjectIds
+	enum TimerTypes
 	{
-		//PlayerId = 5000,
-		//CameraId = 5001,
-		//TileMapId = 5002
+		UpdateCount,
+		RenderCount
 	};
 
 	enum ComponentIDs

@@ -26,11 +26,11 @@ namespace Framework
 		void DrawText(TextDraw* textdraw, LPD3DXSPRITE spriteHandler);
 	public:
 		Font();
-		virtual ~Font() { }
 
-
+		virtual ~Font();
 
 		void Print(int x, int y, std::string text, int color = 0xFFFFFFFF);
+
 		virtual void Draw(LPD3DXSPRITE spriteHandler);
 
 		int getCharWidth() { return this->m_width; }

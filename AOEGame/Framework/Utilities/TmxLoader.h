@@ -17,7 +17,7 @@ namespace Framework
 	class TmxLoader 
 	{
 	public:
-		TmxLoader(std::string file);
+		TmxLoader(std::string& file);
 		~TmxLoader();
 
 		bool Load();

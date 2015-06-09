@@ -1,11 +1,15 @@
 #include "GameStateManager.h"
 #include "../EventManager/EventManager.h"
+#include "../Utilities/Timer.h"
+#include "../Utilities/Console.h"
+#include "../Utilities/FPSCounter.h"
 
 namespace Framework
 {
 	GameStateManager::GameStateManager(const unsigned int priority)
 		: Task(priority, "GamePlay1Task")
 		, m_paused(false)
+		, m_eslapsed(0.0f)
 	{
 	}
 
@@ -53,7 +57,10 @@ namespace Framework
 		{
 			m_currentGamePlay->Update();
 		}
-		m_currentGamePlay->Draw();
+		if (Timer::GetSingletonPtr()->StopWatch(TimerTypes::RenderCount, 0.0166666667f))
+		{
+			m_currentGamePlay->Draw();
+		}
 	}
 
 	void GameStateManager::OnResume()

@@ -92,7 +92,6 @@ namespace Framework
 
 			Vector3 boundMin = GetBoundMin();
 			Vector3 boundMax = GetBoundMax();
-			//Console::GetSingletonPtr()->print("Player bound min(%f, %f) max(%f,%f)", boundMin.m_x, boundMin.m_y, boundMax.m_x, boundMax.m_y);
 			break;
 		}
 	}

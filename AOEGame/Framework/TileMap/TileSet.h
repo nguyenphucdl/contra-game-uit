@@ -9,7 +9,7 @@ namespace Framework
 	{
 	public:
 		TileSet(int firstGid, int tileWidth,
-			int tileHeight, std::string imageName, int m_dimensionX, int m_dimensionY ,std::string name);
+			int tileHeight, std::string& imageName, int m_dimensionX, int m_dimensionY ,std::string& name);
 		~TileSet();
 	private:
 		int				m_firstGid;

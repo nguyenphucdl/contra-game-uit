@@ -1,6 +1,7 @@
 #include "Animation.h"
 #include "../../Utilities/Timer.h"
 #include "../../Renderer/Texture/TextureManager.h"
+#include "../../Utilities/Enums.h"
 
 namespace Framework
 {
@@ -15,6 +16,13 @@ namespace Framework
 
 	Animation::~Animation()
 	{
+		for (TextureRegionVectorIterator it = m_frames.begin(); it != m_frames.end(); it++)
+		{
+			delete *it;
+			*it = NULL;
+		}
+		m_frames.clear();
+		m_frames.shrink_to_fit();
 	}
 
 	void Animation::SetFrameIndex(int idx)
@@ -23,7 +31,7 @@ namespace Framework
 			m_curIdx = idx;
 		else
 		{
-			Log::info(Log::LOG_LEVEL_MIN, "Attempt to set invalid frame index!");
+			Log::error("[Animation] attempt to set invalid frame index!");
 		}
 	}
 
@@ -39,16 +47,12 @@ namespace Framework
 
 	TextureRegion* Animation::Next()
 	{
-		assert(Timer::GetSingletonPtr());
-		m_elapse += Timer::GetSingletonPtr()->GetTimeTotal();
-		//Log::info(Log::LOG_LEVEL_MEDIUM, "Animation elapse: %f\n", m_elapse);
+		m_elapse += Timer::GetSingletonPtr()->GetTimeEslapsed(TimerTypes::RenderCount);
 		if (m_elapse > m_delay)
 		{
 			m_curIdx++;
 			if (m_curIdx > m_frames.size() - 1)
 				m_curIdx = 0;
-
-			//Log::info(Log::LOG_LEVEL_MEDIUM, "Animation update at %f\n", m_elapse);
 			m_elapse = 0;
 		}
 		return m_frames.at(m_curIdx);

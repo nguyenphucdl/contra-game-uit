@@ -10,8 +10,11 @@ namespace Framework
 	class Animation
 	{
 	private:
+		typedef std::vector<TextureRegion*>			TextureRegionVector;
+		typedef TextureRegionVector::iterator		TextureRegionVectorIterator;
+
+		TextureRegionVector				m_frames;
 		std::string						m_name;
-		std::vector<TextureRegion*>		m_frames;
 		float							m_elapse;
 		float							m_delay;
 		int								m_curIdx;
@@ -22,15 +25,15 @@ namespace Framework
 		TextureRegion*	Next();
 		TextureRegion*  Current();
 
-		void	SetTimeDelay(float delay)	{ m_delay = delay; }
-		float	GetTimeDelay()				{ return m_delay; }
-		void	SetName(std::string name)	{ m_name = name; }
-		std::string GetName()				{ return m_name; }
+		void	SetTimeDelay(float delay)			{ m_delay = delay; }
+		float	GetTimeDelay()						{ return m_delay; }
+		void	SetName(std::string name)			{ m_name = name; }
+		const std::string& GetName()				{ return m_name; }
 		void	SetFrameIndex(int idx);
 		void	Reverse();
-		int		GetFrameIndex()				{ return m_curIdx; }		
+		int		GetFrameIndex()						{ return m_curIdx; }		
 		void	AddFrame(TextureRegion* frame);
-		void	Reset()						{ m_curIdx = 0; }
+		void	Reset()								{ m_curIdx = 0; }
 
 	public:
 		//static Animation* CreateAnimation(std::string name, float delay, Texture* sheet, int dimensionx, int dimensiony, int framecounts, int offset, bool flipX = false);

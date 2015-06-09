@@ -15,6 +15,7 @@ namespace Framework
 
 	QuadtreeLoader::~QuadtreeLoader()
 	{
+		
 	}
 
 	Quadtree* QuadtreeLoader::GetQuadTree()

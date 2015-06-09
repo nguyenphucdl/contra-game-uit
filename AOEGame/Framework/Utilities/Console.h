@@ -16,15 +16,12 @@ namespace Framework
 		, public EventHandler
 
 	{
-		typedef std::vector<std::string> StringVector;
-		typedef StringVector::iterator	 StringVectorIterator;
 	private:
 		bool				m_showing;
 		Texture*			m_panel;
 		Font*				m_font;
 		int					m_currentLine;
 		float				m_scaleX, m_scaleY;
-		StringVector		m_textLines;
 
 		int					m_lineHeight;
 		int					m_lineWidthLimit;
@@ -32,9 +29,8 @@ namespace Framework
 		virtual void Draw(LPD3DXSPRITE spriteHandler);
 	public:
 		Console();
-		virtual ~Console() {};
+		virtual ~Console();
 		bool init();
-		/*void print(std::string text, int line = -1);*/
 		void print(const char* pMessage, ...);
 		bool isShowing() { return this->m_showing; }
 		void show()		 { this->m_showing = true; }

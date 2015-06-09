@@ -110,7 +110,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 				m_velocity.m_y = 0.0f;
 			}
 
-			Console::GetSingletonPtr()->print("Offset Vector m_x(%f) m_y(%f) m_z(%f)", m_vectorOffset.m_x, m_vectorOffset.m_y, m_vectorOffset.m_z);
+			//Console::GetSingletonPtr()->print("Offset Vector m_x(%f) m_y(%f) m_z(%f)", m_vectorOffset.m_x, m_vectorOffset.m_y, m_vectorOffset.m_z);
 			//Console::GetSingletonPtr()->print("Falling falling (%d) && On Floor(%d)", falling, m_onFloor);
 
 			//Console::GetSingletonPtr()->print("Player bound min m_y (%f)", pOwnerCollisionComponent->GetAABBMin().m_y);
@@ -119,10 +119,9 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			
 			//Console::GetSingletonPtr()->print("Anim (%f)", Timer::GetSingletonPtr()->GetAnim());
 			//Console::GetSingletonPtr()->print("Timer total %f", Timer::GetSingletonPtr()->GetTimeTotal());
-			Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[3], m_offset[1], m_offset[0], m_offset[2]);
-
-			Console::GetSingletonPtr()->print("Accel m_x(%f) m_y(%f)", m_acceleration.m_x ,m_acceleration.m_y);
-			Console::GetSingletonPtr()->print("Vel m_x(%f) m_y(%f)", m_velocity.m_x , m_velocity.m_y);
+			//Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[3], m_offset[1], m_offset[0], m_offset[2]);
+			//Console::GetSingletonPtr()->print("Accel m_x(%f) m_y(%f)", m_acceleration.m_x ,m_acceleration.m_y);
+			//Console::GetSingletonPtr()->print("Vel m_x(%f) m_y(%f)", m_velocity.m_x , m_velocity.m_y);
 			Log::info(Log::LOG_LEVEL_HIGHT,"JUMP ACCELL Y %f\n", m_acceleration.m_y);
 		}
 		
@@ -232,7 +231,7 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 		{
 			m_vectorOffset.m_y = m_offset[0];
 			SetIsSupported(true, pColliderCollisionComponent->GetAABBMax().m_y);
-			Console::GetSingletonPtr()->print("Set is supported y(%f)", pColliderCollisionComponent->GetAABBMax().m_y);
+			//Console::GetSingletonPtr()->print("Set is supported y(%f)", pColliderCollisionComponent->GetAABBMax().m_y);
 		}
 		else if (idx == 3)//LEFT
 		{

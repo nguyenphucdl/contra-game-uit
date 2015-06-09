@@ -10,31 +10,33 @@ namespace Framework
 		,	public Singleton<Timer>
 	{
 	public:
-		typedef LARGE_INTEGER	TimeUints;
+		typedef LARGE_INTEGER					TimeUints;
+		typedef std::vector<double>				TimerEslapsedVector;
+		typedef TimerEslapsedVector::iterator	TimerEslapsedVectorIterator;
 
 	private:
-		TimeUints		nanoTime();
+		std::vector<double>		m_timesEslapsed;
+
 		TimeUints		m_timeStart;
 		TimeUints		m_timeLastFrame;
 		TimeUints		m_timeFreq;
-		double 			m_timeTotal; //Test
-		
-		float			m_frameDt;
-		float			m_simDt;
-		float			m_simMultiplier;
 
-		float			m_anim;
+		double			m_frameDt;
+		double			m_simDt;
+		double			m_simMultiplier;
 
 	public:
 		Timer(const unsigned int priority);
 		~Timer();
 
-		float			GetTimeFrame() const;
-		float			GetTimeSim() const;
-		float			GetTimeTotal() const;
-		float			GetAnim() const;
-		void			Reset();
-		void			SetSimMultiplier(const float simMultiplier);
+		double			GetTimeEslapsed(int timerType) const;
+		double			GetTimeFrame() const;
+		double			GetTimeSim() const;
+		void			Reset(int timerType);
+		void			ResetAll();
+		void			SetSimMultiplier(const double simMultiplier);
+		void			AddTimer(int timerType);
+		bool			StopWatch(int timerType, double eslapsed);
 
 		virtual bool	Start();
 		virtual void	OnSuspend();
@@ -43,28 +45,53 @@ namespace Framework
 		virtual void	Stop();
 	};
 
-	inline float Timer::GetTimeFrame() const
+	inline double Timer::GetTimeFrame() const
 	{
 		return m_frameDt;
 	}
 
-	inline float Timer::GetTimeSim() const
+	inline double Timer::GetTimeEslapsed(int timerType) const
+	{
+		return m_timesEslapsed[timerType];
+	}
+
+	inline void	Timer::AddTimer(int timerType)
+	{
+		try {
+			double temp = m_timesEslapsed.at(timerType);
+		}
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to register event with id out of range (%d) reson (%s)", timerType, oor.what());
+			throw new GameError(GameErrorNS::FATAL_ERROR, oor.what());
+		}
+	}
+
+	inline bool	Timer::StopWatch(int timerType, double eslapsed)
+	{
+		if (m_timesEslapsed[timerType] >= eslapsed)
+		{
+			m_timesEslapsed[timerType] = 0.0f;
+			return true;
+		}
+		return false;
+	}
+
+	inline double Timer::GetTimeSim() const
 	{
 		return m_simDt;
 	}
-	inline float Timer::GetAnim() const
+	
+	inline void Timer::ResetAll()
 	{
-		return m_anim;
+		std::fill(m_timesEslapsed.begin(), m_timesEslapsed.end(), 0.0f);
 	}
-	inline float Timer::GetTimeTotal() const
+
+	inline void Timer::Reset(int timerType)
 	{
-		return m_timeTotal;
+		m_timesEslapsed[timerType] = 0.0f;
 	}
-	inline void Timer::Reset()
-	{
-		m_timeTotal = 0;
-	}
-	inline void Timer::SetSimMultiplier(const float simMultiplier)
+
+	inline void Timer::SetSimMultiplier(const double simMultiplier)
 	{
 		m_simMultiplier = simMultiplier;
 	}
