@@ -13,14 +13,17 @@ namespace Framework
 	TileMapScene::TileMapScene()
 		: EventExecutorAware()
 		, m_currentObjects(new std::vector<GameObject*>())
-		, m_paused(false)
 	{
 	}
 
 	TileMapScene::~TileMapScene()
 	{
 		m_currentObjects->clear();
-		//Remove collision bin in collision manager
+		m_currentObjects->shrink_to_fit();
+		SAFE_DELETE(m_currentObjects);
+		SAFE_DELETE(m_tileMapObject);
+		SAFE_DELETE(m_cameraObject);
+		SAFE_DELETE(m_npcObject);
 	}
 
 	bool TileMapScene::LoadSceneFromFile(std::string file)

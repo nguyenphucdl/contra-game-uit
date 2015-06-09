@@ -12,8 +12,9 @@ namespace Framework
 		double	m_y;
 		int		m_width;
 		int		m_height;
-
+		RECT	m_rect;
 	public:
+		Rect();
 		Rect(double x, double y, int width, int height);
 		Rect(Rect& rect);
 		~Rect();
@@ -27,10 +28,20 @@ namespace Framework
 		void	SetHeight(int height)	{ m_width = height; }
 		int		GetHeight()				{ return m_height; }
 
-		RECT	GetBound();
+		const RECT&	GetBound() {
+			_update();
+			return m_rect;
+		};
 
 		bool	IsIntersect(Rect& r);
 		static bool	IsIntersect(Rect& l, Rect& r);
+	private:
+		void _update() {
+			m_rect.left = m_x;
+			m_rect.top = m_y;
+			m_rect.right = m_rect.left + m_width;
+			m_rect.bottom = m_rect.top + m_height;
+		}
 	};
 }
 

@@ -16,8 +16,6 @@ namespace Framework
 		,	public EventExecutorAware
 	{
 	public:
-		
-
 		TileMapScene();
 		~TileMapScene();
 
@@ -31,7 +29,6 @@ namespace Framework
 		GameObject*					m_tileMapObject;
 		GameObject*					m_npcObject;
 
-		bool						m_paused;
 
 		virtual void HandleEvent(Event* pEvent);
 

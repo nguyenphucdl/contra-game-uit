@@ -2,11 +2,22 @@
 
 namespace Framework
 {
+	Rect::Rect()
+		: m_x(0)
+		, m_y(0)
+		, m_width(0)
+		, m_height(0)
+		, m_rect()
+	{
+
+	}
+
 	Rect::Rect(double x, double y, int width, int height)
 		: m_x(x)
 		, m_y(y)
 		, m_width(width)
 		, m_height(height)
+		, m_rect()
 	{
 	}
 
@@ -22,15 +33,6 @@ namespace Framework
 	{
 	}
 
-	RECT Rect::GetBound()
-	{
-		RECT result;
-		result.left = m_x;
-		result.top = m_y;
-		result.right = result.left + m_width;
-		result.bottom = result.top + m_height;
-		return result;
-	}
 	/*
 	* http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
 	*/

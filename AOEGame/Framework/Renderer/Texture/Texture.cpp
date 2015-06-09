@@ -22,6 +22,7 @@ namespace Framework
 
 	Texture::~Texture()
 	{
+		Destroy();
 	}
 	
 	void Texture::Destroy()
