@@ -3,6 +3,8 @@
 #include "TransformComponent.h"
 #include "../../EventManager/EventManager.h"
 #include "../../Utilities/Timer.h"
+#include "../../Utilities/Console.h"
+
 namespace Framework
 {
 	CameraComponent::CameraComponent(GameObject* pOwner)
@@ -63,12 +65,13 @@ namespace Framework
 			if (pObjTransformComponent)
 			{
 				Transform* transform = pObjTransformComponent->GetTransform();
-				Vector3& translation = transform->GetTranslation().GetInverseY();
+				//Vector3& translation = transform->GetTranslation().GetInverseY();
+				Vector3& translation = transform->GetTranslation();
 				
 				Vector3 cameraTrans = translation;
 				cameraTrans.Subtract(m_transOrigin);
 
-				cameraTrans.m_y = 0;//phụ thuộc vào map orientation
+				//cameraTrans.m_y = 0;//phụ thuộc vào map orientation
 				
 				//translation.Add(m_transOrigin);
 
@@ -76,6 +79,8 @@ namespace Framework
 					cameraTrans.m_x = 0;
 				else if (cameraTrans.m_x > m_bound.right - m_viewPortWidth)
 					cameraTrans.m_x = m_bound.right - m_viewPortWidth;
+
+
 				if (cameraTrans.m_y < m_bound.top)
 					cameraTrans.m_y = m_bound.top;
 				else if (cameraTrans.m_y > m_bound.bottom - m_viewPortHeight)
@@ -83,6 +88,10 @@ namespace Framework
 					
 
 				Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&cameraTrans);
+
+				//TEST
+				Vector3 vec3 = Renderer::GetSingletonPtr()->GetCamera().GetViewTranslate();
+				Console::GetSingletonPtr()->print("Camera translate x(%f) y(%f)", vec3.m_x, vec3.m_y);
 			}
 		}
 			break;

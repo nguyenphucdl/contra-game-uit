@@ -122,7 +122,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			//Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[3], m_offset[1], m_offset[0], m_offset[2]);
 			//Console::GetSingletonPtr()->print("Accel m_x(%f) m_y(%f)", m_acceleration.m_x ,m_acceleration.m_y);
 			//Console::GetSingletonPtr()->print("Vel m_x(%f) m_y(%f)", m_velocity.m_x , m_velocity.m_y);
-			Log::info(Log::LOG_LEVEL_HIGHT,"JUMP ACCELL Y %f\n", m_acceleration.m_y);
+			
 		}
 		
 		
@@ -156,6 +156,19 @@ void PlayerMovementComponent::_ProcessPollInput()
 		// Restore state
 		m_currentState = SpriteStates::STATIONARY;
 	}
+
+	/*if (IS_KEYDOWN(DIK_UP))
+	{
+		m_velocity.m_y = 100.0f;
+	}
+	else if (IS_KEYDOWN(DIK_DOWN))
+	{
+		m_velocity.m_y = -100.0f;
+	}
+	else
+	{
+		m_velocity.m_y = 0.0f;
+	}*/
 
 	if (IS_KEYDOWN(DIK_SPACE))
 	{

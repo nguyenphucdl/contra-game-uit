@@ -20,6 +20,7 @@ namespace Framework
 		GameObject* m_pCameraObject;
 
 		TileMapScene* m_tileMapScene;//Test
+		TileMapScene* m_scene2;
 	public:
 		GamePlay();
 		~GamePlay();

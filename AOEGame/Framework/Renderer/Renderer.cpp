@@ -261,7 +261,7 @@ namespace Framework
 			else
 				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &textureRect, &centerDraw, &D3DXVECTOR3(inverse_pos_view.x + centerVector.x, inverse_pos_view.y + centerVector.y, 1.0f), D3DCOLOR_XRGB(255, 255, 255));
 		}
-		if (pRenderable->IsDebug() && false)
+		if (pRenderable->IsDebug() && true)
 		{
 			float scaleXDebug = (float)texture->GetTextureWidth() / 200;
 			float scaleYDebug = (float)texture->GetTextureHeight() / 200;
@@ -397,7 +397,7 @@ namespace Framework
 
 	void Renderer::PrepareViewMatrix()
 	{
-		Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverse();
+		Vector3	inverseViewTranslate = m_camera.GetViewTranslate().GetInverseX();
 		D3DXMatrixIdentity(&m_viewMatrix);
 		D3DXMatrixTransformation2D(&m_viewMatrix, NULL, 0, NULL, 0, 0, &D3DXVECTOR2(inverseViewTranslate.m_x, inverseViewTranslate.m_y));
 	}

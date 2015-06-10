@@ -21,7 +21,9 @@ namespace Framework
 
 		TileMap*				m_tileMap;		
 		RECT*					m_mapViewport;
+		Vector3					m_mapOrigin;
 		bool					m_scroll;
+
 
 	public:
 		static unsigned int GetId() { return s_id; }
@@ -41,10 +43,25 @@ namespace Framework
 		
 		void UpdateVerticalScrollView(int y);
 
+		void UpdateMapScrollView(Vector3& tranlate);
+
 		void SetTileMap(TileMap* tileMap)
 		{
 			m_tileMap = tileMap;
 		}
+
+		void SetMapOrigin(Vector3& origin);
+		const Vector3& GetMapOrigin() const;
 	};
+
+	inline void TileMapComponent::SetMapOrigin(Vector3& origin)
+	{
+		m_mapOrigin.Set(origin);
+	}
+
+	inline const Vector3& TileMapComponent::GetMapOrigin() const
+	{
+		return m_mapOrigin;
+	}
 }
 #endif//__TILEMAPCOMPONENT_H__

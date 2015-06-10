@@ -14,6 +14,7 @@ public:
 
 	Framework::GameObject* GetPlayerObject();
 	Framework::GameObject* GetTileMapObject(Framework::TileMap* tileMap);
+	Framework::GameObject* GetTileMapObjectMap1Scene2(Framework::TileMap* tileMap);
 	Framework::GameObject* GetNpcTestObject();
 	Framework::GameObject* GetCameraObject(Framework::GameObject* attachObj);
 };
