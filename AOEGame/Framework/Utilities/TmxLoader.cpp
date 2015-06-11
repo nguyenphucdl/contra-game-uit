@@ -164,7 +164,9 @@ namespace Framework
 					int y = atoi(objectNode->first_attribute("y")->value());
 					int width = atoi(objectNode->first_attribute("width")->value());
 					int height = atoi(objectNode->first_attribute("height")->value());
-
+					int staticObjectType = atoi(objectNode->first_attribute("type")->value());
+					
+					pStaticComponent->SetStaticObjectType(staticObjectType);
 
 					int mapWidth = m_tileMap->GetWidth() * m_tileMap->GetTileWidth();
 					int mapHeight = m_tileMap->GetHeight() * m_tileMap->GetTileHeight();

@@ -4,6 +4,7 @@ namespace Framework
 {
 	StaticComponent::StaticComponent(GameObject* pOwner)
 		: RenderableComponent(pOwner)
+		, m_objectType(0)
 	{
 	}
 

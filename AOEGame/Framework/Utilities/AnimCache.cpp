@@ -102,6 +102,10 @@ namespace Framework
 						}//...
 					}
 				}//end node value of dict
+				if (f_row == 0)
+					f_row = 1;
+				if (f_column == 0)
+					f_column = 1;
 				FrameInfo *fr = new FrameInfo(keyName, f_x, f_y, f_width, f_height, f_column, f_row);
 				m_propList[keyName] = fr;
 			}

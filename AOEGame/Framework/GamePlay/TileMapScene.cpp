@@ -96,8 +96,10 @@ namespace Framework
 			FPSCounter::GetSingletonPtr()->StartCounterTest1();
 			
 			CollisionManager::GetSingletonPtr()->SetExecutor(this);
-			std::vector<GameObject*>*	tempObjectList = CollisionManager::GetSingletonPtr()->GetCurrentObjectList();
-			m_currentObjects->swap(*tempObjectList);
+			//std::vector<GameObject*>*	tempObjectList = 
+				
+			CollisionManager::GetSingletonPtr()->GetCurrentObjectList(m_currentObjects);
+			//m_currentObjects->swap(*tempObjectList);
 			
 			Console::GetSingletonPtr()->print("Object count (%d)", m_currentObjects->size());
 			Console::GetSingletonPtr()->print("Query Range Time (%lf)", FPSCounter::GetSingletonPtr()->GetCounterTest1());
@@ -117,6 +119,7 @@ namespace Framework
 			/*********************************************************************************************************************/
 			//CollisionManager::GetSingletonPtr()->TestAgainstBin(m_playerObject);
 			//CollisionManager::GetSingletonPtr()->TestAgainstBin(m_npcObject);
+			/*CollisionManager::GetSingletonPtr()->TestAgainstBin(m_updatedObjects);*/
 			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_updatedObjects);
 		}
 		else if (pEvent->GetID() == Events::SCE_UPDATE_EVENT)

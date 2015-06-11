@@ -23,13 +23,15 @@ private:
 	Framework::Vector3				m_velocity;
 	Framework::Vector3				m_acceleration;
 
-	float				m_floor;
-	bool				m_onFloor;
-	bool				m_isSupported;
-	//bool				m_jumping;
+	float					m_floor;
+	bool					m_onFloor;
+	bool					m_isSupported;
+	bool					m_isClimping;
+	bool					m_isJumping;
+	bool					m_isKeyPress;
 
-	float				m_offset[4];
-	Framework::Vector3				m_vectorOffset;
+	float					m_offset[4];
+	Framework::Vector3		m_vectorOffset;
 
 public:
 	//static unsigned int GetId() { return s_id; }
@@ -43,8 +45,8 @@ public:
 	virtual void HandleCollision(Framework::CollisionEventData* pData);
 
 private:
-	void _ProcessKeydownEvent(Framework::Event* pEvent);
-	void _ProcessKeyupEvent(Framework::Event* pEvent);
+	//void _ProcessKeydownEvent(Framework::Event* pEvent);
+	//void _ProcessKeyupEvent(Framework::Event* pEvent);
 	void _ProcessPollInput();
 
 	void SetIsSupported(bool isSupported, float floor = 0.0f) { m_isSupported = isSupported; m_floor = floor; }

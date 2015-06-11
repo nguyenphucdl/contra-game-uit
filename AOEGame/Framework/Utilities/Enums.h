@@ -47,6 +47,12 @@ namespace Framework
 		BOTTOM_RIGHT
 	};
 
+	enum StaticObjectTypes
+	{
+		BLOCK_OBJECT = 0,
+		STAIRWAY_OBJECT = 4
+	};
+
 	enum ComponentIDs
 	{
 		//Common Components
@@ -84,6 +90,7 @@ namespace Framework
 		SIT = 300,
 		JUMP = 400,
 		JUMP_FIRING= 450,
+		CLIMBING = 500
 	};
 
 	enum BulletStates

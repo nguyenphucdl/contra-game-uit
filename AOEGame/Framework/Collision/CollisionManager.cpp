@@ -1,7 +1,6 @@
 #include "CollisionManager.h"
 #include "../GameObjects/GameObject.h"
 #include "../EventManager/EventManager.h"
-#include "../Renderer/Renderer.h"
 #include "../Utilities/FPSCounter.h"
 #include "../Utilities/Console.h"
 
@@ -79,25 +78,22 @@ namespace Framework
 		}
 	}
 
-	void CollisionManager::TestAgainstBin(GameObject* pObject)
-	{
-		TestAgainstBin(GetActiveExecutor(), pObject);
-	}
 
-	std::vector<GameObject*>* CollisionManager::GetCurrentObjectList()
-	{
-		std::vector<GameObject*>* objectListResult = NULL;
-		CollisionBinMapIterator result = m_collisionBins.find(GetActiveExecutor());
-		if (result != m_collisionBins.end())
-		{
-			CollisionBin* collisionBin = result->second;
 
-			RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
-			Rect range = Rect(viewport.left, viewport.top, viewport.right - viewport.left, viewport.bottom - viewport.top);
+	//std::vector<GameObject*>* CollisionManager::GetCurrentObjectList()
+	//{
+	//	std::vector<GameObject*>* objectListResult = NULL;
+	//	CollisionBinMapIterator result = m_collisionBins.find(GetActiveExecutor());
+	//	if (result != m_collisionBins.end())
+	//	{
+	//		CollisionBin* collisionBin = result->second;
 
-			collisionBin->QueryRange(range);
-			objectListResult = collisionBin->GetCurrentObjectList();
-		}
-		return objectListResult;
-	}
+	//		RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
+	//		Rect range = Rect(viewport.left, viewport.top, viewport.right - viewport.left, viewport.bottom - viewport.top);
+
+	//		collisionBin->QueryRange(range);
+	//		objectListResult = collisionBin->GetCurrentObjectList();
+	//	}
+	//	return objectListResult;
+	//}
 }

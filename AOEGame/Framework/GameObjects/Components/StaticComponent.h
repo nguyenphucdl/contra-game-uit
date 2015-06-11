@@ -17,11 +17,16 @@ namespace Framework
 	private:
 		static const unsigned int	s_id = ComponentIDs::StaticComponentId;
 
+		int		m_objectType;
+
 	public:
 		static unsigned int GetId() { return s_id; }
 
 		explicit StaticComponent(GameObject* pOwner);
 		virtual ~StaticComponent();
+
+		void	SetStaticObjectType(int type) { m_objectType = type; }
+		int		GetStaticObjectType() { return m_objectType; }
 
 		virtual void Initialize();
 

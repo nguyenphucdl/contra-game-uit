@@ -19,6 +19,9 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
 	propLoader->Load();
 
+	AnimCache* propLoader2 = new AnimCache("Resources\\Texture\\Rockman\\rockman2.plist");
+	propLoader2->Load();
+
 	GameObject* m_playerObject = new GameObject(Utils::getNextId());
 	
 	m_playerObject->AddComponent<SpriteComponent>();
@@ -37,6 +40,8 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 5, 1);
 		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 1, 1);
 		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 4, 1);
+		Animation* climbingLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, 1.5f, 2, 1);
+		Animation* climbingRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, 1.5f, 3, 1);
 
 		pSpriteComponent->SetRenderTransform(true);
 		pSpriteComponent->SetDrawCenter(true);
@@ -54,6 +59,8 @@ Framework::GameObject* ContraGameFactory::GetPlayerObject()
 		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpLeftAnim);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::RIGHT, jumpRightFiring);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::LEFT, jumpLeftFiring);
+		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::LEFT, climbingLeftAnim);
+		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::RIGHT, climbingRightAnim);
 
 		pSpriteComponent->SetUseBounds(true);
 		pSpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));

@@ -261,7 +261,7 @@ namespace Framework
 			else
 				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &textureRect, &centerDraw, &D3DXVECTOR3(inverse_pos_view.x + centerVector.x, inverse_pos_view.y + centerVector.y, 1.0f), D3DCOLOR_XRGB(255, 255, 255));
 		}
-		if (pRenderable->IsDebug() && true)
+		if (pRenderable->IsDebug() && false)
 		{
 			float scaleXDebug = (float)texture->GetTextureWidth() / 200;
 			float scaleYDebug = (float)texture->GetTextureHeight() / 200;
@@ -330,9 +330,11 @@ namespace Framework
 		m_debugTexture = GetTexture("debug-texture.png");
 		return true;
 	}
+
 	void Renderer::OnSuspend()
 	{
 	}
+
 	void Renderer::Update()
 	{	
 
@@ -405,6 +407,7 @@ namespace Framework
 	void Renderer::OnResume()
 	{
 	}
+
 	void Renderer::Stop()
 	{
 

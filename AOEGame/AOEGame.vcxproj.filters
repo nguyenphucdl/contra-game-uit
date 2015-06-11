@@ -393,10 +393,14 @@
     <Image Include="Resources\Texture\Map1\npc.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Texture\Rockman\rockman2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Texture\texture.plist" />
     <None Include="Resources\Texture\Rockman\rockman.plist" />
     <None Include="Resources\Texture\Map1\npc.plist" />
+    <None Include="Resources\Texture\Rockman\rockman2.plist" />
   </ItemGroup>
 </Project>

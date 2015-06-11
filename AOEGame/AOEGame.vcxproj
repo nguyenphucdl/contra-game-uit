@@ -213,11 +213,13 @@
   <ItemGroup>
     <Image Include="Resources\Texture\Map1\npc.png" />
     <Image Include="Resources\Texture\Rockman\rockman.png" />
+    <Image Include="Resources\Texture\Rockman\rockman2.png" />
     <Image Include="Resources\Texture\texture.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Texture\Map1\npc.plist" />
     <None Include="Resources\Texture\Rockman\rockman.plist" />
+    <None Include="Resources\Texture\Rockman\rockman2.plist" />
     <None Include="Resources\Texture\texture.plist" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
