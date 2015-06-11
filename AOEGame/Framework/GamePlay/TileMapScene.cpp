@@ -13,6 +13,11 @@ namespace Framework
 	TileMapScene::TileMapScene()
 		: EventExecutorAware()
 		, m_currentObjects(new std::vector<GameObject*>())
+		, m_updatedObjects(new std::vector<GameObject*>())
+		, m_tileMap(NULL)
+		, m_tileMapObject(NULL)
+		, m_cameraObject(NULL)
+		
 	{
 	}
 
@@ -23,7 +28,6 @@ namespace Framework
 		SAFE_DELETE(m_currentObjects);
 		SAFE_DELETE(m_tileMapObject);
 		SAFE_DELETE(m_cameraObject);
-		SAFE_DELETE(m_npcObject);
 		//Remove object hashtable
 	}
 
@@ -39,15 +43,12 @@ namespace Framework
 		m_tileMap = tmxLoader->GetTileMap();
 		m_tileMap->Prepare();
 
-		m_playerObject = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
-		m_cameraObject = ContraGameFactory::GetSingletonPtr()->GetCameraObject(m_playerObject);
-		m_npcObject = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
-
 		CollisionManager::GetSingletonPtr()->AddCollisionBinFromTileMap(m_tileMap, this);
 
 		delete tmxLoader;
 		return true;
 	}
+
 
 	void TileMapScene::Init()
 	{
@@ -59,9 +60,18 @@ namespace Framework
 		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
 		Framework::AttachEvent(Events::SCE_RENDER_EVENT, *this);
 
-		m_playerObject->InitializeComponents();
-		m_cameraObject->InitializeComponents();
-		m_npcObject->InitializeComponents();
+
+		if (m_cameraObject != NULL)
+		{
+			m_cameraObject->InitializeComponents();
+		}
+
+		for (m_objectIter = m_updatedObjects->begin(); m_objectIter != m_updatedObjects->end(); m_objectIter++)
+		{
+			GameObject* obj = *m_objectIter;
+			if (obj)
+			obj->InitializeComponents();
+		}
 
 		m_tileMap->Init();
 
@@ -95,22 +105,26 @@ namespace Framework
 		else if (pEvent->GetID() == Events::SCE_POST_UPDATE_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_POST_UPDATE_EVENT, m_currentObjects, NULL);
-			Framework::SendComponentEvent(Events::COM_POST_UPDATE_EVENT, m_playerObject, NULL);
-			Framework::SendComponentEvent(Events::COM_POST_UPDATE_EVENT, m_npcObject, NULL);
+			Framework::BroadcastComponentEvent(Events::COM_POST_UPDATE_EVENT, m_updatedObjects, NULL);
+			//Framework::SendComponentEvent(Events::COM_POST_UPDATE_EVENT, m_playerObject, NULL);
+			//Framework::SendComponentEvent(Events::COM_POST_UPDATE_EVENT, m_npcObject, NULL);
+
 
 
 			/*********************************************************************************************************************/
 			/*										Check collision																 */
 			/*																													 */
 			/*********************************************************************************************************************/
-			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_playerObject);
-			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_npcObject);
+			//CollisionManager::GetSingletonPtr()->TestAgainstBin(m_playerObject);
+			//CollisionManager::GetSingletonPtr()->TestAgainstBin(m_npcObject);
+			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_updatedObjects);
 		}
 		else if (pEvent->GetID() == Events::SCE_UPDATE_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_currentObjects, NULL);
-			Framework::SendComponentEvent(Events::COM_UPDATE_EVENT, m_playerObject, NULL);
-			Framework::SendComponentEvent(Events::COM_UPDATE_EVENT, m_npcObject, NULL);
+			Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_updatedObjects, NULL);
+			//Framework::SendComponentEvent(Events::COM_UPDATE_EVENT, m_playerObject, NULL);
+			//Framework::SendComponentEvent(Events::COM_UPDATE_EVENT, m_npcObject, NULL);
 		}
 		else if (pEvent->GetID() == Events::SCE_PRE_RENDER_EVENT)
 		{
@@ -119,8 +133,9 @@ namespace Framework
 		else if (pEvent->GetID() == Events::SCE_RENDER_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_currentObjects, NULL);
-			Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_playerObject, NULL);
-			Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_npcObject, NULL);
+			Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_updatedObjects, NULL);
+			//Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_playerObject, NULL);
+			//Framework::SendComponentEvent(Events::COM_RENDER_EVENT, m_npcObject, NULL);
 		}
 	}
 

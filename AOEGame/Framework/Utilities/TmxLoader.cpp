@@ -76,9 +76,11 @@ namespace Framework
 		int width = atoi(m_rootNode->first_attribute("width")->value());
 		int height = atoi(m_rootNode->first_attribute("height")->value());
 		std::string orientation = m_rootNode->first_attribute("orientation")->value();
+		int viewporttype = atoi(m_rootNode->first_attribute("viewporttype")->value());
 
 		m_tileMap = new TileMap(tileWidth, tileHeight, width, height);
-
+		m_tileMap->SetViewportType(viewporttype);
+		
 		// Parse Tilesets elements
 		int firstgid, tileSetWidth, tileSetHeight, dimensionX, dimensionY;
 		string tileSetName, imageSourceName;
@@ -113,6 +115,7 @@ namespace Framework
 		string mapLayerName = mapLayer->first_attribute("name")->value();
 		int mapLayerWidth = atoi(mapLayer->first_attribute("width")->value());
 		int mapLayerHeight = atoi(mapLayer->first_attribute("height")->value());
+		
 		// Allocate mapdata
 		/*int** mapData = new int*[mapLayerHeight];
 		for(int i =0; i < mapLayerHeight; i++)
@@ -127,6 +130,7 @@ namespace Framework
 
 		m_tileMap->SetTileSets(m_tileSets);
 		m_tileMap->SetMapData(mapData);
+	
 
 		// Parse object group
 		xml_node<> *objectLayer = m_rootNode->first_node("objectgroup");
@@ -141,6 +145,7 @@ namespace Framework
 				
 				int id = atoi(objectNode->first_attribute("id")->value());
 				int type = atoi(objectNode->first_attribute("type")->value());
+
 				GameObject* gameObj = new GameObject(id);
 				gameObj->SetType(type);
 

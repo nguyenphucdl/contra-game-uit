@@ -20,23 +20,23 @@ namespace Framework
 		~TileMapScene();
 
 	private:
-		std::vector<GameObject*>*	m_currentObjects;
+		TileMap*								m_tileMap;
 
-		TileMap*					m_tileMap;
-
-		GameObject*					m_playerObject;
+		std::vector<GameObject*>*				m_currentObjects;
+		std::vector<GameObject*>*				m_updatedObjects;
+		std::vector<GameObject*>::iterator		m_objectIter;
+		
 		GameObject*					m_cameraObject;
 		GameObject*					m_tileMapObject;
-		GameObject*					m_npcObject;
 
-
-		virtual void HandleEvent(Event* pEvent);
-
+		void HandleEvent(Event* pEvent);
 	public:
-		bool LoadSceneFromFile(std::string file);
-		void SetPlayerObject(GameObject* pPlayerObject) { m_playerObject = pPlayerObject; };
-		void SetCameraObject(GameObject* pCameraObject) { m_cameraObject = pCameraObject; };
 
+		bool LoadSceneFromFile(std::string file);
+		void AddUpdateObject(GameObject* pObj);
+		void SetCameraObject(GameObject* pCameraObj);
+		void RemoveUpdateObject(GameObject* pObj);
+		
 
 		void Init();
 		void Update();
@@ -49,6 +49,31 @@ namespace Framework
 		void Obscuring();
 		void Revealed();
 	};
+
+	inline void TileMapScene::SetCameraObject(GameObject* pCameraObj)
+	{
+		m_cameraObject = pCameraObj;
+	}
+
+	inline void TileMapScene::AddUpdateObject(GameObject* pObj)
+	{
+		m_updatedObjects->push_back(pObj);
+	}
+
+	inline void TileMapScene::RemoveUpdateObject(GameObject* pObj)
+	{
+		bool find = false;
+		for (m_objectIter = m_updatedObjects->begin(); m_objectIter != m_updatedObjects->end(); m_objectIter++)
+		{
+			if (*m_objectIter == pObj)
+			{
+				find = true;
+				break;
+			}
+		}
+		if (find)
+			m_updatedObjects->erase(m_objectIter);
+	}
 }
 
 #endif

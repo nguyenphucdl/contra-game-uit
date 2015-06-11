@@ -20,33 +20,38 @@ namespace Framework
 
 	void GamePlay::Init()
 	{
-		m_pPlayerObject = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
-		m_pCameraObject = ContraGameFactory::GetSingletonPtr()->GetCameraObject(m_pPlayerObject);
-
+		GameObject*	playerScene1 = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
+		GameObject* cameraScene1 = ContraGameFactory::GetSingletonPtr()->GetCameraObject(playerScene1);
+		GameObject* npcObjScene1 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
 		m_tileMapScene = new TileMapScene();
-
 		m_tileMapScene->LoadSceneFromFile("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
-		m_tileMapScene->SetPlayerObject(m_pPlayerObject);
-		m_tileMapScene->SetCameraObject(m_pCameraObject);
+		m_tileMapScene->SetCameraObject(cameraScene1);
+		m_tileMapScene->AddUpdateObject(playerScene1);
+		m_tileMapScene->AddUpdateObject(npcObjScene1);
+		//m_tileMapScene->SetPlayerObject(m_pPlayerObject);
+		//m_tileMapScene->SetCameraObject(m_pCameraObject);
 
-
+		GameObject*	playerScene2 = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
+		GameObject* cameraScence2 = ContraGameFactory::GetSingletonPtr()->GetCameraObject(playerScene2);
+		GameObject* npcObjScene2 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
 		m_scene2 = new TileMapScene();
 		m_scene2->LoadSceneFromFile("Resources\\Maps\\Scence2-Map1\\Scence2-Map1.tmx");
-		m_scene2->SetPlayerObject(m_pPlayerObject);
-		m_scene2->SetCameraObject(m_pCameraObject);
+		m_scene2->SetCameraObject(cameraScence2);
+		m_scene2->AddUpdateObject(playerScene2);
+		m_scene2->AddUpdateObject(npcObjScene2);
 
 		//for each and initlize scene
 		m_tileMapScene->Init();
 
-		//m_scene2->Init();
+		m_scene2->Init();
 	}
 
 	void GamePlay::Update()
 	{
 		//m_current Scene
-		m_tileMapScene->Update();
+		//m_tileMapScene->Update();
 
-		//m_scene2->Update();
+		m_scene2->Update();
 	}
 
 	void GamePlay::Draw()
@@ -55,9 +60,9 @@ namespace Framework
 		Renderer::GetSingletonPtr()->ClearRenderables();
 		
 		
-		m_tileMapScene->Draw();
+		//m_tileMapScene->Draw();
 
-		//m_scene2->Draw();
+		m_scene2->Draw();
 
 		
 	}

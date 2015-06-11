@@ -39,7 +39,7 @@ namespace Framework
 		if (quadtreeNode == NULL)
 		{
 			Log::error("Cannot load quadtree node!");
-			exit(0);
+			throw new GameError(GameErrorNS::FATAL_ERROR, "Cannot load quadtree node!");
 		}
 			
 

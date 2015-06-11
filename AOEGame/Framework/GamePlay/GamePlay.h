@@ -16,8 +16,7 @@ namespace Framework
 	private:
 		std::stack<SceneBase*>  m_scenes;
 
-		GameObject*	m_pPlayerObject;
-		GameObject* m_pCameraObject;
+
 
 		TileMapScene* m_tileMapScene;//Test
 		TileMapScene* m_scene2;

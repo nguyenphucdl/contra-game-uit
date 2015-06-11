@@ -153,7 +153,35 @@ Framework::GameObject* ContraGameFactory::GetTileMapObject(TileMap* tileMap)
 		pTileMapComponent->SetTransform(trans);
 		pTileMapComponent->SetTag("TileMap");
 		pTileMapComponent->SetDebug(false);
-		pTileMapComponent->SetMapOrigin(Vector3(0.0f, 0.0f, 1.0f ));
+
+
+		Vector3 mapViewportOrigin = Vector3(0.0f, 0.0f, 1.0f);
+
+
+		switch (tileMap->GetViewportType())
+		{
+		case ViewportTypes::TOP_LEFT:
+			break;
+		case ViewportTypes::TOP_RIGHT:
+			mapViewportOrigin.m_x = tileMap->GetBound().right - Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
+			break;
+		case ViewportTypes::BOTTOM_LEFT:
+			mapViewportOrigin.m_y = tileMap->GetBound().bottom - Renderer::GetSingletonPtr()->GetHeight();
+			break;
+		case ViewportTypes::BOTTOM_RIGHT:
+			mapViewportOrigin.m_x = tileMap->GetBound().right - Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
+			mapViewportOrigin.m_y = tileMap->GetBound().bottom - Renderer::GetSingletonPtr()->GetHeight();
+			break;
+		default:
+			break;
+		}
+
+		
+		pTileMapComponent->SetMapOrigin(mapViewportOrigin);
+		
+		
+
+		
 	}
 	return tileMapObject;
 }

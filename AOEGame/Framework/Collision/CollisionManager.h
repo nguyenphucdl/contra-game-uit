@@ -12,8 +12,8 @@ namespace Framework
 		: public Singleton<CollisionManager>
 	{
 	private:
-		typedef std::tr1::unordered_map<ExecutorID, CollisionBin*>					CollisionBinMap;
-		typedef CollisionBinMap::iterator							CollisionBinMapIterator;
+		typedef std::tr1::unordered_map<ExecutorID, CollisionBin*>				CollisionBinMap;
+		typedef CollisionBinMap::iterator										CollisionBinMapIterator;
 
 		CollisionBinMap					m_collisionBins;
 
@@ -24,6 +24,7 @@ namespace Framework
 		CollisionManager();
 		~CollisionManager();
 
+		void TestAgainstBin(std::vector<GameObject*>* pObjects);
 		void TestAgainstBin(ExecutorID execId, GameObject* pObject);
 		void TestAgainstBin(GameObject* pObject);
 
@@ -34,5 +35,14 @@ namespace Framework
 
 		std::vector<GameObject*>* GetCurrentObjectList();
 	};
+
+	inline void CollisionManager::TestAgainstBin(std::vector<GameObject*>* pObjects)
+	{
+		std::vector<GameObject*>::iterator it;
+		for (it = pObjects->begin(); it != pObjects->end(); it++)
+		{
+			CollisionManager::TestAgainstBin(*it);
+		}
+	}
 }
 #endif

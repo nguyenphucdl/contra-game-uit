@@ -114,7 +114,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			//Console::GetSingletonPtr()->print("Falling falling (%d) && On Floor(%d)", falling, m_onFloor);
 
 			//Console::GetSingletonPtr()->print("Player bound min m_y (%f)", pOwnerCollisionComponent->GetAABBMin().m_y);
-			//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
+			Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
 			
 			
 			//Console::GetSingletonPtr()->print("Anim (%f)", Timer::GetSingletonPtr()->GetAnim());

@@ -21,6 +21,7 @@ namespace Framework
 		int						m_tileHeight;
 		int						m_width;
 		int						m_height;
+		int						m_viewportType;
 		vector<int>*			m_mapData; 		
 		vector<TileSet*>*		m_tileSets;
 		std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable;
@@ -36,9 +37,11 @@ namespace Framework
 	public:
 		int		GetTileWidth() { return m_tileWidth; }
 		int		GetTileHeight() { return m_tileHeight; }
-		RECT	GetBound() { return m_bound; }
+		const RECT&	GetBound() { return m_bound; }
 		int		GetWidth() { return m_width; }
 		int		GetHeight() { return m_height; }
+		int		GetViewportType() { return m_viewportType; }
+		void	SetViewportType(int type) { m_viewportType = type; }
 		void    SetMapData(vector<int>* data);
 		std::string  GetTag()
 		{
