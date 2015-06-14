@@ -10,7 +10,8 @@
 namespace Framework
 {
 	GamePlay::GamePlay()
-		: m_scenes()
+		: m_sceneQueue()
+		, m_popScenes()
 	{
 	}
 
@@ -23,18 +24,17 @@ namespace Framework
 		GameObject*	playerScene1 = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
 		GameObject* cameraScene1 = ContraGameFactory::GetSingletonPtr()->GetCameraObject(playerScene1);
 		GameObject* npcObjScene1 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
-		m_tileMapScene = new TileMapScene();
+		TileMapScene* m_tileMapScene = new TileMapScene();
 		m_tileMapScene->LoadSceneFromFile("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
 		m_tileMapScene->SetCameraObject(cameraScene1);
 		m_tileMapScene->AddUpdateObject(playerScene1);
 		m_tileMapScene->AddUpdateObject(npcObjScene1);
-		//m_tileMapScene->SetPlayerObject(m_pPlayerObject);
-		//m_tileMapScene->SetCameraObject(m_pCameraObject);
+		
 
 		GameObject*	playerScene2 = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
 		GameObject* cameraScence2 = ContraGameFactory::GetSingletonPtr()->GetCameraObject(playerScene2);
 		GameObject* npcObjScene2 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
-		m_scene2 = new TileMapScene();
+		TileMapScene* m_scene2 = new TileMapScene();
 		m_scene2->LoadSceneFromFile("Resources\\Maps\\Scence2-Map1\\Scence2-Map1.tmx");
 		m_scene2->SetCameraObject(cameraScence2);
 		m_scene2->AddUpdateObject(playerScene2);
@@ -42,16 +42,23 @@ namespace Framework
 
 		//for each and initlize scene
 		m_tileMapScene->Init();
-
 		m_scene2->Init();
+
+		// Add to queue
+		m_sceneQueue.push(m_tileMapScene);
+		m_sceneQueue.push(m_scene2);
+		m_current = m_sceneQueue.front();
 	}
 
 	void GamePlay::Update()
 	{
-		//m_current Scene
-		//m_tileMapScene->Update();
-
-		m_scene2->Update();
+		if (m_current->GetScenceState() == SceneStates::Completed)
+		{
+			m_popScenes.push(m_current);
+			m_sceneQueue.pop();
+		}
+		m_current = m_sceneQueue.front();
+		m_current->Update();
 	}
 
 	void GamePlay::Draw()
@@ -59,12 +66,7 @@ namespace Framework
 		/*IMPORTANT*/
 		Renderer::GetSingletonPtr()->ClearRenderables();
 		
-		
-		//m_tileMapScene->Draw();
-
-		m_scene2->Draw();
-
-		
+		m_current->Draw();
 	}
 
 	void GamePlay::Pause()

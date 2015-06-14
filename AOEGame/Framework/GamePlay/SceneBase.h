@@ -10,10 +10,13 @@ namespace Framework
 		: public GameState
 	{
 	private:
-
+		SceneStates	 m_sceneState;
 	public:
 		SceneBase();
 		~SceneBase();
+
+		SceneStates	GetScenceState() { return m_sceneState; }
+		void		SetScenceState(SceneStates state) { m_sceneState = state; }
 
 		virtual void Init() = 0;
 		virtual void Update() = 0;

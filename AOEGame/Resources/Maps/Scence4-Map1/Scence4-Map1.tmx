@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<map version="1.0" tilewidth="16" tileheight="16" width="16" height="16" orientation="orthogonal">
+<map version="1.0" tilewidth="16" tileheight="16" width="16" height="16" orientation="orthogonal" viewporttype="3">
   <tileset firstgid="1" name="Scence4-Map1" tilewidth="16" tileheight="16">
     <image source="Scence4-Map1-TileSet15.png" width="64" height="64" />
   </tileset>
@@ -263,5 +263,54 @@
       <tile gid="8" />
     </data>
   </layer>
-  <objectgroup name="objectgroup" />
+  <objectgroup name="objectgroup">
+    <object id="1" name="" type="0" x="48" y="256" data="" width="207" height="7" color="Black" />
+    <object id="2" name="" type="0" x="80" y="168" data="" width="16" height="15" color="Black" />
+    <object id="3" name="" type="0" x="143" y="168" data="" width="16" height="15" color="Black" />
+    <object id="4" name="" type="0" x="207" y="168" data="" width="15" height="15" color="Black" />
+    <object id="5" name="" type="0" x="240" y="168" data="" width="14" height="47" color="Black" />
+    <object id="6" name="" type="0" x="240" y="104" data="" width="14" height="15" color="Black" />
+    <object id="7" name="" type="0" x="240" y="71" data="" width="14" height="46" color="Black" />
+    <object id="8" name="" type="0" x="240" y="8" data="" width="14" height="6" color="Black" />
+    <object id="9" name="" type="0" x="96" y="56" data="" width="126" height="14" color="Black" />
+    <object id="10" name="" type="0" x="0" y="24" data="" width="222" height="14" color="Black" />
+    <object id="12" name="Elevator" type="4" x="32" y="256" data="" width="16" height="198" color="Red" />
+    <object id="12" name="Elevator" type="4" x="223" y="170" data="" width="17" height="167" color="Red" />
+    <object id="13" name="Elevator" type="4" x="230" y="156" data="" width="0" height="0" color="Red" />
+  </objectgroup>
+  <quadtree width="256" height="256" x="0" y="0">
+    <data>
+      <node id="0" parent="-1" level="0" />
+      <node id="1" parent="0" level="1">
+        <objects data="1,2,12" />
+      </node>
+      <node id="2" parent="0" level="1" />
+      <node id="5" parent="2" level="2">
+        <objects data="1" />
+      </node>
+      <node id="6" parent="2" level="2">
+        <objects data="1" />
+      </node>
+      <node id="7" parent="2" level="2">
+        <objects data="3" />
+      </node>
+      <node id="8" parent="2" level="2">
+        <objects data="4,5,12,13" />
+      </node>
+      <node id="3" parent="0" level="1">
+        <objects data="9,10,12" />
+      </node>
+      <node id="4" parent="0" level="1" />
+      <node id="9" parent="4" level="2" />
+      <node id="10" parent="4" level="2">
+        <objects data="5,6,7,12" />
+      </node>
+      <node id="11" parent="4" level="2">
+        <objects data="9,10" />
+      </node>
+      <node id="12" parent="4" level="2">
+        <objects data="7,8,9,10,12" />
+      </node>
+    </data>
+  </quadtree>
 </map>

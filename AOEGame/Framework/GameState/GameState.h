@@ -1,12 +1,14 @@
 #ifndef __GAMESTATE_H__
 #define __GAMESTATE_H__
 
+#include "../Application/Context.h"
+
 namespace Framework
 {
 	class GameState
 	{
-	private:
-
+	protected:
+		D3DXMATRIX m_transitionMaxtrix;
 	public:
 		GameState();
 		~GameState();

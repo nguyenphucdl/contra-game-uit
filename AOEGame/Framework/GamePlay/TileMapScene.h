@@ -21,7 +21,7 @@ namespace Framework
 
 	private:
 		TileMap*								m_tileMap;
-
+		TileMap*								m_tileMap2;
 		std::vector<GameObject*>*				m_currentObjects;
 		std::vector<GameObject*>*				m_updatedObjects;
 		std::vector<GameObject*>::iterator		m_objectIter;
@@ -29,6 +29,7 @@ namespace Framework
 		GameObject*					m_cameraObject;
 		GameObject*					m_tileMapObject;
 
+		Vector3						m_transition;
 		void HandleEvent(Event* pEvent);
 	public:
 
@@ -36,7 +37,7 @@ namespace Framework
 		void AddUpdateObject(GameObject* pObj);
 		void SetCameraObject(GameObject* pCameraObj);
 		void RemoveUpdateObject(GameObject* pObj);
-		
+		void SetTransition(Vector3& vector) { m_transition = vector; }
 
 		void Init();
 		void Update();

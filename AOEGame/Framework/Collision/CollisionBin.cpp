@@ -1,4 +1,5 @@
 #include "CollisionBin.h"
+#include "../Utilities/Enums.h"
 
 namespace Framework
 {
@@ -46,7 +47,16 @@ namespace Framework
 			ObjectHashTableIterator findIt =  m_objectHashTable->find(objId);
 			if (findIt != m_objectHashTable->end())
 			{
-				GameObject* obj = findIt->second;
+				GameObject* obj = findIt->second; 
+				
+				switch (obj->GetType())
+				{
+				case ObjectTypes::RANGE_OF_MOMENT:
+					break;
+				default:
+					break;
+				}
+
 				m_currentObjects->push_back(obj);
 			}
 		}

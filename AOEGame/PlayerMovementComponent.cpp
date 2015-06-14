@@ -302,15 +302,16 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 
 
 
-		if (pStaticComponent->GetStaticObjectType() == StaticObjectTypes::STAIRWAY_OBJECT)
+		if (pStaticComponent->GetStaticObjectType() == ObjectTypes::STAIRWAY_OBJECT)
 		{
-			if (abs(m_offset[idx]) > 20.0f)
+			if (abs(m_offset[idx]) > 30.0f)
 				m_isClimping = true;
 			return;
 		}
-		
-
-
+		if (pStaticComponent->GetStaticObjectType() == ObjectTypes::END_SCENE)
+		{
+			Framework::SendEvent(Events::SCE_COMPLETE_SCENE_EVENT);
+		}
 
 		if (idx == 0 && m_acceleration.m_y < -25.0f)//TOP
 		{

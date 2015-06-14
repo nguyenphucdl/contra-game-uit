@@ -23,7 +23,7 @@ namespace Framework
 		SCE_POST_UPDATE_EVENT,
 		SCE_KEY_UP_EVENT,
 		SCE_KEY_DOWN_EVENT,
-		
+		SCE_COMPLETE_SCENE_EVENT,
 		SCE_COLLISION_EVENT,
 
 		//Components
@@ -39,6 +39,15 @@ namespace Framework
 		RenderCount
 	};
 
+	enum SceneStates
+	{
+		Queue,
+		Start,
+		Pause,
+		Stop,
+		Completed
+	};
+
 	enum ViewportTypes
 	{
 		TOP_LEFT,
@@ -47,10 +56,14 @@ namespace Framework
 		BOTTOM_RIGHT
 	};
 
-	enum StaticObjectTypes
+	enum ObjectTypes
 	{
 		BLOCK_OBJECT = 0,
-		STAIRWAY_OBJECT = 4
+		END_SCENE = 1,
+		SPAWNLOCATION = 2,
+		RANGE_OF_MOMENT = 3,
+		STAIRWAY_OBJECT = 4,
+		DYNAMIC_OBJECT = 5
 	};
 
 	enum ComponentIDs

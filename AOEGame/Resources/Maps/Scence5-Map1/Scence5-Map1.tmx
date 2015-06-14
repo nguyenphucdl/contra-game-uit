@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<map version="1.0" tilewidth="16" tileheight="16" width="96" height="14" orientation="orthogonal">
+<map version="1.0" tilewidth="16" tileheight="16" width="96" height="14" orientation="orthogonal" viewporttype="0">
   <tileset firstgid="1" name="Scence5-Map1" tilewidth="16" tileheight="16">
     <image source="Scence5-Map1-TileSet94.png" width="160" height="160" />
   </tileset>
@@ -1351,5 +1351,37 @@
       <tile gid="10" />
     </data>
   </layer>
-  <objectgroup name="objectgroup" />
+  <objectgroup name="objectgroup">
+    <object id="1" name="" type="0" x="32" y="40" data="" width="48" height="38" color="Black" />
+    <object id="2" name="" type="0" x="79" y="8" data="" width="242" height="6" color="Black" />
+    <object id="3" name="" type="0" x="256" y="40" data="" width="65" height="15" color="Black" />
+    <object id="4" name="" type="0" x="321" y="40" data="" width="62" height="39" color="Black" />
+    <object id="5" name="" type="0" x="111" y="72" data="" width="16" height="15" color="Black" />
+    <object id="6" name="" type="0" x="128" y="120" data="" width="16" height="16" color="Black" />
+    <object id="7" name="" type="0" x="192" y="120" data="" width="16" height="15" color="Black" />
+    <object id="8" name="" type="0" x="382" y="40" data="" width="210" height="15" color="Black" />
+    <object id="9" name="" type="0" x="383" y="8" data="" width="209" height="6" color="Black" />
+    <object id="10" name="" type="0" x="592" y="201" data="" width="32" height="200" color="Black" />
+    <object id="11" name="" type="0" x="560" y="169" data="" width="31" height="32" color="Black" />
+    <object id="12" name="" type="0" x="560" y="121" data="" width="31" height="16" color="Black" />
+    <object id="13" name="" type="0" x="559" y="89" data="" width="32" height="48" color="Black" />
+    <object id="14" name="" type="0" x="639" y="137" data="" width="32" height="64" color="Black" />
+    <object id="15" name="" type="0" x="640" y="224" data="" width="31" height="56" color="Black" />
+    <object id="16" name="" type="0" x="623" y="40" data="" width="305" height="14" color="Black" />
+    <object id="17" name="" type="0" x="623" y="8" data="" width="305" height="6" color="Black" />
+    <object id="18" name="" type="0" x="927" y="40" data="" width="65" height="38" color="Black" />
+    <object id="19" name="" type="0" x="928" y="224" data="" width="64" height="152" color="Black" />
+    <object id="20" name="" type="0" x="992" y="223" data="" width="31" height="39" color="Black" />
+    <object id="21" name="" type="0" x="992" y="167" data="" width="30" height="61" color="Black" />
+    <object id="22" name="" type="0" x="671" y="104" data="" width="257" height="30" color="Black" />
+    <object id="23" name="" type="0" x="864" y="152" data="" width="63" height="47" color="Black" />
+    <object id="24" name="" type="0" x="864" y="184" data="" width="64" height="16" color="Black" />
+    <object id="25" name="" type="0" x="863" y="224" data="" width="65" height="23" color="Black" />
+    <object id="26" name="" type="0" x="991" y="40" data="" width="192" height="39" color="Black" />
+    <object id="27" name="" type="0" x="1183" y="72" data="" width="192" height="70" color="Black" />
+    <object id="28" name="" type="0" x="1232" y="224" data="" width="233" height="86" color="Black" />
+    <object id="29" name="" type="0" x="1440" y="139" data="" width="24" height="136" color="Black" />
+    <object id="30" name="Elevator" type="4" x="1407" y="72" data="" width="16" height="69" color="Red" />
+    <object id="31" name="Elevator" type="4" x="543" y="169" data="" width="15" height="126" color="Red" />
+  </objectgroup>
 </map>

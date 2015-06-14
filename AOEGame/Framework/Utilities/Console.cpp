@@ -75,6 +75,8 @@ namespace Framework
 		case DIK_X:
 			m_showing = m_showing? false: true;
 			break;
+		case DIK_C:
+			Renderer::GetSingletonPtr()->SetDebug(Renderer::GetSingletonPtr()->IsDebug() ? false : true);
 		default:
 			break;
 		}

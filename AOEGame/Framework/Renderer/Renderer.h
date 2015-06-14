@@ -36,6 +36,7 @@ namespace Framework
 		HRESULT						m_result;
 		HWND						m_hwnd;
 		bool						m_fullScreen;
+		bool						m_debug;
 		int							m_width;
 		int							m_height;
 		COLOR_ARGB					m_backColor;
@@ -49,13 +50,13 @@ namespace Framework
 
 		RenderableVector					m_renerables;
 		DrawableVector						m_drawables;
-	
 		Camera								m_camera;
 
 
 		D3DXMATRIX							m_worldViewMatrix;
 		D3DXMATRIX							m_transformCoordinateMatrix; // flip & translate coordinate
 		D3DXMATRIX							m_viewMatrix;
+		D3DXMATRIX							*m_transitionMatrix;
 		/*Debug texture*/
 		Texture*							m_debugTexture;
 
@@ -66,6 +67,8 @@ namespace Framework
 		void Init();
 		void Destroy();
 
+		void SetTransitionMatrix(D3DXMATRIX* transitionMatrix)  { m_transitionMatrix = transitionMatrix; }
+		D3DXMATRIX* GetTransitionMatrix() { return m_transitionMatrix; }
 		void AddRenderable(Renderable* pRenderable);
 		void RemoveRenderable(Renderable* pRenderable);	
 		void AddDrawable(Drawable* pDrawable);
@@ -90,6 +93,8 @@ namespace Framework
 		Camera&		GetCamera()						{ return m_camera;	 }
 		int			GetWidth()						{ return m_width; }
 		int			GetHeight()						{ return m_height; }
+		void		SetDebug(bool val)				{ m_debug = val; }
+		bool		IsDebug()						{ return m_debug; }
 
 	private:
 		void	Draw(Renderable* pRenderable);

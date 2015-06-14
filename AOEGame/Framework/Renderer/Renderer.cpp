@@ -1,6 +1,7 @@
 ﻿#include "Renderer.h"
 #include "../EventManager/EventManager.h"
 #include <math.h>
+#include "../Utilities/Timer.h"
 
 namespace Framework
 {
@@ -9,6 +10,8 @@ namespace Framework
 		, m_direct3d(NULL)
 		, m_device3d(NULL)
 		, m_fullScreen(false)
+		, m_transitionMatrix(NULL)
+		, m_debug(false)
 	{
 		m_renerables.reserve(50);
 		m_width = GameConfig::GetSingletonPtr()->GetInt("GAME_WIDTH");
@@ -230,9 +233,17 @@ namespace Framework
 		D3DXVECTOR3 invese_coord_pos = Transform::GetVector3FromWorldView(origin_pos, m_transformCoordinateMatrix);
 
 		D3DXVECTOR4 inverse_pos_view(invese_coord_pos.x, invese_coord_pos.y, invese_coord_pos.z, 1);
+
+
+
 		if (pRenderable->GetRenderTransform())
 		{
 			D3DXVec3Transform(&inverse_pos_view, &invese_coord_pos, &m_viewMatrix);
+		}
+
+		if (m_transitionMatrix != NULL)
+		{
+			D3DXVec4Transform(&inverse_pos_view, &inverse_pos_view, m_transitionMatrix);
 		}
 
 		TextureRegion *texture = pRenderable->GetTextureRegion();
@@ -241,14 +252,11 @@ namespace Framework
 		float scaleX = 1.0f, scaleY = 1.0f;
 		D3DXVECTOR2 scaleVector(scaleX, scaleY);
 		D3DXVECTOR2 centerVector((float)(texture->GetTextureWidth() * scaleVector.x) / 2, (float)(texture->GetTextureHeight() * scaleVector.y) / 2);
-		D3DXVECTOR2 transformVector(inverse_pos_view.x, inverse_pos_view.y);
-		if (texture->GetFlipX())
-		{
-			scaleVector.x *= -1;//flipX
-		}
-		D3DXMATRIX finalWorldViewMatrix;
-		D3DXMatrixIdentity(&finalWorldViewMatrix);
-		D3DXMatrixTransformation2D(&finalWorldViewMatrix, &centerVector, 0, &scaleVector, &centerVector, 0, NULL);
+		//D3DXVECTOR2 transformVector(inverse_pos_view.x, inverse_pos_view.y);
+		
+		//D3DXMATRIX finalWorldViewMatrix;
+		//D3DXMatrixIdentity(&finalWorldViewMatrix);
+		//D3DXMatrixTransformation2D(&finalWorldViewMatrix, &centerVector, 0, &scaleVector, &centerVector, 0, NULL);
 
 		if (pRenderable->IsVisible())
 		{
@@ -261,7 +269,7 @@ namespace Framework
 			else
 				m_spriteHandler->Draw(texture->GetTexture()->GetTexture(), &textureRect, &centerDraw, &D3DXVECTOR3(inverse_pos_view.x + centerVector.x, inverse_pos_view.y + centerVector.y, 1.0f), D3DCOLOR_XRGB(255, 255, 255));
 		}
-		if (pRenderable->IsDebug() && false)
+		if (pRenderable->IsDebug() && m_debug)
 		{
 			float scaleXDebug = (float)texture->GetTextureWidth() / 200;
 			float scaleYDebug = (float)texture->GetTextureHeight() / 200;

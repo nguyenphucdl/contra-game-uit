@@ -12,6 +12,7 @@ public:
 	ContraGameFactory() {};
 	~ContraGameFactory() {};
 
+
 	Framework::GameObject* GetPlayerObject();
 	Framework::GameObject* GetTileMapObject(Framework::TileMap* tileMap);
 	Framework::GameObject* GetTileMapObjectMap1Scene2(Framework::TileMap* tileMap);

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<map version="1.0" tilewidth="16" tileheight="16" width="16" height="56" orientation="orthogonal">
+<map version="1.0" tilewidth="16" tileheight="16" width="16" height="56" orientation="orthogonal" viewporttype="0">
   <tileset firstgid="1" name="Scence6-Map1" tilewidth="16" tileheight="16">
     <image source="Scence6-Map1-TileSet18.png" width="80" height="80" />
   </tileset>
@@ -903,5 +903,16 @@
       <tile gid="2" />
     </data>
   </layer>
-  <objectgroup name="objectgroup" />
+  <objectgroup name="objectgroup">
+    <object id="1" name="" type="0" x="161" y="895" data="" width="92" height="664" color="Black" />
+    <object id="2" name="" type="0" x="1" y="894" data="" width="93" height="667" color="Black" />
+    <object id="3" name="" type="0" x="160" y="233" data="" width="94" height="38" color="Black" />
+    <object id="4" name="" type="0" x="0" y="232" data="" width="94" height="35" color="Black" />
+    <object id="5" name="" type="0" x="0" y="198" data="" width="16" height="197" color="Black" />
+    <object id="6" name="" type="0" x="240" y="196" data="" width="13" height="193" color="Black" />
+    <object id="7" name="" type="0" x="16" y="40" data="" width="225" height="38" color="Black" />
+    <object id="8" name="Elevator" type="4" x="128" y="896" data="" width="15" height="256" color="Red" />
+    <object id="9" name="Elevator" type="4" x="127" y="641" data="" width="16" height="249" color="Red" />
+    <object id="10" name="Elevator" type="4" x="128" y="393" data="" width="15" height="160" color="Red" />
+  </objectgroup>
 </map>

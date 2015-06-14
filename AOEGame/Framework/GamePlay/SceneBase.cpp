@@ -3,6 +3,8 @@
 namespace Framework
 {
 	SceneBase::SceneBase()
+		: GameState()
+		, m_sceneState(SceneStates::Queue)
 	{
 		
 	}

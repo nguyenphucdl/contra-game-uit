@@ -14,12 +14,13 @@ namespace Framework
 		: public GameState
 	{
 	private:
-		std::stack<SceneBase*>  m_scenes;
+		std::queue<SceneBase*> m_sceneQueue;
+		std::stack<SceneBase*> m_popScenes;
+		SceneBase* m_current;
 
 
-
-		TileMapScene* m_tileMapScene;//Test
-		TileMapScene* m_scene2;
+		//TileMapScene* m_tileMapScene;//Test
+		//TileMapScene* m_scene2;
 	public:
 		GamePlay();
 		~GamePlay();
