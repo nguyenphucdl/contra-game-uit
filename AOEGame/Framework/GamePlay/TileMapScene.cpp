@@ -37,6 +37,7 @@ namespace Framework
 	bool TileMapScene::LoadSceneFromFile(std::string file)
 	{
 		TmxLoader *tmxLoader = new TmxLoader(file);
+		tmxLoader->SetObjectFactory(GetObjectFactory());
 		bool res = tmxLoader->Load();
 		if (!res)
 		{
@@ -44,7 +45,7 @@ namespace Framework
 		}
 		
 		m_tileMap = tmxLoader->GetTileMap();
-		m_tileMap->Prepare();
+		m_tileMap->Prepare();		
 
 		CollisionManager::GetSingletonPtr()->AddCollisionBinFromTileMap(m_tileMap, this);
 

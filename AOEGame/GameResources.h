@@ -17,6 +17,19 @@ namespace GameResources
 	const char MAP1_NPC_LITTLEPOLYGOT[] = "littlepolygot.png";
 	const char MAP1_NPC_NAPALMBOMB[] = "napalmbomb.png";
 	const char MAP1_FIVESTARSHOOTER[] = "fivestarshooter.png";
+
+
+	enum GameObjectIds 
+	{
+		LITTLE_POGOBOT = 1000,
+		NAPALM_BOMB = 1001,
+		FIVE_STAR_SHOOTER = 1002,
+		WALL_SHOOTER = 1003,
+		GREEN_ROBOCOP = 1004,
+		BULLET_BILL = 1005,
+		FLOOR_TRAPPER = 1006,
+		BOSS_BOMBMAN = 1007
+	};
 };
 
 #endif//__GAME_RESOURCES_H__

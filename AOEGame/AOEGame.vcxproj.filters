@@ -248,6 +248,11 @@
     <ClInclude Include="Framework\GamePlay\ContraFactory.h" />
     <ClInclude Include="ContraGameFactory.h" />
     <ClInclude Include="Framework\Utilities\FPSCounter.h" />
+    <ClInclude Include="Framework\Utilities\ObjectFactory.h" />
+    <ClInclude Include="Framework\Utilities\MegamanMap1Factory.h" />
+    <ClInclude Include="MegamanMap1Factory.h" />
+    <ClInclude Include="Framework\Utilities\ObjectMapData.h" />
+    <ClInclude Include="Framework\GameObjects\Components\RangeOfMovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -382,6 +387,8 @@
     <ClCompile Include="Framework\GamePlay\TileMapScene.cpp" />
     <ClCompile Include="ConTraGameFactory.cpp" />
     <ClCompile Include="Framework\Utilities\Utils.cpp" />
+    <ClCompile Include="MegamanMap1Factory.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\RangeOfMovementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Texture\texture.png">

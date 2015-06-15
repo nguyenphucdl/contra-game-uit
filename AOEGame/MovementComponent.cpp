@@ -83,7 +83,7 @@ void MovementComponent::UpdateGame()
 	static const float GRAVITY_MULTIPLIER = 50.0f;
 	static const float GRAVITY_CONSTANT = -9.8f;
 	float dekta = GRAVITY_MULTIPLIER * GRAVITY_CONSTANT * Timer::GetSingletonPtr()->GetTimeSim();
-	m_acceleration.m_y += dekta;
+	//m_acceleration.m_y += dekta;
 	if (falling && m_isSupported)
 	{
 		m_acceleration.m_y = 0.0f;

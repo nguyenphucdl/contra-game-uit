@@ -79,7 +79,7 @@ namespace Framework
 		MovementComponentId,
 		StaticComponentId,
 		CollisionComponentId,
-
+		RangeOfMovementComponentId,
 		//Player Components
 		BulletComponentId,
 		LifeTimeComponentId,

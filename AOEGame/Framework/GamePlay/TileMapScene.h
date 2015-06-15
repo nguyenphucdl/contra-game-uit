@@ -7,6 +7,7 @@
 #include "../TileMap/TileMap.h"
 #include "../EventManager/EventHandler.h"
 #include "../EventManager/EventExecutorAware.h"
+#include "../Utilities/ObjectFactory.h"
 
 namespace Framework
 {
@@ -21,7 +22,6 @@ namespace Framework
 
 	private:
 		TileMap*								m_tileMap;
-		TileMap*								m_tileMap2;
 		std::vector<GameObject*>*				m_currentObjects;
 		std::vector<GameObject*>*				m_updatedObjects;
 		std::vector<GameObject*>::iterator		m_objectIter;
@@ -38,6 +38,7 @@ namespace Framework
 		void SetCameraObject(GameObject* pCameraObj);
 		void RemoveUpdateObject(GameObject* pObj);
 		void SetTransition(Vector3& vector) { m_transition = vector; }
+
 
 		void Init();
 		void Update();

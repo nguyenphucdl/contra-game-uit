@@ -3,6 +3,7 @@
 #include "../Renderer/Texture/TextureManager.h"
 #include "../GameObjects/Components/StaticComponent.h"
 #include "../GameObjects/Components/CollisionComponent.h"
+#include "../GameObjects/Components/RangeOfMovementComponent.h"
 #include "../EventManager/EventManager.h"
 #include "../Collision/CollisionManager.h"
 #include "../Utilities/Utils.h"
@@ -13,6 +14,7 @@ namespace Framework
 	TmxLoader::TmxLoader(std::string& file)
 		: m_file(file)
 		, m_scaleRatio(1.0f)
+		, m_objectFactory(NULL)
 	{		
 		m_tileSets = new vector<TileSet*>();
 		m_basePath = Utils::getPathOfFile(file);
@@ -140,76 +142,107 @@ namespace Framework
 			std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable = new std::tr1::unordered_map<ObjectId, GameObject*>();
 
 			objectNode = objectLayer->first_node("object");
+			ObjectMapData* objMapDataHolder = new ObjectMapData();
 			for (objectNode = objectLayer->first_node("object"); objectNode; objectNode = objectNode->next_sibling())
 			{
 				
 				int id = atoi(objectNode->first_attribute("id")->value());
-				int type = atoi(objectNode->first_attribute("type")->value());
+				int objType = atoi(objectNode->first_attribute("type")->value());
+				int x = atoi(objectNode->first_attribute("x")->value());
+				int y = atoi(objectNode->first_attribute("y")->value());
+				int width = atoi(objectNode->first_attribute("width")->value());
+				int height = atoi(objectNode->first_attribute("height")->value());
+				int staticObjectType = atoi(objectNode->first_attribute("type")->value());
+				std::string objData = objectNode->first_attribute("data")->value();
+				int objDataInteger = atoi(objectNode->first_attribute("data")->value());
+
+				int mapWidth = m_tileMap->GetWidth() * m_tileMap->GetTileWidth();
+				int mapHeight = m_tileMap->GetHeight() * m_tileMap->GetTileHeight();
+
+				int screenWidth = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
+				int screenHeight = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
+
+				//float scaleRatio = 1.0f;
+				bool isHorizDirection = (mapWidth > mapHeight) ? true : false;
+				if (isHorizDirection)
+				{
+					m_scaleRatio = (float)screenHeight / (float)mapHeight;
+				}
+				else
+				{
+					m_scaleRatio = (float)screenWidth / (float)mapWidth;
+				}
+
+				//float scaleRatio = (float)screenHeight / (float)mapHeight;
+				D3DXMATRIX transform_scale;
+				D3DXMatrixAffineTransformation2D(&transform_scale, m_scaleRatio, NULL, NULL, NULL);
+
+				D3DXVECTOR4 pointOrigin, resultTrans;
+				pointOrigin.x = x;
+				pointOrigin.y = y;
+
+				D3DXVec4Transform(&resultTrans, &pointOrigin, &transform_scale);
+
+				RECT bound;
+				bound.left = resultTrans.x;
+				bound.right = resultTrans.x + width * m_scaleRatio;
+				bound.top = resultTrans.y;
+				bound.bottom = resultTrans.y + height * m_scaleRatio;
+
+				objMapDataHolder->Set(resultTrans.x, resultTrans.y, width * m_scaleRatio, height * m_scaleRatio);
 
 				GameObject* gameObj = new GameObject(id);
-				gameObj->SetType(type);
+				gameObj->SetType(objType);
 
-				if (type)//Switch Type
+				if (objType == ObjectTypes::BLOCK_OBJECT 
+					|| objType == ObjectTypes::END_SCENE 
+					|| objType == ObjectTypes::STAIRWAY_OBJECT)
 				{
+					gameObj->AddComponent<StaticComponent>();
+					gameObj->AddComponent<CollisionComponent>();
+					StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
+					CollisionComponent* pStaticCollisionComponent = component_cast<CollisionComponent>(gameObj);
+					if (pStaticComponent && pStaticCollisionComponent)
+					{
+						pStaticComponent->SetStaticObjectType(staticObjectType);
+
+						Vector3 translation(resultTrans.x, resultTrans.y, 1.0f);
+						pStaticComponent->SetTranslation(translation);
+						pStaticComponent->SetSize(width * m_scaleRatio, height * m_scaleRatio);
+						pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
+					}
+				}
+				else if (objType == ObjectTypes::RANGE_OF_MOMENT)
+				{
+					gameObj->AddComponent<StaticComponent>();
+					gameObj->AddComponent<CollisionComponent>();
+					gameObj->AddComponent<RangeOfMovementComponent>();
+					StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
+					CollisionComponent* pStaticCollisionComponent = component_cast<CollisionComponent>(gameObj);
+					RangeOfMovementComponent* pROMComponent = component_cast<RangeOfMovementComponent>(gameObj);
+					if (pStaticComponent && pStaticCollisionComponent && pROMComponent)
+					{
+						pStaticComponent->SetStaticObjectType(staticObjectType);
+
+						Vector3 translation(resultTrans.x, resultTrans.y, 1.0f);
+						pStaticComponent->SetTranslation(translation);
+						pStaticComponent->SetSize(width * m_scaleRatio, height * m_scaleRatio);
+						pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
+
+						//Range Of Moment
+						pROMComponent->SetObjectTarget(objDataInteger);
+					}
+				}
+				else if (objType == ObjectTypes::SPAWNLOCATION)
+				{
+					if (GetObjectFactory() != NULL)
+					{
+						GetObjectFactory()->createObjectType(objData, gameObj, objMapDataHolder);
+					}
 
 				}
-				gameObj->AddComponent<StaticComponent>();
-				gameObj->AddComponent<CollisionComponent>();
 
-				StaticComponent* pStaticComponent = component_cast<StaticComponent>(gameObj);
-				CollisionComponent* pStaticCollisionComponent = component_cast<CollisionComponent>(gameObj);
-				if (pStaticComponent && pStaticCollisionComponent)
-				{
-					int x = atoi(objectNode->first_attribute("x")->value());
-					int y = atoi(objectNode->first_attribute("y")->value());
-					int width = atoi(objectNode->first_attribute("width")->value());
-					int height = atoi(objectNode->first_attribute("height")->value());
-					int staticObjectType = atoi(objectNode->first_attribute("type")->value());
-					
-					pStaticComponent->SetStaticObjectType(staticObjectType);
 
-					int mapWidth = m_tileMap->GetWidth() * m_tileMap->GetTileWidth();
-					int mapHeight = m_tileMap->GetHeight() * m_tileMap->GetTileHeight();
-
-					int screenWidth = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_WIDTH);
-					int screenHeight = GameConfig::GetSingletonPtr()->GetInt(ConfigKey::GAME_HEIGHT);
-
-					//float scaleRatio = 1.0f;
-					bool isHorizDirection = (mapWidth > mapHeight) ? true : false;
-					if (isHorizDirection)
-					{
-						m_scaleRatio = (float)screenHeight / (float)mapHeight;
-					}
-					else
-					{
-						m_scaleRatio = (float)screenWidth / (float)mapWidth;
-					}
-
-					//float scaleRatio = (float)screenHeight / (float)mapHeight;
-					D3DXMATRIX transform_scale;
-					D3DXMatrixAffineTransformation2D(&transform_scale, m_scaleRatio, NULL, NULL, NULL);
-
-					D3DXVECTOR4 pointOrigin, resultTrans;
-					pointOrigin.x = x;
-					pointOrigin.y = y;
-
-					D3DXVec4Transform(&resultTrans, &pointOrigin, &transform_scale);
-
-					RECT bound;
-					bound.left = resultTrans.x;
-					bound.right = resultTrans.x + width * m_scaleRatio;
-					bound.top = resultTrans.y;
-					bound.bottom = resultTrans.y + height * m_scaleRatio;
-					
-
-					Vector3 translation(resultTrans.x, resultTrans.y, 1.0f);
-					pStaticComponent->SetTranslation(translation);
-					pStaticComponent->SetSize(width * m_scaleRatio, height * m_scaleRatio);
-					//pStaticComponent->Initialize();
-
-					pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
-
-				}
 				m_objectHashTable->insert(make_pair(id, gameObj));
 			}
 			m_tileMap->SetObjects(m_objectHashTable);

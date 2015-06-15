@@ -24,14 +24,13 @@ namespace Framework
 		Vector3					m_mapOrigin;
 		bool					m_scroll;
 
+		virtual void Initialize();
 
 	public:
 		static unsigned int GetId() { return s_id; }
 
 		explicit TileMapComponent(GameObject* pOwner);
 		virtual ~TileMapComponent();
-
-		virtual void Initialize();
 
 		Renderable&	GetRenderable() { return RenderableComponent::m_renderable; }
 

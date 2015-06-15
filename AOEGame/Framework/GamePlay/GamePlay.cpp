@@ -6,6 +6,7 @@
 #include "../../ContraGameFactory.h"
 #include "../Utilities/FPSCounter.h"
 #include "../Utilities/Console.h"
+#include "../../MegamanMap1Factory.h"
 
 namespace Framework
 {
@@ -21,20 +22,24 @@ namespace Framework
 
 	void GamePlay::Init()
 	{
+		m_objectFactory = new MegamanMap1Factory();
+
 		GameObject*	playerScene1 = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
 		GameObject* cameraScene1 = ContraGameFactory::GetSingletonPtr()->GetCameraObject(playerScene1);
-		GameObject* npcObjScene1 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
+		//GameObject* npcObjScene1 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
 		TileMapScene* m_tileMapScene = new TileMapScene();
+		m_tileMapScene->SetObjectFactory(m_objectFactory);
 		m_tileMapScene->LoadSceneFromFile("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
 		m_tileMapScene->SetCameraObject(cameraScene1);
 		m_tileMapScene->AddUpdateObject(playerScene1);
-		m_tileMapScene->AddUpdateObject(npcObjScene1);
+		//m_tileMapScene->AddUpdateObject(npcObjScene1);
 		
 
 		GameObject*	playerScene2 = ContraGameFactory::GetSingletonPtr()->GetPlayerObject();
 		GameObject* cameraScence2 = ContraGameFactory::GetSingletonPtr()->GetCameraObject(playerScene2);
 		GameObject* npcObjScene2 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
 		TileMapScene* m_scene2 = new TileMapScene();
+		m_scene2->SetObjectFactory(m_objectFactory);
 		m_scene2->LoadSceneFromFile("Resources\\Maps\\Scence2-Map1\\Scence2-Map1.tmx");
 		m_scene2->SetCameraObject(cameraScence2);
 		m_scene2->AddUpdateObject(playerScene2);

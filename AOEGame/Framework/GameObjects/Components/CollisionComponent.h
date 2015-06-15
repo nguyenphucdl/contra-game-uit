@@ -27,13 +27,12 @@ namespace Framework
 
 		CollisionListenerVector		m_eventListeners;
 
+		virtual void Initialize();
 	public:
 		static unsigned int GetId() { return s_id; }
 
 		explicit CollisionComponent(GameObject* pOwner);
 		virtual ~CollisionComponent();
-
-		virtual void Initialize();
 
 		const Vector3 GetAABBMin();
 		const Vector3 GetAABBMax();

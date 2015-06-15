@@ -1,5 +1,6 @@
 #include "CollisionBin.h"
 #include "../Utilities/Enums.h"
+#include "../GameObjects/Components/RangeOfMovementComponent.h"
 
 namespace Framework
 {
@@ -23,41 +24,45 @@ namespace Framework
 			return;
 		std::vector<int>* matchObjId = new std::vector<int>(20);
 
-		////test
-		//int i = 0;
-		//for (ObjectHashTableIterator it = m_objectHashTable->begin(); it != m_objectHashTable->end(); it++)
-		//{
-		//	i++;
-		//	if (i > 20)
-		//		break;
-		//	m_currentObjects->push_back(it->second);
-		//}
-		//return;
-
 		assert(m_collisionObjects);
 
 		m_collisionObjects->QueryRangeUniqueResult(range, matchObjId);
 
 		m_currentObjects->clear();
 		std::vector<int>::iterator it;
-		int objId;
+		ObjectHashTableIterator findIt;
+		int objId = -1, objTargetId = -1;
+		GameObject *obj = NULL, *objTarget = NULL;
+		RangeOfMovementComponent* pRomComponent = NULL;
+
 		for (it = matchObjId->begin(); it != matchObjId->end(); it++)
 		{
 			objId = *it;
-			ObjectHashTableIterator findIt =  m_objectHashTable->find(objId);
+			findIt =  m_objectHashTable->find(objId);
 			if (findIt != m_objectHashTable->end())
 			{
-				GameObject* obj = findIt->second; 
+				obj = findIt->second; 
 				
-				switch (obj->GetType())
+				if (obj->GetType() == ObjectTypes::RANGE_OF_MOMENT)
 				{
-				case ObjectTypes::RANGE_OF_MOMENT:
-					break;
-				default:
-					break;
-				}
+					pRomComponent = component_cast<RangeOfMovementComponent>(obj);
+					assert(pRomComponent);
+					if (pRomComponent)
+					{
+						objTargetId = pRomComponent->GetObjectTarget();
+						findIt = m_objectHashTable->find(objTargetId);
+						if (findIt != m_objectHashTable->end())
+						{
+							objTarget = findIt->second;
+							m_currentObjects->push_back(objTarget);
+						}
+					}
 
-				m_currentObjects->push_back(obj);
+				}
+				else
+				{
+					m_currentObjects->push_back(obj);
+				}
 			}
 		}
 		m_currentViewport = range;

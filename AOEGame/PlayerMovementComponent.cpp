@@ -307,11 +307,16 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 			if (abs(m_offset[idx]) > 30.0f)
 				m_isClimping = true;
 			return;
-		}
-		if (pStaticComponent->GetStaticObjectType() == ObjectTypes::END_SCENE)
+		} 
+		else if (pStaticComponent->GetStaticObjectType() == ObjectTypes::END_SCENE)
 		{
 			Framework::SendEvent(Events::SCE_COMPLETE_SCENE_EVENT);
 		}
+		else if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
+		{
+			return;
+		}
+
 
 		if (idx == 0 && m_acceleration.m_y < -25.0f)//TOP
 		{

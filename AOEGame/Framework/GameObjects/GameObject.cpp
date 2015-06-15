@@ -7,7 +7,7 @@ namespace Framework
 		: m_feature(false)
 		, m_id(id)
 		, m_type(-1)
-		, m_components(10)
+		, m_components(20)
 	{
 	}
 

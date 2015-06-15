@@ -18,13 +18,14 @@ namespace Framework
 
 		void HandleEvent(Event* pEvent);
 
+		virtual void Initialize();
+
 	public:
 		static unsigned int GetId()						{ return s_id; }
 
 		explicit RenderableComponent(GameObject* pOwner);
 		virtual ~RenderableComponent();
 
-		virtual void Initialize();
 
 		Renderable&	GetRenderable()						{ return m_renderable; }
 

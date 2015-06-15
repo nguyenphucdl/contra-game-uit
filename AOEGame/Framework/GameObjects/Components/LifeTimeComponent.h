@@ -20,6 +20,7 @@ namespace Framework
 		bool		m_isDead;
 		bool		m_start;
 
+		virtual void Initialize();
 
 	public:
 		static unsigned int GetId() { return s_id; }
@@ -32,7 +33,6 @@ namespace Framework
 		void SetLifeTime(float lifeTime) { m_lifeTime = lifeTime; }
 		void Start()	{ m_start = true; Reset(); }
 		void Pause()	{ m_start = false; }
-		virtual void Initialize();
 
 		virtual void HandleEvent(Event* pEvent);
 	};

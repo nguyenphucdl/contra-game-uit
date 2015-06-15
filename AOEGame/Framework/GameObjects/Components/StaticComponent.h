@@ -12,13 +12,13 @@ namespace Framework
 {
 	class StaticComponent
 		: public RenderableComponent
-		, public EventHandler
 	{
 	private:
 		static const unsigned int	s_id = ComponentIDs::StaticComponentId;
 
 		int		m_objectType;
 
+		virtual void Initialize();
 	public:
 		static unsigned int GetId() { return s_id; }
 
@@ -27,8 +27,6 @@ namespace Framework
 
 		void	SetStaticObjectType(int type) { m_objectType = type; }
 		int		GetStaticObjectType() { return m_objectType; }
-
-		virtual void Initialize();
 
 		virtual void HandleEvent(Event* pEvent);
 	};

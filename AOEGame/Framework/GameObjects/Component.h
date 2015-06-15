@@ -10,6 +10,7 @@ namespace Framework
 	private:
 		GameObject*			m_pOwner;
 
+		virtual void Initialize() = 0;
 
 	public:
 		explicit Component(GameObject* pOwner)
@@ -19,9 +20,9 @@ namespace Framework
 
 		virtual ~Component() { }
 
-		virtual void Initialize() = 0;
-
 		GameObject* GetOwner() { return m_pOwner; }
+
+		friend class GameObject;
 	};
 }
 #endif//__COMPONENT_H__

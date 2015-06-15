@@ -3,6 +3,7 @@
 
 #include "../Application/Context.h"
 #include "../GameState/GameState.h"
+#include "../Utilities/ObjectFactory.h"
 
 namespace Framework
 {
@@ -10,13 +11,16 @@ namespace Framework
 		: public GameState
 	{
 	private:
-		SceneStates	 m_sceneState;
+		SceneStates		m_sceneState;
+		ObjectFactory*	m_objectFactory;
 	public:
 		SceneBase();
 		~SceneBase();
 
 		SceneStates	GetScenceState() { return m_sceneState; }
 		void		SetScenceState(SceneStates state) { m_sceneState = state; }
+		void SetObjectFactory(ObjectFactory* objectFactory) { m_objectFactory = objectFactory; }
+		ObjectFactory* GetObjectFactory()					{ return m_objectFactory; }
 
 		virtual void Init() = 0;
 		virtual void Update() = 0;

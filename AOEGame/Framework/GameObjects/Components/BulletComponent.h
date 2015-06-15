@@ -31,6 +31,7 @@ namespace Framework
 		float						m_elapse;
 		float						m_delay;
 
+		virtual void Initialize();
 	private:
 		void UpdateBullets();
 
@@ -40,7 +41,7 @@ namespace Framework
 		explicit BulletComponent(GameObject* pOwner);
 		virtual ~BulletComponent();
 
-		virtual void Initialize();
+		
 
 		void AddBullet(GameObject* bullet);
 		void SetVelocity(float vx, float vy)	  { m_velocity.m_x = vx; m_velocity.m_y = vy; }

@@ -27,13 +27,14 @@ namespace Framework
 
 		bool			m_pressed;
 		bool			m_isAttached;
+
+		virtual void Initialize();
+
 	public:
 		static unsigned int GetId() { return s_id; }
 
 		explicit CameraComponent(GameObject* pOwner);
 		virtual ~CameraComponent();
-
-		virtual void Initialize();
 
 		void	SetBound(RECT bound);
 

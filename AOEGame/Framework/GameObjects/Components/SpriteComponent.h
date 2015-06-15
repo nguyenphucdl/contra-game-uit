@@ -26,6 +26,8 @@ namespace Framework
 		bool						m_keypressed;
 		//bool						m_animate;
 		
+		virtual void Initialize();
+
 	public:
 		static unsigned int GetId() { return s_id; }
 
@@ -44,8 +46,6 @@ namespace Framework
 		int  GetCurrentState()	{ return m_curState; }
 		void SetCurrentDirection(SpriteDirections direction);
 		SpriteDirections GetCurrentDirection() { return m_curDirection; }
-
-		virtual void Initialize();
 
 		virtual void HandleEvent(Event* pEvent);
 	};

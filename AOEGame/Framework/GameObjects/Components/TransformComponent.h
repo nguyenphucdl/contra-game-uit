@@ -16,13 +16,13 @@ namespace Framework
 
 		Transform*	m_transform;
 
+		virtual void Initialize();
 	public:
 		static unsigned int GetId() { return s_id; }
 
 		explicit TransformComponent(GameObject* pOwner);
 		virtual ~TransformComponent();
 
-		virtual void Initialize();
 		bool	AttachRenderableTransform(RenderableComponent* pRenderableComponent);
 
 
