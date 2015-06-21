@@ -82,7 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ContraGameFactory.h" />
+    <ClInclude Include="CommonGameFactory.h" />
     <ClInclude Include="Framework\Audio\AudioManager.h" />
     <ClInclude Include="Framework\EventManager\EventExecutor.h" />
     <ClInclude Include="Framework\EventManager\EventExecutorAware.h" />
@@ -161,7 +161,7 @@
     <ClInclude Include="Framework\Utilities\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConTraGameFactory.cpp" />
+    <ClCompile Include="CommonGameFactory.cpp" />
     <ClCompile Include="Framework\Audio\AudioManager.cpp" />
     <ClCompile Include="Framework\Collision\CollisionBin.cpp" />
     <ClCompile Include="Framework\Collision\CollisionManager.cpp" />

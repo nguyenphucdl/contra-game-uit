@@ -29,10 +29,25 @@ MegamanMap1Factory::~MegamanMap1Factory()
 void MegamanMap1Factory::createObjectType(std::string objectType, Framework::GameObject* owner, void* pData)
 {
 	int objType = atoi(objectType.c_str());
-	if (objType == GameResources::GameObjectIds::LITTLE_POGOBOT)
+
+	switch (objType)
 	{
+	case GameResources::GameObjectTypes::LITTLE_POGOBOT:
 		_createLittlePogobot(owner, pData);
+		break;
+	case GameResources::GameObjectTypes::PLAYER_OBJECT:
+		_createPlayerObject(owner, pData);
+		break;
+	case GameResources::GameObjectTypes::CAMERA_OBJECT:
+		_createCameraObject(owner, static_cast<GameObject*>(pData));
+		break;
+	case GameResources::GameObjectTypes::TILEMAP_OBJECT:
+		_createTileMapObject(owner, static_cast<TileMap*>(pData));
+		break;
+	default:
+		break;
 	}
+
 }
 
 void MegamanMap1Factory::_createLittlePogobot(Framework::GameObject* owner, void* pData)

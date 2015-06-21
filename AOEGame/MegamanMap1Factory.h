@@ -3,10 +3,10 @@
 
 #include "Framework\Application\Context.h"
 #include "Framework\GameObjects\GameObject.h"
-#include "Framework\Utilities\ObjectFactory.h"
+#include "CommonGameFactory.h"
 
 class MegamanMap1Factory
-	: public Framework::ObjectFactory
+	: public CommonGameFactory
 {
 public:
 	MegamanMap1Factory();

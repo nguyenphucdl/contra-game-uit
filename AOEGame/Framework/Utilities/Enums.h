@@ -122,5 +122,12 @@ namespace Framework
 		Chapter6TaskId,//Test
 		GamePlay1Id
 	};
+
+	enum SystemObjectTypes
+	{
+		PLAYER_OBJECT = 5000,
+		CAMERA_OBJECT = 6000,
+		TILEMAP_OBJECT = 7000
+	};
 }
 #endif

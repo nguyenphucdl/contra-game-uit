@@ -19,7 +19,7 @@ namespace GameResources
 	const char MAP1_FIVESTARSHOOTER[] = "fivestarshooter.png";
 
 
-	enum GameObjectIds 
+	enum GameObjectTypes 
 	{
 		LITTLE_POGOBOT = 1000,
 		NAPALM_BOMB = 1001,
@@ -28,7 +28,11 @@ namespace GameResources
 		GREEN_ROBOCOP = 1004,
 		BULLET_BILL = 1005,
 		FLOOR_TRAPPER = 1006,
-		BOSS_BOMBMAN = 1007
+		BOSS_BOMBMAN = 1007,
+
+		PLAYER_OBJECT = Framework::SystemObjectTypes::PLAYER_OBJECT,
+		TILEMAP_OBJECT = Framework::SystemObjectTypes::TILEMAP_OBJECT,
+		CAMERA_OBJECT = Framework::SystemObjectTypes::CAMERA_OBJECT
 	};
 };
 

@@ -4,7 +4,7 @@
 #include "../GameObjects/Components/CameraComponent.h"
 #include "../Collision/CollisionManager.h"
 #include "../EventManager/EventManager.h"
-#include "../../ContraGameFactory.h"
+#include "../../CommonGameFactory.h"
 #include "../Utilities/Console.h"
 #include "../Utilities/FPSCounter.h"
 #include "../GameObjects/Components/TileMapComponent.h"
@@ -49,6 +49,13 @@ namespace Framework
 
 		CollisionManager::GetSingletonPtr()->AddCollisionBinFromTileMap(m_tileMap, this);
 
+		GameObject* playerObject = new GameObject(Utils::getNextId());
+		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::PLAYER_OBJECT), playerObject);
+		AddUpdateObject(playerObject);
+
+		m_cameraObject = new GameObject(Utils::getNextId());
+		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::CAMERA_OBJECT), m_cameraObject, playerObject);
+
 		delete tmxLoader;
 		return true;
 	}
@@ -82,7 +89,7 @@ namespace Framework
 
 		m_tileMap->Init();
 
-		m_tileMapObject = ContraGameFactory::GetSingletonPtr()->GetTileMapObject(m_tileMap);
+		m_tileMapObject = CommonGameFactory::GetSingletonPtr()->GetTileMapObject(m_tileMap);
 		m_tileMapObject->InitializeComponents();
 		
 
