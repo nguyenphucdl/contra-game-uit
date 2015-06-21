@@ -32,7 +32,7 @@ namespace Framework
 		static const unsigned int	FILE_PRIORITY		= 2000;
 		static const unsigned int	GAME_PRIORITY		= 3000;
 		static const unsigned int	AUDIO_PRIORITY		= 4000;
-		static const unsigned int	RENDER_PRIORITY		= 5000;
+		static const unsigned int	RENDER_PRIORITY		= 5000;		
 	};
 
 	inline Task::Task(const unsigned int priority)

@@ -24,6 +24,7 @@ namespace Framework
 		ret = m_kernel.AddTask(Timer::GetSingletonPtr());
 		ret = m_kernel.AddTask(Renderer::GetSingletonPtr());
 		ret = m_kernel.AddTask(Input::GetSingletonPtr());
+		ret = m_kernel.AddTask(AudioManager::GetSingletonPtr());
 		
 		Console::GetSingletonPtr()->init();
 
@@ -63,6 +64,7 @@ namespace Framework
 		new CollisionManager();
 		new Console();
 		new FPSCounter();
+		new AudioManager(Task::AUDIO_PRIORITY);
 	}
 
 	void Game::DestroySingletons()

@@ -253,6 +253,7 @@
     <ClInclude Include="MegamanMap1Factory.h" />
     <ClInclude Include="Framework\Utilities\ObjectMapData.h" />
     <ClInclude Include="Framework\GameObjects\Components\RangeOfMovementComponent.h" />
+    <ClInclude Include="Framework\Audio\AudioManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -389,6 +390,7 @@
     <ClCompile Include="Framework\Utilities\Utils.cpp" />
     <ClCompile Include="MegamanMap1Factory.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\RangeOfMovementComponent.cpp" />
+    <ClCompile Include="Framework\Audio\AudioManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Texture\texture.png">

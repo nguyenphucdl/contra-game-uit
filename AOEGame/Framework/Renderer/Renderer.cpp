@@ -153,7 +153,7 @@ namespace Framework
 				break;
 			}
 		}
-		Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] AddRenderable level %d... !\n", pRenderable->GetZIndex());
+		//Log::info(Log::LOG_LEVEL_ROOT, "[Renderer] AddRenderable level %d... !\n", pRenderable->GetZIndex());
 		m_renerables.insert(iter, pRenderable);
 	}
 

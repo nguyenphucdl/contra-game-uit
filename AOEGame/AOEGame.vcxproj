@@ -60,7 +60,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;winmm.lib;dinput8.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;winmm.lib;dinput8.lib;xinput.lib;Framework\Lib\fmod\lib\fmodex_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ContraGameFactory.h" />
+    <ClInclude Include="Framework\Audio\AudioManager.h" />
     <ClInclude Include="Framework\EventManager\EventExecutor.h" />
     <ClInclude Include="Framework\EventManager\EventExecutorAware.h" />
     <ClInclude Include="Framework\GameObjects\Components\BulletComponent.h" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConTraGameFactory.cpp" />
+    <ClCompile Include="Framework\Audio\AudioManager.cpp" />
     <ClCompile Include="Framework\Collision\CollisionBin.cpp" />
     <ClCompile Include="Framework\Collision\CollisionManager.cpp" />
     <ClCompile Include="Framework\EventManager\EventExecutor.cpp" />

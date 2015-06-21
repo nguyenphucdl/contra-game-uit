@@ -12,6 +12,7 @@
 #include "../Collision/CollisionManager.h"
 #include "../Input/Input.h"
 #include "../Utilities/Console.h"
+#include "../Audio/AudioManager.h"
 
 namespace Framework
 {
