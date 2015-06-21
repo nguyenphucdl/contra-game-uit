@@ -28,6 +28,8 @@ namespace Framework
 		Quadtree*				m_quadtree;
 		RECT					m_bound;
 
+		Vector3					m_playerPosition;
+
 		//RENDER TO SURFACE
 		LPDIRECT3DSURFACE9		m_tileMapSurface;
 		LPDIRECT3DTEXTURE9		m_tileMapTexture;
@@ -78,7 +80,8 @@ namespace Framework
 		{
 			m_quadtree = quadtree;
 		}
-
+		void	SetPlayerPosition(Vector3& position)  { m_playerPosition.Set(position); }
+		const Vector3& GetPlayerPosition()			  { return m_playerPosition; }
 		Quadtree* GetQuadTree()
 		{
 			return m_quadtree;

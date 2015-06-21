@@ -237,7 +237,14 @@ namespace Framework
 				{
 					if (GetObjectFactory() != NULL)
 					{
-						GetObjectFactory()->createObjectType(objData, gameObj, objMapDataHolder);
+						if (objDataInteger == SystemObjectTypes::PLAYER_OBJECT)
+						{
+							m_tileMap->SetPlayerPosition(Vector3(x, y, 1.0f));
+						}
+						else
+						{
+							GetObjectFactory()->createObjectType(objData, gameObj, objMapDataHolder);
+						}
 					}
 
 				}

@@ -24,7 +24,7 @@ namespace Framework
 		TransformComponent* pAttachedComponent = component_cast<TransformComponent>(gameObj);
 		assert(pAttachedComponent);
 		Vector3 attachedTrans = pAttachedComponent->GetTranslatiton();
-		m_transOrigin.Set(attachedTrans);
+		//m_transOrigin.Set(attachedTrans);
 	}
 
 	void CameraComponent::SetBound(RECT bound)
@@ -52,6 +52,7 @@ namespace Framework
 		m_transOrigin.Subtract(m_viewOrigin);//Set real trans origin
 		m_viewPortWidth = Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
 		m_viewPortHeight = Renderer::GetSingletonPtr()->GetCamera().GetViewPortHeight();
+		m_transOrigin.Set(m_viewPortWidth / 2, m_viewPortHeight / 2, 1.0f);
 	}
 
 	void CameraComponent::HandleEvent(Event* pEvent)
@@ -65,29 +66,28 @@ namespace Framework
 			if (pObjTransformComponent)
 			{
 				Transform* transform = pObjTransformComponent->GetTransform();
-				//Vector3& translation = transform->GetTranslation().GetInverseY();
 				Vector3& translation = transform->GetTranslation();
 				
-				Vector3 cameraTrans = translation;
-				cameraTrans.Subtract(m_transOrigin);
-
-				//cameraTrans.m_y = 0;//phụ thuộc vào map orientation
-				
-				//translation.Add(m_transOrigin);
-
-				if (cameraTrans.m_x < m_bound.left)
-					cameraTrans.m_x = 0;
-				else if (cameraTrans.m_x > m_bound.right - m_viewPortWidth)
-					cameraTrans.m_x = m_bound.right - m_viewPortWidth;
+				if (translation.m_x > (m_viewPortWidth / 2) || translation.m_y > (m_viewPortHeight / 2))
+				{
+					Vector3 cameraTrans = translation;
+					cameraTrans.Subtract(m_transOrigin);
 
 
-				if (cameraTrans.m_y < m_bound.top)
-					cameraTrans.m_y = m_bound.top;
-				else if (cameraTrans.m_y > m_bound.bottom - m_viewPortHeight)
-					cameraTrans.m_y = m_bound.bottom - m_viewPortHeight;
-					
+					if (cameraTrans.m_x < m_bound.left)
+						cameraTrans.m_x = 0;
+					else if (cameraTrans.m_x > m_bound.right - m_viewPortWidth)
+						cameraTrans.m_x = m_bound.right - m_viewPortWidth;
 
-				Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&cameraTrans);
+
+					if (cameraTrans.m_y < m_bound.top)
+						cameraTrans.m_y = m_bound.top;
+					else if (cameraTrans.m_y > m_bound.bottom - m_viewPortHeight)
+						cameraTrans.m_y = m_bound.bottom - m_viewPortHeight;
+
+
+					Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&cameraTrans);
+				}
 
 				//TEST
 				Vector3 vec3 = Renderer::GetSingletonPtr()->GetCamera().GetViewTranslate();

@@ -50,12 +50,14 @@ namespace Framework
 		CollisionManager::GetSingletonPtr()->AddCollisionBinFromTileMap(m_tileMap, this);
 
 		GameObject* playerObject = new GameObject(Utils::getNextId());
-		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::PLAYER_OBJECT), playerObject);
+		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::PLAYER_OBJECT), playerObject, m_tileMap);
 		AddUpdateObject(playerObject);
 
 		m_cameraObject = new GameObject(Utils::getNextId());
 		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::CAMERA_OBJECT), m_cameraObject, playerObject);
 
+		m_tileMapObject = new GameObject(Utils::getNextId());
+		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::TILEMAP_OBJECT), m_tileMapObject, m_tileMap);
 		delete tmxLoader;
 		return true;
 	}
@@ -89,7 +91,8 @@ namespace Framework
 
 		m_tileMap->Init();
 
-		m_tileMapObject = CommonGameFactory::GetSingletonPtr()->GetTileMapObject(m_tileMap);
+		
+		//GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::TILEMAP_OBJECT), m_tileMapObject, m_tileMap);
 		m_tileMapObject->InitializeComponents();
 		
 

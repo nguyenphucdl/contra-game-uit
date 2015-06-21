@@ -5,13 +5,14 @@
 namespace Framework
 {
 	TileMap::TileMap(int tileWidth, int tileHeight, int width, int height)
+		: m_tileWidth(tileWidth)
+		, m_tileHeight(tileHeight)
+		, m_width(width)
+		, m_height(height)
+		, m_version("1.0")
+		, m_tag("Pre-renderTileMapTexture" + std::to_string(rand() % 100))
+		, m_playerPosition(300.0f, 300.0f, 1.0f)
 	{
-		m_tileWidth = tileWidth;
-		m_tileHeight = tileHeight;
-		m_width = width;
-		m_height = height;
-		m_version = "1.0";
-		m_tag = "Pre-renderTileMapTexture" + std::to_string(rand() % 100);
 	}
 
 	TileMap::~TileMap()

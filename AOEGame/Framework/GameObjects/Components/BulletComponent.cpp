@@ -11,7 +11,7 @@ namespace Framework
 		, m_bullets()
 		, m_bulletFiring()
 		, m_elapse(2.0f)
-		, m_delay(0)
+		, m_delay(0.25f)
 		, m_velocity(0.0f, 0.0f, 0.0f)
 		, m_spawnOffset(0.0f, 0.0f, 0.0f)
 	{
@@ -43,8 +43,6 @@ namespace Framework
 				pBulletSpriteComponent->Hide();
 			}
 		}
-
-		m_delay = 0.25f;
 	}
 
 	void BulletComponent::AddBullet(GameObject* bullet)

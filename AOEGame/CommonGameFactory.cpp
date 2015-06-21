@@ -14,202 +14,6 @@
 
 using namespace Framework;
 
-Framework::GameObject* CommonGameFactory::GetPlayerObject()
-{
-	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
-	propLoader->Load();
-
-	AnimCache* propLoader2 = new AnimCache("Resources\\Texture\\Rockman\\rockman2.plist");
-	propLoader2->Load();
-
-	GameObject* m_playerObject = new GameObject(Utils::getNextId());
-	
-	m_playerObject->AddComponent<SpriteComponent>();
-	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(m_playerObject);
-	if (pSpriteComponent)
-	{
-		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 1.5f, 0, 3);
-		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 1.5f, 3, 3);
-		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 1.5f, 0, 1);
-		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 1.5f, 3, 1);
-		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 1, 3);
-		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 5, 3);
-		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 0, 1);
-		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 7, 1);
-		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 0, 1);
-		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 5, 1);
-		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 1, 1);
-		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 4, 1);
-		Animation* climbingLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, 1.5f, 2, 1);
-		Animation* climbingRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, 1.5f, 3, 1);
-
-		pSpriteComponent->SetRenderTransform(true);
-		pSpriteComponent->SetDrawCenter(true);
-		pSpriteComponent->SetCenter(22.0f, 22.0f);
-
-		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryLeft);
-		pSpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationaryRight);
-		pSpriteComponent->RegisterState(SpriteStates::STATIONARY_FIRING, SpriteDirections::RIGHT, stationRightFiring);
-		pSpriteComponent->RegisterState(SpriteStates::STATIONARY_FIRING, SpriteDirections::LEFT, stationLeftFiring);
-		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::LEFT, moveLeftAnim);
-		pSpriteComponent->RegisterState(SpriteStates::MOVE, SpriteDirections::RIGHT, moveRightAnim);
-		pSpriteComponent->RegisterState(SpriteStates::MOVE_FIRING, SpriteDirections::RIGHT, moveRightFiring);
-		pSpriteComponent->RegisterState(SpriteStates::MOVE_FIRING, SpriteDirections::LEFT, moveLeftFiring);
-		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, jumpRightAnim);
-		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpLeftAnim);
-		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::RIGHT, jumpRightFiring);
-		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::LEFT, jumpLeftFiring);
-		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::LEFT, climbingLeftAnim);
-		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::RIGHT, climbingRightAnim);
-
-		pSpriteComponent->SetUseBounds(true);
-		pSpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
-		pSpriteComponent->SetBoundMax(Vector3(45.0f, 45.0f, 1.0f));
-		pSpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
-		pSpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
-		pSpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
-	}
-
-
-	m_playerObject->AddComponent<PlayerMovementComponent>();
-	PlayerMovementComponent* pPlayerTransformComponent = component_cast<PlayerMovementComponent>(m_playerObject);
-	if (pPlayerTransformComponent)
-	{
-		pPlayerTransformComponent->AttachRenderableTransform(pSpriteComponent);
-		Vector3 position = Vector3(300, 200, 0);
-		pPlayerTransformComponent->SetTranslation(&position);
-	}
-	m_playerObject->AddComponent<CollisionComponent>();
-	CollisionComponent* pCollisionComponent = component_cast<CollisionComponent>(m_playerObject);
-	if (pCollisionComponent)
-	{
-		pCollisionComponent->AttachRenderable(&pSpriteComponent->GetRenderable());
-		pCollisionComponent->AddEventListener(pPlayerTransformComponent);
-	}
-	m_playerObject->AddComponent<BulletComponent>();
-	BulletComponent* pPlayerBulletComponent = component_cast<BulletComponent>(m_playerObject);
-
-	if (pPlayerBulletComponent)
-	{
-		pPlayerBulletComponent->SetVelocity(400.0f, 0.0f);
-		pPlayerBulletComponent->SetSpawnOffset(30.0f, 8.0f);
-
-		int rockman_bullet_counts = 10;
-		for (int i = 0; i < rockman_bullet_counts; i++)
-		{
-			GameObject* rockmanBullet = new GameObject(Utils::getNextId());
-			rockmanBullet->AddComponent<SpriteComponent>();
-			SpriteComponent* pRockmanBulletComponent = component_cast<SpriteComponent>(rockmanBullet);
-			if (pRockmanBulletComponent)
-			{
-				Animation* bulletFiring = Animation::CreateAnimation(GameResources::ROCKMAN_BULLET_FIRING, propLoader, 222.0f, 0, 1);
-
-				pRockmanBulletComponent->RegisterState(BulletStates::FIRE, SpriteDirections::LEFT, bulletFiring);
-				pRockmanBulletComponent->RegisterState(BulletStates::FIRE, SpriteDirections::RIGHT, bulletFiring);
-				pRockmanBulletComponent->SetTag("Bullet");
-				pRockmanBulletComponent->SetDebug(true);
-				pRockmanBulletComponent->SetUseBounds(true);
-				pRockmanBulletComponent->SetDebug(false);
-				pRockmanBulletComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
-				pRockmanBulletComponent->SetBoundMax(Vector3(16.0f, 12.0f, 1.0f));
-				pRockmanBulletComponent->SetDefaultState(BulletStates::FIRE);
-				pRockmanBulletComponent->SetDefaultDirection(SpriteDirections::LEFT);
-			}
-			rockmanBullet->AddComponent<TransformComponent>();
-			TransformComponent *pRockmanBulletTransformComponent = component_cast<TransformComponent>(rockmanBullet);
-			if (pRockmanBulletTransformComponent)
-			{
-				pRockmanBulletTransformComponent->AttachRenderableTransform(pRockmanBulletComponent);
-				Vector3 position = Vector3(300 + i * 50, 200, 0);
-				pRockmanBulletTransformComponent->SetTranslation(&position);
-			}
-			rockmanBullet->AddComponent<CollisionComponent>();
-			CollisionComponent* pBulletCollisionComponent = component_cast<CollisionComponent>(rockmanBullet);
-			if (pBulletCollisionComponent)
-			{
-				pBulletCollisionComponent->AttachRenderable(&pRockmanBulletComponent->GetRenderable());
-			}
-
-			rockmanBullet->AddComponent<LifeTimeComponent>();
-			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(rockmanBullet);
-			if (pLifeTimeComponent)
-			{
-				pLifeTimeComponent->SetLifeTime(3.0f);
-			}
-
-			pPlayerBulletComponent->AddBullet(rockmanBullet);
-		}//end for rockman_bullet_counts
-
-		//pPlayerBulletComponent->Initialize();
-	}//end if pBulletComponent
-
-	return m_playerObject;
-}
-
-Framework::GameObject* CommonGameFactory::GetTileMapObject(TileMap* tileMap)
-{
-	GameObject* tileMapObject = new GameObject(Utils::getNextId());
-	tileMapObject->AddComponent<TileMapComponent>();
-	TileMapComponent* pTileMapComponent = component_cast<TileMapComponent>(tileMapObject);
-	if (pTileMapComponent)
-	{
-		pTileMapComponent->SetTileMap(tileMap);
-		//pTileMapComponent->SetOrigin(0, 480, 1);
-		Transform trans = Transform();
-		trans.SetTranslation(Vector3(0, 480, 1));
-		pTileMapComponent->SetTransform(trans);
-		pTileMapComponent->SetTag("TileMap");
-		pTileMapComponent->SetDebug(false);
-
-
-		Vector3 mapViewportOrigin = Vector3(0.0f, 0.0f, 1.0f);
-
-
-		switch (tileMap->GetViewportType())
-		{
-		case ViewportTypes::TOP_LEFT:
-			break;
-		case ViewportTypes::TOP_RIGHT:
-			mapViewportOrigin.m_x = tileMap->GetBound().right - Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
-			break;
-		case ViewportTypes::BOTTOM_LEFT:
-			mapViewportOrigin.m_y = tileMap->GetBound().bottom - Renderer::GetSingletonPtr()->GetHeight();
-			break;
-		case ViewportTypes::BOTTOM_RIGHT:
-			mapViewportOrigin.m_x = tileMap->GetBound().right - Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
-			mapViewportOrigin.m_y = tileMap->GetBound().bottom - Renderer::GetSingletonPtr()->GetHeight();
-			break;
-		default:
-			break;
-		}
-		pTileMapComponent->SetMapOrigin(mapViewportOrigin);
-		
-	}
-	return tileMapObject;
-}
-
-Framework::GameObject* CommonGameFactory::GetCameraObject(GameObject* attachObj)
-{
-	GameObject* m_cameraObject = new GameObject(Utils::getNextId());
-	m_cameraObject->AddComponent<CameraComponent>();
-	CameraComponent *pCameraComponent = component_cast<CameraComponent>(m_cameraObject);
-	if (pCameraComponent)
-	{
-		pCameraComponent->SetViewportOrigin(0, 0);
-		RECT default;
-		default.left = 0;
-		default.right = 640;
-		default.top = 0;
-		default.bottom = 480;
-		pCameraComponent->SetBound(default);
-		pCameraComponent->AttachObject(attachObj);
-		//pCameraComponent->Initialize();
-	}
-	return m_cameraObject;
-}
-
-
-
 void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* data)
 {
 	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
@@ -222,20 +26,20 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(owner);
 	if (pSpriteComponent)
 	{
-		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 1.5f, 0, 3);
-		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, 1.5f, 3, 3);
-		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 1.5f, 0, 1);
-		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, 1.5f, 3, 1);
-		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 1, 3);
-		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 5, 3);
-		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 0, 1);
-		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, 1.5f, 7, 1);
-		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 0, 1);
-		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 5, 1);
-		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 1, 1);
-		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, 1.5f, 4, 1);
-		Animation* climbingLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, 1.5f, 2, 1);
-		Animation* climbingRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, 1.5f, 3, 1);
+		Animation* moveLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 3);
+		Animation* moveRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 3, 3);
+		Animation* stationaryLeft = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* stationaryRight = Animation::CreateAnimation(GameResources::ROCKMAN_STATIONARY, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 3, 1);
+		Animation* moveLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 3);
+		Animation* moveRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 5, 3);
+		Animation* stationLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* stationRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_RUNNING_FIRING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 7, 1);
+		Animation* jumpLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* jumpRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 5, 1);
+		Animation* jumpLeftFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 1);
+		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 4, 1);
+		Animation* climbingLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, GameResources::CONST_SPRITE_ANIMATION_TIME, 2, 1);
+		Animation* climbingRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, GameResources::CONST_SPRITE_ANIMATION_TIME, 3, 1);
 
 		pSpriteComponent->SetRenderTransform(true);
 		pSpriteComponent->SetDrawCenter(true);
@@ -270,7 +74,13 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 	if (pPlayerTransformComponent)
 	{
 		pPlayerTransformComponent->AttachRenderableTransform(pSpriteComponent);
+
+		TileMap* tileMap = static_cast<TileMap*>(data);
 		Vector3 position = Vector3(300, 200, 0);
+		if (tileMap != NULL)
+		{
+			position.Set(tileMap->GetPlayerPosition());
+		}
 		pPlayerTransformComponent->SetTranslation(&position);
 	}
 	owner->AddComponent<CollisionComponent>();
@@ -285,7 +95,8 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 
 	if (pPlayerBulletComponent)
 	{
-		pPlayerBulletComponent->SetVelocity(400.0f, 0.0f);
+		pPlayerBulletComponent->SetVelocity(GameResources::CONST_BULLET_VELOCITY_X, GameResources::CONST_BULLET_VELOCITY_Y);
+		pPlayerBulletComponent->SetDelay(GameResources::CONST_BULLET_DELAY_TIME);
 		pPlayerBulletComponent->SetSpawnOffset(30.0f, 8.0f);
 
 		int rockman_bullet_counts = 10;
@@ -296,7 +107,7 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 			SpriteComponent* pRockmanBulletComponent = component_cast<SpriteComponent>(rockmanBullet);
 			if (pRockmanBulletComponent)
 			{
-				Animation* bulletFiring = Animation::CreateAnimation(GameResources::ROCKMAN_BULLET_FIRING, propLoader, 222.0f, 0, 1);
+				Animation* bulletFiring = Animation::CreateAnimation(GameResources::ROCKMAN_BULLET_FIRING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
 
 				pRockmanBulletComponent->RegisterState(BulletStates::FIRE, SpriteDirections::LEFT, bulletFiring);
 				pRockmanBulletComponent->RegisterState(BulletStates::FIRE, SpriteDirections::RIGHT, bulletFiring);
@@ -328,7 +139,7 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(rockmanBullet);
 			if (pLifeTimeComponent)
 			{
-				pLifeTimeComponent->SetLifeTime(3.0f);
+				pLifeTimeComponent->SetLifeTime(GameResources::CONST_BULLET_LIFETIME);
 			}
 
 			pPlayerBulletComponent->AddBullet(rockmanBullet);

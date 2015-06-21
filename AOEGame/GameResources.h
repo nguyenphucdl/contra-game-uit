@@ -34,6 +34,12 @@ namespace GameResources
 		TILEMAP_OBJECT = Framework::SystemObjectTypes::TILEMAP_OBJECT,
 		CAMERA_OBJECT = Framework::SystemObjectTypes::CAMERA_OBJECT
 	};
+
+	const float CONST_SPRITE_ANIMATION_TIME = 0.8f;
+	const float CONST_BULLET_VELOCITY_X = 400.0f;
+	const float CONST_BULLET_VELOCITY_Y = 0.f;
+	const float CONST_BULLET_LIFETIME = 3.0f;
+	const float CONST_BULLET_DELAY_TIME = 0.25f;
 };
 
 #endif//__GAME_RESOURCES_H__

@@ -41,11 +41,12 @@ namespace Framework
 		explicit BulletComponent(GameObject* pOwner);
 		virtual ~BulletComponent();
 
-		
+
 
 		void AddBullet(GameObject* bullet);
 		void SetVelocity(float vx, float vy)	  { m_velocity.m_x = vx; m_velocity.m_y = vy; }
 		void SetSpawnOffset(float ox, float oy)   { m_spawnOffset.Set(ox, oy, 1.0f); }
+		void SetDelay(float val)				  { m_delay = val; }
 		const Vector3& GetSpawnOffset()			  { return m_spawnOffset; }
 
 		void Fire();

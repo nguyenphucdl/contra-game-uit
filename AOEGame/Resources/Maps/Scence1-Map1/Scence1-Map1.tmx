@@ -1617,12 +1617,12 @@
     <object id="39" name="" type="0" x="1780" y="224" data="" width="11" height="53" color="Black" />
     <object id="40" name="End scene point" type="1" x="1755" y="223" data="" width="26" height="7" color="Aqua" />
     <object id="41" name="Little Pogobot" type="2" x="341" y="122" data="1000" width="22" height="14" color="Azure" />
-    <object id="42" name="Napalm Bomb" type="2" x="850" y="86" data="1001" width="30" height="23" color="Azure" />
-    <object id="43" name="Napalm Bomb" type="2" x="972" y="79" data="1001" width="33" height="25" color="Azure" />
-    <object id="44" name="Napalm Bomb" type="2" x="1099" y="82" data="1001" width="35" height="26" color="Azure" />
-    <object id="45" name="Napalm Bomb" type="2" x="1224" y="75" data="1001" width="41" height="19" color="Azure" />
-    <object id="46" name="Five Star Shooter" type="2" x="1452" y="62" data="1002" width="33" height="18" color="Azure" />
-    <object id="47" name="Five Star Shooter" type="2" x="1635" y="76" data="1002" width="28" height="20" color="Azure" />
+    <object id="42" name="Napalm Bomb" type="2" x="850" y="86" data="1000" width="30" height="23" color="Azure" />
+    <object id="43" name="Napalm Bomb" type="2" x="972" y="79" data="1000" width="33" height="25" color="Azure" />
+    <object id="44" name="Napalm Bomb" type="2" x="1099" y="82" data="1000" width="35" height="26" color="Azure" />
+    <object id="45" name="Napalm Bomb" type="2" x="1224" y="75" data="1000" width="41" height="19" color="Azure" />
+    <object id="46" name="Five Star Shooter" type="2" x="1452" y="62" data="1000" width="33" height="18" color="Azure" />
+    <object id="47" name="Five Star Shooter" type="2" x="1635" y="76" data="1000" width="28" height="20" color="Azure" />
     <object id="48" name="Little Pogobot ROM" type="3" x="223" y="189" data="41" width="282" height="150" color="Blue" />
     <object id="49" name="Napalm Bomb ROM" type="3" x="732" y="142" data="42" width="219" height="102" color="Blue" />
     <object id="50" name="Napalm Bomb ROM" type="3" x="886" y="145" data="43" width="206" height="105" color="Blue" />
@@ -1630,6 +1630,7 @@
     <object id="52" name="Napalm Bomb ROM" type="3" x="1151" y="147" data="45" width="195" height="106" color="Blue" />
     <object id="53" name="Five Star Shooter ROM" type="3" x="1387" y="172" data="46" width="173" height="128" color="Blue" />
     <object id="54" name="Five Star Shooter ROM" type="3" x="1540" y="192" data="47" width="197" height="145" color="Blue" />
+    <object id="55" name="Player spawn location" type="2" x="17" y="173" data="5000" width="17" height="13" color="Azure" />
   </objectgroup>
   <quadtree width="1792" height="1792" x="0" y="0">
     <data>
