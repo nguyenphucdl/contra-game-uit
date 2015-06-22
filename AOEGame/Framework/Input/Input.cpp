@@ -151,8 +151,7 @@ namespace Framework
 					{
 						m_paused = m_paused ? false : true;
 						
-						Framework::SendEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_RESUME_EVENT, (void *)m_paused);
-						
+						Framework::SendEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_EVENT, (void *)m_paused);
 					}
 				}
 				else
@@ -167,10 +166,13 @@ namespace Framework
 		{
 			// Switch to another application, cannot retrieve input device
 			Sleep(100);
+			
+			Framework::SendEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_EVENT, (void *)true);
 			m_result = m_keyboard->Acquire();
 			if (SUCCEEDED(m_result))
 			{
 				Log::info(Log::LOG_LEVEL_HIGHT, "Accquire input device successfully!\n");
+				Framework::SendEvent(ExecutorIDs::SysInput, Events::SYS_RESUME_EVENT);
 			}
 		}
 	}

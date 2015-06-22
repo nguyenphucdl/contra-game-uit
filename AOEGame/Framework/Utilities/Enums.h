@@ -11,7 +11,8 @@ namespace Framework
 		SYS_POST_RENDER_EVENT,
 		SYS_KEY_UP_EVENT,
 		SYS_KEY_DOWN_EVENT,
-		SYS_PAUSE_RESUME_EVENT,
+		SYS_PAUSE_EVENT,
+		SYS_RESUME_EVENT,
 
 
 		//Scene Events
@@ -103,7 +104,8 @@ namespace Framework
 		SIT = 300,
 		JUMP = 400,
 		JUMP_FIRING= 450,
-		CLIMBING = 500
+		CLIMB = 500,
+		CLIMBING = 501
 	};
 
 	enum BulletStates

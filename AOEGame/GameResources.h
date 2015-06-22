@@ -36,6 +36,7 @@ namespace GameResources
 	};
 
 	const float CONST_SPRITE_ANIMATION_TIME = 0.8f;
+	const float CONST_CLIMBING_ANIMATION_TIME = 1.5f;
 	const float CONST_BULLET_VELOCITY_X = 400.0f;
 	const float CONST_BULLET_VELOCITY_Y = 0.f;
 	const float CONST_BULLET_LIFETIME = 3.0f;

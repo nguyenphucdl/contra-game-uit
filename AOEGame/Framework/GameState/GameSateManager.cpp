@@ -39,7 +39,9 @@ namespace Framework
 
 	bool GameStateManager::Start()
 	{
-		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_RESUME_EVENT, *this);
+		//Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_RESUME_EVENT, *this);
+		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_EVENT, *this);
+		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_RESUME_EVENT, *this);
 
 		m_currentGamePlay = new GamePlay();
 		m_currentGamePlay->Init();
@@ -77,8 +79,11 @@ namespace Framework
 	{
 		switch (pEvent->GetID())
 		{
-		case Events::SYS_PAUSE_RESUME_EVENT:
+		case Events::SYS_PAUSE_EVENT:
 			m_paused = (bool)pEvent->GetData();
+			break;
+		case Events::SYS_RESUME_EVENT:
+			m_paused = false;
 			break;
 		default:
 			break;

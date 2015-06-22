@@ -40,6 +40,7 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 		Animation* jumpRightFiring = Animation::CreateAnimation(GameResources::ROCKMAN_JUMPING, propLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 4, 1);
 		Animation* climbingLeftAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, GameResources::CONST_SPRITE_ANIMATION_TIME, 2, 1);
 		Animation* climbingRightAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, GameResources::CONST_SPRITE_ANIMATION_TIME, 3, 1);
+		Animation* climbingAnim = Animation::CreateAnimation(GameResources::ROCKMAN_CLIMBING, propLoader2, GameResources::CONST_CLIMBING_ANIMATION_TIME, 2, 2);
 
 		pSpriteComponent->SetRenderTransform(true);
 		pSpriteComponent->SetDrawCenter(true);
@@ -57,8 +58,10 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 		pSpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpLeftAnim);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::RIGHT, jumpRightFiring);
 		pSpriteComponent->RegisterState(SpriteStates::JUMP_FIRING, SpriteDirections::LEFT, jumpLeftFiring);
-		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::LEFT, climbingLeftAnim);
-		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::RIGHT, climbingRightAnim);
+		pSpriteComponent->RegisterState(SpriteStates::CLIMB, SpriteDirections::LEFT, climbingLeftAnim);
+		pSpriteComponent->RegisterState(SpriteStates::CLIMB, SpriteDirections::RIGHT, climbingRightAnim);
+		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::LEFT, climbingAnim);
+		pSpriteComponent->RegisterState(SpriteStates::CLIMBING, SpriteDirections::RIGHT, climbingAnim);
 
 		pSpriteComponent->SetUseBounds(true);
 		pSpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));

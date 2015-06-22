@@ -239,7 +239,7 @@ namespace Framework
 					{
 						if (objDataInteger == SystemObjectTypes::PLAYER_OBJECT)
 						{
-							m_tileMap->SetPlayerPosition(Vector3(x, y, 1.0f));
+							m_tileMap->SetPlayerPosition(Vector3(resultTrans.x, resultTrans.y, 1.0f));
 						}
 						else
 						{

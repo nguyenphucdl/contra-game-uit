@@ -139,7 +139,7 @@ void PlayerMovementComponent::_ProcessPollInput()
 	// PART1: Change states based on key input
 	if (m_isClimping)
 	{
-		m_currentState = SpriteStates::CLIMBING;
+		m_currentState = SpriteStates::CLIMB;
 	}
 	else
 	{
@@ -228,21 +228,26 @@ void PlayerMovementComponent::_ProcessPollInput()
 	{
   		
 	}
-	else if (m_currentState == SpriteStates::CLIMBING)
+	else if (m_currentState == SpriteStates::CLIMBING || m_currentState == SpriteStates::CLIMB)
 	{
 		if (IS_KEYDOWN(DIK_UP))
 		{
 			m_velocity.m_y = 100.0f;
-			m_currentDirection = (m_currentDirection == SpriteDirections::LEFT) ? SpriteDirections::RIGHT : SpriteDirections::LEFT;
+			//m_currentDirection = (m_currentDirection == SpriteDirections::LEFT) ? SpriteDirections::RIGHT : SpriteDirections::LEFT;
+			m_currentState = SpriteStates::CLIMBING;
 		}
 		else if (IS_KEYDOWN(DIK_DOWN))
 		{
 			if (!m_onFloor)
 				m_velocity.m_y = -100.0f;
-			m_currentDirection = (m_currentDirection == SpriteDirections::LEFT) ? SpriteDirections::RIGHT : SpriteDirections::LEFT;
+			//m_currentDirection = (m_currentDirection == SpriteDirections::LEFT) ? SpriteDirections::RIGHT : SpriteDirections::LEFT;
+			m_currentState = SpriteStates::CLIMBING;
 		}
 		else
+		{
+			m_currentState = SpriteStates::CLIMB;
 			m_velocity.m_y = 0.0f;
+		}
 		if (isMoveLeftRight)
 		{
 			float moveInStairVel = 150.0f;
