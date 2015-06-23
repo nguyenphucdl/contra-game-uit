@@ -1,6 +1,7 @@
 #include "CollisionBin.h"
 #include "../Utilities/Enums.h"
 #include "../GameObjects/Components/RangeOfMovementComponent.h"
+#include "../GameObjects/Components/BulletComponent.h"
 
 namespace Framework
 {
@@ -9,8 +10,11 @@ namespace Framework
 		, m_collisionObjects(qt)
 		, m_objectHashTable(obj)
 		, m_currentViewport(-1, -1, -1, -1)
+		, m_updateObjects(new std::vector<GameObject*>(10))
+		, m_currentObjects(new std::vector<GameObject*>(50))
 	{
-		m_currentObjects = new std::vector<GameObject*>();
+		m_updateObjects->clear();
+		m_currentObjects->clear();
 	}
 
 	CollisionBin::~CollisionBin()
@@ -55,6 +59,17 @@ namespace Framework
 						{
 							objTarget = findIt->second;
 							m_currentObjects->push_back(objTarget);
+							if (objTarget->GetType() == ObjectTypes::SPAWNLOCATION)
+							{
+								//Check if have bullet
+								BulletComponent* pBulletComponent = component_cast<BulletComponent>(objTarget);
+								if (pBulletComponent)
+								{
+									std::vector<GameObject*> *bullets = pBulletComponent->GetBullets();
+									assert(bullets);
+									m_currentObjects->insert(m_currentObjects->end(), bullets->begin(), bullets->end());
+								}
+							}
 						}
 					}
 
@@ -65,6 +80,7 @@ namespace Framework
 				}
 			}
 		}
+		m_currentObjects->insert(m_currentObjects->end(), m_updateObjects->begin(), m_updateObjects->end());
 		m_currentViewport = range;
 	}
 	

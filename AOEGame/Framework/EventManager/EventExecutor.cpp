@@ -99,7 +99,12 @@ namespace Framework
 
 	void EventExecutor::SendEvent(EventID eventId, void* pData)
 	{
-		Event* event = _getEvent(eventId);
+		//Event* event = _getEvent(eventId);
+		//if (event != NULL)
+		//{
+		//	event->Send(pData);
+		//}
+		Event* event = m_eventMap[eventId];
 		if (event != NULL)
 		{
 			event->Send(pData);
@@ -108,8 +113,14 @@ namespace Framework
 
 	void EventExecutor::SendEventToHandler(EventID eventId, EventHandler& eventHandler, void* pData)
 	{
-		Event* event = _getExistEvent(eventId);
-		event->SendToHandler(eventHandler, pData);
+		//Event* event = _getExistEvent(eventId);
+		//event->SendToHandler(eventHandler, pData);
+
+		Event* event = m_eventMap[eventId];
+		if (event != NULL)
+		{
+			event->SendToHandler(eventHandler, pData);
+		}
 	}
 
 	bool EventExecutor::RegisterComponentEvent(EventID eventId, ObjectId objId)
@@ -159,7 +170,7 @@ namespace Framework
 
 	void EventExecutor::SendComponentEvent(EventID eventId, ObjectId objId, void* pData)
 	{
-		EventVector* eventObj = _getEventVector(objId);
+		/*EventVector* eventObj = _getEventVector(objId);
 		if (eventObj != NULL)
 		{
 			Event* event = (*eventObj)[eventId];
@@ -167,19 +178,29 @@ namespace Framework
 			{
 				event->Send(pData);
 			}
+		}*/
+		Event* event = m_eventObjectMap[objId]->at(eventId);
+		if (event != NULL)
+		{
+			event->Send(pData);
 		}
 	}
 
 	void EventExecutor::SendComponenEventToHandler(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
-		EventVector* eventObj = _getEventVector(objId);
-		if (eventObj != NULL)
+		//EventVector* eventObj = _getEventVector(objId);
+		//if (eventObj != NULL)
+		//{
+		//	Event* event = (*eventObj)[eventId];
+		//	if (event != NULL)
+		//	{
+		//		event->SendToHandler(eventHandler, pData);
+		//	}
+		//}
+		Event* event = m_eventObjectMap[objId]->at(eventId);
+		if (event != NULL)
 		{
-			Event* event = (*eventObj)[eventId];
-			if (event != NULL)
-			{
-				event->SendToHandler(eventHandler, pData);
-			}
+			event->SendToHandler(eventHandler, pData);
 		}
 	}
 }

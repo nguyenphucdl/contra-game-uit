@@ -51,10 +51,10 @@ namespace Framework
 		void				SetTranslation(Vector3& translate) { m_transform.SetTranslation(translate); }
 
 		void				SetBoundMin(const Vector3& min)	{ m_min = min; }
-		Vector3&			GetBoundMin();
+		const Vector3&		GetBoundMin();
 
 		void				SetBoundMax(const Vector3&	max)	{ m_max = max; }
-		Vector3&			GetBoundMax();
+		const Vector3&		GetBoundMax();
 
 		void				SetUseBounds(bool enabled)			{ m_useBounds = enabled; }
 		bool				GetUseBounds() const				{ return m_useBounds; }
@@ -115,11 +115,11 @@ namespace Framework
 	{
 		return m_transform.GetTranslation();
 	}
-	inline Vector3& Renderable::GetBoundMin()
+	inline const Vector3& Renderable::GetBoundMin()
 	{
 		return m_min;
 	}
-	inline Vector3& Renderable::GetBoundMax()
+	inline const Vector3& Renderable::GetBoundMax()
 	{
 		return m_max;
 	}

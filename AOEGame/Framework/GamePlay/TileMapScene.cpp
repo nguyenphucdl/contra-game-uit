@@ -8,6 +8,7 @@
 #include "../Utilities/Console.h"
 #include "../Utilities/FPSCounter.h"
 #include "../GameObjects/Components/TileMapComponent.h"
+#include "../GameObjects/Components/BulletComponent.h"
 
 namespace Framework
 {
@@ -15,7 +16,7 @@ namespace Framework
 		: SceneBase()
 		, EventExecutorAware()
 		, m_currentObjects(new std::vector<GameObject*>())
-		, m_updatedObjects(new std::vector<GameObject*>())
+		//, m_updatedObjects(new std::vector<GameObject*>())
 		, m_tileMap(NULL)
 		, m_tileMapObject(NULL)
 		, m_cameraObject(NULL)
@@ -36,6 +37,9 @@ namespace Framework
 
 	bool TileMapScene::LoadSceneFromFile(std::string file)
 	{
+		Framework::SetActiveExecutor(this);
+		CollisionManager::GetSingletonPtr()->SetExecutor(this);
+
 		TmxLoader *tmxLoader = new TmxLoader(file);
 		tmxLoader->SetObjectFactory(GetObjectFactory());
 		bool res = tmxLoader->Load();
@@ -52,6 +56,17 @@ namespace Framework
 		GameObject* playerObject = new GameObject(Utils::getNextId());
 		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::PLAYER_OBJECT), playerObject, m_tileMap);
 		AddUpdateObject(playerObject);
+		/*BulletComponent* playerBulletComponent = component_cast<BulletComponent>(playerObject);
+		if (playerBulletComponent)
+		{
+			std::vector<GameObject*>* bullets = playerBulletComponent->GetBullets();
+			assert(bullets);
+			if (bullets)
+			{
+				AddUpdateObjects(bullets);
+			}
+		}*/
+
 
 		m_cameraObject = new GameObject(Utils::getNextId());
 		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::CAMERA_OBJECT), m_cameraObject, playerObject);
@@ -67,6 +82,8 @@ namespace Framework
 	{
 		//!IMPORTANT REQUIRE
 		Framework::SetActiveExecutor(this);
+		CollisionManager::GetSingletonPtr()->SetExecutor(this);
+
 		Framework::AttachEvent(Events::SCE_PRE_UPDATE_EVENT, *this);
 		Framework::AttachEvent(Events::SCE_UPDATE_EVENT, *this);
 		Framework::AttachEvent(Events::SCE_POST_UPDATE_EVENT, *this);
@@ -75,27 +92,18 @@ namespace Framework
 		Framework::AttachEvent(Events::SCE_COMPLETE_SCENE_EVENT, *this);
 		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_KEY_DOWN_EVENT, *this);
 
-		//Framework::AttachEvent(Events::SCE)
-
 		if (m_cameraObject != NULL)
 		{
 			m_cameraObject->InitializeComponents();
 		}
-
-		for (m_objectIter = m_updatedObjects->begin(); m_objectIter != m_updatedObjects->end(); m_objectIter++)
-		{
-			GameObject* obj = *m_objectIter;
-			if (obj)
-			obj->InitializeComponents();
-		}
+		
+		CollisionManager::GetSingletonPtr()->InitCollisionBin();
 
 		m_tileMap->Init();
 
 		
-		//GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::TILEMAP_OBJECT), m_tileMapObject, m_tileMap);
 		m_tileMapObject->InitializeComponents();
 		
-
 		CameraComponent* pCameraComponent = component_cast<CameraComponent>(m_cameraObject);
 		assert(pCameraComponent);
 		if (pCameraComponent)
@@ -107,32 +115,39 @@ namespace Framework
 
 	void TileMapScene::HandleEvent(Event* pEvent)
 	{
+		Framework::SetActiveExecutor(this);
+		CollisionManager::GetSingletonPtr()->SetExecutor(this);
+
 		if (pEvent->GetID() == Events::SCE_PRE_UPDATE_EVENT)
 		{
-			FPSCounter::GetSingletonPtr()->StartCounterTest1();
-			
-			CollisionManager::GetSingletonPtr()->SetExecutor(this);
-			CollisionManager::GetSingletonPtr()->GetCurrentObjectList(m_currentObjects);
-			
+			FPSCounter::GetSingletonPtr()->StartTimeCounter(1);
+			CollisionManager::GetSingletonPtr()->GetCurrentObjectList(m_currentObjects);			
 			Console::GetSingletonPtr()->print("Object count (%d)", m_currentObjects->size());
-			Console::GetSingletonPtr()->print("Query Range Time (%lf)", FPSCounter::GetSingletonPtr()->GetCounterTest1());
+			Console::GetSingletonPtr()->print("Query Range Time (%d) (%lf)", 1, FPSCounter::GetSingletonPtr()->GetTimerCounter(1));
 		}
 		else if (pEvent->GetID() == Events::SCE_POST_UPDATE_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_POST_UPDATE_EVENT, m_currentObjects, NULL);
-			Framework::BroadcastComponentEvent(Events::COM_POST_UPDATE_EVENT, m_updatedObjects, NULL);
-			
-
+			//Framework::BroadcastComponentEvent(Events::COM_POST_UPDATE_EVENT, m_updatedObjects, NULL);
 			/*********************************************************************************************************************/
 			/*										Check collision																 */
 			/*																													 */
 			/*********************************************************************************************************************/
-			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_updatedObjects);
+			
+			FPSCounter::GetSingletonPtr()->StartTimeCounter(2);
+			FPSCounter::GetSingletonPtr()->StartLoopCounter(2);
+			FPSCounter::GetSingletonPtr()->StartLoopCounter(1);
+			CollisionManager::GetSingletonPtr()->TestAgainstBin(m_currentObjects);
+			Console::GetSingletonPtr()->print("Collision component not active (%d) (%d)", 1, FPSCounter::GetSingletonPtr()->GetLoopCounter(1));
+			
+			Console::GetSingletonPtr()->print("Test Collision Hit (%d) (%d)", 2, FPSCounter::GetSingletonPtr()->GetLoopCounter(2));
+			
+			Console::GetSingletonPtr()->print("Query Test Collision Time (%d) (%lf)", 2, FPSCounter::GetSingletonPtr()->GetTimerCounter(2));
 		}
 		else if (pEvent->GetID() == Events::SCE_UPDATE_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_currentObjects, NULL);
-			Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_updatedObjects, NULL);
+			//Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_updatedObjects, NULL);
 		}
 		else if (pEvent->GetID() == Events::SCE_PRE_RENDER_EVENT)
 		{
@@ -141,7 +156,7 @@ namespace Framework
 		else if (pEvent->GetID() == Events::SCE_RENDER_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_currentObjects, NULL);
-			Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_updatedObjects, NULL);
+			//Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_updatedObjects, NULL);
 		}
 		else if (pEvent->GetID() == Events::SCE_COMPLETE_SCENE_EVENT)
 		{
@@ -160,9 +175,15 @@ namespace Framework
 	{
 		//!IMPORTANT REQUIRE
 		Framework::SetActiveExecutor(this);
+		Framework::CollisionManager::GetSingletonPtr()->SetExecutor(this);
+
+		
 		Framework::SendEvent(Events::SCE_PRE_UPDATE_EVENT);
+		FPSCounter::GetSingletonPtr()->StartTimeCounter(3);
 		Framework::SendEvent(Events::SCE_UPDATE_EVENT); 
+		Console::GetSingletonPtr()->print("TileMapScene Update Time (%d) (%lf)", 3, FPSCounter::GetSingletonPtr()->GetTimerCounter(3));
 		Framework::SendEvent(Events::SCE_POST_UPDATE_EVENT);
+		
 	}
 
 	void TileMapScene::Draw()

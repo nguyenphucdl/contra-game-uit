@@ -41,10 +41,17 @@ namespace Framework
 	{	
 		FPSCounter::GetSingletonPtr()->StartCounter();
 
+		FPSCounter::GetSingletonPtr()->StartTimeCounter(5);
+
 		m_kernel.Execute();
 
+		double updateTime = ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetTimerCounter(5);
+		double minUpdateTime = ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetMaxTimeCounter(5);
+		double maxUpdateTime = ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetMinTimeCounter(5);
+		Console::GetSingletonPtr()->print("Update time (%lf)", updateTime);
+		Console::GetSingletonPtr()->print("Min Update time (%lf)", minUpdateTime);
+		Console::GetSingletonPtr()->print("Max Update time (%lf)", maxUpdateTime);
 		Console::GetSingletonPtr()->print("Render time (%lf)", Timer::GetSingletonPtr()->GetTimeEslapsed(TimerTypes::RenderCount));
-		Console::GetSingletonPtr()->print("Update time (%lf)", ((double)1.0f) / FPSCounter::GetSingletonPtr()->GetCounter());
 		Console::GetSingletonPtr()->print("Timer sim (%f)", Timer::GetSingletonPtr()->GetTimeSim());
 	}
 

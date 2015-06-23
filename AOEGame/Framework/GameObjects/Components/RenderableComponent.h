@@ -45,9 +45,9 @@ namespace Framework
 		void Hide()										{ m_renderable.Hide(); }
 		bool GetUseBounds()								{ return m_renderable.GetUseBounds(); }
 		void SetBoundMin(const Vector3& min)			{ m_renderable.SetBoundMin(min); }
-		Vector3&	GetBoundMin() 						{ return m_renderable.GetBoundMin(); }
+		const Vector3&	GetBoundMin() 					{ return m_renderable.GetBoundMin(); }
 		void SetBoundMax(const Vector3& max)			{ m_renderable.SetBoundMax(max); }
-		Vector3&	GetBoundMax() 						{ return m_renderable.GetBoundMax(); }
+		const Vector3&	GetBoundMax() 					{ return m_renderable.GetBoundMax(); }
 		bool		IsDrawCenter()						{ return m_renderable.IsDrawCenter(); }
 		void		SetDrawCenter(bool val)				{ m_renderable.SetDrawCenter(val); }
 		const Vector3&		GetCenter()					{ return m_renderable.GetCenter(); }

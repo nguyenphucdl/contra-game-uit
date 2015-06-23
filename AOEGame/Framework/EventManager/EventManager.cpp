@@ -50,11 +50,12 @@ namespace Framework
 	
 	void	EventManager::SendEvent(ExecutorID execId, EventID eventId, void* pData)
 	{
-		EventExecutor* executor = _getEventExecutor(execId);
-		if (executor != NULL)
+		//EventExecutor* executor = _getEventExecutor(execId);
+		m_eventExecutorVector[execId]->SendEvent(eventId, pData);
+		/*if (executor != NULL)
 		{
 			executor->SendEvent(eventId, pData);
-		}
+		}*/
 	}
 
 	void	EventManager::SendEvent(EventID eventId, void* pData)
@@ -94,29 +95,33 @@ namespace Framework
 
 	void	EventManager::SendComponentEvent(ExecutorID execId, EventID eventId, ObjectId objId, void* pData)
 	{
-		EventExecutor* executor = _getEventExecutor(execId);
+		/*EventExecutor* executor = _getEventExecutor(execId);
 		if (executor != NULL)
 		{
 			executor->SendComponentEvent(eventId, objId, pData);
-		}
+		}*/
+		m_eventExecutorVector[execId]->SendComponentEvent(eventId, objId, pData);
 	}
 
 	void	EventManager::SendComponentEvent(EventID eventId, ObjectId objId, void* pData)
 	{
-		SendComponentEvent(m_activeExecutorId, eventId, objId, pData);
+		//SendComponentEvent(m_activeExecutorId, eventId, objId, pData);
+		m_eventExecutorVector[m_activeExecutorId]->SendComponentEvent(eventId, objId, pData);
 	}
 
 	void	EventManager::SendComponentEventToHandler(ExecutorID execId, EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
-		EventExecutor* executor = _getEventExecutor(execId);
-		if (executor != NULL)
-		{
-			executor->SendComponenEventToHandler(eventId, objId, eventHandler, pData);
-		}
+		//EventExecutor* executor = _getEventExecutor(execId);
+		//if (executor != NULL)
+		//{
+			//executor->SendComponenEventToHandler(eventId, objId, eventHandler, pData);
+		//}
+		m_eventExecutorVector[m_activeExecutorId]->SendComponenEventToHandler(eventId, objId, eventHandler, pData);
 	}
 
 	void	EventManager::SendComponentEventToHandler(EventID eventId, ObjectId objId, EventHandler& eventHandler, void* pData)
 	{
-		SendComponentEventToHandler(m_activeExecutorId, eventId, objId, eventHandler, pData);
+		//SendComponentEventToHandler(m_activeExecutorId, eventId, objId, eventHandler, pData);
+		m_eventExecutorVector[m_activeExecutorId]->SendComponenEventToHandler(eventId, objId, eventHandler, pData);
 	}
 }

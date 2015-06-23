@@ -9,12 +9,14 @@
 #include "../../EventManager/EventHandler.h"
 #include "../../Math/Vector3.h"
 #include "../../Utilities/Enums.h"
+#include "../../Collision/CollisionListener.h"
 
 namespace Framework
 {
 	class BulletComponent
 		: public Component
 		, public EventHandler
+		, public CollisionListener
 	{
 	private:
 		static const unsigned int s_id = ComponentIDs::BulletComponentId;
@@ -48,11 +50,13 @@ namespace Framework
 		void SetSpawnOffset(float ox, float oy)   { m_spawnOffset.Set(ox, oy, 1.0f); }
 		void SetDelay(float val)				  { m_delay = val; }
 		const Vector3& GetSpawnOffset()			  { return m_spawnOffset; }
+		std::vector<GameObject*>* GetBullets()	  { return &m_bullets; }
 
 		void Fire();
 		void Reload();
 
 		virtual void HandleEvent(Event* pEvent);
+		virtual void HandleCollision(Framework::CollisionEventData* pData);
 	};
 }
 

@@ -39,7 +39,6 @@ namespace Framework
 
 	bool GameStateManager::Start()
 	{
-		//Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_RESUME_EVENT, *this);
 		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_PAUSE_EVENT, *this);
 		Framework::AttachEvent(ExecutorIDs::SysInput, Events::SYS_RESUME_EVENT, *this);
 

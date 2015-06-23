@@ -8,6 +8,8 @@
 #include "../EventManager/EventHandler.h"
 #include "../EventManager/EventExecutorAware.h"
 #include "../Utilities/ObjectFactory.h"
+#include "../GameObjects/Components/BulletComponent.h"
+#include "../Collision/CollisionManager.h"
 
 namespace Framework
 {
@@ -23,7 +25,7 @@ namespace Framework
 	private:
 		TileMap*								m_tileMap;
 		std::vector<GameObject*>*				m_currentObjects;
-		std::vector<GameObject*>*				m_updatedObjects;
+		//std::vector<GameObject*>*				m_updatedObjects;
 		std::vector<GameObject*>::iterator		m_objectIter;
 		
 		GameObject*					m_cameraObject;
@@ -35,8 +37,9 @@ namespace Framework
 
 		bool LoadSceneFromFile(std::string file);
 		void AddUpdateObject(GameObject* pObj);
+		void AddUpdateObjects(std::vector<GameObject*>* objects);
 		void SetCameraObject(GameObject* pCameraObj);
-		void RemoveUpdateObject(GameObject* pObj);
+		//void RemoveUpdateObject(GameObject* pObj);
 		void SetTransition(Vector3& vector) { m_transition = vector; }
 
 
@@ -59,23 +62,46 @@ namespace Framework
 
 	inline void TileMapScene::AddUpdateObject(GameObject* pObj)
 	{
-		m_updatedObjects->push_back(pObj);
+		CollisionManager::GetSingletonPtr()->AddUpdateObject(pObj);
+		//m_updatedObjects->push_back(pObj);
+		//BulletComponent* pBulletComponent = component_cast<BulletComponent>(pObj);
+		//if (pBulletComponent != NULL)
+		//{
+		//	std::vector<GameObject*>* bullets = pBulletComponent->GetBullets();
+		//	assert(bullets);
+		//	if (bullets)
+		//	{
+		//		CollisionManager::GetSingletonPtr()->AddUpdateObjects(bullets);
+		//		//m_updatedObjects->insert(m_updatedObjects->begin(), bullets->begin(), bullets->end());
+		//	}
+		//}
 	}
 
-	inline void TileMapScene::RemoveUpdateObject(GameObject* pObj)
+	inline void TileMapScene::AddUpdateObjects(std::vector<GameObject*>* objects)
 	{
-		bool find = false;
-		for (m_objectIter = m_updatedObjects->begin(); m_objectIter != m_updatedObjects->end(); m_objectIter++)
+		CollisionManager::GetSingletonPtr()->AddUpdateObjects(objects);
+		/*BulletComponent* pBulletComponent = NULL;
+		std::vector<GameObject*>* bullets = NULL;
+		for (std::vector<GameObject*>::iterator it = objects->begin(); it != objects->end(); it++)
 		{
-			if (*m_objectIter == pObj)
-			{
-				find = true;
-				break;
-			}
-		}
-		if (find)
-			m_updatedObjects->erase(m_objectIter);
+			AddUpdateObject(*it);
+		}*/
 	}
+
+	//inline void TileMapScene::RemoveUpdateObject(GameObject* pObj)
+	//{
+	//	bool find = false;
+	//	for (m_objectIter = m_updatedObjects->begin(); m_objectIter != m_updatedObjects->end(); m_objectIter++)
+	//	{
+	//		if (*m_objectIter == pObj)
+	//		{
+	//			find = true;
+	//			break;
+	//		}
+	//	}
+	//	if (find)
+	//		m_updatedObjects->erase(m_objectIter);
+	//}
 }
 
 #endif

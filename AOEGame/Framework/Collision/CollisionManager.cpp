@@ -7,13 +7,26 @@
 namespace Framework
 {
 	CollisionManager::CollisionManager()
-		: m_collisionBins()
+		: m_collisionBins(50)
 	{
 	}
 
 	CollisionManager::~CollisionManager()
 	{
 		
+	}
+
+	CollisionBin* CollisionManager::_getCollisionBin(ExecutorID execId)
+	{
+		CollisionBin* collisionBin = NULL;
+		try {
+			collisionBin = m_collisionBins.at(execId);
+		}
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to register collision bin with id out of range (%d) reson (%s)", execId, oor.what());
+			throw new GameError(GameErrorNS::FATAL_ERROR, oor.what());
+		}
+		return collisionBin;
 	}
 
 	void CollisionManager::AddCollisionBinFromTileMap(TileMap* tileMap, EventExecutorAware* exec)
@@ -27,73 +40,84 @@ namespace Framework
 		AddCollisionBin(exec->GetExecutorId(), collBin);
 	}
 
-	bool CollisionManager::AddCollisionBin(ExecutorID execId, CollisionBin* collisionlBin)
+	void CollisionManager::AddCollisionBin(ExecutorID execId, CollisionBin* collisionlBin)
 	{
-		bool added = false;
-		CollisionBinMapIterator result = m_collisionBins.find(execId);
-		if (result == m_collisionBins.end())
+		CollisionBin* collisionBin = _getCollisionBin(execId);
+		if (collisionBin == NULL)
 		{
-			assert(collisionlBin);
-			std::pair<ExecutorID, CollisionBin*> newCollBin(execId, collisionlBin);
-			std::pair<CollisionBinMapIterator, bool> addedIter = m_collisionBins.insert(newCollBin);
-			added = addedIter.second;
+			m_collisionBins[execId] = collisionlBin;
 		}
-		return added;
+		else
+		{
+			Log::error("Try to assign new collision Bin, but not un allocate old collision bin!");
+		}
 	}
 
-	void CollisionManager::TestAgainstBin(ExecutorID execId, GameObject* pObject)
+	void CollisionManager::TestObjectAgainstBin(ExecutorID execId, GameObject* pObject)
 	{
 		CollisionComponent* pObjectCollisionComponent = component_cast<CollisionComponent>(pObject);
 		if (pObjectCollisionComponent == NULL)
 			return;
 
-		CollisionBinMapIterator result = m_collisionBins.find(execId);
-		if (result != m_collisionBins.end())
+		std::vector<GameObject*>* objList = m_collisionBins[execId]->GetCurrentObjectList();
+		std::vector<GameObject*>::iterator objIt;
+		for (objIt = objList->begin(); objIt != objList->end(); objIt++)
 		{
-			
-			CollisionBin* collisionBin = result->second;
-			assert(collisionBin);
-
-			std::vector<GameObject*>* objList = collisionBin->GetCurrentObjectList();
-			std::vector<GameObject*>::iterator objIt;
-			for (objIt = objList->begin(); objIt != objList->end(); objIt++)
+			GameObject* pObjDest = *objIt;
+			CollisionComponent* pObjDestCollisonComponent = component_cast<CollisionComponent>(pObjDest);
+			if (pObjDest == pObject || pObjDestCollisonComponent == NULL)
 			{
-				GameObject* pObjDest = *objIt;
-				CollisionComponent* pObjDestCollisonComponent = component_cast<CollisionComponent>(pObjDest);
-				if (pObjDest == pObject || pObjDestCollisonComponent == NULL)
+				continue;
+			}
+
+			if (pObjectCollisionComponent->Intersects(*pObjDestCollisonComponent))
+			{
+				CollisionEventData collisionObjectData;
+				collisionObjectData.m_pCollider = pObjDest;
+
+				SendComponentEventToHandler(Events::COM_COLLISION_EVENT, pObject, *static_cast<EventHandler*>(pObjectCollisionComponent), &collisionObjectData);
+
+			}
+		}//end for
+	}
+
+	void CollisionManager::TestObjectsAgainstBin(ExecutorID execId, std::vector<GameObject*>* pObjects)
+	{
+		std::vector<GameObject*>* objList = m_collisionBins[execId]->GetCurrentObjectList();
+		std::vector<GameObject*>::iterator objTestIt, objCollisionIt;
+		GameObject* pObject = NULL, * pObjectTest = NULL;
+		CollisionComponent* pObjectCollisionComponent = NULL, * pObjDestCollisonComponent = NULL;
+
+		for (objCollisionIt = pObjects->begin(); objCollisionIt != pObjects->end(); objCollisionIt++)
+		{
+			pObject = *objCollisionIt;
+			pObjectCollisionComponent = component_cast<CollisionComponent>(pObject);
+			if (pObjectCollisionComponent == NULL || !pObjectCollisionComponent->IsActive())
+			{
+				FPSCounter::GetSingletonPtr()->IncreaseLoopCounter(1);
+				continue;
+			}
+			for (objTestIt = objList->begin(); objTestIt != objList->end(); objTestIt++)
+			{
+				pObjectTest = *objTestIt;
+				pObjDestCollisonComponent = component_cast<CollisionComponent>(pObjectTest);
+				if (pObjDestCollisonComponent == pObjectCollisionComponent)
 				{
 					continue;
 				}
 
+				FPSCounter::GetSingletonPtr()->IncreaseLoopCounter(2);
+
 				if (pObjectCollisionComponent->Intersects(*pObjDestCollisonComponent))
 				{
+
 					CollisionEventData collisionObjectData;
-					collisionObjectData.m_pCollider = pObjDest;
+					collisionObjectData.m_pCollider = pObjectTest;
 
 					SendComponentEventToHandler(Events::COM_COLLISION_EVENT, pObject, *static_cast<EventHandler*>(pObjectCollisionComponent), &collisionObjectData);
-
 				}
-			}
-			
-		}
+			}//end for inner
+
+		}//end for
 	}
-
-
-
-	//std::vector<GameObject*>* CollisionManager::GetCurrentObjectList()
-	//{
-	//	std::vector<GameObject*>* objectListResult = NULL;
-	//	CollisionBinMapIterator result = m_collisionBins.find(GetActiveExecutor());
-	//	if (result != m_collisionBins.end())
-	//	{
-	//		CollisionBin* collisionBin = result->second;
-
-	//		RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
-	//		Rect range = Rect(viewport.left, viewport.top, viewport.right - viewport.left, viewport.bottom - viewport.top);
-
-	//		collisionBin->QueryRange(range);
-	//		objectListResult = collisionBin->GetCurrentObjectList();
-	//	}
-	//	return objectListResult;
-	//}
 }

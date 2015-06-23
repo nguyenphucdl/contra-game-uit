@@ -66,135 +66,77 @@ namespace Framework
 
 	inline void				SetActiveExecutorId(ExecutorID id)
 	{
-		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		if (pEventManager)
-		{
-			pEventManager->SetActiveExecutorId(id);
-		}
+		EventManager::GetSingletonPtr()->SetActiveExecutorId(id);
 	}
 	inline void				SetActiveExecutor(EventExecutorAware* owner)
 	{
-		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SetActiveExecutor(owner);
-		}
+		EventManager::GetSingletonPtr()->SetActiveExecutor(owner);
 	}
 	inline void				AttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler)
 	{
-		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->AttachEvent(execId, eventId, eventHandler);
-		}
+		EventManager::GetSingletonPtr()->AttachEvent(execId, eventId, eventHandler);
 	}
 	inline void				AttachEvent(EventID eventId, EventHandler& eventHandler)
 	{
-		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->AttachEvent(eventId, eventHandler);
-		}
+		EventManager::GetSingletonPtr()->AttachEvent(eventId, eventHandler);
 	}
 	inline void				SendEvent(ExecutorID execId, EventID eventId, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendEvent(execId, eventId, pData);
-		}
+		pEventManager->SendEvent(execId, eventId, pData);
 	}
 	inline void				SendEvent(EventID eventId, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendEvent(eventId, pData);
-		}
+		pEventManager->SendEvent(pEventManager->GetActiveExecutor(), eventId, pData);
 	}
 	inline void				SendEventToHandler(ExecutorID execId, EventID eventId, EventHandler& eventHandler, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendEventToHandler(execId, eventId, eventHandler, pData);
-		}
+		pEventManager->SendEventToHandler(execId, eventId, eventHandler, pData);
 	}
 	inline void				SendEventToHandler(EventID eventId, EventHandler& eventHandler, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendEventToHandler(eventId, eventHandler, pData);
-		}
+		pEventManager->SendEventToHandler(pEventManager->GetActiveExecutor(),eventId, eventHandler, pData);
 	}
 	inline void				AttachComponentEvent(ExecutorID execId, EventID eventId, GameObject* obj, EventHandler& eventHandler)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->AttachComponentEvent(execId, eventId, obj->GetId(), eventHandler);
-		}
+		pEventManager->AttachComponentEvent(execId, eventId, obj->GetId(), eventHandler);		
 	}
 	inline void				AttachComponentEvent(EventID eventId, GameObject* obj, EventHandler& eventHandler)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->AttachComponentEvent(eventId, obj->GetId(), eventHandler);
-		}
+		pEventManager->AttachComponentEvent(eventId, obj->GetId(), eventHandler);
 	}
 	inline void				SendComponentEvent(ExecutorID execId, EventID eventId, GameObject* obj, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendComponentEvent(execId, eventId, obj->GetId(), pData);
-		}
+		pEventManager->SendComponentEvent(execId, eventId, obj->GetId(), pData);
 	}
 	inline void				SendComponentEvent(EventID eventId, GameObject* obj, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendComponentEvent(eventId, obj->GetId(), pData);
-		}
+		pEventManager->SendComponentEvent(pEventManager->GetActiveExecutor(),eventId, obj->GetId(), pData);
 	}
 	inline void				SendComponentEventToHandler(ExecutorID execId, EventID eventId, GameObject* obj, EventHandler& eventHandler, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendComponentEventToHandler(execId, eventId, obj->GetId(), eventHandler, pData);
-		}
+		pEventManager->SendComponentEventToHandler(execId, eventId, obj->GetId(), eventHandler, pData);
 	}
 	inline void				SendComponentEventToHandler(EventID eventId, GameObject* obj, EventHandler& eventHandler, void* pData)
 	{
 		EventManager* pEventManager = EventManager::GetSingletonPtr();
-		assert(pEventManager);
-		if (pEventManager)
-		{
-			pEventManager->SendComponentEventToHandler(eventId, obj->GetId(), eventHandler, pData);
-		}
+		pEventManager->SendComponentEventToHandler(pEventManager->GetActiveExecutor(),eventId, obj->GetId(), eventHandler, pData);
 	}
 	inline void				BroadcastComponentEvent(EventID eventId, std::vector<GameObject*>* objects, void* pData)
 	{
+		EventManager* pEventManager = EventManager::GetSingletonPtr();
 		std::vector<GameObject*>::iterator it;
 		for (it = objects->begin(); it != objects->end(); it++)
 		{
-			SendComponentEvent(eventId, (*it), pData);
+			pEventManager->SendComponentEvent(pEventManager->GetActiveExecutor(), eventId, (*it)->GetId(), pData);
 		}
 	}
 }

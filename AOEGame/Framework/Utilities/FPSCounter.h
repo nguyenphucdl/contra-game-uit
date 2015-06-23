@@ -9,44 +9,104 @@ namespace Framework
 		: public Singleton<FPSCounter>
 	{
 	public:
-		FPSCounter() : mPCFreq(0.0f), CounterStart(0), lastCounter(0.0f), maxCounter(0.00000001f), minCouter(999999999.0f){};
+		FPSCounter();
 		~FPSCounter() {};
 
 		void StartCounter();
-		void StartCounterTest1();
-		double GetCounterTest1();
+		double GetCounter();		
+		void	StartTimeCounter(int counterIdx);
+		double	GetTimerCounter(int counterIdx);
+		double  GetMaxTimeCounter(int counterIdx);
+		double  GetMinTimeCounter(int counterIdx);
+		void	StartLoopCounter(int counterIdx);
+		void	IncreaseLoopCounter(int counterIdx);
+		void	ResetTimeCounter(int counterIdx);
+		int	GetLoopCounter(int counterIdx);
 
-		double GetCounter();
-		double GetLastCounter() { return lastCounter; };
-		double GetMinCounter() { return minCouter; }
-		double GetMaxCounter() { return maxCounter; }
-		double GetLastCounterTest1() { return lastCounterTest1; };
 	private:
 		double mPCFreq;
-		double lastCounter;
 		__int64 CounterStart;
 		
-		__int64 CounterStartTest1;
-		double lastCounterTest1;
+		std::vector<__int64> CounterStartTimeVector;
+		std::vector<double> CounterMinTimeVector;
+		std::vector<double> CounterMaxTimeVector;
+		std::vector<int>  CounterLoopVector;
 
-		double minCouter;
-		double maxCounter;
 	};
-
-	inline void FPSCounter::StartCounterTest1()
+	inline FPSCounter::FPSCounter()
+		:	mPCFreq(0.0f)
+		,	CounterStart(0)
+		, CounterStartTimeVector(20)
+		, CounterLoopVector(20)
+		, CounterMinTimeVector(20)
+		, CounterMaxTimeVector(20)
+		
 	{
 		LARGE_INTEGER li;
 		if (!QueryPerformanceFrequency(&li))
 			exit(0);
-
-
-		//mPCFreq = double(li.QuadPart) / 1000.0;//miliseconds
 		mPCFreq = double(li.QuadPart);//miliseconds
-
-		QueryPerformanceCounter(&li);
-		CounterStartTest1 = li.QuadPart;
-
+		for (std::vector<double>::iterator it = CounterMinTimeVector.begin(); it < CounterMinTimeVector.end(); it++)
+		{
+			*it = 99999.0f;
+		}
+		for (std::vector<double>::iterator it = CounterMaxTimeVector.begin(); it != CounterMaxTimeVector.end(); it++)
+		{
+			*it = -11111.0f;
+		}
 	}
+
+	inline void FPSCounter::ResetTimeCounter(int counterIdx)
+	{
+		CounterStartTimeVector[counterIdx] = 0;
+		CounterMinTimeVector[counterIdx] = 99999.0f;
+		CounterMaxTimeVector[counterIdx] = -11111.0f;
+	}
+
+	inline void	FPSCounter::StartTimeCounter(int counterIdx)
+	{
+		LARGE_INTEGER li;
+		QueryPerformanceCounter(&li);
+		CounterStartTimeVector[counterIdx] = li.QuadPart;
+	}
+
+	inline double FPSCounter::GetTimerCounter(int counterIdx)
+	{
+		LARGE_INTEGER li;
+		QueryPerformanceCounter(&li);
+		double counter = double(li.QuadPart - CounterStartTimeVector[counterIdx]) / mPCFreq;//mili
+		if (CounterMinTimeVector[counterIdx] > counter)
+			CounterMinTimeVector[counterIdx] = counter;
+		if (CounterMaxTimeVector[counterIdx] < counter)
+			CounterMaxTimeVector[counterIdx] = counter;
+		return counter;
+	}
+
+	inline double  FPSCounter::GetMaxTimeCounter(int counterIdx)
+	{
+		return CounterMaxTimeVector[counterIdx];
+	}
+
+	inline double  FPSCounter::GetMinTimeCounter(int counterIdx)
+	{
+		return CounterMinTimeVector[counterIdx];
+	}
+
+	inline void FPSCounter::StartLoopCounter(int counterIdx)
+	{
+		CounterLoopVector[counterIdx] = 0;
+	}
+
+	inline int	FPSCounter::GetLoopCounter(int counterIdx)
+	{
+		return CounterLoopVector[counterIdx];
+	}
+
+	inline void	FPSCounter::IncreaseLoopCounter(int counterIdx)
+	{
+		CounterLoopVector[counterIdx] += 1;
+	}
+
 	inline void FPSCounter::StartCounter()
 	{
 		LARGE_INTEGER li;
@@ -61,29 +121,16 @@ namespace Framework
 		CounterStart = li.QuadPart;
 		
 	}
+
 	inline double FPSCounter::GetCounter()
 	{
 		LARGE_INTEGER li;
 		QueryPerformanceCounter(&li);
 		double counter = double(li.QuadPart - CounterStart) / mPCFreq;//mili
-		if (counter < minCouter)
-			minCouter = counter;
-		if (counter > maxCounter)
-			maxCounter = counter;
-		lastCounter = counter;
 
 		return counter;
 	}
-	inline double FPSCounter::GetCounterTest1()
-	{
-		LARGE_INTEGER li;
-		QueryPerformanceCounter(&li);
-		double counter = double(li.QuadPart - CounterStartTest1) / mPCFreq;//mili
-		
-		lastCounterTest1 = counter;
-		
-		return counter;
-	}
+
 
 }
 

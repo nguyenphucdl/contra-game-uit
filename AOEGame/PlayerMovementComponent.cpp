@@ -100,16 +100,16 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 				m_velocity.m_y = 0.0f;
 			}
 
-			Console::GetSingletonPtr()->print("Offset Vector m_x(%f) m_y(%f) m_z(%f)", m_vectorOffset.m_x, m_vectorOffset.m_y, m_vectorOffset.m_z);
+			//Console::GetSingletonPtr()->print("Offset Vector m_x(%f) m_y(%f) m_z(%f)", m_vectorOffset.m_x, m_vectorOffset.m_y, m_vectorOffset.m_z);
 			//Console::GetSingletonPtr()->print("Falling falling (%d) && On Floor(%d)", falling, m_onFloor);
 
 			//Console::GetSingletonPtr()->print("Player bound min m_y (%f)", pOwnerCollisionComponent->GetAABBMin().m_y);
-			Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
-			Console::GetSingletonPtr()->print("Is Climbing (%d)", m_isClimping);
-			Console::GetSingletonPtr()->print("Is Supported (%d)", m_isSupported);
-			Console::GetSingletonPtr()->print("Floor (%f)", m_floor);
-			Console::GetSingletonPtr()->print("Is Jumping (%d)", m_isJumping);
-			Console::GetSingletonPtr()->print("On Floor (%d)", m_onFloor);
+			//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
+			//Console::GetSingletonPtr()->print("Is Climbing (%d)", m_isClimping);
+			//Console::GetSingletonPtr()->print("Is Supported (%d)", m_isSupported);
+			//Console::GetSingletonPtr()->print("Floor (%f)", m_floor);
+			//Console::GetSingletonPtr()->print("Is Jumping (%d)", m_isJumping);
+			//Console::GetSingletonPtr()->print("On Floor (%d)", m_onFloor);
 			//Console::GetSingletonPtr()->print("Anim (%f)", Timer::GetSingletonPtr()->GetAnim());
 			//Console::GetSingletonPtr()->print("Timer total %f", Timer::GetSingletonPtr()->GetTimeTotal());
 			//Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[3], m_offset[1], m_offset[0], m_offset[2]);

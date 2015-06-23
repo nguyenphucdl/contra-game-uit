@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Component.h"
+#include"../Log/Log.h"
 
 namespace Framework
 {
@@ -28,6 +29,7 @@ namespace Framework
 		T* GetComponent()	{ return static_cast<T*>(GetComponent(T::GetId())); }
 
 		Component* GetComponent(unsigned int id);
+		Component* SafeGetComponent(unsigned int id);
 
 	public:
 		GameObject(ObjectId id);
@@ -74,6 +76,23 @@ namespace Framework
 			added = true;
 		}
 		return added;
+	}
+
+	inline Component* GameObject::GetComponent(unsigned int id)
+	{
+		return m_components[id];
+	}
+
+	inline Component* GameObject::SafeGetComponent(unsigned int id)
+	{
+		Component* pComponent = NULL;
+		try {
+			pComponent = m_components.at(id);
+		}
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to get component with id out of range (%d) reson (%s)", id, oor.what());
+		}
+		return pComponent;
 	}
 }
 

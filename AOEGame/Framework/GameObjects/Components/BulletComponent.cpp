@@ -185,4 +185,11 @@ namespace Framework
 			}
 		}
 	}
+
+	void BulletComponent::HandleCollision(CollisionEventData* pData)
+	{
+		//Bullet die
+		
+		m_velocity.Set(1000.0f, 0.0f, 1.0f);
+	}
 }

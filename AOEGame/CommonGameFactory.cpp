@@ -92,6 +92,7 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 	{
 		pCollisionComponent->AttachRenderable(&pSpriteComponent->GetRenderable());
 		pCollisionComponent->AddEventListener(pPlayerTransformComponent);
+		pCollisionComponent->SetActive(true);
 	}
 	owner->AddComponent<BulletComponent>();
 	BulletComponent* pPlayerBulletComponent = component_cast<BulletComponent>(owner);
@@ -136,6 +137,8 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 			if (pBulletCollisionComponent)
 			{
 				pBulletCollisionComponent->AttachRenderable(&pRockmanBulletComponent->GetRenderable());
+				pBulletCollisionComponent->AddEventListener(pPlayerBulletComponent);
+				pBulletCollisionComponent->SetActive(true);
 			}
 
 			rockmanBullet->AddComponent<LifeTimeComponent>();
