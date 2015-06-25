@@ -20,6 +20,10 @@ namespace Framework
 		{
 			return nextExecId++;
 		}
+		static void resetNextId()
+		{
+			nextId = 100;
+		}
 
 		static std::string getPathOfFile(std::string filePath)
 		{

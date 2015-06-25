@@ -26,6 +26,7 @@ namespace Framework
 		RenderableComponent::Initialize();
 
 		Framework::AttachEvent(Events::SCE_PRE_RENDER_EVENT, *this);
+		Framework::AttachEvent(Events::SCE_ENTERED_EVENT, *this);
 
 		Log::info(Log::LOG_LEVEL_ROOT, "[TileMapComponent] Initialize...\n");
 		if(m_tileMap == NULL)
@@ -53,6 +54,12 @@ namespace Framework
 
 		m_renderable.SetRenderTransform(false);//CHECK LATER!
 		m_renderable.SetDebug(true);
+		//TEST
+		Renderer::GetSingletonPtr()->GetCamera().SetViewPortOrigin(m_mapOrigin.m_x, m_mapOrigin.m_y);
+
+		//DEBUG
+		//m_mapOrigin.m_y = 1760;
+		//Renderer::GetSingletonPtr()->GetCamera().SetViewPortOrigin(0, 1760);
 	}
 
 	void TileMapComponent::UpdateHorizontalScrollView(int x)
@@ -64,7 +71,6 @@ namespace Framework
 
 	void TileMapComponent::UpdateMapScrollView(Vector3& tranlate)
 	{
-		
 		m_mapViewport->left = m_mapOrigin.m_x + tranlate.m_x;
 		m_mapViewport->right = m_mapViewport->left + Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
 		m_mapViewport->top = m_mapOrigin.m_y - tranlate.m_y;
@@ -76,7 +82,7 @@ namespace Framework
 		int delta = y - m_mapViewport->top;
 		m_mapViewport->top += delta;
 		m_mapViewport->bottom += delta;
-		//Console::GetSingletonPtr()->print("ScrollView top %d left %d", m_mapViewport->top, m_mapViewport->left);
+		
 	}
 
 
@@ -86,6 +92,11 @@ namespace Framework
 
 		switch (pEvent->GetID())
 		{
+		case Events::SCE_ENTERED_EVENT:
+		{
+			Renderer::GetSingletonPtr()->GetCamera().SetViewPortOrigin(m_mapOrigin.m_x, m_mapOrigin.m_y);
+		}
+			break;
 		case Events::SCE_PRE_RENDER_EVENT:
 		{
 			Renderer::GetSingletonPtr()->AddRenderable(&m_renderable);
@@ -99,5 +110,7 @@ namespace Framework
 		default:
 			break;
 		}
+
+		Console::GetSingletonPtr()->print("ScrollView top %d left %d", m_mapViewport->top, m_mapViewport->left);
 	}
 }

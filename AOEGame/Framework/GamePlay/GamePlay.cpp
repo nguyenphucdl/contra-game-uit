@@ -24,45 +24,62 @@ namespace Framework
 	{
 		m_objectFactory = new MegamanMap1Factory();
 
-		//GameObject*	playerScene1 = CommonGameFactory::GetSingletonPtr()->GetPlayerObject();
-		//GameObject* cameraScene1 = CommonGameFactory::GetSingletonPtr()->GetCameraObject(playerScene1);
-		//GameObject* npcObjScene1 = ContraGameFactory::GetSingletonPtr()->GetNpcTestObject();
-		TileMapScene* m_tileMapScene = new TileMapScene();
-		m_tileMapScene->SetObjectFactory(m_objectFactory);
-		m_tileMapScene->LoadSceneFromFile("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
-		//m_tileMapScene->SetCameraObject(cameraScene1);
-		//m_tileMapScene->AddUpdateObject(playerScene1);
-		//m_tileMapScene->AddUpdateObject(npcObjScene1);
+		TileMapScene* scene1 = new TileMapScene();
+		scene1->SetObjectFactory(m_objectFactory);
+		scene1->LoadSceneFromFile("Resources\\Maps\\Scence1-Map1\\Scence1-Map1.tmx");
 		
+		TileMapScene* scene2 = new TileMapScene();
+		scene2->SetObjectFactory(m_objectFactory);
+		scene2->LoadSceneFromFile("Resources\\Maps\\Scence2-Map1\\Scence2-Map1.tmx");
 
-		//GameObject*	playerScene2 = CommonGameFactory::GetSingletonPtr()->GetPlayerObject();
-		//GameObject* cameraScence2 = CommonGameFactory::GetSingletonPtr()->GetCameraObject(playerScene2);
-		//GameObject* npcObjScene2 = CommonGameFactory::GetSingletonPtr()->GetNpcTestObject();
-		TileMapScene* m_scene2 = new TileMapScene();
-		m_scene2->SetObjectFactory(m_objectFactory);
-		m_scene2->LoadSceneFromFile("Resources\\Maps\\Scence2-Map1\\Scence2-Map1.tmx");
-		//m_scene2->SetCameraObject(cameraScence2);
-		//m_scene2->AddUpdateObject(playerScene2);
-		//m_scene2->AddUpdateObject(npcObjScene2);
+		TileMapScene* scene3 = new TileMapScene();
+		scene3->SetObjectFactory(m_objectFactory);
+		scene3->LoadSceneFromFile("Resources\\Maps\\Scence3-Map1\\Scence3-Map1.tmx");
+
+		TileMapScene* scene4 = new TileMapScene();
+		scene4->SetObjectFactory(m_objectFactory);
+		scene4->LoadSceneFromFile("Resources\\Maps\\Scence4-Map1\\Scence4-Map1.tmx");
+
+		TileMapScene* scene5 = new TileMapScene();
+		scene5->SetObjectFactory(m_objectFactory);
+		scene5->LoadSceneFromFile("Resources\\Maps\\Scence5-Map1\\Scence5-Map1.tmx");
+	
+		TileMapScene* scene6 = new TileMapScene();
+		scene6->SetObjectFactory(m_objectFactory);
+		scene6->LoadSceneFromFile("Resources\\Maps\\Scence6-Map1\\Scence6-Map1.tmx");
 
 		//for each and initlize scene
-		m_tileMapScene->Init();
-		m_scene2->Init();
+		
+		//scene2->Init();
+		//scene3->Init();
+		//scene4->Init();
+		//scene5->Init();
+		//scene6->Init();
+		//scene1->Init();
 
 		// Add to queue
-		m_sceneQueue.push(m_tileMapScene);
-		m_sceneQueue.push(m_scene2);
+		m_sceneQueue.push(scene1);
+		m_sceneQueue.push(scene2);
+		m_sceneQueue.push(scene3);
+		m_sceneQueue.push(scene4);
+		m_sceneQueue.push(scene5);
+		m_sceneQueue.push(scene6);
 		m_current = m_sceneQueue.front();
+		m_current->Init();
+		//m_current->Entered();
+		//Renderer::GetSingletonPtr()->GetCamera().ResetViewport();
 	}
 
 	void GamePlay::Update()
 	{
 		if (m_current->GetScenceState() == SceneStates::Completed)
 		{
+			//Renderer::GetSingletonPtr()->GetCamera().ResetViewport();
 			m_popScenes.push(m_current);
 			m_sceneQueue.pop();
+			m_current = m_sceneQueue.front();
+			m_current->Init();
 		}
-		m_current = m_sceneQueue.front();
 		m_current->Update();
 	}
 

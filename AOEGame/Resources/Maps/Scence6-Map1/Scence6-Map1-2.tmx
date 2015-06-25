@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<map version="1.0" tilewidth="16" tileheight="16" width="16" height="56" orientation="orthogonal" viewporttype="0">
+<map version="1.0" tilewidth="16" tileheight="16" width="16" height="56" orientation="orthogonal" viewporttype="3">
   <tileset firstgid="1" name="Scence6-Map1" tilewidth="16" tileheight="16">
     <image source="Scence6-Map1-TileSet18.png" width="80" height="80" />
   </tileset>
@@ -914,7 +914,7 @@
     <object id="12" name="" type="0" x="0" y="40" data="" width="254" height="36" color="Black" />
     <object id="13" name="" type="0" x="240" y="194" data="" width="14" height="156" color="Black" />
     <object id="14" name="" type="0" x="0" y="196" data="" width="16" height="159" color="Black" />
-    <object id="15" name="Player position" type="2" x="128" y="875" data="5000" width="14" height="13" color="Azure" />
+    <object id="15" name="Player Position" type="2" x="121" y="66" data="5000" width="15" height="12" color="Azure" />
   </objectgroup>
   <quadtree width="896" height="896" x="0" y="0">
     <data>

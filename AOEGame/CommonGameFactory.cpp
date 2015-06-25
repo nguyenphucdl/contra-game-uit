@@ -84,6 +84,7 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 		{
 			position.Set(tileMap->GetPlayerPosition());
 		}
+		//SET player origin
 		pPlayerTransformComponent->SetTranslation(&position);
 	}
 	owner->AddComponent<CollisionComponent>();
@@ -176,6 +177,7 @@ void CommonGameFactory::_createTileMapObject(Framework::GameObject* owner, Frame
 		switch (pTileMap->GetViewportType())
 		{
 		case ViewportTypes::TOP_LEFT:
+			mapViewportOrigin.m_y = pTileMap->GetBound().bottom - Renderer::GetSingletonPtr()->GetHeight();
 			break;
 		case ViewportTypes::TOP_RIGHT:
 			mapViewportOrigin.m_x = pTileMap->GetBound().right - Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
@@ -200,7 +202,7 @@ void CommonGameFactory::_createCameraObject(Framework::GameObject* owner, Framew
 	CameraComponent *pCameraComponent = component_cast<CameraComponent>(owner);
 	if (pCameraComponent)
 	{
-		pCameraComponent->SetViewportOrigin(0, 0);
+		pCameraComponent->SetViewportOrigin(0, 1760);
 		RECT default;
 		default.left = 0;
 		default.right = 640;

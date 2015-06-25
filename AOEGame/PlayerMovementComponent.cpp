@@ -104,7 +104,7 @@ void PlayerMovementComponent::HandleEvent(Event* pEvent)
 			//Console::GetSingletonPtr()->print("Falling falling (%d) && On Floor(%d)", falling, m_onFloor);
 
 			//Console::GetSingletonPtr()->print("Player bound min m_y (%f)", pOwnerCollisionComponent->GetAABBMin().m_y);
-			//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
+			Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
 			//Console::GetSingletonPtr()->print("Is Climbing (%d)", m_isClimping);
 			//Console::GetSingletonPtr()->print("Is Supported (%d)", m_isSupported);
 			//Console::GetSingletonPtr()->print("Floor (%f)", m_floor);
@@ -135,6 +135,21 @@ void PlayerMovementComponent::_ProcessPollInput()
 	m_isKeyPress = false;
 	bool isMoveLeftRight = false;
 	
+	//TEST
+	/*if (IS_KEYDOWN(DIK_UP))
+	{
+		m_velocity.m_y = 100.0f;
+	}
+	else if (IS_KEYDOWN(DIK_DOWN))
+	{
+		m_velocity.m_y = -100.0f;
+	}
+	else
+	{
+		m_velocity.m_y = 0.0f;
+	}*/
+
+
 
 	// PART1: Change states based on key input
 	if (m_isClimping)

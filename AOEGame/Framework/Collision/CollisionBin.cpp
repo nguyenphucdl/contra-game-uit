@@ -24,8 +24,8 @@ namespace Framework
 
 	void CollisionBin::QueryRange(Rect& range)
 	{
-		if (m_currentViewport.GetX() == range.GetX())
-			return;
+		//if (m_currentViewport.GetX() == range.GetX())
+			//return;
 		std::vector<int>* matchObjId = new std::vector<int>(20);
 
 		assert(m_collisionObjects);

@@ -38,6 +38,7 @@ namespace Framework
 	bool TileMapScene::LoadSceneFromFile(std::string file)
 	{
 		Framework::SetActiveExecutor(this);
+		Utils::resetNextId();
 		CollisionManager::GetSingletonPtr()->SetExecutor(this);
 
 		TmxLoader *tmxLoader = new TmxLoader(file);
@@ -115,6 +116,7 @@ namespace Framework
 
 	void TileMapScene::HandleEvent(Event* pEvent)
 	{
+		TileMapScene* that = this;
 		Framework::SetActiveExecutor(this);
 		CollisionManager::GetSingletonPtr()->SetExecutor(this);
 
@@ -177,7 +179,9 @@ namespace Framework
 		Framework::SetActiveExecutor(this);
 		Framework::CollisionManager::GetSingletonPtr()->SetExecutor(this);
 
-		
+		RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
+		Console::GetSingletonPtr()->print("Camera Viewport RECT(%d,%d,%d,%d)", viewport.left, viewport.top, viewport.right - viewport.left, viewport.bottom - viewport.top);
+
 		Framework::SendEvent(Events::SCE_PRE_UPDATE_EVENT);
 		FPSCounter::GetSingletonPtr()->StartTimeCounter(3);
 		Framework::SendEvent(Events::SCE_UPDATE_EVENT); 
@@ -207,7 +211,7 @@ namespace Framework
 
 	void TileMapScene::Entered()
 	{
-
+		Framework::SendEvent(Events::SCE_ENTERED_EVENT);
 	}
 
 	void TileMapScene::Leaving()

@@ -46,5 +46,19 @@ namespace Framework
 
 		virtual void HandleEvent(Event* pEvent);
 	};
+
+	inline void CameraComponent::SetViewportOrigin(int x, int y)
+	{
+		m_viewOrigin.m_x = x;
+		m_viewOrigin.m_y = y;
+	}
+
+	inline void CameraComponent::SetBound(RECT bound)
+	{
+		m_bound.left = bound.left;
+		m_bound.right = bound.right;
+		m_bound.top = bound.top;
+		m_bound.bottom = bound.bottom;
+	}
 }
 #endif//__CAMERACOMPONENT_H__

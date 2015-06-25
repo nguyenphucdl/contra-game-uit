@@ -1,8 +1,13 @@
 #include "Game.h"
 #include "../Log/Log.h"
 #include "../Utilities/FPSCounter.h"
+
+
 namespace Framework
 {
+	CollisionManager* collisionManager;
+	EventManager* eventManager;
+
 	Game::Game()
 		: m_windowsTask(Task::PLATFORM_PRIORITY)
 	{
@@ -27,6 +32,9 @@ namespace Framework
 		ret = m_kernel.AddTask(AudioManager::GetSingletonPtr());
 		
 		Console::GetSingletonPtr()->init();
+
+		collisionManager = CollisionManager::GetSingletonPtr();
+		eventManager = EventManager::GetSingletonPtr();
 
 		return ret;
 	}

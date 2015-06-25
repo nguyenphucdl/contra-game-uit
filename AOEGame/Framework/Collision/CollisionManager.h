@@ -59,6 +59,7 @@ namespace Framework
 	inline void CollisionManager::GetCurrentObjectList(std::vector<GameObject*>* objList)
 	{
 		RECT viewport = Renderer::GetSingletonPtr()->GetCamera().GetViewPort();
+		
 		Rect range = Rect(viewport.left, viewport.top, viewport.right - viewport.left, viewport.bottom - viewport.top);
 
 		m_collisionBins[m_activeExecutorId]->QueryRange(range);

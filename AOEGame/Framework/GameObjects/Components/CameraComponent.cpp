@@ -27,22 +27,23 @@ namespace Framework
 		//m_transOrigin.Set(attachedTrans);
 	}
 
-	void CameraComponent::SetBound(RECT bound)
-	{
-		m_bound.left = bound.left;
-		m_bound.right = bound.right;
-		m_bound.top = bound.top;
-		m_bound.bottom = bound.bottom;
-	}
+	//void CameraComponent::SetBound(RECT bound)
+	//{
+	//	m_bound.left = bound.left;
+	//	m_bound.right = bound.right;
+	//	m_bound.top = bound.top;
+	//	m_bound.bottom = bound.bottom;
+	//}
 
-	void CameraComponent::SetViewportOrigin(int x, int y)
-	{
-		m_viewOrigin.m_x = x;
-		m_viewOrigin.m_y = y;
-	}
+	//void CameraComponent::SetViewportOrigin(int x, int y)
+	//{
+	//	m_viewOrigin.m_x = x;
+	//	m_viewOrigin.m_y = y;
+	//}
 
 	CameraComponent::~CameraComponent()
 	{
+		SAFE_DELETE(m_attachObject);
 	}
 
 	void CameraComponent::Initialize()
@@ -53,6 +54,9 @@ namespace Framework
 		m_viewPortWidth = Renderer::GetSingletonPtr()->GetCamera().GetViewPortWidth();
 		m_viewPortHeight = Renderer::GetSingletonPtr()->GetCamera().GetViewPortHeight();
 		m_transOrigin.Set(m_viewPortWidth / 2, m_viewPortHeight / 2, 1.0f);
+
+		//TEST
+		//Renderer::GetSingletonPtr()->GetCamera().SetViewPortOrigin(0, 1760);
 	}
 
 	void CameraComponent::HandleEvent(Event* pEvent)
@@ -68,8 +72,8 @@ namespace Framework
 				Transform* transform = pObjTransformComponent->GetTransform();
 				Vector3& translation = transform->GetTranslation();
 				
-				if (translation.m_x > (m_viewPortWidth / 2) || translation.m_y > (m_viewPortHeight / 2))
-				{
+				/*if (translation.m_x > (m_viewPortWidth / 2) || translation.m_y > (m_viewPortHeight / 2))
+				{*/
 					Vector3 cameraTrans = translation;
 					cameraTrans.Subtract(m_transOrigin);
 
@@ -87,7 +91,7 @@ namespace Framework
 
 
 					Renderer::GetSingletonPtr()->GetCamera().SetViewTranslate(&cameraTrans);
-				}
+				//}
 
 				//TEST
 				Vector3 vec3 = Renderer::GetSingletonPtr()->GetCamera().GetViewTranslate();

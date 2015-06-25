@@ -39,7 +39,7 @@ namespace Framework
 	RECT& Camera::GetViewPort()
 	{
 		Vector3 pos = m_viewOrigin;
-		pos.Add(m_viewTranslate);
+		pos.Add(m_viewTranslate.GetInverseY());
 		RECT result;
 		result.left = pos.m_x;
 		result.right = result.left + m_viewWidth;
