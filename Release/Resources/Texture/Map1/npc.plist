@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>fivestarshooter.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,62},{150,30}}</string>
+                <key>column</key>
+                <string>5</string>
+              <key>row</key>
+              <string>1</string>
+            </dict>
+            <key>littlepolygot.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,32},{120,30}}</string>
+                <key>column</key>
+                <string>4</string>
+              <key>row</key>
+              <string>1</string>
+            </dict>
+            <key>napalmbomb.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,0},{144,32}}</string>
+                <key>column</key>
+                <string>4</string>
+              <key>row</key>
+              <string>1</string>
+            </dict>
+        </dict>
+    </dict>
+</plist>

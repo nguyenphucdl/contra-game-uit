@@ -10,11 +10,13 @@ namespace Framework
 		, m_collisionObjects(qt)
 		, m_objectHashTable(obj)
 		, m_currentViewport(-1, -1, -1, -1)
-		, m_updateObjects(new std::vector<GameObject*>(10))
-		, m_currentObjects(new std::vector<GameObject*>(50))
+		, m_updateObjects(20)
+		, m_currentObjects(100)
+		, m_matchQueryDataSet()
 	{
-		m_updateObjects->clear();
-		m_currentObjects->clear();
+		m_updateObjects.clear();
+		m_currentObjects.clear();
+		m_matchQueryDataSet.clear();
 	}
 
 	CollisionBin::~CollisionBin()
@@ -24,69 +26,67 @@ namespace Framework
 
 	void CollisionBin::QueryRange(Rect& range)
 	{
-		//if (m_currentViewport.GetX() == range.GetX())
-			//return;
-		std::vector<int>* matchObjId = new std::vector<int>(20);
+		m_matchQueryDataSet.clear();
+		m_currentObjects.clear();
 
-		assert(m_collisionObjects);
+		m_collisionObjects->QueryRangeUniqueResult(range);
+		const std::vector<int>* matchIdList = m_collisionObjects->GetDataSet();
 
-		m_collisionObjects->QueryRangeUniqueResult(range, matchObjId);
-
-		m_currentObjects->clear();
-		std::vector<int>::iterator it;
-		ObjectHashTableIterator findIt;
+		std::vector<int>::const_iterator matchIdIt, objInRangeIt;
+		ObjectHashTableIterator objectInHashTableIt;
 		int objId = -1, objTargetId = -1;
 		GameObject *obj = NULL, *objTarget = NULL;
 		RangeOfMovementComponent* pRomComponent = NULL;
 
-		for (it = matchObjId->begin(); it != matchObjId->end(); it++)
+		for (matchIdIt = matchIdList->begin(); matchIdIt != matchIdList->end(); matchIdIt++)
 		{
-			objId = *it;
-			findIt =  m_objectHashTable->find(objId);
-			if (findIt != m_objectHashTable->end())
+			m_dataSetIter = m_matchQueryDataSet.insert(*matchIdIt);
+			if (m_dataSetIter.second)//newly add id
 			{
-				obj = findIt->second; 
-				
-				if (obj->GetType() == ObjectTypes::RANGE_OF_MOMENT)
+				objectInHashTableIt = m_objectHashTable->find(*matchIdIt);
+				if (objectInHashTableIt != m_objectHashTable->end())
 				{
-					pRomComponent = component_cast<RangeOfMovementComponent>(obj);
-					assert(pRomComponent);
-					if (pRomComponent)
+					obj = objectInHashTableIt->second;
+					if (obj->GetType() == ObjectTypes::RANGE_OF_MOMENT)
 					{
-						objTargetId = pRomComponent->GetObjectTarget();
-						findIt = m_objectHashTable->find(objTargetId);
-						if (findIt != m_objectHashTable->end())
+						//Insert data in range of movement
+						pRomComponent = component_cast<RangeOfMovementComponent>(obj);
+						if (pRomComponent)
 						{
-							objTarget = findIt->second;
-							m_currentObjects->push_back(objTarget);
-							if (objTarget->GetType() == ObjectTypes::SPAWNLOCATION)
+							const std::vector<int>* pObjectsInRange = pRomComponent->GetObjectsInRange();
+							for (objInRangeIt = pObjectsInRange->begin(); objInRangeIt != pObjectsInRange->end(); objInRangeIt++)
 							{
-								//Check if have bullet
-								BulletComponent* pBulletComponent = component_cast<BulletComponent>(objTarget);
-								if (pBulletComponent)
+								m_dataSetIter = m_matchQueryDataSet.insert(*objInRangeIt);
+								if (m_dataSetIter.second)//newly add id
 								{
-									std::vector<GameObject*> *bullets = pBulletComponent->GetBullets();
-									assert(bullets);
-									m_currentObjects->insert(m_currentObjects->end(), bullets->begin(), bullets->end());
+									objectInHashTableIt = m_objectHashTable->find(*objInRangeIt);
+									if (objectInHashTableIt != m_objectHashTable->end())
+									{
+										objTarget = objectInHashTableIt->second;
+										m_currentObjects.push_back(objTarget);
+										if (objTarget->GetType() == ObjectTypes::SPAWNLOCATION)
+										{
+											BulletComponent* pBulletComponent = component_cast<BulletComponent>(objTarget);
+											if (pBulletComponent)
+											{
+												std::vector<GameObject*> *bullets = pBulletComponent->GetBullets();
+												m_currentObjects.insert(m_currentObjects.end(), bullets->begin(), bullets->end());
+											}
+										}
+
+									}
 								}
 							}
-						}
+						}//end range of movement
 					}
-
+					else
+					{
+						m_currentObjects.push_back(obj);
+					}
 				}
-				else
-				{
-					m_currentObjects->push_back(obj);
-				}
-			}
-		}
-		m_currentObjects->insert(m_currentObjects->end(), m_updateObjects->begin(), m_updateObjects->end());
+			}//end if data set return true
+		}//end for match id list
+		m_currentObjects.insert(m_currentObjects.end(), m_updateObjects.begin(), m_updateObjects.end());
 		m_currentViewport = range;
-	}
-	
-	void CollisionBin::QueryRange(Rect& range, std::vector<GameObject*>* returnObjIdList)
-	{
-		QueryRange(range);
-		returnObjIdList = m_currentObjects;
 	}
 }

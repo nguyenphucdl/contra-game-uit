@@ -10,7 +10,7 @@
 namespace Framework
 {
 	typedef Quadtree										CollisionComponentQuadtree;
-	typedef std::tr1::unordered_map<ObjectId, GameObject*>					ObjectHashTable;
+	typedef std::tr1::unordered_map<ObjectId, GameObject*>	ObjectHashTable;
 	typedef ObjectHashTable::iterator						ObjectHashTableIterator;
 	
 	class CollisionBin
@@ -21,30 +21,34 @@ namespace Framework
 		ObjectHashTable*					m_objectHashTable;
 		ExecutorID							m_execId;
 
-		std::vector<GameObject*>*			m_currentObjects;
-		std::vector<GameObject*>*			m_updateObjects;
-		std::vector<GameObject*>::iterator	m_objectIter;
+		
+			
+		std::vector<GameObject*>::iterator			m_objectIter;
 
-		Rect								m_currentViewport;
+		std::vector<GameObject*>					m_currentObjects;
+		std::vector<GameObject*>					m_updateObjects;
+		std::set<int>								m_matchQueryDataSet;
+		std::pair<std::set<int>::iterator, bool>	m_dataSetIter;
+
+		Rect										m_currentViewport;
 
 	public:
 		CollisionBin(ExecutorID execId, CollisionComponentQuadtree* qt, ObjectHashTable* obj);
 		~CollisionBin();
 
 		void QueryRange(Rect& range);
-		void QueryRange(Rect& range, std::vector<GameObject*>* returnObjIdList);
 
 		void AddUpdateObject(GameObject* pObj);
 		void AddUpdateObjects(std::vector<GameObject*>* objects);
 		void Init();
 
 
-		std::vector<GameObject*>* GetCurrentObjectList();// { return m_currentObjects; }
+		std::vector<GameObject*>* GetCurrentObjectList()	{ return &m_currentObjects; }
 	};
 
 	inline void CollisionBin::AddUpdateObject(GameObject* pObj)
 	{
-		m_updateObjects->push_back(pObj);
+		m_updateObjects.push_back(pObj);
 		BulletComponent* pBulletComponent = component_cast<BulletComponent>(pObj);
 		if (pBulletComponent != NULL)
 		{
@@ -52,7 +56,7 @@ namespace Framework
 			assert(bullets);
 			if (bullets)
 			{
-				m_updateObjects->insert(m_updateObjects->begin(), bullets->begin(), bullets->end());
+				m_updateObjects.insert(m_updateObjects.begin(), bullets->begin(), bullets->end());
 			}
 		}
 	}
@@ -67,14 +71,9 @@ namespace Framework
 		}
 	}
 
-	inline std::vector<GameObject*>* CollisionBin::GetCurrentObjectList()
-	{
-		return m_currentObjects;
-	}
-
 	inline void CollisionBin::Init()
 	{
-		for (m_objectIter = m_updateObjects->begin(); m_objectIter != m_updateObjects->end(); m_objectIter++)
+		for (m_objectIter = m_updateObjects.begin(); m_objectIter != m_updateObjects.end(); m_objectIter++)
 		{
 			GameObject* obj = *m_objectIter;
 			if (obj)

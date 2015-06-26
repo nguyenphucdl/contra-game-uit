@@ -157,8 +157,8 @@
     <ClInclude Include="GameResources.h" />
     <ClInclude Include="MegamanMap1Factory.h" />
     <ClInclude Include="MovementComponent.h" />
-    <ClInclude Include="PlayerMovementComponent.h" />
     <ClInclude Include="Framework\Utilities\Utils.h" />
+    <ClInclude Include="PlayerMovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonGameFactory.cpp" />

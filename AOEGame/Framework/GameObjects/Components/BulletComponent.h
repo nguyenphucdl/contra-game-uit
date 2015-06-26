@@ -29,6 +29,7 @@ namespace Framework
 		BulletVectorIterator		m_bulletIterator;
 
 		Vector3						m_velocity;
+		Vector3						m_diePosition;
 		Vector3						m_spawnOffset;
 		float						m_elapse;
 		float						m_delay;

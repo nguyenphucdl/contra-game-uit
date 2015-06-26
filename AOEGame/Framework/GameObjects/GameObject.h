@@ -23,6 +23,7 @@ namespace Framework
 		ComponentVector					m_components;
 		bool							m_feature;
 		int								m_type;
+		std::string						m_tag;
 		ObjectId						m_id;
 
 		template<class T>
@@ -41,6 +42,8 @@ namespace Framework
 		bool IsFeature() { return m_feature; }
 		void SetType(int type) { m_type = type; }
 		int	 GetType()		   { return m_type; }
+		void SetTag(std::string tag) { m_tag = tag; }
+		std::string GetTag()		 { return m_tag; }
 		ObjectId GetId() { return m_id; }
 		void InitializeComponents();
 	};

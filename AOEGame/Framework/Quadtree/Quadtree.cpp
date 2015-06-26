@@ -12,7 +12,9 @@ namespace Framework
 		, m_parent(NULL)
 		, NE(NULL), NW(NULL), SW(NULL), SE(NULL)
 		, m_listObjectId(NULL)
+		, m_queryMatchList(100)
 	{
+		
 	}
 
 
@@ -166,21 +168,15 @@ namespace Framework
 		return NULL;
 	}
 
-	void Quadtree::QueryRangeUniqueResult(Rect& rect, std::vector<int>* returnObjIdList)
+	void Quadtree::QueryRangeUniqueResult(Rect& rect)
 	{
-		//FPSCounter::GetSingletonPtr()->StartCounterTest1();
-		if (true)
-		{
-			QueryRange(rect, returnObjIdList);
-			std::sort(returnObjIdList->begin(), returnObjIdList->end());
-			std::vector<int>::iterator it = std::unique(returnObjIdList->begin(), returnObjIdList->end());
-			returnObjIdList->resize(std::distance(returnObjIdList->begin(), it));
-		}
+		m_queryMatchList.clear();
+		QueryRange(rect, &m_queryMatchList);
 
-		//Console::GetSingletonPtr()->print("Query Range Time (%lf)", FPSCounter::GetSingletonPtr()->GetCounterTest1());
+		int k = 3;
 	}
 
-	void Quadtree::QueryRange(Rect& range, std::vector<int>* returnObjIdList)
+	void Quadtree::QueryRange(Rect& range, std::vector<int>* returnMatchIdList)
 	{
 		if (!m_bound.IsIntersect(range))
 			return;
@@ -191,15 +187,15 @@ namespace Framework
 			std::vector<int>::iterator it;
 			for (it = m_listObjectId->begin(); it != m_listObjectId->end() ; it++)
 			{
-				returnObjIdList->push_back(*it);
+				returnMatchIdList->push_back(*it);
 			}
 		}
 		else
 		{
-			NE->QueryRange(range, returnObjIdList);
-			NW->QueryRange(range, returnObjIdList);
-			SW->QueryRange(range, returnObjIdList);
-			SE->QueryRange(range, returnObjIdList);
+			NE->QueryRange(range, returnMatchIdList);
+			NW->QueryRange(range, returnMatchIdList);
+			SW->QueryRange(range, returnMatchIdList);
+			SE->QueryRange(range, returnMatchIdList);
 		}
 	}
 }

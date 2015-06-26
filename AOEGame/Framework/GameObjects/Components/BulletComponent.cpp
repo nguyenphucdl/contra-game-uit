@@ -15,6 +15,7 @@ namespace Framework
 		, m_delay(0.25f)
 		, m_velocity(0.0f, 0.0f, 0.0f)
 		, m_spawnOffset(0.0f, 0.0f, 0.0f)
+		, m_diePosition(-9999, -9999, -9999)
 	{
 		m_bullets.reserve(10);
 		m_bulletFiring.reserve(10);
@@ -41,7 +42,8 @@ namespace Framework
 			assert(pBulletSpriteComponent);
 			if (pBulletSpriteComponent)
 			{
-				pBulletSpriteComponent->Hide();
+				//pBulletSpriteComponent->Hide();
+				pBulletSpriteComponent->SetTranslation(m_diePosition);
 			}
 		}
 	}
@@ -139,7 +141,8 @@ namespace Framework
 					if (pLifeTimeComponent->IsDead())
 					{
 						bullet->SetFeature(false);
-						pBulletSpriteComponent->Hide();
+						pBulletSpriteComponent->SetTranslation(m_diePosition);
+						//pBulletSpriteComponent->Hide();
 					}
 				}
 			}
@@ -204,7 +207,8 @@ namespace Framework
 				{
 					pLifeTimeComponent->Reset();
 					pData->m_pSource->SetFeature(false);
-					pBulletSpriteComponent->Hide();
+					pBulletSpriteComponent->SetTranslation(m_diePosition);
+					//pBulletSpriteComponent->Hide();
 				}
 			}
 		}

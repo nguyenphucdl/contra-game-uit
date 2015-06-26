@@ -79,7 +79,8 @@ namespace Framework
 		int height = atoi(m_rootNode->first_attribute("height")->value());
 		std::string orientation = m_rootNode->first_attribute("orientation")->value();
 		int viewporttype = atoi(m_rootNode->first_attribute("viewporttype")->value());
-
+		vector<int> rangeOfMovementData = vector<int>(20);
+		rangeOfMovementData.clear();
 		m_tileMap = new TileMap(tileWidth, tileHeight, width, height);
 		m_tileMap->SetViewportType(viewporttype);
 		
@@ -230,7 +231,21 @@ namespace Framework
 						pStaticCollisionComponent->AttachRenderable(&pStaticComponent->GetRenderable());
 
 						//Range Of Moment
-						pROMComponent->SetObjectTarget(objDataInteger);
+						//pROMComponent->SetObjectTarget(objDataInteger);
+						//pROMComponent->SetObjectInRange(objData);
+						char* dataTest = strdup(objData.c_str());
+						char* idToks = strtok(dataTest, ",");
+						if (idToks != NULL)
+						{
+
+							//rangeOfMovementData.push_back(stoi(idToks));
+							pROMComponent->AddObjectInRange(stoi(idToks));
+							while (idToks = strtok(NULL, ","))
+							{
+								//rangeOfMovementData.push_back(stoi(idToks));
+								pROMComponent->AddObjectInRange(stoi(idToks));
+							}
+						}
 					}
 				}
 				else if (objType == ObjectTypes::SPAWNLOCATION)

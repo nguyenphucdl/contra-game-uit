@@ -17,6 +17,7 @@ namespace Framework
 		Quadtree*	m_parent;
 
 		std::vector<int>* m_listObjectId;
+		std::vector<int>  m_queryMatchList;
 
 		Quadtree*	NE;
 		Quadtree*	NW;
@@ -42,9 +43,11 @@ namespace Framework
 		Quadtree* GetRelativeById(int id);
 		Quadtree* GetParent()  { return m_parent; };
 		
+		void QueryRange(Rect& range, std::vector<int>* returnMatchIdList);
 	public:
-		void QueryRange(Rect& range, std::vector<int>* returnObjIdList);
-		void QueryRangeUniqueResult(Rect& rect, std::vector<int>* returnObjIdList);
+		
+		void QueryRangeUniqueResult(Rect& rect);
+		const std::vector<int>* GetDataSet() { return &m_queryMatchList; }
 		void	Clear();
 
 

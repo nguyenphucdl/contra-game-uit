@@ -8,14 +8,16 @@
 #include "Framework\GameObjects\Components\TileMapComponent.h"
 #include "Framework\GameObjects\Components\CameraComponent.h"
 #include "Framework\GameObjects\Actions\Animation.h"
-#include "Framework\Utilities\Utils.h"
 #include "PlayerMovementComponent.h"
+#include "Framework\Utilities\Utils.h"
+
 #include "MovementComponent.h"
 
 using namespace Framework;
 
 void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* data)
 {
+	owner->SetTag("Player Object");
 	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
 	propLoader->Load();
 
@@ -108,6 +110,7 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 		for (int i = 0; i < rockman_bullet_counts; i++)
 		{
 			GameObject* rockmanBullet = new GameObject(Utils::getNextId());
+			rockmanBullet->SetTag("Rockman Bullet");
 			rockmanBullet->AddComponent<SpriteComponent>();
 			SpriteComponent* pRockmanBulletComponent = component_cast<SpriteComponent>(rockmanBullet);
 			if (pRockmanBulletComponent)

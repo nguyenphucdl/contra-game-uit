@@ -10,7 +10,7 @@
 #include "Framework\GameObjects\Actions\Animation.h"
 #include "Framework\Utilities\Utils.h"
 #include "Framework\Utilities\ObjectMapData.h"
-#include "PlayerMovementComponent.h"
+
 #include "MovementComponent.h"
 
 
@@ -52,11 +52,11 @@ void MegamanMap1Factory::createObjectType(std::string objectType, Framework::Gam
 
 void MegamanMap1Factory::_createLittlePogobot(Framework::GameObject* owner, void* pData)
 {
+	owner->SetTag("LittlePogobot");
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
 	npcPropLoader->Load();
-
 	owner->AddComponent<SpriteComponent>();
 	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(owner);
 	if (pNpc1SpriteComponent)

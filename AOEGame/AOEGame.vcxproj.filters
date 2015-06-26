@@ -181,9 +181,6 @@
     <ClInclude Include="Framework\Renderer\Camera.h">
       <Filter>Framework\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMovementComponent.h">
-      <Filter>Game\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Renderer\Drawable.h">
       <Filter>Framework\Renderer</Filter>
     </ClInclude>
@@ -254,6 +251,7 @@
     <ClInclude Include="Framework\GameObjects\Components\RangeOfMovementComponent.h" />
     <ClInclude Include="Framework\Audio\AudioManager.h" />
     <ClInclude Include="CommonGameFactory.h" />
+    <ClInclude Include="PlayerMovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -337,9 +335,6 @@
     <ClCompile Include="Framework\Renderer\Camera.cpp">
       <Filter>Framework\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMovementComponent.cpp">
-      <Filter>Game\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Font\Font.cpp">
       <Filter>Framework\Font</Filter>
     </ClCompile>
@@ -391,6 +386,7 @@
     <ClCompile Include="Framework\GameObjects\Components\RangeOfMovementComponent.cpp" />
     <ClCompile Include="Framework\Audio\AudioManager.cpp" />
     <ClCompile Include="CommonGameFactory.cpp" />
+    <ClCompile Include="PlayerMovementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Texture\texture.png">

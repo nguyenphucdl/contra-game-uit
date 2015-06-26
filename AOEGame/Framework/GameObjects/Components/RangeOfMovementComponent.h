@@ -1,6 +1,7 @@
 #ifndef __RANGEOFMOVEMENT_COMPONENT_H__
 #define	__RANGEOFMOVEMENT_COMPONENT_H__
 
+#include<vector>
 #include "../Component.h"
 #include "../../Utilities/Enums.h"
 
@@ -14,7 +15,7 @@ namespace Framework
 
 		virtual void Initialize();
 
-		int m_objectTarget;
+		std::vector<int>	m_objectsInRange;
 
 	public:
 		static unsigned int GetId()		 { return s_id; }
@@ -22,8 +23,9 @@ namespace Framework
 		explicit RangeOfMovementComponent(GameObject* pOwner);
 		virtual ~RangeOfMovementComponent();
 
-		int		GetObjectTarget()		 { return m_objectTarget; }
-		void	SetObjectTarget(int id)	 { m_objectTarget = id; }
+		const std::vector<int>*		GetObjectsInRange()		 { return &m_objectsInRange; }
+		void  AddObjectInRange(int objId) { m_objectsInRange.push_back(objId); }
+		void  ClearObjectInRange() { m_objectsInRange.clear(); }
 	};
 }
 
