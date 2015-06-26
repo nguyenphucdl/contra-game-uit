@@ -28,7 +28,7 @@ MovementComponent::~MovementComponent()
 
 void MovementComponent::Initialize()
 {
-	Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, GetOwner(), *this);
+	//Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, GetOwner(), *this);
 }
 
 void MovementComponent::HandleEvent(Event* pEvent)
@@ -38,7 +38,9 @@ void MovementComponent::HandleEvent(Event* pEvent)
 	case Events::COM_UPDATE_EVENT:
 	{
 		PollInputUpdate();
+
 		BehaviorUpdate();
+
 		PostUpdate();
 	}
 		break;
@@ -127,27 +129,27 @@ void MovementComponent::HandleCollision(CollisionEventData* pData)
 			//{
 			//	Framework::SendEvent(Events::SCE_COMPLETE_SCENE_EVENT);
 			//}
-			//else if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
-			//{
-			//	return;
-			//}
-			//if (m_collisionDirection == CollisionDirections::TOP)
-			//{
-			//	float floor_y = pStaticComponent->GetRenderable().GetTransform().GetTranslation().m_y;
-			//	SetIsSupported(true, floor_y);
-			//}
+			if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
+			{
+				return;
+			}
+			else if (m_collisionDirection == CollisionDirections::TOP)
+			{
+				float floor_y = pStaticComponent->GetRenderable().GetTransform().GetTranslation().m_y;
+				SetIsSupported(true, floor_y);
+			}
 
 			//Resolve
 			ResolveCollisionRun();
 		}
 	}
 
-	SpriteComponent* pBulletComponent = component_cast<SpriteComponent>(pData->m_pCollider);
-	if (pBulletComponent)
-	{
-		m_velocity.m_y = 100;
-		m_acceleration.m_y = 100;
-	}
+	//SpriteComponent* pBulletComponent = component_cast<SpriteComponent>(pData->m_pCollider);
+	//if (pBulletComponent)
+	//{
+	//	m_velocity.m_y = 100;
+	//	m_acceleration.m_y = 100;
+	//}
 }
 
 void MovementComponent::ScanCollisionRun(CollisionComponent* pObject, CollisionComponent* pTarget, float epsilon)

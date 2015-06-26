@@ -24,6 +24,7 @@ public:
 
 private:
 	void HandleCollision(Framework::CollisionEventData* pData);
+	void HandleEvent(Framework::Event* pEvent);
 
 	void PollInputUpdate();
 	void BehaviorUpdate();

@@ -72,10 +72,8 @@ namespace Framework
 						}
 					}//end range of movement
 				}
-				else
-				{
-					m_currentObjects.push_back(obj);
-				}
+				m_currentObjects.push_back(obj);
+				
 			}//end if data set return true
 		}//end for match id list
 		m_currentObjects.insert(m_currentObjects.end(), m_updateObjects.begin(), m_updateObjects.end());

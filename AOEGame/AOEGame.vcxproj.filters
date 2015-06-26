@@ -252,6 +252,7 @@
     <ClInclude Include="Framework\Audio\AudioManager.h" />
     <ClInclude Include="CommonGameFactory.h" />
     <ClInclude Include="PlayerMovementComponent.h" />
+    <ClInclude Include="LittlePolygotMovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -387,6 +388,7 @@
     <ClCompile Include="Framework\Audio\AudioManager.cpp" />
     <ClCompile Include="CommonGameFactory.cpp" />
     <ClCompile Include="PlayerMovementComponent.cpp" />
+    <ClCompile Include="LittlePolygotMovementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Texture\texture.png">

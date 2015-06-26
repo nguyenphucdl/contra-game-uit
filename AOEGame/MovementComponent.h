@@ -51,8 +51,8 @@ public:
 
 protected:
 
-	virtual void HandleEvent(Framework::Event* pEvent);
-	virtual void HandleCollision(Framework::CollisionEventData* pData);
+	void HandleEvent(Framework::Event* pEvent);
+	void HandleCollision(Framework::CollisionEventData* pData);
 
 	virtual void ScanCollisionRun(Framework::CollisionComponent* pObject, Framework::CollisionComponent* pTarget, float epsilon = 5.0f);
 	virtual void ResolveCollisionRun();

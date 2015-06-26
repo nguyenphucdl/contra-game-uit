@@ -11,7 +11,9 @@
 #include "Framework\Utilities\Utils.h"
 #include "Framework\Utilities\ObjectMapData.h"
 
+
 #include "MovementComponent.h"
+#include "LittlePolygotMovementComponent.h"
 
 
 using namespace Framework;
@@ -77,8 +79,8 @@ void MegamanMap1Factory::_createLittlePogobot(Framework::GameObject* owner, void
 		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
 		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
 	}
-	owner->AddComponent<MovementComponent>();
-	MovementComponent* pNpcMovementComponent = component_cast<MovementComponent>(owner);
+	owner->AddComponent<LittlePolygotMovementComponent>();
+	LittlePolygotMovementComponent* pNpcMovementComponent = component_cast<LittlePolygotMovementComponent>(owner);
 	if (pNpcMovementComponent)
 	{
 		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
@@ -123,8 +125,8 @@ void MegamanMap1Factory::_createAnotherBot(Framework::GameObject* owner, void* p
 		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
 		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
 	}
-	owner->AddComponent<MovementComponent>();
-	MovementComponent* pNpcMovementComponent = component_cast<MovementComponent>(owner);
+	owner->AddComponent<LittlePolygotMovementComponent>();
+	LittlePolygotMovementComponent* pNpcMovementComponent = component_cast<LittlePolygotMovementComponent>(owner);
 	if (pNpcMovementComponent)
 	{
 		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);

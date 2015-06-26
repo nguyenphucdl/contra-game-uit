@@ -203,6 +203,8 @@ namespace Framework
 			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(source);
 			if (pStaticComponent)
 			{
+				if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
+					return;
 				if (pBulletSpriteComponent && pLifeTimeComponent)
 				{
 					pLifeTimeComponent->Reset();

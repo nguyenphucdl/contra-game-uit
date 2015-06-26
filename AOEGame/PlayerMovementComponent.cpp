@@ -26,7 +26,12 @@ PlayerMovementComponent::~PlayerMovementComponent()
 
 void PlayerMovementComponent::Initialize()
 {
-	MovementComponent::Initialize();
+	Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, GetOwner(), *this);
+}
+
+void PlayerMovementComponent::HandleEvent(Framework::Event* pEvent)
+{
+	MovementComponent::HandleEvent(pEvent);
 }
 
 void PlayerMovementComponent::PollInputUpdate()
