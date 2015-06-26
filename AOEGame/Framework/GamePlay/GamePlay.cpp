@@ -58,10 +58,10 @@ namespace Framework
 		//scene1->Init();
 
 		// Add to queue
-		m_sceneQueue.push(scene1);
-		m_sceneQueue.push(scene2);
-		m_sceneQueue.push(scene3);
-		m_sceneQueue.push(scene4);
+		//m_sceneQueue.push(scene1);
+		//m_sceneQueue.push(scene2);
+		//m_sceneQueue.push(scene3);
+		//m_sceneQueue.push(scene4);
 		m_sceneQueue.push(scene5);
 		m_sceneQueue.push(scene6);
 		m_current = m_sceneQueue.front();
@@ -80,6 +80,13 @@ namespace Framework
 			m_current->Init();
 		}
 		m_current->Update();
+		if (m_popScenes.size())
+		{
+			Renderer::GetSingletonPtr()->ClearRenderables();
+			SceneBase* scenceOut = m_popScenes.top();
+			m_popScenes.pop();
+			delete scenceOut;
+		}
 	}
 
 	void GamePlay::Draw()

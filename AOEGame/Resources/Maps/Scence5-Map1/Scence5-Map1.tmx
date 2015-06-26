@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<map version="1.0" tilewidth="16" tileheight="16" width="96" height="14" orientation="orthogonal" viewporttype="2">
+<map version="1.0" tilewidth="16" tileheight="16" width="96" height="14" orientation="orthogonal" viewporttype="0">
   <tileset firstgid="1" name="Scence5-Map1" tilewidth="16" tileheight="16">
     <image source="Scence5-Map1-TileSet94.png" width="160" height="160" />
   </tileset>
@@ -1381,10 +1381,10 @@
     <object id="30" name="Elevator" type="4" x="1407" y="72" data="" width="16" height="69" color="Yellow" />
     <object id="31" name="Elevator" type="4" x="543" y="169" data="" width="15" height="126" color="Yellow" />
     <object id="32" name="Player Position" type="2" x="46" y="60" data="5000" width="17" height="14" color="Azure" />
-    <object id="33" name="End Scene" type="1" x="1407" y="15" data="" width="16" height="12" color="Aqua" />
-    <object id="34" name="" type="0" x="592" y="200" data="" width="30" height="198" color="Black" />
-    <object id="35" name="" type="0" x="642" y="224" data="" width="29" height="55" color="Black" />
-    <object id="36" name="" type="0" x="641" y="137" data="" width="29" height="64" color="Black" />
+    <object id="34" name="" type="0" x="592" y="200" data="" width="28" height="194" color="Black" />
+    <object id="35" name="" type="0" x="642" y="224" data="" width="30" height="56" color="Black" />
+    <object id="36" name="" type="0" x="642" y="136" data="" width="28" height="62" color="Black" />
+    <object id="37" name="End Scene" type="1" x="1376" y="9" data="" width="63" height="5" color="Aqua" />
   </objectgroup>
   <quadtree width="1536" height="1536" x="0" y="0">
     <data>
@@ -1411,7 +1411,9 @@
       <node id="17" parent="14" level="4">
         <objects data="11,34,35,36" />
       </node>
-      <node id="18" parent="14" level="4" />
+      <node id="18" parent="14" level="4">
+        <objects data="35" />
+      </node>
       <node id="19" parent="14" level="4" />
       <node id="21" parent="19" level="5">
         <objects data="12,13,34" />
@@ -1471,7 +1473,7 @@
         <objects data="26,27" />
       </node>
       <node id="40" parent="26" level="3">
-        <objects data="27,29,30,33" />
+        <objects data="27,29,30,37" />
       </node>
       <node id="27" parent="2" level="2" />
       <node id="28" parent="2" level="2" />

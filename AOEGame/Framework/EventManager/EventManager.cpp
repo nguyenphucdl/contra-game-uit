@@ -48,6 +48,13 @@ namespace Framework
 		AttachEvent(m_activeExecutorId, eventId, eventHandler);
 	}
 	
+	void	EventManager::DeAttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler)
+	{
+		EventExecutor* eventExecutor = _getEventExecutor(execId);
+		eventExecutor->DetachEvent(eventId, eventHandler);
+		
+	}
+
 	void	EventManager::SendEvent(ExecutorID execId, EventID eventId, void* pData)
 	{
 		//EventExecutor* executor = _getEventExecutor(execId);
@@ -123,5 +130,18 @@ namespace Framework
 	{
 		//SendComponentEventToHandler(m_activeExecutorId, eventId, objId, eventHandler, pData);
 		m_eventExecutorVector[m_activeExecutorId]->SendComponenEventToHandler(eventId, objId, eventHandler, pData);
+	}
+
+	void	EventManager::DeAttachExecutor(EventExecutorAware* owner)
+	{
+		EventExecutor* eventExecutor = NULL;
+		try {
+			eventExecutor = m_eventExecutorVector.at(owner->GetExecutorId());
+		}
+		catch (const std::out_of_range& oor) {
+			Log::error("Try to get event with id out of range (%d) reson (%s)", owner->GetExecutorId(), oor.what());
+			throw new GameError(GameErrorNS::FATAL_ERROR, oor.what());
+		}
+		SAFE_DELETE(eventExecutor);
 	}
 }

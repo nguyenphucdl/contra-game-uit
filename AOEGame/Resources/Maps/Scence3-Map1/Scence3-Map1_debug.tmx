@@ -1375,7 +1375,6 @@
     <object id="22" name="" type="0" x="1456" y="122" data="" width="32" height="16" color="Black" />
     <object id="23" name="" type="0" x="1471" y="106" data="" width="17" height="16" color="Black" />
     <object id="24" name="" type="0" x="1455" y="57" data="" width="32" height="16" color="Black" />
-    <object id="25" name="" type="0" x="1489" y="168" data="" width="46" height="166" color="Black" />
     <object id="26" name="" type="0" x="1521" y="224" data="" width="14" height="57" color="Black" />
     <object id="27" name="" type="4" x="1504" y="224" data="" width="17" height="56" color="Yellow" />
     <object id="28" name="" type="0" x="800" y="104" data="" width="32" height="103" color="Black" />
@@ -1383,9 +1382,9 @@
     <object id="30" name="" type="0" x="735" y="40" data="" width="69" height="15" color="Black" />
     <object id="31" name="Elevator" type="4" x="1055" y="170" data="" width="15" height="126" color="Yellow" />
     <object id="32" name="" type="0" x="736" y="8" data="" width="62" height="6" color="Black" />
-    <object id="33" name="Player position" type="2" x="48" y="59" data="5000" width="16" height="14" color="Azure" />
     <object id="34" name="End Scene" type="1" x="1504" y="220" data="" width="17" height="14" color="Aqua" />
-    <object id="35" name="" type="0" x="1392" y="168" data="" width="134" height="15" color="Black" />
+    <object id="35" name="Player position" type="2" x="1404" y="191" data="5000" width="12" height="13" color="Azure" />
+    <object id="36" name="" type="0" x="1391" y="169" data="" width="123" height="14" color="Black" />
   </objectgroup>
   <quadtree width="1536" height="1536" x="0" y="0">
     <data>
@@ -1451,40 +1450,22 @@
       </node>
       <node id="34" parent="18" level="3" />
       <node id="37" parent="34" level="4">
-        <objects data="17,21,35" />
+        <objects data="17,21,36" />
       </node>
-      <node id="38" parent="34" level="4" />
-      <node id="41" parent="38" level="5" />
-      <node id="42" parent="38" level="5">
-        <objects data="26,27,34" />
-      </node>
-      <node id="43" parent="38" level="5">
-        <objects data="21,35" />
-      </node>
-      <node id="44" parent="38" level="5">
-        <objects data="21,25,26,27,35" />
+      <node id="38" parent="34" level="4">
+        <objects data="21,26,27,34,36" />
       </node>
       <node id="39" parent="34" level="4">
         <objects data="16,18,19,21" />
       </node>
-      <node id="40" parent="34" level="4" />
-      <node id="45" parent="40" level="5">
-        <objects data="21,22,23" />
-      </node>
-      <node id="46" parent="40" level="5">
-        <objects data="21,22,23,25" />
-      </node>
-      <node id="47" parent="40" level="5">
-        <objects data="16,24" />
-      </node>
-      <node id="48" parent="40" level="5">
-        <objects data="25" />
+      <node id="40" parent="34" level="4">
+        <objects data="16,21,22,23,24" />
       </node>
       <node id="35" parent="18" level="3">
         <objects data="15,16" />
       </node>
       <node id="36" parent="18" level="3">
-        <objects data="16,25" />
+        <objects data="16" />
       </node>
       <node id="19" parent="2" level="2" />
       <node id="20" parent="2" level="2" />

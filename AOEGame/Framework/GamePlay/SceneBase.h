@@ -15,7 +15,7 @@ namespace Framework
 		ObjectFactory*	m_objectFactory;
 	public:
 		SceneBase();
-		~SceneBase();
+		virtual ~SceneBase();
 
 		SceneStates	GetScenceState() { return m_sceneState; }
 		void		SetScenceState(SceneStates state) { m_sceneState = state; }

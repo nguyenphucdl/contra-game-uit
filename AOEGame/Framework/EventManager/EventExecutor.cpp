@@ -11,7 +11,35 @@ namespace Framework
 
 	EventExecutor::~EventExecutor()
 	{
+		for (ObjectEventVectorIterator it = m_eventObjectMap.begin(); it != m_eventObjectMap.end(); it++)
+		{
+			EventVector* eventVec = *it;
+			if (eventVec)
+			{
+				for (EventVectorIterator it2 = eventVec->begin(); it2 != eventVec->end(); it2++)
+				{
+					Event* event = *it2;
+					SAFE_DELETE(event);
+					*it2 = NULL;
+				}
+				eventVec->clear();
+				eventVec->shrink_to_fit();
+				SAFE_DELETE(eventVec);
+			}
+			*it = NULL;
+		}
+		m_eventObjectMap.clear();
+		m_eventObjectMap.shrink_to_fit();
 
+		for (EventVectorIterator it3 = m_eventMap.begin(); it3 != m_eventMap.end(); it3++)
+		{
+			Event* event = *it3;
+			SAFE_DELETE(event);
+			*it3 = NULL;
+		}
+		
+		m_eventMap.clear();
+		m_eventMap.shrink_to_fit();
 	}
 
 	Event*	EventExecutor::_getEvent(EventVector &eventMap, EventID eventId)

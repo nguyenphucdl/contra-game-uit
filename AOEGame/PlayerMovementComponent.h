@@ -6,8 +6,17 @@
 #include "Framework\GameObjects\Components\TransformComponent.h"
 #include "Framework\EventManager\EventHandler.h"
 #include "Framework\Collision\CollisionListener.h"
+#include "Framework\GameObjects\Components\CollisionComponent.h"
 #include "Framework\EventManager\EventManager.h"
 
+enum CollisionDirections
+{
+	TOP,
+	RIGHT,
+	BOTTOM,
+	LEFT,
+	NONE
+};
 
 class PlayerMovementComponent
 	: public Framework::TransformComponent
@@ -30,8 +39,11 @@ private:
 	bool					m_isJumping;
 	bool					m_isKeyPress;
 
+	//ScanCollisionRun properties
 	float					m_offset[4];
+	float					m_resolveOffset[4];
 	Framework::Vector3		m_vectorOffset;
+	CollisionDirections		m_collisionDirection;
 
 public:
 	//static unsigned int GetId() { return s_id; }
@@ -42,11 +54,15 @@ public:
 	virtual void Initialize();
 
 	virtual void HandleEvent(Framework::Event* pEvent);
+	virtual void HandleEvent222(Framework::Event* pEvent);
 	virtual void HandleCollision(Framework::CollisionEventData* pData);
+	virtual void HandleCollision2(Framework::CollisionEventData* pData);
+
+	virtual void ScanCollisionRun(Framework::CollisionComponent* pObject, Framework::CollisionComponent* pTarget, float epsilon = 5.0f);	
+	virtual void ResolveCollisionRun();
+	virtual void PostUpdate();
 
 private:
-	//void _ProcessKeydownEvent(Framework::Event* pEvent);
-	//void _ProcessKeyupEvent(Framework::Event* pEvent);
 	void _ProcessPollInput();
 
 	void SetIsSupported(bool isSupported, float floor = 0.0f) { m_isSupported = isSupported; m_floor = floor; }

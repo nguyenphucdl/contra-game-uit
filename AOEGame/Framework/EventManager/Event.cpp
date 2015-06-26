@@ -12,7 +12,19 @@ namespace Framework
 
 	Event::~Event()
 	{
+		/*for (EventHandlerListIterator it = m_listeners.begin(); it != m_listeners.end(); it++)
+		{
+			EventHandler* handler = *it;
+			if (handler != NULL)
+			{
+				delete handler;
+				handler = NULL;
+			}
+			
+			*it = NULL;
+		}*/
 		m_listeners.clear();
+		m_listeners.shrink_to_fit();
 	}
 
 	void Event::Send(void* pData)

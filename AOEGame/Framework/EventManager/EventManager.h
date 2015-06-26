@@ -47,9 +47,11 @@ namespace Framework
 		ExecutorID			GetActiveExecutor(){ return m_activeExecutorId; }
 		void				SetActiveExecutorId(ExecutorID id) { m_activeExecutorId = id; }
 		void				SetActiveExecutor(EventExecutorAware* owner) { m_activeExecutorId = owner->GetExecutorId(); }
+		void				DeAttachExecutor(EventExecutorAware* owner);
 
 		void				AttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler);
 		void				AttachEvent(EventID eventId, EventHandler& eventHandler);
+		void				DeAttachEvent(ExecutorID execId, EventID eventId, EventHandler& eventHandler);
 		void				SendEvent(ExecutorID execId, EventID eventId, void* pData);
 		void				SendEvent(EventID eventId, void* pData);
 		void				SendEventToHandler(ExecutorID execId, EventID eventId, EventHandler& eventHandler, void* pData);

@@ -27,12 +27,15 @@ namespace Framework
 
 	TileMapScene::~TileMapScene()
 	{
+		EventManager::GetSingletonPtr()->DeAttachEvent(ExecutorIDs::SysInput, Events::SYS_KEY_DOWN_EVENT, *this);
+		//EventManager::GetSingletonPtr()->DeAttachExecutor(this);
 		m_currentObjects->clear();
 		m_currentObjects->shrink_to_fit();
 		SAFE_DELETE(m_currentObjects);
 		SAFE_DELETE(m_tileMapObject);
 		SAFE_DELETE(m_cameraObject);
 		//Remove object hashtable
+		
 	}
 
 	bool TileMapScene::LoadSceneFromFile(std::string file)
