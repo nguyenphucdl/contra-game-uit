@@ -29,11 +29,11 @@ namespace Framework
 	bool TileMap::Init()
 	{
 		// Initialize all object 
-		for (ObjectHashTableIterator it = m_objectHashTable->begin(); it != m_objectHashTable->end(); it++)
+		for (ObjectVectorIterator it = m_objectVector->begin(); it != m_objectVector->end(); it++)
 		{
-			assert(it->second);
-			GameObject* gameObj = it->second;
-			gameObj->InitializeComponents();
+			GameObject* gameObj = *it;
+			if (gameObj)
+				gameObj->InitializeComponents();
 		}
 		return true;
 	}

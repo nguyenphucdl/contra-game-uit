@@ -35,8 +35,9 @@ namespace Framework
 		SetExecutor(exec);
 
 		Quadtree* qtree = tileMap->GetQuadTree();
-		ObjectHashTable* objTable = tileMap->GetOjectHashTable();
-		CollisionBin* collBin = new CollisionBin(exec->GetExecutorId(), qtree, objTable);
+		//ObjectHashTable* objTable = tileMap->GetOjectHashTable();
+		ObjectVector* objVector = tileMap->GetObjectVector();
+		CollisionBin* collBin = new CollisionBin(exec->GetExecutorId(), qtree, objVector);
 		AddCollisionBin(exec->GetExecutorId(), collBin);
 	}
 

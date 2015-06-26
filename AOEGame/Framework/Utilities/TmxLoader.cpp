@@ -140,7 +140,8 @@ namespace Framework
 		if (objectLayer != NULL)
 		{
 			xml_node<> *objectNode;
-			std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable = new std::tr1::unordered_map<ObjectId, GameObject*>();
+			//std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable = new std::tr1::unordered_map<ObjectId, GameObject*>();
+			std::vector<GameObject*>* m_objectVector = new std::vector<GameObject*>(200);
 
 			objectNode = objectLayer->first_node("object");
 			ObjectMapData* objMapDataHolder = new ObjectMapData();
@@ -265,9 +266,11 @@ namespace Framework
 				}
 
 
-				m_objectHashTable->insert(make_pair(id, gameObj));
+				//m_objectHashTable->insert(make_pair(id, gameObj));
+				(*m_objectVector)[id] = gameObj;
 			}
-			m_tileMap->SetObjects(m_objectHashTable);
+			//m_tileMap->SetObjects(m_objectHashTable);
+			m_tileMap->SetObjectVector(m_objectVector);
 
 		}
 		

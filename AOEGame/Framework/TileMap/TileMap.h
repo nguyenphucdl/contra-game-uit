@@ -24,7 +24,8 @@ namespace Framework
 		int						m_viewportType;
 		vector<int>*			m_mapData; 		
 		vector<TileSet*>*		m_tileSets;
-		std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable;
+		//std::tr1::unordered_map<ObjectId, GameObject*>* m_objectHashTable;
+		std::vector<GameObject*>*	m_objectVector;
 		Quadtree*				m_quadtree;
 		RECT					m_bound;
 
@@ -65,7 +66,7 @@ namespace Framework
 		{
 			return m_tileSets;
 		}
-		void SetObjects(std::tr1::unordered_map<ObjectId, GameObject*>* objHashTable)
+		/*void SetObjects(std::tr1::unordered_map<ObjectId, GameObject*>* objHashTable)
 		{
 			m_objectHashTable = objHashTable;
 		}
@@ -74,6 +75,16 @@ namespace Framework
 		std::tr1::unordered_map<ObjectId, GameObject*>* GetOjectHashTable()
 		{
 			return m_objectHashTable;
+		}*/
+
+		void SetObjectVector(std::vector<GameObject*>* objVector)
+		{
+			m_objectVector = objVector;
+		}
+
+		std::vector<GameObject*>* GetObjectVector()
+		{
+			return m_objectVector;
 		}
 
 		void SetQuadTree(Quadtree* quadtree)

@@ -10,15 +10,18 @@
 namespace Framework
 {
 	typedef Quadtree										CollisionComponentQuadtree;
-	typedef std::tr1::unordered_map<ObjectId, GameObject*>	ObjectHashTable;
-	typedef ObjectHashTable::iterator						ObjectHashTableIterator;
-	
+	/*typedef std::tr1::unordered_map<ObjectId, GameObject*>	ObjectHashTable;
+	typedef ObjectHashTable::iterator						ObjectHashTableIterator;*/
+	typedef std::vector<GameObject*>						ObjectVector;
+	typedef ObjectVector::iterator							ObjectVectorIterator;
+
 	class CollisionBin
 	{
 	private:
 		
 		CollisionComponentQuadtree*			m_collisionObjects;
-		ObjectHashTable*					m_objectHashTable;
+		/*ObjectHashTable*					m_objectHashTable;*/
+		ObjectVector*						m_objectVector;
 		ExecutorID							m_execId;
 
 		
@@ -33,7 +36,7 @@ namespace Framework
 		Rect										m_currentViewport;
 
 	public:
-		CollisionBin(ExecutorID execId, CollisionComponentQuadtree* qt, ObjectHashTable* obj);
+		CollisionBin(ExecutorID execId, CollisionComponentQuadtree* qt, ObjectVector* obj);
 		~CollisionBin();
 
 		void QueryRange(Rect& range);
