@@ -57,16 +57,6 @@ namespace Framework
 		GameObject* playerObject = new GameObject(Utils::getNextId());
 		GetObjectFactory()->createObjectType(std::to_string(SystemObjectTypes::PLAYER_OBJECT), playerObject, m_tileMap);
 		AddUpdateObject(playerObject);
-		/*BulletComponent* playerBulletComponent = component_cast<BulletComponent>(playerObject);
-		if (playerBulletComponent)
-		{
-			std::vector<GameObject*>* bullets = playerBulletComponent->GetBullets();
-			assert(bullets);
-			if (bullets)
-			{
-				AddUpdateObjects(bullets);
-			}
-		}*/
 
 
 		m_cameraObject = new GameObject(Utils::getNextId());
@@ -149,7 +139,6 @@ namespace Framework
 		else if (pEvent->GetID() == Events::SCE_UPDATE_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_currentObjects, NULL);
-			//Framework::BroadcastComponentEvent(Events::COM_UPDATE_EVENT, m_updatedObjects, NULL);
 		}
 		else if (pEvent->GetID() == Events::SCE_PRE_RENDER_EVENT)
 		{
@@ -158,7 +147,6 @@ namespace Framework
 		else if (pEvent->GetID() == Events::SCE_RENDER_EVENT)
 		{
 			Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_currentObjects, NULL);
-			//Framework::BroadcastComponentEvent(Events::COM_RENDER_EVENT, m_updatedObjects, NULL);
 		}
 		else if (pEvent->GetID() == Events::SCE_COMPLETE_SCENE_EVENT)
 		{
@@ -211,6 +199,7 @@ namespace Framework
 
 	void TileMapScene::Entered()
 	{
+		//NOT USED
 		Framework::SendEvent(Events::SCE_ENTERED_EVENT);
 	}
 

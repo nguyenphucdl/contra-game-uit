@@ -74,7 +74,6 @@ namespace Framework
 	{
 		if (m_current->GetScenceState() == SceneStates::Completed)
 		{
-			//Renderer::GetSingletonPtr()->GetCamera().ResetViewport();
 			m_popScenes.push(m_current);
 			m_sceneQueue.pop();
 			m_current = m_sceneQueue.front();

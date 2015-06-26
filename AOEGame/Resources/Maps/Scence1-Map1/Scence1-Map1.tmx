@@ -1630,7 +1630,7 @@
     <object id="52" name="Napalm Bomb ROM" type="3" x="1151" y="147" data="45" width="195" height="106" color="Blue" />
     <object id="53" name="Five Star Shooter ROM" type="3" x="1387" y="172" data="46" width="173" height="128" color="Blue" />
     <object id="54" name="Five Star Shooter ROM" type="3" x="1540" y="192" data="47" width="197" height="145" color="Blue" />
-    <object id="55" name="Player position" type="2" x="1571" y="194" data="5000" width="20" height="17" color="Azure" />
+    <object id="55" name="Player Position" type="2" x="36" y="60" data="5000" width="14" height="13" color="Azure" />
   </objectgroup>
   <quadtree width="1792" height="1792" x="0" y="0">
     <data>

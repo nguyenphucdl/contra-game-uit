@@ -54,7 +54,53 @@ void MegamanMap1Factory::_createLittlePogobot(Framework::GameObject* owner, void
 {
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
-	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc.plist");
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
+	npcPropLoader->Load();
+
+	owner->AddComponent<SpriteComponent>();
+	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(owner);
+	if (pNpc1SpriteComponent)
+	{
+		Animation* jumpAnimNpc = Animation::CreateAnimation(GameResources::MAP1_NPC_LITTLEPOLYGOT, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 1);
+		Animation* stationaryAnimNpc = Animation::CreateAnimation(GameResources::MAP1_NPC_LITTLEPOLYGOT, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryAnimNpc);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationaryAnimNpc);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpAnimNpc);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, jumpAnimNpc);
+		pNpc1SpriteComponent->SetTag("npc");
+		pNpc1SpriteComponent->SetUseBounds(true);
+		pNpc1SpriteComponent->SetRenderTransform(true);
+		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(35.0f, 35.0f, 1.0f));
+		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
+		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
+		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
+	}
+	owner->AddComponent<MovementComponent>();
+	MovementComponent* pNpcMovementComponent = component_cast<MovementComponent>(owner);
+	if (pNpcMovementComponent)
+	{
+		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
+		//Vector3 position = Vector3(350, 140, 0);
+		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
+		pNpcMovementComponent->SetTranslation(&position);
+	}
+	owner->AddComponent<CollisionComponent>();
+	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);
+	if (pNpcCollisionComponent)
+	{
+		pNpcCollisionComponent->AttachRenderable(&pNpc1SpriteComponent->GetRenderable());
+		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
+		pNpcCollisionComponent->SetActive(true);
+	}
+}
+
+void MegamanMap1Factory::_createAnotherBot(Framework::GameObject* owner, void* pData)
+{
+	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
+	assert(objMapData);
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
 	npcPropLoader->Load();
 
 	owner->AddComponent<SpriteComponent>();
@@ -72,7 +118,7 @@ void MegamanMap1Factory::_createLittlePogobot(Framework::GameObject* owner, void
 		pNpc1SpriteComponent->SetUseBounds(true);
 		pNpc1SpriteComponent->SetRenderTransform(true);
 		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
-		pNpc1SpriteComponent->SetBoundMax(Vector3(30.0f, 30.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(35.0f, 35.0f, 1.0f));
 		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
 		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
 		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);

@@ -2,6 +2,7 @@
 #include "SpriteComponent.h"
 #include "TransformComponent.h"
 #include "LifeTimeComponent.h"
+#include "StaticComponent.h"
 #include "../../Utilities/Timer.h"
 
 namespace Framework
@@ -189,7 +190,25 @@ namespace Framework
 	void BulletComponent::HandleCollision(CollisionEventData* pData)
 	{
 		//Bullet die
+		GameObject* collider = pData->m_pCollider;
+		GameObject* source = pData->m_pSource;
+
+		if (source && collider)
+		{
+			SpriteComponent* pBulletSpriteComponent = component_cast<SpriteComponent>(source);
+			StaticComponent* pStaticComponent = component_cast<StaticComponent>(collider);
+			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(source);
+			if (pStaticComponent)
+			{
+				if (pBulletSpriteComponent && pLifeTimeComponent)
+				{
+					pLifeTimeComponent->Reset();
+					pData->m_pSource->SetFeature(false);
+					pBulletSpriteComponent->Hide();
+				}
+			}
+		}
 		
-		m_velocity.Set(1000.0f, 0.0f, 1.0f);
+		
 	}
 }

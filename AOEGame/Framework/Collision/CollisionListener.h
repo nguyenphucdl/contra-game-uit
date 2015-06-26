@@ -7,6 +7,7 @@ namespace Framework
 	struct CollisionEventData
 	{
 		GameObject* m_pCollider;
+		GameObject*	m_pSource;
 	};
 
 	class CollisionListener

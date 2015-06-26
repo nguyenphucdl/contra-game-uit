@@ -16,6 +16,7 @@ public:
 
 private:
 	void _createLittlePogobot(Framework::GameObject* owner, void* data = NULL);
+	void _createAnotherBot(Framework::GameObject* owner, void* data = NULL);
 };
 
 

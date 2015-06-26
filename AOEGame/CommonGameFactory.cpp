@@ -151,8 +151,6 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 
 			pPlayerBulletComponent->AddBullet(rockmanBullet);
 		}//end for rockman_bullet_counts
-
-		//pPlayerBulletComponent->Initialize();
 	}//end if pBulletComponent
 }
 

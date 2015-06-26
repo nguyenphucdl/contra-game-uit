@@ -74,6 +74,7 @@ namespace Framework
 			{
 				CollisionEventData collisionObjectData;
 				collisionObjectData.m_pCollider = pObjDest;
+				collisionObjectData.m_pSource = pObject;
 
 				SendComponentEventToHandler(Events::COM_COLLISION_EVENT, pObject, *static_cast<EventHandler*>(pObjectCollisionComponent), &collisionObjectData);
 
@@ -113,6 +114,7 @@ namespace Framework
 
 					CollisionEventData collisionObjectData;
 					collisionObjectData.m_pCollider = pObjectTest;
+					collisionObjectData.m_pSource = pObject;
 
 					SendComponentEventToHandler(Events::COM_COLLISION_EVENT, pObject, *static_cast<EventHandler*>(pObjectCollisionComponent), &collisionObjectData);
 				}
