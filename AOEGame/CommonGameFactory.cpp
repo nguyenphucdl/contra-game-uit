@@ -19,6 +19,7 @@ using namespace Framework;
 void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* data)
 {
 	owner->SetTag("Player Object");
+	owner->SetResId(GameResources::PLAYER_OBJECT);
 	AnimCache* propLoader = new AnimCache("Resources\\Texture\\Rockman\\rockman.plist");
 	propLoader->Load();
 
@@ -137,6 +138,7 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 		for (int i = 0; i < rockman_bullet_counts; i++)
 		{
 			GameObject* rockmanBullet = new GameObject(Utils::getNextId());
+			rockmanBullet->SetResId(GameResources::PLAYER_BULLET);
 			rockmanBullet->SetTag("Rockman Bullet");
 			rockmanBullet->AddComponent<SpriteComponent>();
 			SpriteComponent* pRockmanBulletComponent = component_cast<SpriteComponent>(rockmanBullet);

@@ -24,7 +24,8 @@ namespace GameResources
 	const char MAP1_NPC_BOSS_BOMBMAN[] = "bossbombman.png";
 	const char MAP1_NPC_BULLET_BILL[] = "";
 	const char MAP1_NPC_FLOOR_TRAPPER[] = "";
-
+	const char MAP1_BOMMAN_HEALTH_BAR[] = "boomman-health-vertical.png";
+	const char MAP1_BACKGROUND_HEALTH_BAR[] = "health-background-vertical.png";
 
 	enum GameObjectTypes 
 	{
@@ -39,7 +40,10 @@ namespace GameResources
 
 		PLAYER_OBJECT = Framework::SystemObjectTypes::PLAYER_OBJECT,
 		TILEMAP_OBJECT = Framework::SystemObjectTypes::TILEMAP_OBJECT,
-		CAMERA_OBJECT = Framework::SystemObjectTypes::CAMERA_OBJECT
+		CAMERA_OBJECT = Framework::SystemObjectTypes::CAMERA_OBJECT,
+
+		PLAYER_BULLET = Framework::SystemObjectTypes::PLAYER_BULLET,
+		NPC_BULLET = Framework::SystemObjectTypes::NPC_BULLET
 	};
 
 	const float CONST_SPRITE_ANIMATION_TIME = 1.5f;

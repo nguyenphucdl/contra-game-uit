@@ -227,6 +227,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Texture\Map1\health-bar-npc.png" />
     <Image Include="Resources\Texture\Map1\npc.png" />
     <Image Include="Resources\Texture\Map1\npc_map1.png" />
     <Image Include="Resources\Texture\Rockman\health-bar.png" />
@@ -235,8 +236,10 @@
     <Image Include="Resources\Texture\texture.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Texture\Map1\health-bar-npc.plist" />
     <None Include="Resources\Texture\Map1\npc.plist" />
     <None Include="Resources\Texture\Map1\npc_map1.plist" />
+    <None Include="Resources\Texture\Map1\npc_map1_old.plist" />
     <None Include="Resources\Texture\Rockman\health-bar.plist" />
     <None Include="Resources\Texture\Rockman\rockman.plist" />
     <None Include="Resources\Texture\Rockman\rockman2.plist" />

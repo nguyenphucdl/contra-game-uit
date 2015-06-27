@@ -8,6 +8,7 @@
 namespace Framework
 {
 	typedef unsigned int ObjectId;
+	typedef unsigned int ResourceId;
 	class GameObject
 	{
 		template<class T>
@@ -15,7 +16,7 @@ namespace Framework
 
 		template<class T>
 		friend T* component_cast(GameObject* object);
-		
+
 	private:
 		typedef std::vector<Component*>								ComponentVector;
 		typedef ComponentVector::iterator							ComponentVectorIterator;
@@ -25,6 +26,7 @@ namespace Framework
 		int								m_type;
 		std::string						m_tag;
 		ObjectId						m_id;
+		ResourceId						m_resId;
 
 		template<class T>
 		T* GetComponent()	{ return static_cast<T*>(GetComponent(T::GetId())); }
@@ -42,6 +44,9 @@ namespace Framework
 		bool IsFeature() { return m_feature; }
 		void SetType(int type) { m_type = type; }
 		int	 GetType()		   { return m_type; }
+		void SetResId(int resId) { m_resId = resId; }
+		int	 GetResId()			{ return m_resId; }
+
 		void SetTag(std::string tag) { m_tag = tag; }
 		std::string GetTag()		 { return m_tag; }
 		ObjectId GetId() { return m_id; }

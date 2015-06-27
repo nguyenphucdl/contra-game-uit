@@ -7,6 +7,7 @@
 #include "Framework\Input\Input.h"
 #include "Framework\Utilities\Console.h"
 #include "Framework\Utilities\FPSCounter.h"
+#include "GameResources.h"
 using namespace Framework;
 
 
@@ -195,7 +196,7 @@ void PlayerMovementComponent::BehaviorUpdate()
 	TimingFunction::UpdateTimingFunc();
 	HealthFunction::UpdateHealthFunc();
 
-	Console::GetSingletonPtr()->print("Timing Function update meet (%d)!", IsUpdate());
+	//Console::GetSingletonPtr()->print("Timing Function update meet (%d)!", IsUpdate());
 
 	//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
 	//Console::GetSingletonPtr()->print("Offset Resolve left(%f) right(%f) top(%f) bottom(%f)", m_resolveOffset[CollisionDirections::LEFT], m_resolveOffset[CollisionDirections::RIGHT], m_resolveOffset[CollisionDirections::TOP], m_resolveOffset[CollisionDirections::BOTTOM]);
@@ -305,8 +306,7 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 		}
 	}
 
-	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(pData->m_pCollider);
-	if (pSpriteComponent)
+	if (pData->m_pCollider->GetResId() == GameResources::NPC_BULLET)
 	{
 		Damage(10);
 	}

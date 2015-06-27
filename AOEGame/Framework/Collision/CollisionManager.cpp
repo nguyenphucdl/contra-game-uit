@@ -103,7 +103,8 @@ namespace Framework
 			{
 				pObjectTest = *objTestIt;
 				pObjDestCollisonComponent = component_cast<CollisionComponent>(pObjectTest);
-				if (pObjDestCollisonComponent == pObjectCollisionComponent)
+				if (pObject->GetResId() == SystemObjectTypes::PLAYER_BULLET && pObjectTest->GetResId() == SystemObjectTypes::PLAYER_BULLET
+					|| pObjDestCollisonComponent == pObjectCollisionComponent)
 				{
 					continue;
 				}

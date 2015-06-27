@@ -10,7 +10,7 @@
 #include "Framework\GameObjects\Actions\Animation.h"
 #include "Framework\Utilities\Utils.h"
 #include "Framework\Utilities\ObjectMapData.h"
-
+#include "Framework\GameObjects\Components\HealthBarComponent.h"
 
 #include "MovementComponent.h"
 #include "LittlePolygotMovementComponent.h"
@@ -422,8 +422,8 @@ void MegamanMap1Factory::_createBossBombMan(Framework::GameObject* owner, void* 
 		pNpc1SpriteComponent->SetTag("npc");
 		pNpc1SpriteComponent->SetUseBounds(true);
 		pNpc1SpriteComponent->SetRenderTransform(true);
-		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
-		pNpc1SpriteComponent->SetBoundMax(Vector3(50.0f, 50.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMin(Vector3(10.0f, 0.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(40.0f, 50.0f, 1.0f));
 		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
 		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
 		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
@@ -435,6 +435,32 @@ void MegamanMap1Factory::_createBossBombMan(Framework::GameObject* owner, void* 
 		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
 		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
 		pNpcMovementComponent->SetTranslation(&position);
+		pNpcMovementComponent->SetHealth(5000);
+	}
+	owner->AddComponent<HealthBarComponent>();
+	HealthBarComponent* pHealthBarComponent = component_cast<HealthBarComponent>(owner);
+	if (pHealthBarComponent)
+	{
+		AnimCache* healBarProp = new AnimCache("Resources\\Texture\\Map1\\health-bar-npc.plist");
+		healBarProp->Load();
+		Animation* healthBarForeground = Animation::CreateAnimation(GameResources::MAP1_BOMMAN_HEALTH_BAR, healBarProp, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* healthBarBackground = Animation::CreateAnimation(GameResources::MAP1_BACKGROUND_HEALTH_BAR, healBarProp, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+
+
+		pHealthBarComponent->GetBarSpriteComponent().RegisterState(SpriteStates::STATIONARY, healthBarBackground);
+		pHealthBarComponent->GetHealthSpriteComponent().RegisterState(SpriteStates::STATIONARY, healthBarForeground);
+		pHealthBarComponent->AttachHealthFunc(pNpcMovementComponent);
+		Vector3 barPosition = Vector3(90, 450, 0);
+		pHealthBarComponent->GetBarSpriteComponent().SetTranslation(barPosition);
+		pHealthBarComponent->GetHealthSpriteComponent().SetTranslation(barPosition);
+
+		TextureRegion* texHealthRegion = healthBarForeground->Current();
+		TextureRegion* texBarRegion = healthBarBackground->Current();
+		int healthBarHeight = texHealthRegion->GetTextureHeight();
+		pHealthBarComponent->SetHeight(healthBarHeight);
+		pHealthBarComponent->SetOriginHealthRegion(texHealthRegion->GetRect());
+		pHealthBarComponent->SetOriginBarRegion(texBarRegion->GetRect());
+
 	}
 	owner->AddComponent<CollisionComponent>();
 	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);

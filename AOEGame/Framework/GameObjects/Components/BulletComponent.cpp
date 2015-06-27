@@ -192,6 +192,9 @@ namespace Framework
 
 	void BulletComponent::HandleCollision(CollisionEventData* pData)
 	{
+		if (pData->m_pCollider->GetResId() == SystemObjectTypes::PLAYER_BULLET 
+			|| pData->m_pCollider->GetResId() == SystemObjectTypes::PLAYER_OBJECT)
+			return;
 		//Bullet die
 		GameObject* collider = pData->m_pCollider;
 		GameObject* source = pData->m_pSource;
@@ -201,6 +204,7 @@ namespace Framework
 			SpriteComponent* pBulletSpriteComponent = component_cast<SpriteComponent>(source);
 			StaticComponent* pStaticComponent = component_cast<StaticComponent>(collider);
 			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(source);
+			SpriteComponent* pTestSpriteComponent = component_cast<SpriteComponent>(collider);
 			if (pStaticComponent)
 			{
 				if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
@@ -212,6 +216,13 @@ namespace Framework
 					pBulletSpriteComponent->SetTranslation(m_diePosition);
 					//pBulletSpriteComponent->Hide();
 				}
+			}
+
+			if (pTestSpriteComponent)
+			{
+				pLifeTimeComponent->Reset();
+				pData->m_pSource->SetFeature(false);
+				pBulletSpriteComponent->SetTranslation(m_diePosition);
 			}
 		}
 		

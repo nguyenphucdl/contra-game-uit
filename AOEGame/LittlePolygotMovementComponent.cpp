@@ -7,6 +7,7 @@
 #include "Framework\Utilities\Console.h"
 #include "Framework\Utilities\FPSCounter.h"
 #include "Framework\GameObjects\Components\BulletComponent.h"
+#include "GameResources.h"
 
 using namespace Framework;
 
@@ -46,6 +47,7 @@ void LittlePolygotMovementComponent::PollInputUpdate()
 void LittlePolygotMovementComponent::BehaviorUpdate()
 {
 	TimingFunction::UpdateTimingFunc();
+	HealthFunction::UpdateHealthFunc();
 	MovementComponent::BehaviorUpdate();
 	
 	int decision = RandomInRange();
@@ -97,12 +99,17 @@ void LittlePolygotMovementComponent::PostUpdate()
 void LittlePolygotMovementComponent::HandleCollision(CollisionEventData* pData)
 {
 	MovementComponent::HandleCollision(pData);
-	SpriteComponent* bulletComponent = component_cast<SpriteComponent>(pData->m_pCollider);
-	if (bulletComponent)
+	if (pData->m_pCollider->GetResId() == GameResources::PLAYER_BULLET)
 	{
-		m_velocity.m_y = 200;
 		Damage(50);
 	}
+
+	//SpriteComponent* bulletComponent = component_cast<SpriteComponent>(pData->m_pCollider);
+	//if (bulletComponent)
+	//{
+	//	//m_velocity.m_y = 200;
+	//	Damage(50);
+	//}
 }
 
 
