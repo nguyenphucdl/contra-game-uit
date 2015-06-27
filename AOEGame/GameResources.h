@@ -11,12 +11,19 @@ namespace GameResources
 	const char ROCKMAN_STATIONARY[] = "rockman-stationary.png";
 	const char ROCKMAN_CLIMBING[] = "rockman-climbing.png";
 	const char ROCKMAN_BULLET_FIRING[] = "rockman_bullet.png";
+	const char HEALTH__BACKGROUND_BAR[] = "health-background-vertical.png";
+	const char ROCKMAN_HEALTH_BAR[] = "bar_rockman_vertical.png";
 
 
 
 	const char MAP1_NPC_LITTLEPOLYGOT[] = "littlepolygot.png";
 	const char MAP1_NPC_NAPALMBOMB[] = "napalmbomb.png";
 	const char MAP1_FIVESTARSHOOTER[] = "fivestarshooter.png";
+	const char MAP1_NPC_WALL_SHOOTER[] = "wallshooter.png";
+	const char MAP1_NPC_GREEN_ROBOCOP[] = "greenrobocap.png";
+	const char MAP1_NPC_BOSS_BOMBMAN[] = "bossbombman.png";
+	const char MAP1_NPC_BULLET_BILL[] = "";
+	const char MAP1_NPC_FLOOR_TRAPPER[] = "";
 
 
 	enum GameObjectTypes 

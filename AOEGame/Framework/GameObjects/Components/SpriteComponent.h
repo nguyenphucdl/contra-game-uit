@@ -39,6 +39,7 @@ namespace Framework
 		void SetDefaultDirection(SpriteDirections direction)		{ m_curDirection = direction; }
 
 		void RegisterState(int state, SpriteDirections direction, Animation* anim);
+		void RegisterState(int state, Animation* anim);
 		void RemoveState(int state, SpriteDirections direction);
 		void RemoveStates(int state);
 

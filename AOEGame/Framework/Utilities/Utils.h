@@ -3,6 +3,7 @@
 
 #include <string>
 #include "../Application/Context.h"
+#include <random>
 namespace Framework
 {
 	class Utils
@@ -10,6 +11,8 @@ namespace Framework
 	private:
 		static unsigned int nextId;
 		static unsigned int nextExecId;
+
+
 	public:
 		static unsigned int getNextId()
 		{
@@ -24,6 +27,7 @@ namespace Framework
 		{
 			nextId = 100;
 		}
+
 
 		static std::string getPathOfFile(std::string filePath)
 		{

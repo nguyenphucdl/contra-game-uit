@@ -110,30 +110,22 @@ void MovementComponent::HandleCollision(CollisionEventData* pData)
 	StaticComponent* pStaticComponent = component_cast<StaticComponent>(pData->m_pCollider);
 	if (pStaticComponent)
 	{
+		if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
+		{
+			return;
+		}
+
 		CollisionComponent* pTargetCollisionComponent = component_cast<CollisionComponent>(pData->m_pCollider);
 		CollisionComponent* pObjectCollisionComponent = component_cast<CollisionComponent>(GetOwner());
-
+		
 		if (pTargetCollisionComponent && pObjectCollisionComponent)
 		{
 			//Scan
 			ScanCollisionRun(pObjectCollisionComponent, pTargetCollisionComponent);
 
-			////Logic
-			//if (pStaticComponent->GetStaticObjectType() == ObjectTypes::STAIRWAY_OBJECT)
-			//{
-			//	if (abs(m_offset[m_collisionDirection]) > 30.0f)
-			//		m_isClimping = true;
-			//	return;
-			//}
-			//else if (pStaticComponent->GetStaticObjectType() == ObjectTypes::END_SCENE)
-			//{
-			//	Framework::SendEvent(Events::SCE_COMPLETE_SCENE_EVENT);
-			//}
-			if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
-			{
-				return;
-			}
-			else if (m_collisionDirection == CollisionDirections::TOP)
+
+			//Logic
+			if (m_collisionDirection == CollisionDirections::TOP)
 			{
 				float floor_y = pStaticComponent->GetRenderable().GetTransform().GetTranslation().m_y;
 				SetIsSupported(true, floor_y);
@@ -143,13 +135,6 @@ void MovementComponent::HandleCollision(CollisionEventData* pData)
 			ResolveCollisionRun();
 		}
 	}
-
-	//SpriteComponent* pBulletComponent = component_cast<SpriteComponent>(pData->m_pCollider);
-	//if (pBulletComponent)
-	//{
-	//	m_velocity.m_y = 100;
-	//	m_acceleration.m_y = 100;
-	//}
 }
 
 void MovementComponent::ScanCollisionRun(CollisionComponent* pObject, CollisionComponent* pTarget, float epsilon)

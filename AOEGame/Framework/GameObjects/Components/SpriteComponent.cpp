@@ -27,6 +27,16 @@ namespace Framework
 		}
 	}
 
+	void SpriteComponent::RegisterState(int state, Animation* anim)
+	{
+		int stateCode = state;
+
+		if (m_animationList.find(stateCode) == m_animationList.end())
+		{
+			m_animationList.insert(AnimationMap::value_type(stateCode, anim));
+		}
+	}
+
 	void SpriteComponent::RemoveState(int state, SpriteDirections direction)
 	{
 		int stateCode = state + direction;
@@ -88,7 +98,17 @@ namespace Framework
 
 		case Events::COM_POST_UPDATE_EVENT:
 		default:
-			m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Next());
+			m_animIt = m_animationList.find(m_curState + m_curDirection);
+			if (m_animIt != m_animationList.end())
+			{
+				m_renderable.SetTextureRegion(m_animationList[m_curState + m_curDirection]->Next());
+			}
+			else
+			{
+				m_animIt = m_animationList.find(m_curState);
+				if (m_animIt != m_animationList.end())
+					m_renderable.SetTextureRegion(m_animationList[m_curState]->Next());
+			}
 
 			Vector3 boundMin = GetBoundMin();
 			Vector3 boundMax = GetBoundMax();

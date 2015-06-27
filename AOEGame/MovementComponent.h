@@ -36,6 +36,7 @@ protected:
 	bool					m_isJumping;
 	bool					m_isSupported;
 
+
 	//ScanCollisionRun properties
 	float					m_offset[4];
 	float					m_resolveOffset[4];

@@ -2,10 +2,14 @@
 #define	_LITTLE_POLYGOT_MOVEMENTCOMPONENT_H__
 
 #include "MovementComponent.h"
-
+#include "Framework\GameObjects\Components\TimingFunction.h"
+#include "Framework\GameObjects\Components\HealthFunction.h"
 
 class LittlePolygotMovementComponent
 	: public MovementComponent
+	, public Framework::TimingFunction
+	, public Framework::HealthFunction
+
 {
 private:
 	

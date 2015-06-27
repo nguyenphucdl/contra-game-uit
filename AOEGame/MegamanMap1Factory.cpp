@@ -34,6 +34,21 @@ void MegamanMap1Factory::createObjectType(std::string objectType, Framework::Gam
 
 	switch (objType)
 	{
+	case GameResources::GameObjectTypes::BOSS_BOMBMAN:
+		_createBossBombMan(owner, pData);
+		break;
+	case GameResources::GameObjectTypes::GREEN_ROBOCOP:
+		_createGreenRobocop(owner, pData);
+		break;
+	case GameResources::GameObjectTypes::WALL_SHOOTER:
+		_createWallShooter(owner, pData);
+		break;
+	case GameResources::GameObjectTypes::NAPALM_BOMB:
+		_createNapalmBomb(owner, pData);
+		break;
+	case GameResources::GameObjectTypes::FIVE_STAR_SHOOTER:
+		_createFiveStarShooter(owner, pData);
+		break;
 	case GameResources::GameObjectTypes::LITTLE_POGOBOT:
 		_createLittlePogobot(owner, pData);
 		break;
@@ -85,6 +100,7 @@ void MegamanMap1Factory::_createLittlePogobot(Framework::GameObject* owner, void
 	{
 		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
 		//Vector3 position = Vector3(350, 140, 0);
+		pNpcMovementComponent->SetHealth(200);
 		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
 		pNpcMovementComponent->SetTranslation(&position);
 	}
@@ -203,4 +219,229 @@ void MegamanMap1Factory::_createAnotherBot(Framework::GameObject* owner, void* p
 
 		//pPlayerBulletComponent->Initialize();
 	}//end if pBulletComponent
+}
+
+void MegamanMap1Factory::_createNapalmBomb(Framework::GameObject* owner, void* pData)
+{
+	owner->SetTag("Nalmpal Bomb");
+	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
+	assert(objMapData);
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
+	npcPropLoader->Load();
+	owner->AddComponent<SpriteComponent>();
+	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(owner);
+	if (pNpc1SpriteComponent)
+	{
+		Animation* stationaryAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_NAPALMBOMB, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* bulletAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_NAPALMBOMB, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 1);
+
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationaryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationaryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, stationaryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, stationaryAnim);
+		pNpc1SpriteComponent->SetTag("npc");
+		pNpc1SpriteComponent->SetUseBounds(true);
+		pNpc1SpriteComponent->SetRenderTransform(true);
+		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(35.0f, 35.0f, 1.0f));
+		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
+		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
+		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
+	}
+	owner->AddComponent<LittlePolygotMovementComponent>();
+	LittlePolygotMovementComponent* pNpcMovementComponent = component_cast<LittlePolygotMovementComponent>(owner);
+	if (pNpcMovementComponent)
+	{
+		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
+		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
+		pNpcMovementComponent->SetTranslation(&position);
+	}
+	owner->AddComponent<CollisionComponent>();
+	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);
+	if (pNpcCollisionComponent)
+	{
+		pNpcCollisionComponent->AttachRenderable(&pNpc1SpriteComponent->GetRenderable());
+		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
+		pNpcCollisionComponent->SetActive(true);
+	}
+}
+
+void MegamanMap1Factory::_createFiveStarShooter(Framework::GameObject* owner, void* pData)
+{
+	owner->SetTag("Five Star Shooter");
+	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
+	assert(objMapData);
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
+	npcPropLoader->Load();
+	owner->AddComponent<SpriteComponent>();
+	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(owner);
+	if (pNpc1SpriteComponent)
+	{
+		Animation* stationayryAnim = Animation::CreateAnimation(GameResources::MAP1_FIVESTARSHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 4, 1);
+		Animation* firingAnim = Animation::CreateAnimation(GameResources::MAP1_FIVESTARSHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationayryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationayryAnim);
+		//pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpAnimNpc);
+		//pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, jumpAnimNpc);
+		pNpc1SpriteComponent->SetTag("npc");
+		pNpc1SpriteComponent->SetUseBounds(true);
+		pNpc1SpriteComponent->SetRenderTransform(true);
+		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(35.0f, 35.0f, 1.0f));
+		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
+		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
+		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
+	}
+	owner->AddComponent<LittlePolygotMovementComponent>();
+	LittlePolygotMovementComponent* pNpcMovementComponent = component_cast<LittlePolygotMovementComponent>(owner);
+	if (pNpcMovementComponent)
+	{
+		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
+		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
+		pNpcMovementComponent->SetTranslation(&position);
+	}
+	owner->AddComponent<CollisionComponent>();
+	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);
+	if (pNpcCollisionComponent)
+	{
+		pNpcCollisionComponent->AttachRenderable(&pNpc1SpriteComponent->GetRenderable());
+		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
+		pNpcCollisionComponent->SetActive(true);
+	}
+}
+
+void MegamanMap1Factory::_createWallShooter(Framework::GameObject* owner, void* pData)
+{
+	owner->SetTag("Five Star Shooter");
+	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
+	assert(objMapData);
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
+	npcPropLoader->Load();
+	owner->AddComponent<SpriteComponent>();
+	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(owner);
+	if (pNpc1SpriteComponent)
+	{
+		Animation* stationayryAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_WALL_SHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* firingAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_WALL_SHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 3);
+
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationayryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationayryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::FIRING, firingAnim);
+		
+		pNpc1SpriteComponent->SetTag("npc");
+		pNpc1SpriteComponent->SetUseBounds(true);
+		pNpc1SpriteComponent->SetRenderTransform(true);
+		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(35.0f, 35.0f, 1.0f));
+		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
+		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
+		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
+	}
+	owner->AddComponent<LittlePolygotMovementComponent>();
+	LittlePolygotMovementComponent* pNpcMovementComponent = component_cast<LittlePolygotMovementComponent>(owner);
+	if (pNpcMovementComponent)
+	{
+		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
+		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
+		pNpcMovementComponent->SetTranslation(&position);
+	}
+	owner->AddComponent<CollisionComponent>();
+	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);
+	if (pNpcCollisionComponent)
+	{
+		pNpcCollisionComponent->AttachRenderable(&pNpc1SpriteComponent->GetRenderable());
+		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
+		pNpcCollisionComponent->SetActive(true);
+	}
+}
+
+void MegamanMap1Factory::_createGreenRobocop(Framework::GameObject* owner, void* pData)
+{
+	owner->SetTag("Five Star Shooter");
+	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
+	assert(objMapData);
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
+	npcPropLoader->Load();
+	owner->AddComponent<SpriteComponent>();
+	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(owner);
+	if (pNpc1SpriteComponent)
+	{
+		Animation* stationayryAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_GREEN_ROBOCOP, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 1);
+		Animation* firingAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_GREEN_ROBOCOP, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 3);
+
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationayryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationayryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::FIRING, firingAnim);
+
+		pNpc1SpriteComponent->SetTag("npc");
+		pNpc1SpriteComponent->SetUseBounds(true);
+		pNpc1SpriteComponent->SetRenderTransform(true);
+		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(35.0f, 35.0f, 1.0f));
+		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
+		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
+		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
+	}
+	owner->AddComponent<LittlePolygotMovementComponent>();
+	LittlePolygotMovementComponent* pNpcMovementComponent = component_cast<LittlePolygotMovementComponent>(owner);
+	if (pNpcMovementComponent)
+	{
+		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
+		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
+		pNpcMovementComponent->SetTranslation(&position);
+	}
+	owner->AddComponent<CollisionComponent>();
+	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);
+	if (pNpcCollisionComponent)
+	{
+		pNpcCollisionComponent->AttachRenderable(&pNpc1SpriteComponent->GetRenderable());
+		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
+		pNpcCollisionComponent->SetActive(true);
+	}
+}
+
+void MegamanMap1Factory::_createBossBombMan(Framework::GameObject* owner, void* pData)
+{
+	owner->SetTag("Five Star Shooter");
+	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
+	assert(objMapData);
+	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
+	npcPropLoader->Load();
+	owner->AddComponent<SpriteComponent>();
+	SpriteComponent* pNpc1SpriteComponent = component_cast<SpriteComponent>(owner);
+	if (pNpc1SpriteComponent)
+	{
+		Animation* stationayryAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_BOSS_BOMBMAN, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* firingAnim = Animation::CreateAnimation(GameResources::MAP1_NPC_BOSS_BOMBMAN, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 3);
+
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationayryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationayryAnim);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::FIRING, firingAnim);
+
+		pNpc1SpriteComponent->SetTag("npc");
+		pNpc1SpriteComponent->SetUseBounds(true);
+		pNpc1SpriteComponent->SetRenderTransform(true);
+		pNpc1SpriteComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+		pNpc1SpriteComponent->SetBoundMax(Vector3(50.0f, 50.0f, 1.0f));
+		pNpc1SpriteComponent->SetDefaultState(SpriteStates::STATIONARY);
+		pNpc1SpriteComponent->SetDefaultDirection(SpriteDirections::LEFT);
+		pNpc1SpriteComponent->SetZIndex(RenderableIndex::OBJECT_INDEX_HIGH);
+	}
+	owner->AddComponent<LittlePolygotMovementComponent>();
+	LittlePolygotMovementComponent* pNpcMovementComponent = component_cast<LittlePolygotMovementComponent>(owner);
+	if (pNpcMovementComponent)
+	{
+		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
+		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
+		pNpcMovementComponent->SetTranslation(&position);
+	}
+	owner->AddComponent<CollisionComponent>();
+	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);
+	if (pNpcCollisionComponent)
+	{
+		pNpcCollisionComponent->AttachRenderable(&pNpc1SpriteComponent->GetRenderable());
+		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
+		pNpcCollisionComponent->SetActive(true);
+	}
 }

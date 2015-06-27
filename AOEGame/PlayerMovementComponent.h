@@ -2,10 +2,13 @@
 #define	__PLAYERMOVEMENTCOMPONENT_H__
 
 #include "MovementComponent.h"
-
+#include "Framework\GameObjects\Components\HealthFunction.h"
+#include "Framework\GameObjects\Components\TimingFunction.h"
 
 class PlayerMovementComponent
 	: public MovementComponent
+	, public Framework::HealthFunction
+	, public Framework::TimingFunction
 {
 private:
 	

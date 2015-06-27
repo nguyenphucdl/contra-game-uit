@@ -13,6 +13,7 @@ using namespace Framework;
 
 LittlePolygotMovementComponent::LittlePolygotMovementComponent(GameObject* pOwner)
 	: MovementComponent(pOwner)
+	, TimingFunction()
 {
 
 }
@@ -24,7 +25,7 @@ LittlePolygotMovementComponent::~LittlePolygotMovementComponent()
 
 void LittlePolygotMovementComponent::Initialize()
 {
-	Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, GetOwner(), *this);
+	Framework::AttachComponentEvent(Events::COM_UPDATE_EVENT, MovementComponent::GetOwner(), *this);
 }
 
 void LittlePolygotMovementComponent::HandleEvent(Framework::Event* pEvent)
@@ -44,10 +45,35 @@ void LittlePolygotMovementComponent::PollInputUpdate()
 
 void LittlePolygotMovementComponent::BehaviorUpdate()
 {
+	TimingFunction::UpdateTimingFunc();
 	MovementComponent::BehaviorUpdate();
-	//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
-	//Console::GetSingletonPtr()->print("Offset Resolve left(%f) right(%f) top(%f) bottom(%f)", m_resolveOffset[CollisionDirections::LEFT], m_resolveOffset[CollisionDirections::RIGHT], m_resolveOffset[CollisionDirections::TOP], m_resolveOffset[CollisionDirections::BOTTOM]);
-	//Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[CollisionDirections::LEFT], m_offset[CollisionDirections::RIGHT], m_offset[CollisionDirections::TOP], m_offset[CollisionDirections::BOTTOM]);
+	
+	int decision = RandomInRange();
+	if (Wait(0.25f, decision / 6.0f))
+	{
+		if (m_isSupported)
+		{
+			switch (decision)
+			{
+			case 1:
+				m_velocity.m_y = 200.0f;
+				m_currentDirection = SpriteDirections::LEFT;
+				m_velocity.m_x = -50.0f;
+				break;
+			case 2:
+				m_currentDirection = SpriteDirections::RIGHT;
+				m_velocity.m_y = 300.0f;
+				m_velocity.m_x = 50.0f;
+			case 3:
+				m_velocity.m_y = 400.0f;
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
+
 	if (m_isJumping)
 		m_currentState = SpriteStates::JUMP;
 	else
@@ -75,6 +101,7 @@ void LittlePolygotMovementComponent::HandleCollision(CollisionEventData* pData)
 	if (bulletComponent)
 	{
 		m_velocity.m_y = 200;
+		Damage(50);
 	}
 }
 

@@ -4,13 +4,61 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>bossbombman.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,136},{400,50}}</string>
+                <key>column</key>
+              <string>8</string>
+            </dict>
+            <key>fivestarshooter.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,96},{200,40}}</string>
+                <key>column</key>
+              <string>5</string>
+            </dict>
+            <key>greenrobocap.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{160,46},{250,50}}</string>
+                <key>column</key>
+              <string>5</string>
+            </dict>
             <key>littlepolygot.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,0},{140,36}}</string>
+                <string>{{0,46},{160,40}}</string>
                 <key>column</key>
-                <string>4</string>
+              <string>4</string>
             </dict>
+            <key>napalmbomb.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{226,0},{180,40}}</string>
+                <key>column</key>
+              <string>4</string>
+            </dict>
+            <key>wallshooter.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,0},{226,46}}</string>
+                <key>column</key>
+              <string>5</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>npc_map1.png</string>
+            <key>size</key>
+            <string>{410,186}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:bcac7a5de9e9c24905d5492b9bdbf982$</string>
+            <key>textureFileName</key>
+            <string>npc_map1.png</string>
         </dict>
     </dict>
 </plist>

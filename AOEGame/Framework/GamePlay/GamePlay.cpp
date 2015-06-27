@@ -47,15 +47,7 @@ namespace Framework
 		TileMapScene* scene6 = new TileMapScene();
 		scene6->SetObjectFactory(m_objectFactory);
 		scene6->LoadSceneFromFile("Resources\\Maps\\Scence6-Map1\\Scence6-Map1.tmx");
-
-		//for each and initlize scene
 		
-		//scene2->Init();
-		//scene3->Init();
-		//scene4->Init();
-		//scene5->Init();
-		//scene6->Init();
-		//scene1->Init();
 
 		// Add to queue
 		m_sceneQueue.push(scene1);

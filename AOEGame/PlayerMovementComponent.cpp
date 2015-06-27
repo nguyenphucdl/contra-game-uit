@@ -12,6 +12,8 @@ using namespace Framework;
 
 PlayerMovementComponent::PlayerMovementComponent(GameObject* pOwner)
 	: MovementComponent(pOwner)
+	, HealthFunction()
+	, TimingFunction()
 	, m_isClimping(false)
 	, m_isJumping(false)
 	, m_isKeyPress(false)
@@ -190,9 +192,14 @@ void PlayerMovementComponent::PollInputUpdate()
 
 void PlayerMovementComponent::BehaviorUpdate()
 {
+	TimingFunction::UpdateTimingFunc();
+	HealthFunction::UpdateHealthFunc();
+
+	Console::GetSingletonPtr()->print("Timing Function update meet (%d)!", IsUpdate());
+
 	//Console::GetSingletonPtr()->print("Player position (%f,%f)", position.m_x, position.m_y);
-	Console::GetSingletonPtr()->print("Offset Resolve left(%f) right(%f) top(%f) bottom(%f)", m_resolveOffset[CollisionDirections::LEFT], m_resolveOffset[CollisionDirections::RIGHT], m_resolveOffset[CollisionDirections::TOP], m_resolveOffset[CollisionDirections::BOTTOM]);
-	Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[CollisionDirections::LEFT], m_offset[CollisionDirections::RIGHT], m_offset[CollisionDirections::TOP], m_offset[CollisionDirections::BOTTOM]);
+	//Console::GetSingletonPtr()->print("Offset Resolve left(%f) right(%f) top(%f) bottom(%f)", m_resolveOffset[CollisionDirections::LEFT], m_resolveOffset[CollisionDirections::RIGHT], m_resolveOffset[CollisionDirections::TOP], m_resolveOffset[CollisionDirections::BOTTOM]);
+	//Console::GetSingletonPtr()->print("Offset left(%f) right(%f) top(%f) bottom(%f)", m_offset[CollisionDirections::LEFT], m_offset[CollisionDirections::RIGHT], m_offset[CollisionDirections::TOP], m_offset[CollisionDirections::BOTTOM]);
 }
 
 void PlayerMovementComponent::PostUpdate()
@@ -262,6 +269,11 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 	StaticComponent* pStaticComponent = component_cast<StaticComponent>(pData->m_pCollider);
 	if (pStaticComponent)
 	{
+		if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
+		{
+			return;
+		}
+
 		CollisionComponent* pTargetCollisionComponent = component_cast<CollisionComponent>(pData->m_pCollider);
 		CollisionComponent* pObjectCollisionComponent = component_cast<CollisionComponent>(GetOwner());
 
@@ -281,10 +293,7 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 			{
 				Framework::SendEvent(Events::SCE_COMPLETE_SCENE_EVENT);
 			}
-			else if (pStaticComponent->GetStaticObjectType() == ObjectTypes::RANGE_OF_MOMENT)
-			{
-				return;
-			}
+			
 			if (m_collisionDirection == CollisionDirections::TOP)
 			{
 				float floor_y = pStaticComponent->GetRenderable().GetTransform().GetTranslation().m_y;
@@ -294,6 +303,12 @@ void PlayerMovementComponent::HandleCollision(CollisionEventData* pData)
 			//Resolve
 			ResolveCollisionRun();
 		}
+	}
+
+	SpriteComponent* pSpriteComponent = component_cast<SpriteComponent>(pData->m_pCollider);
+	if (pSpriteComponent)
+	{
+		Damage(10);
 	}
 }
 

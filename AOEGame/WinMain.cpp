@@ -86,7 +86,7 @@ int WINAPI WinMain( HINSTANCE hInstance,
 		MessageBox(NULL, "Unknown error occured in game.", "Error", MB_OK);
 	}
     
-	Sleep(2000);
+	Sleep(10000);
 	return 0;
 }
 //fprintf(stdout, "Test output to stdout\n");

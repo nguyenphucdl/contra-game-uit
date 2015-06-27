@@ -1352,47 +1352,48 @@
     </data>
   </layer>
   <objectgroup name="objectgroup">
-    <object id="1" name="" type="0" x="32" y="40" data="" width="543" height="39" color="Black" />
-    <object id="2" name="" type="0" x="512" y="72" data="" width="34" height="32" color="Black" />
-    <object id="3" name="" type="0" x="543" y="104" data="" width="33" height="66" color="Black" />
-    <object id="4" name="" type="0" x="672" y="105" data="" width="32" height="103" color="Black" />
-    <object id="5" name="" type="0" x="640" y="73" data="" width="35" height="16" color="Black" />
-    <object id="6" name="" type="0" x="608" y="40" data="" width="64" height="30" color="Black" />
-    <object id="7" name="" type="0" x="928" y="104" data="" width="32" height="103" color="Black" />
-    <object id="8" name="" type="0" x="895" y="72" data="" width="31" height="14" color="Black" />
-    <object id="9" name="" type="0" x="863" y="40" data="" width="70" height="30" color="Black" />
-    <object id="10" name="" type="0" x="1072" y="169" data="" width="31" height="167" color="Black" />
-    <object id="11" name="" type="0" x="992" y="40" data="" width="80" height="15" color="Black" />
-    <object id="12" name="" type="0" x="992" y="9" data="" width="82" height="7" color="Black" />
-    <object id="13" name="" type="0" x="1103" y="169" data="" width="112" height="31" color="Black" />
-    <object id="14" name="" type="0" x="1135" y="104" data="" width="143" height="30" color="Black" />
-    <object id="15" name="" type="0" x="1102" y="40" data="" width="177" height="37" color="Black" />
-    <object id="16" name="" type="0" x="1279" y="40" data="" width="208" height="14" color="Black" />
-    <object id="17" name="" type="0" x="1311" y="153" data="" width="33" height="15" color="Black" />
-    <object id="18" name="" type="0" x="1375" y="120" data="" width="17" height="16" color="Black" />
-    <object id="19" name="" type="0" x="1359" y="72" data="" width="17" height="16" color="Black" />
-    <object id="21" name="" type="0" x="1439" y="136" data="" width="50" height="15" color="Black" />
-    <object id="22" name="" type="0" x="1456" y="122" data="" width="32" height="16" color="Black" />
-    <object id="23" name="" type="0" x="1471" y="106" data="" width="17" height="16" color="Black" />
-    <object id="24" name="" type="0" x="1455" y="57" data="" width="32" height="16" color="Black" />
-    <object id="25" name="" type="0" x="1489" y="168" data="" width="46" height="166" color="Black" />
-    <object id="26" name="" type="0" x="1521" y="224" data="" width="14" height="57" color="Black" />
-    <object id="27" name="" type="4" x="1504" y="224" data="" width="17" height="56" color="Yellow" />
-    <object id="28" name="" type="0" x="800" y="104" data="" width="32" height="103" color="Black" />
-    <object id="29" name="" type="0" x="768" y="72" data="" width="33" height="31" color="Black" />
-    <object id="30" name="" type="0" x="735" y="40" data="" width="69" height="15" color="Black" />
-    <object id="31" name="Elevator" type="4" x="1055" y="170" data="" width="15" height="126" color="Yellow" />
-    <object id="32" name="" type="0" x="736" y="8" data="" width="62" height="6" color="Black" />
-    <object id="33" name="Player position" type="2" x="48" y="59" data="5000" width="16" height="14" color="Azure" />
-    <object id="34" name="End Scene" type="1" x="1504" y="220" data="" width="17" height="14" color="Aqua" />
-    <object id="35" name="" type="0" x="1392" y="168" data="" width="134" height="15" color="Black" />
+    <object id="1" name="" type="0" x="32" y="40" width="543" height="39" data="" color="Black" />
+    <object id="2" name="" type="0" x="512" y="72" width="34" height="32" data="" color="Black" />
+    <object id="3" name="" type="0" x="543" y="104" width="33" height="66" data="" color="Black" />
+    <object id="4" name="" type="0" x="672" y="105" width="32" height="103" data="" color="Black" />
+    <object id="5" name="" type="0" x="640" y="73" width="35" height="16" data="" color="Black" />
+    <object id="6" name="" type="0" x="608" y="40" width="64" height="30" data="" color="Black" />
+    <object id="7" name="" type="0" x="928" y="104" width="32" height="103" data="" color="Black" />
+    <object id="8" name="" type="0" x="895" y="72" width="31" height="14" data="" color="Black" />
+    <object id="9" name="" type="0" x="863" y="40" width="70" height="30" data="" color="Black" />
+    <object id="10" name="" type="0" x="1072" y="169" width="31" height="167" data="" color="Black" />
+    <object id="11" name="" type="0" x="992" y="40" width="80" height="15" data="" color="Black" />
+    <object id="12" name="" type="0" x="992" y="9" width="82" height="7" data="" color="Black" />
+    <object id="13" name="" type="0" x="1103" y="169" width="112" height="31" data="" color="Black" />
+    <object id="14" name="" type="0" x="1135" y="104" width="143" height="30" data="" color="Black" />
+    <object id="15" name="" type="0" x="1102" y="40" width="177" height="37" data="" color="Black" />
+    <object id="16" name="" type="0" x="1279" y="40" width="208" height="14" data="" color="Black" />
+    <object id="17" name="" type="0" x="1311" y="153" width="33" height="15" data="" color="Black" />
+    <object id="18" name="" type="0" x="1375" y="120" width="17" height="16" data="" color="Black" />
+    <object id="19" name="" type="0" x="1359" y="72" width="17" height="16" data="" color="Black" />
+    <object id="21" name="" type="0" x="1439" y="136" width="50" height="15" data="" color="Black" />
+    <object id="22" name="" type="0" x="1456" y="122" width="32" height="16" data="" color="Black" />
+    <object id="23" name="" type="0" x="1471" y="106" width="17" height="16" data="" color="Black" />
+    <object id="24" name="" type="0" x="1455" y="57" width="32" height="16" data="" color="Black" />
+    <object id="25" name="" type="0" x="1489" y="168" width="46" height="166" data="" color="Black" />
+    <object id="26" name="" type="0" x="1521" y="224" width="14" height="57" data="" color="Black" />
+    <object id="27" name="" type="4" x="1504" y="224" width="17" height="56" data="" color="Yellow" />
+    <object id="28" name="" type="0" x="800" y="104" width="32" height="103" data="" color="Black" />
+    <object id="29" name="" type="0" x="768" y="72" width="33" height="31" data="" color="Black" />
+    <object id="30" name="" type="0" x="735" y="40" width="69" height="15" data="" color="Black" />
+    <object id="31" name="Elevator" type="4" x="1055" y="170" width="15" height="126" data="" color="Yellow" />
+    <object id="32" name="" type="0" x="736" y="8" width="62" height="6" data="" color="Black" />
+    <object id="33" name="Player position" type="2" x="48" y="59" width="16" height="14" data="5000" color="Azure" />
+    <object id="34" name="End Scene" type="1" x="1504" y="220" width="17" height="14" data="" color="Aqua" />
+    <object id="35" name="" type="0" x="1392" y="168" width="134" height="15" data="" color="Black" />
+    <object id="36" name="Green Robocop" type="2" x="172" y="68" width="23" height="18" data="1004" color="Azure" />
   </objectgroup>
   <quadtree width="1536" height="1536" x="0" y="0">
     <data>
       <node id="0" parent="-1" level="0" />
       <node id="1" parent="0" level="1" />
       <node id="5" parent="1" level="2">
-        <objects data="1" />
+        <objects data="1,36" />
       </node>
       <node id="6" parent="1" level="2" />
       <node id="9" parent="6" level="3">

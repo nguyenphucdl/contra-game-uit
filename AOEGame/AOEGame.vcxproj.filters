@@ -253,6 +253,9 @@
     <ClInclude Include="CommonGameFactory.h" />
     <ClInclude Include="PlayerMovementComponent.h" />
     <ClInclude Include="LittlePolygotMovementComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\TimingFunction.h" />
+    <ClInclude Include="Framework\GameObjects\Components\HealthFunction.h" />
+    <ClInclude Include="Framework\GameObjects\Components\HealthBarComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Input\Input.cpp">
@@ -389,6 +392,8 @@
     <ClCompile Include="CommonGameFactory.cpp" />
     <ClCompile Include="PlayerMovementComponent.cpp" />
     <ClCompile Include="LittlePolygotMovementComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\TimingFunction.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\HealthBarComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Texture\texture.png">
@@ -406,6 +411,9 @@
     <Image Include="Resources\Texture\Map1\npc_map1.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Texture\Rockman\health-bar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Texture\texture.plist" />
@@ -413,5 +421,6 @@
     <None Include="Resources\Texture\Map1\npc.plist" />
     <None Include="Resources\Texture\Rockman\rockman2.plist" />
     <None Include="Resources\Texture\Map1\npc_map1.plist" />
+    <None Include="Resources\Texture\Rockman\health-bar.plist" />
   </ItemGroup>
 </Project>

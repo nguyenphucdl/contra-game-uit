@@ -93,8 +93,11 @@
     <ClInclude Include="Framework\Font\Font.h" />
     <ClInclude Include="Framework\Font\TextDraw.h" />
     <ClInclude Include="Framework\GameObjects\Components\CollisionComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\HealthBarComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\HealthFunction.h" />
     <ClInclude Include="Framework\GameObjects\Components\LifeTimeComponent.h" />
     <ClInclude Include="Framework\GameObjects\Components\RangeOfMovementComponent.h" />
+    <ClInclude Include="Framework\GameObjects\Components\TimingFunction.h" />
     <ClInclude Include="Framework\GamePlay\ContraFactory.h" />
     <ClInclude Include="Framework\GamePlay\GamePlay.h" />
     <ClInclude Include="Framework\GamePlay\TileMapScene.h" />
@@ -170,8 +173,10 @@
     <ClCompile Include="Framework\Font\Font.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\BulletComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\CollisionComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\HealthBarComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\LifeTimeComponent.cpp" />
     <ClCompile Include="Framework\GameObjects\Components\RangeOfMovementComponent.cpp" />
+    <ClCompile Include="Framework\GameObjects\Components\TimingFunction.cpp" />
     <ClCompile Include="Framework\GamePlay\GamePlay.cpp" />
     <ClCompile Include="Framework\GamePlay\SceneBase.cpp" />
     <ClCompile Include="Framework\GamePlay\TileMapScene.cpp" />
@@ -224,6 +229,7 @@
   <ItemGroup>
     <Image Include="Resources\Texture\Map1\npc.png" />
     <Image Include="Resources\Texture\Map1\npc_map1.png" />
+    <Image Include="Resources\Texture\Rockman\health-bar.png" />
     <Image Include="Resources\Texture\Rockman\rockman.png" />
     <Image Include="Resources\Texture\Rockman\rockman2.png" />
     <Image Include="Resources\Texture\texture.png" />
@@ -231,6 +237,7 @@
   <ItemGroup>
     <None Include="Resources\Texture\Map1\npc.plist" />
     <None Include="Resources\Texture\Map1\npc_map1.plist" />
+    <None Include="Resources\Texture\Rockman\health-bar.plist" />
     <None Include="Resources\Texture\Rockman\rockman.plist" />
     <None Include="Resources\Texture\Rockman\rockman2.plist" />
     <None Include="Resources\Texture\texture.plist" />

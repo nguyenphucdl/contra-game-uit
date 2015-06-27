@@ -82,10 +82,12 @@ namespace Framework
 		StaticComponentId,
 		CollisionComponentId,
 		RangeOfMovementComponentId,
+		TimingComponentId,
 		//Player Components
 		BulletComponentId,
 		LifeTimeComponentId,
-		PlayerMovementComponentId
+		PlayerMovementComponentId,
+		HealthBarComponentId,
 	};
 
 	enum SpriteDirections
@@ -106,7 +108,8 @@ namespace Framework
 		JUMP = 400,
 		JUMP_FIRING= 450,
 		CLIMB = 500,
-		CLIMBING = 501
+		CLIMBING = 501,
+		FIRING = 600
 	};
 
 	enum BulletStates

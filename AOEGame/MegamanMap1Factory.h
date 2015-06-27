@@ -17,6 +17,11 @@ public:
 private:
 	void _createLittlePogobot(Framework::GameObject* owner, void* data = NULL);
 	void _createAnotherBot(Framework::GameObject* owner, void* data = NULL);
+	void _createNapalmBomb(Framework::GameObject* owner, void* data = NULL);
+	void _createFiveStarShooter(Framework::GameObject* owner, void* data = NULL);
+	void _createWallShooter(Framework::GameObject* owner, void* data = NULL);
+	void _createGreenRobocop(Framework::GameObject* owner, void* data = NULL);
+	void _createBossBombMan(Framework::GameObject* owner, void* data = NULL);
 };
 
 

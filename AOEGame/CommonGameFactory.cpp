@@ -8,6 +8,7 @@
 #include "Framework\GameObjects\Components\TileMapComponent.h"
 #include "Framework\GameObjects\Components\CameraComponent.h"
 #include "Framework\GameObjects\Actions\Animation.h"
+#include "Framework\GameObjects\Components\HealthBarComponent.h"
 #include "PlayerMovementComponent.h"
 #include "Framework\Utilities\Utils.h"
 
@@ -88,6 +89,32 @@ void CommonGameFactory::_createPlayerObject(Framework::GameObject* owner, void* 
 		}
 		//SET player origin
 		pPlayerTransformComponent->SetTranslation(&position);
+		pPlayerTransformComponent->SetHealth(200);
+	}
+	owner->AddComponent<HealthBarComponent>();
+	HealthBarComponent* pHealthBarComponent = component_cast<HealthBarComponent>(owner);
+	if (pHealthBarComponent)
+	{
+		AnimCache* healBarProp = new AnimCache("Resources\\Texture\\Rockman\\health-bar.plist");
+		healBarProp->Load();
+		Animation* healthBarForeground = Animation::CreateAnimation(GameResources::ROCKMAN_HEALTH_BAR, healBarProp, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* healthBarBackground = Animation::CreateAnimation(GameResources::HEALTH__BACKGROUND_BAR, healBarProp, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+
+		
+		pHealthBarComponent->GetBarSpriteComponent().RegisterState(SpriteStates::STATIONARY, healthBarBackground);
+		pHealthBarComponent->GetHealthSpriteComponent().RegisterState(SpriteStates::STATIONARY, healthBarForeground);
+		pHealthBarComponent->AttachHealthFunc(pPlayerTransformComponent);
+		Vector3 barPosition = Vector3(50, 450, 0);
+		pHealthBarComponent->GetBarSpriteComponent().SetTranslation(barPosition);
+		pHealthBarComponent->GetHealthSpriteComponent().SetTranslation(barPosition);
+
+		TextureRegion* texHealthRegion = healthBarForeground->Current();
+		TextureRegion* texBarRegion = healthBarBackground->Current();
+		int healthBarHeight = texHealthRegion->GetTextureHeight();
+		pHealthBarComponent->SetHeight(healthBarHeight);
+		pHealthBarComponent->SetOriginHealthRegion(texHealthRegion->GetRect());
+		pHealthBarComponent->SetOriginBarRegion(texBarRegion->GetRect());
+
 	}
 	owner->AddComponent<CollisionComponent>();
 	CollisionComponent* pCollisionComponent = component_cast<CollisionComponent>(owner);
