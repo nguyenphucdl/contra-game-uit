@@ -11,10 +11,6 @@ class LittlePolygotMovementComponent
 	, public Framework::HealthFunction
 
 {
-private:
-	
-
-
 public:
 	explicit LittlePolygotMovementComponent(Framework::GameObject* pOwner);
 	virtual ~LittlePolygotMovementComponent();

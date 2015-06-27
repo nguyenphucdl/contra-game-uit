@@ -46,15 +46,21 @@ void LittlePolygotMovementComponent::PollInputUpdate()
 
 void LittlePolygotMovementComponent::BehaviorUpdate()
 {
+	if (GetOwner()->GetResId() == GameResources::FIVE_STAR_SHOOTER)
+	{
+		int k = 3;
+	}
 	TimingFunction::UpdateTimingFunc();
 	HealthFunction::UpdateHealthFunc();
 	MovementComponent::BehaviorUpdate();
 	
-	int decision = RandomInRange();
-	if (Wait(0.25f, decision / 6.0f))
+	
+	//if (Wait(m_updateDelay, ( decision + 0.5f / 6.0f))
+	if (Wait(0.25, m_updateDelay))
 	{
 		if (m_isSupported)
 		{
+			int decision = RandomInRange();
 			switch (decision)
 			{
 			case 1:
@@ -75,12 +81,67 @@ void LittlePolygotMovementComponent::BehaviorUpdate()
 
 		}
 	}
+	if (GetOwner()->GetResId() == GameResources::FIVE_STAR_SHOOTER)
+	{
+		int decision = 4;
+		m_updateDelay = (float)(decision) / 6.0f;
+		
+		if (Wait(0.25, m_updateDelay))
+		{
+			decision = RandomInRange();
+			switch (decision)
+			{
+			case 1:
+				m_currentState = SpriteStates::STATIONARY;
+				break;
+			case 2:
+				
+			case 3:
+				
+				break;
+			default:
+				m_currentState = SpriteStates::FIRING;
+				break;
+			}
+		}
+	}
 
-	if (m_isJumping)
-		m_currentState = SpriteStates::JUMP;
-	else
-		m_currentState = SpriteStates::STATIONARY;
+	if (GetOwner()->GetResId() == GameResources::LITTLE_POGOBOT)
+	{
+		int decision = RandomInRange();
+		m_updateDelay = (float)(decision + 0.5f) / 6.0f;
+		if (Wait(0.25, m_updateDelay))
+		{
+			if (m_isSupported)
+			{
+				switch (decision)
+				{
+				case 1:
+					m_velocity.m_y = 200.0f;
+					m_currentDirection = SpriteDirections::LEFT;
+					m_velocity.m_x = -50.0f;
+					break;
+				case 2:
+					m_currentDirection = SpriteDirections::RIGHT;
+					m_velocity.m_y = 300.0f;
+					m_velocity.m_x = 50.0f;
+				case 3:
+					m_velocity.m_y = 400.0f;
+					break;
+				default:
+					break;
+				}
 
+			}
+		}
+
+		if (m_isJumping)
+			m_currentState = SpriteStates::JUMP;
+		else
+			m_currentState = SpriteStates::STATIONARY;
+	}
+	
+	
 }
 
 void LittlePolygotMovementComponent::PostUpdate()

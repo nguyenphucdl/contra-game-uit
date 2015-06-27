@@ -1576,63 +1576,63 @@
     </data>
   </layer>
   <objectgroup name="objectgroup">
-    <object id="1" name="" type="0" x="0" y="40" width="383" height="37" data="" color="Black" />
-    <object id="2" name="" type="0" x="384" y="136" width="65" height="135" data="" color="Black" />
-    <object id="3" name="" type="0" x="320" y="104" width="64" height="31" data="" color="Black" />
-    <object id="4" name="" type="0" x="256" y="72" width="127" height="16" data="" color="Black" />
-    <object id="5" name="" type="0" x="448" y="104" width="32" height="17" data="" color="Black" />
-    <object id="6" name="" type="0" x="449" y="72" width="62" height="31" data="" color="Black" />
-    <object id="7" name="" type="0" x="448" y="41" width="128" height="38" data="" color="Black" />
-    <object id="8" name="" type="0" x="576" y="41" width="64" height="39" data="" color="Black" />
-    <object id="9" name="" type="0" x="640" y="40" width="158" height="38" data="" color="Black" />
-    <object id="10" name="" type="0" x="800" y="104" width="32" height="103" data="" color="Black" />
-    <object id="11" name="" type="0" x="768" y="72" width="32" height="33" data="" color="Black" />
-    <object id="12" name="" type="0" x="928" y="104" width="31" height="102" data="" color="Black" />
-    <object id="13" name="" type="0" x="896" y="72" width="31" height="15" data="" color="Black" />
-    <object id="14" name="" type="0" x="864" y="40" width="63" height="32" data="" color="Black" />
-    <object id="15" name="" type="0" x="1056" y="104" width="32" height="103" data="" color="Black" />
-    <object id="16" name="" type="0" x="1024" y="71" width="32" height="32" data="" color="Black" />
-    <object id="17" name="" type="0" x="992" y="39" width="63" height="14" data="" color="Black" />
-    <object id="18" name="" type="0" x="1184" y="104" width="32" height="103" data="" color="Black" />
-    <object id="19" name="" type="0" x="1152" y="71" width="31" height="14" data="" color="Black" />
-    <object id="20" name="" type="0" x="1120" y="40" width="64" height="32" data="" color="Black" />
-    <object id="21" name="" type="0" x="1344" y="104" width="31" height="103" data="" color="Black" />
-    <object id="22" name="" type="0" x="1311" y="73" width="35" height="17" data="" color="Black" />
-    <object id="23" name="" type="0" x="1248" y="40" width="96" height="16" data="" color="Black" />
-    <object id="24" name="" type="0" x="1248" y="8" width="97" height="6" data="" color="Black" />
-    <object id="25" name="" type="0" x="1488" y="40" width="32" height="38" data="" color="Black" />
-    <object id="26" name="" type="0" x="1375" y="40" width="112" height="39" data="" color="Black" />
-    <object id="27" name="" type="0" x="1519" y="40" width="225" height="39" data="" color="Black" />
-    <object id="28" name="" type="0" x="1424" y="104" width="63" height="15" data="" color="Black" />
-    <object id="29" name="" type="0" x="1487" y="121" width="32" height="32" data="" color="Black" />
-    <object id="30" name="" type="0" x="1567" y="153" width="32" height="16" data="" color="Black" />
-    <object id="31" name="" type="0" x="1631" y="121" width="17" height="16" data="" color="Black" />
-    <object id="32" name="" type="0" x="1616" y="72" width="15" height="17" data="" color="Black" />
-    <object id="33" name="" type="0" x="1744" y="169" width="47" height="168" data="" color="Black" />
-    <object id="34" name="" type="0" x="1648" y="169" width="97" height="16" data="" color="Black" />
-    <object id="35" name="" type="0" x="1696" y="137" width="45" height="14" data="" color="Black" />
-    <object id="36" name="" type="0" x="1712" y="122" width="32" height="18" data="" color="Black" />
-    <object id="37" name="" type="0" x="1712" y="56" width="29" height="15" data="" color="Black" />
-    <object id="38" name="Elevator" type="4" x="1760" y="223" width="17" height="53" data="" color="Yellow" />
-    <object id="39" name="" type="0" x="1780" y="224" width="11" height="53" data="" color="Black" />
-    <object id="40" name="End scene point" type="1" x="1755" y="223" width="26" height="7" data="" color="Aqua" />
-    <object id="41" name="Little Pogobot" type="2" x="341" y="122" width="22" height="14" data="1000" color="Azure" />
-    <object id="42" name="Napalm Bomb" type="2" x="850" y="86" width="30" height="23" data="1001" color="Azure" />
-    <object id="43" name="Napalm Bomb" type="2" x="972" y="79" width="33" height="25" data="1001" color="Azure" />
-    <object id="44" name="Napalm Bomb" type="2" x="1099" y="82" width="35" height="26" data="1001" color="Azure" />
-    <object id="45" name="Napalm Bomb" type="2" x="1224" y="75" width="41" height="19" data="1001" color="Azure" />
-    <object id="46" name="Five Star Shooter" type="2" x="1452" y="62" width="33" height="18" data="1002" color="Azure" />
-    <object id="47" name="Five Star Shooter" type="2" x="1635" y="76" width="28" height="20" data="1002" color="Azure" />
-    <object id="48" name="Little Pogobot ROM" type="3" x="223" y="189" width="282" height="150" data="41,1,56,57,2,41,3,4,5,7,6" color="Blue" />
-    <object id="49" name="Napalm Bomb ROM" type="3" x="732" y="142" width="219" height="102" data="42,50,9,11,10,13,42,14,12" color="Blue" />
-    <object id="50" name="Napalm Bomb ROM" type="3" x="886" y="145" width="206" height="105" data="43,49,13,42,14,51,12,43,17,15,16,44,20" color="Blue" />
-    <object id="51" name="Napalm Bomb ROM" type="3" x="1017" y="146" width="200" height="105" data="44,50,15,16,44,17,20,52,19,18,45" color="Blue" />
-    <object id="52" name="Napalm Bomb ROM" type="3" x="1151" y="147" width="195" height="106" data="45,51,19,44,18,45,20,21,22,23,24,53,26" color="Blue" />
-    <object id="53" name="Five Star Shooter ROM" type="3" x="1387" y="172" width="173" height="128" data="46,52,29,30,54,21,22,28,46,23,24,26,25,27" color="Blue" />
-    <object id="54" name="Five Star Shooter ROM" type="3" x="1540" y="192" width="197" height="145" data="47,29,30,53,25,27,31,34,33,38,39,40,35,36,32,47,37" color="Blue" />
-    <object id="55" name="Player Position" type="2" x="36" y="60" width="14" height="13" data="5000" color="Azure" />
-    <object id="56" name="TEST OBJECT" type="2" x="101" y="110" width="27" height="22" data="1000" color="Azure" />
-    <object id="57" name="TEST ROM" type="3" x="61" y="140" width="123" height="99" data="56,1,48,56" color="Blue" />
+    <object id="1" name="" type="0" x="0" y="40" data="" width="383" height="37" color="Black" />
+    <object id="2" name="" type="0" x="384" y="136" data="" width="65" height="135" color="Black" />
+    <object id="3" name="" type="0" x="320" y="104" data="" width="64" height="31" color="Black" />
+    <object id="4" name="" type="0" x="256" y="72" data="" width="127" height="16" color="Black" />
+    <object id="5" name="" type="0" x="448" y="104" data="" width="32" height="17" color="Black" />
+    <object id="6" name="" type="0" x="449" y="72" data="" width="62" height="31" color="Black" />
+    <object id="7" name="" type="0" x="448" y="41" data="" width="128" height="38" color="Black" />
+    <object id="8" name="" type="0" x="576" y="41" data="" width="64" height="39" color="Black" />
+    <object id="9" name="" type="0" x="640" y="40" data="" width="158" height="38" color="Black" />
+    <object id="10" name="" type="0" x="800" y="104" data="" width="32" height="103" color="Black" />
+    <object id="11" name="" type="0" x="768" y="72" data="" width="32" height="33" color="Black" />
+    <object id="12" name="" type="0" x="928" y="104" data="" width="31" height="102" color="Black" />
+    <object id="13" name="" type="0" x="896" y="72" data="" width="31" height="15" color="Black" />
+    <object id="14" name="" type="0" x="864" y="40" data="" width="63" height="32" color="Black" />
+    <object id="15" name="" type="0" x="1056" y="104" data="" width="32" height="103" color="Black" />
+    <object id="16" name="" type="0" x="1024" y="71" data="" width="32" height="32" color="Black" />
+    <object id="17" name="" type="0" x="992" y="39" data="" width="63" height="14" color="Black" />
+    <object id="18" name="" type="0" x="1184" y="104" data="" width="32" height="103" color="Black" />
+    <object id="19" name="" type="0" x="1152" y="71" data="" width="31" height="14" color="Black" />
+    <object id="20" name="" type="0" x="1120" y="40" data="" width="64" height="32" color="Black" />
+    <object id="21" name="" type="0" x="1344" y="104" data="" width="31" height="103" color="Black" />
+    <object id="22" name="" type="0" x="1311" y="73" data="" width="35" height="17" color="Black" />
+    <object id="23" name="" type="0" x="1248" y="40" data="" width="96" height="16" color="Black" />
+    <object id="24" name="" type="0" x="1248" y="8" data="" width="97" height="6" color="Black" />
+    <object id="25" name="" type="0" x="1488" y="40" data="" width="32" height="38" color="Black" />
+    <object id="26" name="" type="0" x="1375" y="40" data="" width="112" height="39" color="Black" />
+    <object id="27" name="" type="0" x="1519" y="40" data="" width="225" height="39" color="Black" />
+    <object id="28" name="" type="0" x="1424" y="104" data="" width="63" height="15" color="Black" />
+    <object id="29" name="" type="0" x="1487" y="121" data="" width="32" height="32" color="Black" />
+    <object id="30" name="" type="0" x="1567" y="153" data="" width="32" height="16" color="Black" />
+    <object id="31" name="" type="0" x="1631" y="121" data="" width="17" height="16" color="Black" />
+    <object id="32" name="" type="0" x="1616" y="72" data="" width="15" height="17" color="Black" />
+    <object id="33" name="" type="0" x="1744" y="169" data="" width="47" height="168" color="Black" />
+    <object id="34" name="" type="0" x="1648" y="169" data="" width="97" height="16" color="Black" />
+    <object id="35" name="" type="0" x="1696" y="137" data="" width="45" height="14" color="Black" />
+    <object id="36" name="" type="0" x="1712" y="122" data="" width="32" height="18" color="Black" />
+    <object id="37" name="" type="0" x="1712" y="56" data="" width="29" height="15" color="Black" />
+    <object id="38" name="Elevator" type="4" x="1760" y="223" data="" width="17" height="53" color="Yellow" />
+    <object id="39" name="" type="0" x="1780" y="224" data="" width="11" height="53" color="Black" />
+    <object id="40" name="End scene point" type="1" x="1755" y="223" data="" width="26" height="7" color="Aqua" />
+    <object id="41" name="Little Pogobot" type="2" x="341" y="122" data="1000" width="22" height="14" color="Azure" />
+    <object id="42" name="Napalm Bomb" type="2" x="850" y="86" data="1001" width="30" height="23" color="Azure" />
+    <object id="43" name="Napalm Bomb" type="2" x="972" y="79" data="1001" width="33" height="25" color="Azure" />
+    <object id="44" name="Napalm Bomb" type="2" x="1099" y="82" data="1001" width="35" height="26" color="Azure" />
+    <object id="45" name="Napalm Bomb" type="2" x="1224" y="75" data="1001" width="41" height="19" color="Azure" />
+    <object id="46" name="Five Star Shooter" type="2" x="1452" y="62" data="1002" width="33" height="18" color="Azure" />
+    <object id="47" name="Five Star Shooter" type="2" x="1635" y="76" data="1002" width="28" height="20" color="Azure" />
+    <object id="48" name="Little Pogobot ROM" type="3" x="223" y="189" data="41,1,56,57,2,41,3,4,5,7,6" width="282" height="150" color="Blue" />
+    <object id="49" name="Napalm Bomb ROM" type="3" x="732" y="142" data="42,50,9,11,10,13,42,14,12" width="219" height="102" color="Blue" />
+    <object id="50" name="Napalm Bomb ROM" type="3" x="886" y="145" data="43,49,13,42,14,51,12,43,17,15,16,44,20" width="206" height="105" color="Blue" />
+    <object id="51" name="Napalm Bomb ROM" type="3" x="1017" y="146" data="44,50,15,16,44,17,20,52,19,18,45" width="200" height="105" color="Blue" />
+    <object id="52" name="Napalm Bomb ROM" type="3" x="1151" y="147" data="45,51,19,44,18,45,20,21,22,23,24,53,26" width="195" height="106" color="Blue" />
+    <object id="53" name="Five Star Shooter ROM" type="3" x="1387" y="172" data="46,52,29,30,54,21,22,28,46,23,24,26,25,27" width="173" height="128" color="Blue" />
+    <object id="54" name="Five Star Shooter ROM" type="3" x="1540" y="192" data="47,29,30,53,25,27,31,34,33,38,39,40,35,36,32,47,37" width="197" height="145" color="Blue" />
+    <object id="56" name="TEST OBJECT" type="2" x="101" y="110" data="1000" width="27" height="22" color="Azure" />
+    <object id="57" name="TEST ROM" type="3" x="61" y="140" data="56,1,48,56" width="123" height="99" color="Blue" />
+    <object id="58" name="Player Position" type="2" x="14" y="71" data="5000" width="20" height="13" color="Azure" />
   </objectgroup>
   <quadtree width="1792" height="1792" x="0" y="0">
     <data>
@@ -1640,21 +1640,21 @@
       <node id="1" parent="0" level="1" />
       <node id="5" parent="1" level="2" />
       <node id="9" parent="5" level="3">
-        <objects data="1,48,56,57" />
+        <objects data="1,48,57" />
       </node>
       <node id="10" parent="5" level="3" />
       <node id="13" parent="10" level="4">
         <objects data="48" />
       </node>
       <node id="14" parent="10" level="4">
-        <objects data="2,41,48" />
+        <objects data="2,48" />
       </node>
       <node id="15" parent="10" level="4">
         <objects data="1,3,4,48" />
       </node>
       <node id="16" parent="10" level="4" />
       <node id="17" parent="16" level="5">
-        <objects data="2,3,4,41,48" />
+        <objects data="2,3,4,48" />
       </node>
       <node id="18" parent="16" level="5">
         <objects data="2,5,48" />
@@ -1694,7 +1694,7 @@
         <objects data="10,11,49" />
       </node>
       <node id="34" parent="32" level="5">
-        <objects data="13,42,49,50" />
+        <objects data="13,49,50" />
       </node>
       <node id="35" parent="32" level="5">
         <objects data="9,10,11,49" />
@@ -1720,26 +1720,26 @@
         <objects data="12,13,49,50" />
       </node>
       <node id="50" parent="47" level="5">
-        <objects data="12,43,50" />
+        <objects data="12,50" />
       </node>
       <node id="51" parent="47" level="5">
         <objects data="12,14,49,50" />
       </node>
       <node id="52" parent="47" level="5">
-        <objects data="12,17,43,50" />
+        <objects data="12,17,50" />
       </node>
       <node id="48" parent="41" level="4" />
       <node id="53" parent="48" level="5">
         <objects data="15,16,50,51" />
       </node>
       <node id="54" parent="48" level="5">
-        <objects data="15,44,50,51" />
+        <objects data="15,50,51" />
       </node>
       <node id="55" parent="48" level="5">
         <objects data="15,16,17,50,51" />
       </node>
       <node id="56" parent="48" level="5">
-        <objects data="15,20,44,50,51" />
+        <objects data="15,20,50,51" />
       </node>
       <node id="42" parent="37" level="3" />
       <node id="57" parent="42" level="4">
@@ -1748,93 +1748,73 @@
       <node id="58" parent="42" level="4">
         <objects data="52" />
       </node>
-      <node id="59" parent="42" level="4" />
-      <node id="61" parent="59" level="5">
-        <objects data="19,44,51,52" />
+      <node id="59" parent="42" level="4">
+        <objects data="18,19,20,51,52" />
       </node>
-      <node id="62" parent="59" level="5">
-        <objects data="18,19,45,51,52" />
-      </node>
-      <node id="63" parent="59" level="5">
-        <objects data="20,44,51,52" />
-      </node>
-      <node id="64" parent="59" level="5">
-        <objects data="18,20,45,51,52" />
-      </node>
-      <node id="60" parent="42" level="4" />
-      <node id="65" parent="60" level="5">
-        <objects data="45,52" />
-      </node>
-      <node id="66" parent="60" level="5">
-        <objects data="21,22,52" />
-      </node>
-      <node id="67" parent="60" level="5">
-        <objects data="23,24,45,52" />
-      </node>
-      <node id="68" parent="60" level="5">
+      <node id="60" parent="42" level="4">
         <objects data="21,22,23,24,52" />
       </node>
       <node id="43" parent="37" level="3" />
       <node id="44" parent="37" level="3" />
       <node id="38" parent="2" level="2" />
-      <node id="69" parent="38" level="3" />
-      <node id="73" parent="69" level="4">
+      <node id="61" parent="38" level="3" />
+      <node id="65" parent="61" level="4">
         <objects data="52,53" />
       </node>
-      <node id="74" parent="69" level="4">
+      <node id="66" parent="61" level="4">
         <objects data="29,30,53,54" />
       </node>
-      <node id="75" parent="69" level="4" />
-      <node id="77" parent="75" level="5">
+      <node id="67" parent="61" level="4" />
+      <node id="69" parent="67" level="5">
         <objects data="21,22,52,53" />
       </node>
-      <node id="78" parent="75" level="5">
-        <objects data="28,46,53" />
+      <node id="70" parent="67" level="5">
+        <objects data="28,53" />
       </node>
-      <node id="79" parent="75" level="5">
+      <node id="71" parent="67" level="5">
         <objects data="21,22,23,24,26,52,53" />
       </node>
-      <node id="80" parent="75" level="5">
-        <objects data="26,46,53" />
+      <node id="72" parent="67" level="5">
+        <objects data="26,53" />
       </node>
-      <node id="76" parent="69" level="4" />
-      <node id="81" parent="76" level="5">
-        <objects data="28,29,46,53" />
+      <node id="68" parent="61" level="4" />
+      <node id="73" parent="68" level="5">
+        <objects data="28,29,53" />
       </node>
-      <node id="82" parent="76" level="5">
+      <node id="74" parent="68" level="5">
         <objects data="29,53,54" />
       </node>
-      <node id="83" parent="76" level="5">
-        <objects data="25,26,46,53" />
+      <node id="75" parent="68" level="5">
+        <objects data="25,26,53" />
       </node>
-      <node id="84" parent="76" level="5">
+      <node id="76" parent="68" level="5">
         <objects data="25,27,53,54" />
       </node>
-      <node id="70" parent="38" level="3" />
-      <node id="85" parent="70" level="4">
+      <node id="62" parent="38" level="3" />
+      <node id="77" parent="62" level="4">
         <objects data="30,31,34,54" />
       </node>
-      <node id="86" parent="70" level="4" />
-      <node id="89" parent="86" level="5">
+      <node id="78" parent="62" level="4" />
+      <node id="81" parent="78" level="5">
         <objects data="34,54" />
       </node>
-      <node id="90" parent="86" level="5">
+      <node id="82" parent="78" level="5">
         <objects data="33,34,38,39,40,54" />
       </node>
-      <node id="91" parent="86" level="5">
+      <node id="83" parent="78" level="5">
         <objects data="34,35,36,54" />
       </node>
-      <node id="92" parent="86" level="5">
+      <node id="84" parent="78" level="5">
         <objects data="33,34,35,36,54" />
       </node>
-      <node id="87" parent="70" level="4">
-        <objects data="27,31,32,47,54" />
+      <node id="79" parent="62" level="4">
+        <objects data="27,31,32,54" />
       </node>
-      <node id="88" parent="70" level="4">
+      <node id="80" parent="62" level="4">
         <objects data="27,33,36,37,54" />
       </node>
-      <node id="71" parent="38" level="3" />
-      <node id="72" parent="38" level="3" />
+      <node id="63" parent="38" level="3" />
+      <node id="64" parent="38" level="3" />
       <node id="39" parent="2" level="2" />
       <node id="40" parent="2" level="2" />
       <node id="3" parent="0" level="1" />

@@ -10,6 +10,7 @@ namespace Framework
 		, m_keypressed(false)
 		, m_curState(SpriteStates::STATIONARY)
 		, m_curDirection(SpriteDirections::RIGHT)
+		, m_velocity(0.0f, 0.0f, 0.0f)
 	{
 	}
 

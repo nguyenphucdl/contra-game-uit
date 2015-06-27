@@ -70,6 +70,7 @@ void MegamanMap1Factory::createObjectType(std::string objectType, Framework::Gam
 void MegamanMap1Factory::_createLittlePogobot(Framework::GameObject* owner, void* pData)
 {
 	owner->SetTag("LittlePogobot");
+	owner->SetResId(GameResources::LITTLE_POGOBOT);
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
@@ -224,6 +225,7 @@ void MegamanMap1Factory::_createAnotherBot(Framework::GameObject* owner, void* p
 void MegamanMap1Factory::_createNapalmBomb(Framework::GameObject* owner, void* pData)
 {
 	owner->SetTag("Nalmpal Bomb");
+	owner->SetResId(GameResources::NAPALM_BOMB);
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
@@ -269,6 +271,7 @@ void MegamanMap1Factory::_createNapalmBomb(Framework::GameObject* owner, void* p
 void MegamanMap1Factory::_createFiveStarShooter(Framework::GameObject* owner, void* pData)
 {
 	owner->SetTag("Five Star Shooter");
+	owner->SetResId(GameResources::FIVE_STAR_SHOOTER);
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
@@ -278,12 +281,11 @@ void MegamanMap1Factory::_createFiveStarShooter(Framework::GameObject* owner, vo
 	if (pNpc1SpriteComponent)
 	{
 		Animation* stationayryAnim = Animation::CreateAnimation(GameResources::MAP1_FIVESTARSHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 4, 1);
-		Animation* firingAnim = Animation::CreateAnimation(GameResources::MAP1_FIVESTARSHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+		Animation* firingAnim = Animation::CreateAnimation(GameResources::MAP1_FIVESTARSHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 1, 3);
 
 		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::LEFT, stationayryAnim);
 		pNpc1SpriteComponent->RegisterState(SpriteStates::STATIONARY, SpriteDirections::RIGHT, stationayryAnim);
-		//pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::LEFT, jumpAnimNpc);
-		//pNpc1SpriteComponent->RegisterState(SpriteStates::JUMP, SpriteDirections::RIGHT, jumpAnimNpc);
+		pNpc1SpriteComponent->RegisterState(SpriteStates::FIRING, firingAnim);
 		pNpc1SpriteComponent->SetTag("npc");
 		pNpc1SpriteComponent->SetUseBounds(true);
 		pNpc1SpriteComponent->SetRenderTransform(true);
@@ -300,6 +302,8 @@ void MegamanMap1Factory::_createFiveStarShooter(Framework::GameObject* owner, vo
 		pNpcMovementComponent->AttachRenderableTransform(pNpc1SpriteComponent);
 		Vector3 position = Vector3(objMapData->GetX(), objMapData->GetY(), 0);
 		pNpcMovementComponent->SetTranslation(&position);
+		pNpcMovementComponent->SetMovementSupported(false);
+		pNpcMovementComponent->SetGravitySupported(false);
 	}
 	owner->AddComponent<CollisionComponent>();
 	CollisionComponent* pNpcCollisionComponent = component_cast<CollisionComponent>(owner);
@@ -309,11 +313,91 @@ void MegamanMap1Factory::_createFiveStarShooter(Framework::GameObject* owner, vo
 		pNpcCollisionComponent->AddEventListener(pNpcMovementComponent);
 		pNpcCollisionComponent->SetActive(true);
 	}
+	owner->AddComponent<BulletComponent>();
+	BulletComponent* pNpcBulletComponent = component_cast<BulletComponent>(owner);
+
+	if (pNpcBulletComponent)
+	{
+		pNpcBulletComponent->SetVelocity(GameResources::CONST_BULLET_VELOCITY_X, GameResources::CONST_BULLET_VELOCITY_Y);
+		pNpcBulletComponent->SetDelay(GameResources::CONST_BULLET_DELAY_TIME);
+		pNpcBulletComponent->SetSpawnOffset(0.0f, 0.0f);
+
+		Vector3 velocity;
+
+		float PI = 3.14159265f;
+		float radian;
+		int startDegree = 0;
+		int velX, velY;
+
+		int rockman_bullet_counts = 10;
+		for (int i = 0; i < rockman_bullet_counts; i++)
+		{
+			
+			radian = (float)(startDegree * PI) / 180.0f;
+			velX = cos(radian) * 300.0f;
+			velY = sin(radian) * 300.0f;
+			startDegree += 20;
+			
+			velocity.m_x = velX;
+			velocity.m_y = velY;
+			velocity.m_z = -1.0f;
+			
+			GameObject* rockmanBullet = new GameObject(Utils::getNextId());
+			rockmanBullet->SetResId(GameResources::NPC_BULLET);
+			rockmanBullet->SetTag("NPC Bullet");
+			rockmanBullet->AddComponent<SpriteComponent>();
+			SpriteComponent* pRockmanBulletComponent = component_cast<SpriteComponent>(rockmanBullet);
+			if (pRockmanBulletComponent)
+			{
+				Animation* bulletFiring = Animation::CreateAnimation(GameResources::MAP1_FIVESTARSHOOTER, npcPropLoader, GameResources::CONST_SPRITE_ANIMATION_TIME, 0, 1);
+
+				pRockmanBulletComponent->RegisterState(BulletStates::FIRE, SpriteDirections::LEFT, bulletFiring);
+				pRockmanBulletComponent->RegisterState(BulletStates::FIRE, SpriteDirections::RIGHT, bulletFiring);
+				pRockmanBulletComponent->SetTag("Bullet");
+				pRockmanBulletComponent->SetDebug(true);
+				pRockmanBulletComponent->SetUseBounds(true);
+				pRockmanBulletComponent->SetDebug(false);
+				
+				pRockmanBulletComponent->SetVelocity(velocity);
+				pRockmanBulletComponent->SetBoundMin(Vector3(0.0f, 0.0f, 1.0f));
+				pRockmanBulletComponent->SetBoundMax(Vector3(16.0f, 12.0f, 1.0f));
+				pRockmanBulletComponent->SetDefaultState(BulletStates::FIRE);
+				pRockmanBulletComponent->SetDefaultDirection(SpriteDirections::LEFT);
+			}
+			rockmanBullet->AddComponent<TransformComponent>();
+			TransformComponent *pRockmanBulletTransformComponent = component_cast<TransformComponent>(rockmanBullet);
+			if (pRockmanBulletTransformComponent)
+			{
+				pRockmanBulletTransformComponent->AttachRenderableTransform(pRockmanBulletComponent);
+				//Vector3 position = Vector3(300 + i * 50, 200, 0);
+				Vector3 position = Vector3(0, 0, 0);
+				pRockmanBulletTransformComponent->SetTranslation(&position);
+			}
+			rockmanBullet->AddComponent<CollisionComponent>();
+			CollisionComponent* pBulletCollisionComponent = component_cast<CollisionComponent>(rockmanBullet);
+			if (pBulletCollisionComponent)
+			{
+				pBulletCollisionComponent->AttachRenderable(&pRockmanBulletComponent->GetRenderable());
+				pBulletCollisionComponent->AddEventListener(pNpcBulletComponent);
+				pBulletCollisionComponent->SetActive(true);
+			}
+
+			rockmanBullet->AddComponent<LifeTimeComponent>();
+			LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(rockmanBullet);
+			if (pLifeTimeComponent)
+			{
+				pLifeTimeComponent->SetLifeTime(GameResources::CONST_BULLET_LIFETIME);
+			}
+
+			pNpcBulletComponent->AddBullet(rockmanBullet);
+		}//end for rockman_bullet_counts
+	}//end if pBulletComponent
 }
 
 void MegamanMap1Factory::_createWallShooter(Framework::GameObject* owner, void* pData)
 {
 	owner->SetTag("Five Star Shooter");
+	owner->SetResId(GameResources::WALL_SHOOTER);
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
@@ -359,6 +443,7 @@ void MegamanMap1Factory::_createWallShooter(Framework::GameObject* owner, void* 
 void MegamanMap1Factory::_createGreenRobocop(Framework::GameObject* owner, void* pData)
 {
 	owner->SetTag("Five Star Shooter");
+	owner->SetResId(GameResources::GREEN_ROBOCOP);
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");
@@ -403,7 +488,8 @@ void MegamanMap1Factory::_createGreenRobocop(Framework::GameObject* owner, void*
 
 void MegamanMap1Factory::_createBossBombMan(Framework::GameObject* owner, void* pData)
 {
-	owner->SetTag("Five Star Shooter");
+	owner->SetTag("Boss Bomb Man");
+	owner->SetResId(GameResources::BOSS_BOMBMAN);
 	ObjectMapData* objMapData = static_cast<ObjectMapData*>(pData);
 	assert(objMapData);
 	AnimCache* npcPropLoader = new AnimCache("Resources\\Texture\\Map1\\npc_map1.plist");

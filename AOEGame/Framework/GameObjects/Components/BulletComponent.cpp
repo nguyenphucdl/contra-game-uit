@@ -62,36 +62,79 @@ namespace Framework
 			{
 				bullet->SetFeature(true);
 
-				SpriteComponent* pBulletSpriteComponent = component_cast<SpriteComponent>(bullet);
-				assert(pBulletSpriteComponent);
-				SpriteComponent* pOwnerSpriteComponent = component_cast<SpriteComponent>(GetOwner());
-				assert(pOwnerSpriteComponent);
-				if (pBulletSpriteComponent && pOwnerSpriteComponent)
+				if (GetOwner()->GetResId() == SystemObjectTypes::PLAYER_OBJECT)
 				{
-					TransformComponent* pOwnerTransformComponent = component_cast<TransformComponent>(GetOwner());
-					assert(pOwnerTransformComponent);
-					TransformComponent* pBulletTransformComponent = component_cast<TransformComponent>(bullet);
-					assert(pBulletTransformComponent);
-					LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(bullet);
-					assert(pLifeTimeComponent);
-					if (pOwnerTransformComponent && pBulletTransformComponent && pLifeTimeComponent)
+					SpriteComponent* pBulletSpriteComponent = component_cast<SpriteComponent>(bullet);
+					assert(pBulletSpriteComponent);
+					SpriteComponent* pOwnerSpriteComponent = component_cast<SpriteComponent>(GetOwner());
+					assert(pOwnerSpriteComponent);
+					if (pBulletSpriteComponent && pOwnerSpriteComponent)
 					{
-						Vector3 trans = pOwnerTransformComponent->GetTranslatiton();
-						Vector3 center = pOwnerSpriteComponent->GetCenter();
-						center.m_y *= -1;
-						Vector3 offset = m_spawnOffset;
-						trans.Add(center);
-						if (pOwnerSpriteComponent->GetCurrentDirection() == SpriteDirections::LEFT)
-							offset.m_x *= -1;
-						trans.Add(offset);
-						
-						pBulletTransformComponent->GetTransform()->SetTranslation(trans);
-						pLifeTimeComponent->Start();
-					}
+						TransformComponent* pOwnerTransformComponent = component_cast<TransformComponent>(GetOwner());
+						assert(pOwnerTransformComponent);
+						TransformComponent* pBulletTransformComponent = component_cast<TransformComponent>(bullet);
+						assert(pBulletTransformComponent);
+						LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(bullet);
+						assert(pLifeTimeComponent);
+						if (pOwnerTransformComponent && pBulletTransformComponent && pLifeTimeComponent)
+						{
+							Vector3 trans = pOwnerTransformComponent->GetTranslatiton();
+							Vector3 center = pOwnerSpriteComponent->GetCenter();
+							//Vector3 velocity = pBulletSpriteComponent->GetVelocity();
+							//velocity.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
 
-					pBulletSpriteComponent->Show(true);
-					pBulletSpriteComponent->SetDefaultDirection(pOwnerSpriteComponent->GetCurrentDirection());
+							center.m_y *= -1;
+							Vector3 offset = m_spawnOffset;
+							trans.Add(center);
+							if (pOwnerSpriteComponent->GetCurrentDirection() == SpriteDirections::LEFT)
+								offset.m_x *= -1;
+							trans.Add(offset);
+
+							pBulletTransformComponent->GetTransform()->SetTranslation(trans);
+							pLifeTimeComponent->Start();
+						}
+
+						pBulletSpriteComponent->Show(true);
+						pBulletSpriteComponent->SetDefaultDirection(pOwnerSpriteComponent->GetCurrentDirection());
+					}
 				}
+				else
+				{
+					SpriteComponent* pBulletSpriteComponent = component_cast<SpriteComponent>(bullet);
+					assert(pBulletSpriteComponent);
+					SpriteComponent* pOwnerSpriteComponent = component_cast<SpriteComponent>(GetOwner());
+					assert(pOwnerSpriteComponent);
+					if (pBulletSpriteComponent && pOwnerSpriteComponent)
+					{
+						TransformComponent* pOwnerTransformComponent = component_cast<TransformComponent>(GetOwner());
+						assert(pOwnerTransformComponent);
+						TransformComponent* pBulletTransformComponent = component_cast<TransformComponent>(bullet);
+						assert(pBulletTransformComponent);
+						LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(bullet);
+						assert(pLifeTimeComponent);
+						if (pOwnerTransformComponent && pBulletTransformComponent && pLifeTimeComponent)
+						{
+							Vector3 trans = pOwnerTransformComponent->GetTranslatiton();
+							Vector3 center = pOwnerSpriteComponent->GetCenter();
+							Vector3 velocity = pBulletSpriteComponent->GetVelocity();
+							velocity.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
+
+							center.m_y *= -1;
+							Vector3 offset = m_spawnOffset;
+							trans.Add(center);
+							if (pOwnerSpriteComponent->GetCurrentDirection() == SpriteDirections::LEFT)
+								offset.m_x *= -1;
+							trans.Add(offset);
+
+							pBulletTransformComponent->GetTransform()->SetTranslation(trans);
+							pLifeTimeComponent->Start();
+						}
+
+						pBulletSpriteComponent->Show(true);
+						pBulletSpriteComponent->SetDefaultDirection(pOwnerSpriteComponent->GetCurrentDirection());
+					}
+				}
+
 
 				break;
 			}
@@ -124,19 +167,33 @@ namespace Framework
 
 				if (pBulletTransformComponent && pBulletSpriteComponent && pLifeTimeComponent)
 				{
-					if (pBulletSpriteComponent->GetCurrentDirection() == SpriteDirections::RIGHT)
-						m_velocity.m_x = (m_velocity.m_x > 0) ? m_velocity.m_x : -m_velocity.m_x;
+					if (GetOwner()->GetResId() == SystemObjectTypes::PLAYER_OBJECT)
+					{
+						if (pBulletSpriteComponent->GetCurrentDirection() == SpriteDirections::RIGHT)
+							m_velocity.m_x = (m_velocity.m_x > 0) ? m_velocity.m_x : -m_velocity.m_x;
+						else
+							m_velocity.m_x = (m_velocity.m_x < 0) ? m_velocity.m_x : -m_velocity.m_x;
+
+						Vector3 position = pBulletTransformComponent->GetTranslatiton();
+						Vector3 translation = m_velocity;
+						translation.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
+						position.Add(translation);
+						pBulletTransformComponent->SetTranslation(&position);
+					}
 					else
-						m_velocity.m_x = (m_velocity.m_x < 0) ? m_velocity.m_x : -m_velocity.m_x;
+					{
+						Vector3 position = pBulletTransformComponent->GetTranslatiton();
+						Vector3 translation = pBulletSpriteComponent->GetVelocity();
+						translation.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
+						position.Add(translation);
+						pBulletTransformComponent->SetTranslation(&position);
+					}
+					
 
 
+					
 
-					Vector3 position = pBulletTransformComponent->GetTranslatiton();
-					Vector3 translation = m_velocity;
-					translation.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
-					position.Add(translation);
-
-					pBulletTransformComponent->SetTranslation(&position);
+					
 
 					if (pLifeTimeComponent->IsDead())
 					{
@@ -146,6 +203,57 @@ namespace Framework
 					}
 				}
 			}
+		}
+	}
+
+	void BulletComponent::FireAll()
+	{
+		int i = 0;
+		for (m_bulletIterator = m_bullets.begin(); m_bulletIterator != m_bullets.end(); m_bulletIterator++)
+		{
+			GameObject* bullet = *m_bulletIterator;
+			if (!bullet->IsFeature())
+			{
+				bullet->SetFeature(true);
+
+				
+				SpriteComponent* pBulletSpriteComponent = component_cast<SpriteComponent>(bullet);
+				assert(pBulletSpriteComponent);
+				SpriteComponent* pOwnerSpriteComponent = component_cast<SpriteComponent>(GetOwner());
+				assert(pOwnerSpriteComponent);
+				if (pBulletSpriteComponent && pOwnerSpriteComponent)
+				{
+					TransformComponent* pOwnerTransformComponent = component_cast<TransformComponent>(GetOwner());
+					assert(pOwnerTransformComponent);
+					TransformComponent* pBulletTransformComponent = component_cast<TransformComponent>(bullet);
+					assert(pBulletTransformComponent);
+					LifeTimeComponent* pLifeTimeComponent = component_cast<LifeTimeComponent>(bullet);
+					assert(pLifeTimeComponent);
+					if (pOwnerTransformComponent && pBulletTransformComponent && pLifeTimeComponent)
+					{
+						Vector3 trans = pOwnerTransformComponent->GetTranslatiton();
+						Vector3 center = pOwnerSpriteComponent->GetCenter();
+						//Vector3 velocity = pBulletSpriteComponent->GetVelocity();
+						//velocity.Multiply(Timer::GetSingletonPtr()->GetTimeSim());
+
+						center.m_y *= -1;
+						Vector3 offset = m_spawnOffset;
+						trans.Add(center);
+						if (pOwnerSpriteComponent->GetCurrentDirection() == SpriteDirections::LEFT)
+							offset.m_x *= -1;
+						trans.Add(offset);
+
+						pBulletTransformComponent->GetTransform()->SetTranslation(trans);
+						pLifeTimeComponent->Start();
+					}
+
+					pBulletSpriteComponent->Show(true);
+					pBulletSpriteComponent->SetDefaultDirection(pOwnerSpriteComponent->GetCurrentDirection());
+				}
+			}
+			i++;
+			if (i > 10)
+				break;
 		}
 	}
 
@@ -164,14 +272,24 @@ namespace Framework
 				assert(pOwnerSpriteComponent);
 				if (pOwnerSpriteComponent)
 				{
-					if (pOwnerSpriteComponent->GetCurrentState() % 100 == 50)
+					if (pOwnerSpriteComponent->GetCurrentState() % 100 == 50 || pOwnerSpriteComponent->GetCurrentState() == SpriteStates::FIRING)
 					{
 						if (m_elapse > m_delay)
 						{
-							Fire();
-							m_elapse = 0;
+							if (GetOwner()->GetResId() == SystemObjectTypes::PLAYER_OBJECT)
+							{
+								Fire();
+								m_elapse = 0;
+							}
+							else
+							{
+								FireAll();
+								m_elapse = 0;
+							}
+							
 						}
 					}
+					
 
 				}
 
@@ -195,6 +313,8 @@ namespace Framework
 		if (pData->m_pCollider->GetResId() == SystemObjectTypes::PLAYER_BULLET 
 			|| pData->m_pCollider->GetResId() == SystemObjectTypes::PLAYER_OBJECT)
 			return;
+		
+
 		//Bullet die
 		GameObject* collider = pData->m_pCollider;
 		GameObject* source = pData->m_pSource;

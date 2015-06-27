@@ -23,9 +23,11 @@ namespace Framework
 		int							m_curState;
 		SpriteDirections			m_curDirection;
 
+		Vector3						m_velocity;//Temp
+
 		bool						m_keypressed;
 		//bool						m_animate;
-		
+
 		virtual void Initialize();
 
 	public:
@@ -47,6 +49,9 @@ namespace Framework
 		int  GetCurrentState()	{ return m_curState; }
 		void SetCurrentDirection(SpriteDirections direction);
 		SpriteDirections GetCurrentDirection() { return m_curDirection; }
+
+		void SetVelocity(Vector3& vel) { m_velocity = vel; }
+		const Vector3& GetVelocity() { return m_velocity; }
 
 		virtual void HandleEvent(Event* pEvent);
 	};

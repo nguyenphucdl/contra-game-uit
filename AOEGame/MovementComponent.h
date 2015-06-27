@@ -35,6 +35,8 @@ protected:
 	bool					m_onFloor;
 	bool					m_isJumping;
 	bool					m_isSupported;
+	bool					m_gravitySupported;
+	bool					m_movementSupported;
 
 
 	//ScanCollisionRun properties
@@ -48,7 +50,8 @@ public:
 
 	
 	virtual void Initialize();
-
+	void SetGravitySupported(bool supported) { m_gravitySupported = supported; }
+	void SetMovementSupported(bool supported) { m_movementSupported = supported; }
 
 protected:
 
@@ -62,5 +65,6 @@ protected:
 	virtual void PollInputUpdate() {};
 
 	void SetIsSupported(bool isSupported, float floor = 0.0f) { m_isSupported = isSupported; m_floor = floor; }
+	
 };
 #endif

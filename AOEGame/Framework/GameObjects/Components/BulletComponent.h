@@ -54,6 +54,7 @@ namespace Framework
 		std::vector<GameObject*>* GetBullets()	  { return &m_bullets; }
 
 		void Fire();
+		void FireAll();
 		void Reload();
 
 		virtual void HandleEvent(Event* pEvent);

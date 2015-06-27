@@ -11,7 +11,7 @@ namespace Framework
 {
 	class TimingFunction
 	{
-	private:
+	protected:
 		float		m_eslapse;
 		float		m_delay;
 		float		m_actionEslapse;

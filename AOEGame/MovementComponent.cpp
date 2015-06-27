@@ -18,6 +18,8 @@ MovementComponent::MovementComponent(Framework::GameObject* pOwner)
 	, m_velocity(0.0f, 0.0f, 0.0f)
 	, m_acceleration(0.0f, 0.0f, 0.0f)
 	, m_isSupported(true)
+	, m_gravitySupported(true)
+	, m_movementSupported(true)
 {
 	memset(m_resolveOffset, 0, sizeof(m_resolveOffset));
 }
@@ -65,7 +67,8 @@ void MovementComponent::PostUpdate()
 		Vector3 translation = m_velocity;
 		translation.Multiply(Timer::GetSingleton().GetTimeSim());
 		translation.Add(position);
-		pOwnerTransformComponent->GetTransform()->SetTranslation(translation);
+		if (m_movementSupported)
+			pOwnerTransformComponent->GetTransform()->SetTranslation(translation);
 
 
 		float offset = pOwnerCollisionComponent->GetAABBMin().m_y - m_floor;
@@ -88,7 +91,8 @@ void MovementComponent::PostUpdate()
 		static const float GRAVITY_MULTIPLIER = 200.0f;
 		static const float GRAVITY_CONSTANT = -9.8f;
 		float dekta = GRAVITY_MULTIPLIER * GRAVITY_CONSTANT * timer.GetTimeSim();
-		m_acceleration.m_y += dekta;
+		if (m_gravitySupported)
+			m_acceleration.m_y += dekta;
 		if (falling && m_isSupported)
 		{
 			m_acceleration.m_y = 0.0f;

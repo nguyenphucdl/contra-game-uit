@@ -50,11 +50,11 @@ namespace Framework
 		
 
 		// Add to queue
-		//m_sceneQueue.push(scene1);
-		//m_sceneQueue.push(scene2);
-		////m_sceneQueue.push(scene3);
-		//m_sceneQueue.push(scene4);
-		//m_sceneQueue.push(scene5);
+		m_sceneQueue.push(scene1);
+		m_sceneQueue.push(scene2);
+		m_sceneQueue.push(scene3);
+		m_sceneQueue.push(scene4);
+		m_sceneQueue.push(scene5);
 		m_sceneQueue.push(scene6);
 		m_current = m_sceneQueue.front();
 		m_current->Init();
